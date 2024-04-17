@@ -5,18 +5,19 @@ const Cart = require("../model/cart")
 const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
 const { body, validationResult } = require("express-validator");
+const checkAuth = require('./middleware/checkAuth')
 
 const JWT_SECRET = process.env.JWT_SECRET_KEY;
 
-router.get('/register', (req, res) => {
+router.get('/register',checkAuth, (req, res) => {
     res.render('register')
 })
 
-router.get('/login', (req, res) => {
+router.get('/login',checkAuth, (req, res) => {
     res.render('login')
 })
 
-router.post("/register", [
+router.post("/register",checkAuth, [
     body("name", "Enter a valid name ! It Should be atleast three characters.").isLength({ min: 3 }),
     body("email", "Enter a valid Email").isEmail(),
     body("phone").optional().matches(/^\d{10}$/).withMessage("Enter a valid 10-digit phone number"),
@@ -86,6 +87,50 @@ router.post("/register", [
         res.status(500).send("Internal Server Error");
     }
 
+})
+
+router.post("/login",checkAuth,[
+    body("email", "Enter a valid Email").isEmail(),
+    body("password", "Password cannot be blank").exists()
+],async (req,res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        // return res.status(400).render("login", { message: errors.array()[0].msg });
+        return res.send(errors)
+    }
+
+    try {
+        let user = await User.findOne({email: req.body.email}).select('+password')
+        if(!user){
+            // return res.status(400).render("login",{message: "User doesn't exists."})
+            return res.send("User doesn't exists.")
+        }
+
+        let hash = user.password
+
+        const result  = await bcrypt.compare(req.body.password,hash)
+
+        if(!result){
+            // return res.status(400).render("login",{message: "Wrong Password!"})
+            return res.send("Wrong Password!")
+        }
+
+        const data = {
+            user: {
+                id: user.id
+            }
+        }
+
+        const authtoken = jwt.sign(data, JWT_SECRET);
+        res.cookie('authtoken', authtoken, { httpOnly: true ,secure: process.env.TOKEN_HEADER_KEY == "user_token_header_key" });
+
+        // res.redirect(returnTo || '/');
+        res.send(authtoken)
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).send("Internal Server Error");
+    }
 })
 
 module.exports = router;

@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const app = express();
 const pug = require('pug');
 const dotenv = require('dotenv');
+const cookieParser = require('cookie-parser');
 
 
 // Set up Global configuration access
@@ -19,6 +20,8 @@ app.set("views", "./views");
 app.use('/static', express.static('static'))
 app.use(express.json())
 app.use(express.urlencoded({extended: false}));
+// Use cookie-parser middleware to parse cookies
+app.use(cookieParser());
 
 // Home Page Router
 app.get('/',(req,res) => {
