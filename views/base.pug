@@ -1,0 +1,45 @@
+html
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    block metaElements 
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/static/img/favicon/site.webmanifest">
+    style 
+        block style
+        include ../static/css/base.css 
+    block title
+  body
+    nav
+      a(href='#')
+        img.logo-img(src='https://t3.ftcdn.net/jpg/03/69/72/20/360_F_369722024_ddxHImowV6qAvFUdhari9ucvncbstW9N.jpg', alt='', width='50px')
+      a.icon-plus-text(href='#')
+        ion-icon.repair-icon(name='build')
+        p Maintenance
+      .search-box
+        input#search(type='text', name='search', placeholder='Search for Product, Brands, Accessories and More. ')
+      a.icon-plus-text(href='/user/cart')
+        ion-icon.cart-icon(name='cart')
+        p Cart
+      div
+        if LoggedIn
+          ion-icon.profile-icon(name='person')
+        else 
+          h4 Login/SignIn
+    navbar
+      a.nav-box(href='#') All
+      a.nav-box(href='#') Recommendation
+      a.nav-box(href='#') Book Plant
+      a.nav-box(href='#') Top Brand
+      a.nav-box(href='#') Services
+      a.nav-box(href='#') Buy Again
+      a.nav-box(href='#') About Us
+      a.nav-box(href='#') Help
+    
+    block content
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    block scripts

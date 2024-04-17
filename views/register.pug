@@ -1,0 +1,37 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(name="robots" content="INDEX, FOLLOW")
+        meta(name="keywords" content="Register account AJKart, Create account AJKart, Sign up AJKart, New account registration AJKart, Account registration form AJKart, Account sign-up AJKart, User registration AJKart, Account creation AJKart, Register your account AJKart, Account details registration AJKart, AJKart account signup, User signup form AJKart, Join AJKart, Get started with AJKart, Account setup AJKart, Quick registration AJKart, Easy sign-up AJKart, Start shopping with AJKart, Create your profile on AJKart, Secure account registration AJKart")
+        meta(name="description" content=`Join AJKart today and create your account with ease. Sign up to access exclusive benefits, personalized offers, and a seamless shopping experience. Our secure and user-friendly registration form ensures a quick and hassle-free account setup. Get started with AJKart and enjoy the convenience of account registration, making your shopping journey even more enjoyable. Start shopping now with your new AJKart account.`)
+        style 
+            include ../static/css/login.css
+        title AJ-Kart | Register
+    body 
+        .login-page
+            form(action="/auth/register",method="POST",class="loginForm",id="registerForm")
+                h1 Register 
+                if message 
+                    .warning 
+                        p #{message}
+                input(type="text",name="name",id="name",placeholder="Type your name")
+                input(id="phone",type="tel", name="phone", placeholder="Enter your Phone No.")
+                input(type="email", name="email", id="email", placeholder="Email ID")
+                input(type="password", name="password", id="password", placeholder="Password")
+                input(type="password", name="confirmPassword", id="confirmPassword", placeholder="Confirm Password")
+                select(name="security-question",id="security-question") 
+                    option(value="") Select a security question
+                    option(value="first-pet") What was the name of your first pet?
+                    option(value="birth-place") In which city were you born?
+                    option(value="sports-team") What is your favorite sports team?
+                    option(value="vacation-place") What is your favorite vacation destination?
+                    option(value="fav-food") What is your favorite food?
+                input(type="text", name="security-ans", id="security-ans", placeholder="Answer the above question")
+                button#caa(type="button",onclick="Verify()") Create an Account
+                p.another-link.register
+                    |Already Have an account ? 
+                    a(href="/login")  Login here
+block scripts 
+    script(src="/static/js/register.js") 

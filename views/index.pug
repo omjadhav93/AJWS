@@ -1,0 +1,203 @@
+extends base.pug
+block metaElements
+  meta(name="robots" content="INDEX, FOLLOW")
+  meta(name="keywords" content="AJKart, Crystal Clear, water filter, water Plant, water filter installation, water filter installation near me, water filter installation cost, alkaline water filter, aquaguard water filter, at home water filter, at home water filter system, reverse osmosis water filter, how much is a water filter, water purifier. aquaguard water purifier, ro water purifier, kent water purifier, alkaline water purifier, water purifier aquaguard, water purifier at home, domestic water filter, industrial water filtration, best water filter brands")
+  meta(name="description" content=`Looking for reliable water filters and purifiers? Get the best water filter installation services near you, courtesy of AJKart. From alkaline water filters to reverse osmosis systems, we have a wide range of solutions for your home and industry needs. Discover top brands like Aquaguard, Kent, and more, all available on AJKart!
+      At Home or Industrial, we have the perfect water filtration system for you. Say goodbye to impurities and enjoy fresh, purified water every day. Get expert water filter installation at an affordable cost through AJKart.
+      Shop now and experience the benefits of a premium water purifier at home. Take control of your water quality with our state-of-the-art systems. Invest in your health and well-being today with our trusted water filters and purifiers, available exclusively on AJKart.`)
+block style
+    include ../static/css/index.css
+block title 
+    title AJ-Kart
+block content
+    header
+      .head-box
+        .left-shift-banner 
+          <ion-icon name="chevron-back"></ion-icon>
+        .right-shift-banner 
+          <ion-icon name="chevron-forward"></ion-icon>
+        .offer-headline
+          h1(style='color: rgb(0 255 223);') Mega Diwali Dhamaka Sale
+          p(style='color: #392136;font-weight: 600;')
+            | A water filter with RO+UV technologies will be priced only under 5000 rs.
+          button.btn(style='background-color: orange;', onmousedown="this.style.backgroundColor = 'aqua'", onmouseup="this.style.backgroundColor = 'orange'") Buy Now
+        .related-img
+          img(src='https://www.kent.co.in/images/v3/ro-water-purifiers-updated.png', alt='')
+        .selling-cards
+          each card in cardList 
+            .selling-card 
+              p.selling-card-heading #{card.title}
+              img(src=card.image , alt='')
+              p.selling-card-note #{card.desc}
+    section.achievements
+      h1.titles Achievements
+      #onscreen.achieve-list
+        .achieve-box
+          p.sells
+            span.achieve-num 20
+            span.plus +
+          p.note Brands
+        .achieve-box
+          p.sells
+            span.achieve-num 100
+            span.plus +
+          p.note Designs
+        .achieve-box
+          p.sells
+            span.achieve-num 100000
+            span.plus +
+          p.note Clients
+        .achieve-box
+          p.sells
+            span.achieve-num 100
+            span.plus %
+          p.note Happy Customers 
+    section.products.frequently
+      h3 Frequently Purchased Products
+      .products-list
+        each item in FreqPurchasedList
+          .product-box
+            each img in item.image
+              each obj in img
+                  each loc in [obj]
+                      each item in loc
+                        img.product-img(src='/static/productImg/' + item)
+    section.as-you-wish
+      // <h1 class="titles">As You Wish</h2>
+      .as-you-wish-cards
+        .as-you-wish-card
+          .as-you-wish-img
+            img(src='/static/img/water-drop.png', alt='')
+          p.as-you-wish-text See our suggestions as per your water quality.
+          button.try-suggestion-btn.btn Try Suggestion
+        .as-you-wish-card
+          .as-you-wish-img
+            img(src='/static/img/mineral-water-plant.jpg', alt='')
+          p.as-you-wish-text Do you want to set-up a mineral water plant ?
+          button.book-now-btn.btn Book Now
+        .as-you-wish-card
+          .as-you-wish-img
+            img(src='/static/img/cross-spanner.webp', alt='')
+          p.as-you-wish-text Do you need any maintenance or repairing service ?
+          button.add-request-btn.btn Add Request
+        .as-you-wish-card
+          .as-you-wish-img
+            img(src='/static/img/product-jpeg.webp', alt='')
+          p.as-you-wish-text Do you want to add some more purification stages ?
+          button.use-recommendation-btn.btn Use Recommendation
+    section.products.designs
+      h3 Top In Designs
+      .products-list
+        each item in TopInDesignsList      
+          .product-box 
+            each img in item.image
+                each obj in img
+                    each loc in [obj]
+                        each item in loc
+                          img.product-img(src='/static/productImg/' + item)
+    section.categories
+      each item in categoryList
+        .category
+          h3 #{item.title}
+          .category-box
+            each img in item.image
+              each obj in img
+                  each loc in [obj]
+                      each item in loc
+                        img.product-img(src='/static/img/' + item)
+    section.products.less-price
+      h3 Less In Price
+      .products-list
+        each item in lessPriceList
+          .product-box 
+            each img in item.image
+              each obj in img
+                  each loc in [obj]
+                      each item in loc
+                        img.product-img(src='/static/productImg/' + item)
+    section.branding
+      h2.titles Brands
+      .brand-box
+        .cc-brand
+          .cc-brand-logo(onclick="window.location.href='/user/search?value=Crystal Clear'")
+            img(src='/static/img/crystal-clear-logo.png', alt='crystal-clear-logo')
+          .cc-brand-intro
+            h2 Introducing Crystal Clear - Where Pure Water Meets Perfection! 
+            h4 Industry : AJ-Kart
+            p
+              | Crystal Clear stands as the shining beacon of water filtration, proudly presented by AJ-Kart. As AJ-Kart&apos;s very own brand, Crystal Clear exudes a commitment to delivering nothing less than pure excellence in every drop. With an impressive 20-year legacy in the industry, Crystal Clear has become synonymous with trust, quality, and innovation.
+              br
+              br
+              | Our water filters are meticulously engineered to ensure crystal-clear perfection, removing impurities, contaminants, and unpleasant odors, leaving you with water that is refreshing, safe, and delicious. Whether for domestic, commercial, or industrial use, Crystal Clear offers tailored solutions that cater to the unique needs of our valued customers.
+              br
+              br
+              | At Crystal Clear, we take great pride in upholding the highest standards of purity, driven by a passion for delivering clean water that enriches lives. As we continue to innovate and evolve, we invite you to embrace the essence of clean water with Crystal Clear - where every sip is an invigorating celebration of clarity.
+        h3.sub-titles Other Brands
+        .brands
+          each item in otherBrandList
+            .brand(onclick="window.location.href='/user/search?value=" + item.title + "'")
+              each img in item.image
+                each obj in img
+                    each loc in [obj]
+                        each item in loc
+                          img.circular(src='/static/img/' + item, alt='purosis-logo')
+    section#service.servicing
+      h2.titles Service
+      .service
+        .technician
+          img(src='https://drive.google.com/uc?export=view&id=1d-96klPQ1JkBJIvBXKPT_bjUx-hwFvDR', alt='service-logo')
+        .service-quality
+          h2 WE ARE OFFERING YOU A BEST SERVICE
+          ul
+            li 20 Years of experiance 
+            li Low price on qualited material 
+            li Veriety of material 
+            li Low service charge
+            li Home service 
+            li Branded material
+          button.service-btn(onclick="window.location.href='/repair'") Repair Request
+    section.testimonials
+      h2.titles Testimonials
+      .testimonials-container
+        .testimonial-card
+          .testimonial-content
+            blockquote
+              | &quot;The Crystal Clear water filter has exceeded my expectations. It provides clean and refreshing water for my family. I highly recommend it!&quot;
+            p.testimonial-author - Ganesh Salunke, Customer
+        .testimonial-card
+          .testimonial-content
+            blockquote
+              | &quot;The service from AJKart has been exceptional. Their team helped me find the perfect industrial water filter for my factory&apos;s needs. Great product and support!&quot;
+            p.testimonial-author - Jane Smith, Factory Owner
+        .testimonial-card
+          .testimonial-content
+            blockquote
+              | &quot;I&apos;m extremely satisfied with my purchase from AJKart. The domestic water filter I bought has improved the taste and quality of our drinking water. It&apos;s a game-changer for our home!&rdquo;
+            p.testimonial-author - Dada Jadhav , Customer
+        .testimonial-card
+          .testimonial-content
+            blockquote
+              | &quot;As a restaurant owner, having clean and safe water for cooking and serving is non-negotiable. Thanks to the commercial water filter from AJKart, we can confidently offer our customers the best water quality with every meal.&rdquo;
+            p.testimonial-author - Michael Brown, Restaurant Owner
+        // Add more testimonial cards here if needed
+    section#about-us.about-us
+      h2.titles About Us
+      .about-content
+        | Welcome to AJ Water Solutions!
+        br
+        br
+        | At AJ Water Solutions, we are your trusted partners in all things related to water filtration. With a strong commitment to quality and customer satisfaction, we offer a comprehensive range of services that encompass both selling and repairing water filter systems.
+        br
+        br
+        | With years of experience in the industry, our dedicated team understands the importance of clean and safe water for your home or business. We take pride in providing top-notch water filtration solutions that cater to your unique needs. From advanced filtration technologies to time-tested methods, we offer a diverse selection of water filters designed to deliver purity and peace of mind.
+        br
+        br
+        | But our dedication doesn&apos;t stop at just selling water filters. We understand that maintaining the optimal performance of your water filtration system is essential. That&apos;s why we also offer expert repair services, ensuring that your filters continue to provide the clean and refreshing water you deserve.
+        br
+        br
+        | When you choose AJ Water Solutions, you&apos;re not just choosing a product or a service &ndash; you&apos;re choosing a commitment to excellence. We prioritize your well-being and convenience, offering solutions that align with your lifestyle and preferences.
+        br
+        br
+        | Whether you&apos;re looking to purchase a new water filter or require prompt repair services, AJ Water Solutions has you covered. Join us on our journey to healthier lives and a better environment, one drop at a time.
+block scripts 
+    script(src="/static/js/index.js") 

@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Agbalumo&family=Anton&family=Playpen+Sans:wght@600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+}
+
+/* Navbar */
+nav {
+    background-color: black;
+    padding: 5px 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+nav a {
+    text-decoration: none;
+}
+
+.logo-img {
+    border-radius: 50%;
+    height: 100%;
+}
+
+.icon-plus-text {
+    display: flex;
+    color: white;
+    font-weight: 600;
+    font-size: 23px;
+    column-gap: 5px;
+    align-items: center;
+    font-family: "Agbalumo";
+}
+
+.repair-icon,
+.cart-icon,
+.profile-icon {
+    font-size: 40px;
+    color: white;
+}
+
+.search-box {
+    overflow: hidden;
+    border-radius: 10px;
+    position: relative;
+    display: flex;
+    width: 50%;
+}
+
+#search {
+    width: 100%;
+    outline: none;
+    border: none;
+    font-size: 18px;
+    background-image: url(/static/img/search-icon.png);
+    background-size: auto 50%;
+    background-position: 15px center;
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 45px;
+}
+
+#search::placeholder {
+    color: rgb(132, 119, 119);
+}
+
+.profile-icon {
+    border: 2px solid white;
+    border-radius: 50%;
+}
+
+/* Second Navbar */
+navbar{
+    display: flex;
+    padding: 0px 20px;
+    position: sticky;
+    top: 0;
+    background-color: rgb(99, 90, 90);
+    z-index: 10;
+}
+.nav-box{
+    color: #b7b8b7;
+    padding: 10px;
+    font-weight: 600;
+    font-size: 18px;
+    text-decoration: none;
+}
+.nav-box:hover{
+    background-color: #392136;
+}
+.nav-box:active{
+    background-color: #6b2590;
+}

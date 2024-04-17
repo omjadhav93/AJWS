@@ -1,0 +1,136 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+}
+/* login form */
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.warning{
+    width: 100%;
+    padding: 10px;
+    background-color: rgb(235 85 85);
+    text-align: center;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+.login-page{
+    display: flex;
+    width: 30%;
+    border-radius: 20px;
+    padding: 20px;
+    background-color: rgba(67, 91, 187, 0.388);
+    overflow: hidden;
+    box-shadow: 2px 2px 10px black;
+}
+.loginForm{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    row-gap: 5px;
+    transition: transform .3s;
+}
+.loginForm>h1{
+    margin: auto;
+}
+.loginForm>input,select{
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    margin-top: 20px;
+    border-radius: 10px;
+    outline: none;
+}
+.loginForm>button{
+    font-size: .95em;
+    font-weight: 600;
+    padding: 10px 0px;
+    background-color: rgb(51, 51, 252);
+    margin: 10px 0px;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+}
+.loginForm>button:hover{
+    cursor: pointer;
+}
+.loginForm>button:active{
+    background-color: rgb(171, 103, 235);
+}
+.another-link{
+    font-size: 15px;
+}
+.another-link.fp>a{
+    margin-left: 10px;
+    text-decoration: none;
+}
+.another-link.register{
+    margin: auto;
+}
+#caa{
+    margin: 40px 0px 10px 0px;
+}
+
+
+@media screen and (max-width: 1600px) {
+    .login-page{
+        width: 40vw;
+        left: 30%;
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    .login-page{
+        width: 50vw;
+        left: 25%;
+    }
+}
+
+@media screen and (max-width: 860px) {
+    .login-page{
+        width: 70vw;
+        left: 15%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .login-page{
+        width: 80vw;
+        left: 10%;
+    }
+    .loginForm>h1{
+        font-size: 23px;
+    }
+    .loginForm>input{
+        padding: 8px 15px;
+        font-size: 15px;
+        margin-top: 10px;
+        border-radius: 5px;
+    }
+    .loginForm>button{
+        font-size: .85em;
+        font-weight: 600;
+        padding: 8px 0px;
+        border-radius: 5px;
+    }
+    .another-link{
+        font-size: 13px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .login-page{
+        width: 90vw;
+        left: 5%;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .login-page{
+        width: 95vw;
+        left: 2.5%;
+    }
+}

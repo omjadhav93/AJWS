@@ -1,0 +1,26 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(name="robots" content="INDEX, FOLLOW")
+        meta(name="keywords" content="AJKart login, Login to AJKart, Account login AJKart, Sign in AJKart, User login AJKart, Customer login AJKart, Secure login AJKart, Access my account AJKart, Member login AJKart, Login credentials AJKart, Login portal AJKart, Login page AJKart, Login process AJKart, AJKart account access, Account authentication AJKart, Login form AJKart, Login verification AJKart, Login security AJKart, Login details AJKart, Login procedure AJKart")
+        meta(name="description" content=`Unlock exclusive benefits and seamless shopping by logging in to AJKart. Your security is our priority, providing a secure and user-friendly login process. Enjoy personalized offers and easy access to a wide range of products. Join AJKart today for a rewarding shopping experience.`)
+        style 
+            include ../static/css/login.css
+        title AJ-Kart | Login
+    body 
+        .login-page
+            form(action="/auth/loginSet",method="POST",class="loginForm",id="loginForm")
+                h1 Login 
+                if message 
+                    .warning 
+                        p #{message}
+                input(type="email", name="email", id="email", placeholder="Email ID",required="")
+                input(type="password", name="password", id="password", placeholder="Password",required="")
+                p.another-link.fp
+                    a(href="/forgot") Forgot Password ?
+                button(type="submit") Log In
+                p.another-link.register
+                    |Don't Have account ? 
+                    a(href="/register") Register here
