@@ -13,8 +13,17 @@ html
     block title
   body
     nav
-      a(href='#')
-        img.logo-img(src='https://t3.ftcdn.net/jpg/03/69/72/20/360_F_369722024_ddxHImowV6qAvFUdhari9ucvncbstW9N.jpg', alt='', width='50px')
+      a(href='#').logo
+        .logo-conatiner
+          .logo-head AJ 
+          .logo-side 
+            .logo-side-up Water 
+            .logo-side-down Solutions
+        .logo-conatiner-dummy
+          .logo-head AJ 
+          .logo-side 
+            .logo-side-up Water 
+            .logo-side-down Solutions
       a.icon-plus-text(href='#')
         ion-icon.repair-icon(name='build')
         p Maintenance
@@ -27,7 +36,8 @@ html
         if LoggedIn
           ion-icon.profile-icon(name='person')
         else 
-          h4 Login/SignIn
+          .login 
+            p Login / SignIn
     navbar
       a.nav-box(href='#') All
       a.nav-box(href='#') Recommendation

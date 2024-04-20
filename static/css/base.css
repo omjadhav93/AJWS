@@ -14,23 +14,19 @@ nav {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
 }
 
 nav a {
     text-decoration: none;
 }
 
-.logo-img {
-    border-radius: 50%;
-    height: 100%;
-}
-
 .icon-plus-text {
     display: flex;
-    color: white;
+    color: rgb(212, 230, 225);
     font-weight: 600;
-    font-size: 23px;
-    column-gap: 5px;
+    font-size: 20px;
+    column-gap: 2px;
     align-items: center;
     font-family: "Agbalumo";
 }
@@ -38,8 +34,8 @@ nav a {
 .repair-icon,
 .cart-icon,
 .profile-icon {
-    font-size: 40px;
-    color: white;
+    font-size: 25px;
+    color: rgb(212, 230, 225);
 }
 
 .search-box {
@@ -48,13 +44,15 @@ nav a {
     position: relative;
     display: flex;
     width: 50%;
+    height: 70%;
 }
 
 #search {
     width: 100%;
+    height: 100%;
     outline: none;
     border: none;
-    font-size: 18px;
+    font-size: 15px;
     background-image: url(/static/img/search-icon.png);
     background-size: auto 50%;
     background-position: 15px center;
@@ -72,7 +70,7 @@ nav a {
 }
 
 /* Second Navbar */
-navbar{
+navbar {
     display: flex;
     padding: 0px 20px;
     position: sticky;
@@ -80,16 +78,141 @@ navbar{
     background-color: rgb(99, 90, 90);
     z-index: 10;
 }
-.nav-box{
-    color: #b7b8b7;
+
+.nav-box {
+    color: #c9cac9;
     padding: 10px;
     font-weight: 600;
     font-size: 18px;
     text-decoration: none;
 }
-.nav-box:hover{
+
+.nav-box:hover {
     background-color: #392136;
 }
-.nav-box:active{
+
+.nav-box:active {
     background-color: #6b2590;
+}
+
+.logo {
+    position: relative;
+    border-radius: 20px;
+    padding: 2px;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.logo::before {
+    position: absolute;
+    width: 190%;
+    height: 190%;
+    content: '';
+    background-image: conic-gradient(transparent, transparent, transparent, #ffd900);
+    animation: rotate_border 6s linear infinite;
+
+}
+
+.logo::after {
+    position: absolute;
+    width: 190%;
+    height: 190%;
+    content: '';
+    background-image: conic-gradient(transparent, transparent, transparent, #fced9a);
+    animation: rotate_border 6s linear infinite;
+    animation-delay: -3s;
+}
+
+.logo-conatiner {
+    display: flex;
+    color: white;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    flex-direction: row;
+    column-gap: 5px;
+    border-radius: 20px;
+    padding: 1px 8px;
+    background-color: black;
+    position: absolute;
+    content: '';
+    z-index: 10;
+
+}
+
+.logo-head {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 35px;
+    font-family: gelica, sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    color: #a7b5b3;
+}
+
+.logo-side {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.logo-side-up {
+    font-size: 13px;
+    color: #2488ac;
+    font-family: voltage, sans-serif;
+    font-weight: 600;
+    font-style: normal;
+}
+
+.logo-side-down {
+    font-size: 13px;
+    color: #d1cb20;
+    font-family: voltage, sans-serif;
+    font-weight: 600;
+    font-style: normal;
+}
+
+.logo-conatiner-dummy {
+    display: flex;
+    ;
+    flex-direction: row;
+    column-gap: 5px;
+    border-radius: 20px;
+    padding: 1px 8px;
+    visibility: hidden;
+}
+
+.login {
+    border: none;
+    border-radius: 10px;
+    padding: 8px 15px;
+    font-size: 17px;
+    color: #e0dcdf;
+    font-weight: 600;
+}
+
+.login:hover {
+    cursor: pointer;
+    background-color: rgb(58, 59, 59);
+    color: #e6d9e4;
+}
+
+.login:active{
+    cursor: pointer;
+    background-color: rgb(32, 33, 33);
+    color: #f2e6f0;
+}
+
+
+
+@keyframes rotate_border {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }

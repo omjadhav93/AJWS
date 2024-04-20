@@ -17,6 +17,18 @@ router.get('/login',checkAuth, (req, res) => {
     res.render('login')
 })
 
+router.get('/forgot',checkAuth, (req, res) => {
+    res.render('forgot',{section: "Email"})
+})
+
+router.get('/forgot-Question',checkAuth, (req, res) => {
+    res.render('forgot',{section: "Question",'question-type': req.query.question})
+})
+
+router.get('/change-password',checkAuth, (req, res) => {
+    res.render('forgot',{section: "Password"})
+})
+
 router.post("/register",checkAuth, [
     body("name", "Enter a valid name ! It Should be atleast three characters.").isLength({ min: 3 }),
     body("email", "Enter a valid Email").isEmail(),
