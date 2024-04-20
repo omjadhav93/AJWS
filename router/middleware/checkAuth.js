@@ -6,7 +6,15 @@ const checkAuth = (req, res, next) => {
     const token = req.cookies.authtoken || 0
     try {
         if (token) {
-            res.redirect("/");
+            jwt.verify(token, JWT_SECRET, (err, decoded) => {
+                if (err) {
+                    // Invalid token
+                    next();
+                } else {
+                    // Valid token
+                    res.redirect("/");
+                }
+            });
         } else {
             next();
         }

@@ -9,10 +9,17 @@ const fetchUser = (req, res, next) => {
             req.session.returnTo = req.originalUrl;
             res.redirect("/login");
         } else {
-            const data = jwt.verify(token, JWT_SECRET);
-            req.user = data.user;
-            next();
-        }
+            jwt.verify(token, JWT_SECRET, (err, data) => {
+                if (err) {
+                    // Invalid token
+                    res.status(401).send({ error: "Invalid token." });
+                } else {
+                    // Valid token
+                    req.user = data.user; // Add user ID to request object
+                    next();
+                }
+            });
+        };
     } catch (error) {
         res.status(401).send({ error: "Please authenticate using a valid token" })
     }
