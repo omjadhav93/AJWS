@@ -9,6 +9,8 @@ const checkAuth = require('./middleware/checkAuth')
 
 const JWT_SECRET = process.env.JWT_SECRET_KEY;
 
+let returnTo = null;
+
 router.get('/register', checkAuth, (req, res) => {
     res.render('register')
 })
@@ -22,7 +24,7 @@ router.get('/forgot', checkAuth, (req, res) => {
 })
 
 router.get('/forgot-question', checkAuth, (req, res) => {
-    res.render('forgot', { section: "Question", 'question-type': req.query.question, email: req.query.email })
+    res.render('forgot', { section: "Question", questionType: req.query.question, email: req.query.email })
 })
 
 router.get('/change-password', checkAuth, (req, res) => {
@@ -30,7 +32,8 @@ router.get('/change-password', checkAuth, (req, res) => {
 })
 
 router.post("/register", checkAuth, [
-    body("name", "Enter a valid name ! It Should be atleast three characters.").isLength({ min: 3 }),
+    body("first-name", "Enter a valid name ").isLength({ min: 2 }),
+    body("last-name", "Enter a valid name ").isLength({ min: 2 }),
     body("email", "Enter a valid Email").isEmail(),
     body("phone").optional().matches(/^\d{10}$/).withMessage("Enter a valid 10-digit phone number"),
     body("password")
@@ -50,30 +53,35 @@ router.post("/register", checkAuth, [
 ], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        // return res.status(400).render("register", { message: errors.array()[0].msg });
-        return res.send(errors)
+        console.log(errors)
+        return res.status(400).render("register", { message: errors.array()[0]});
     }
 
     try {
         // Check whether the user with these details exists or not.
         let user = await User.findOne({ email: req.body.email })
         if (user) {
-            // return res.status(400).render("register", { message: "User already exists with this email." })
-            return res.send("User already exists with this email.")
+            return res.status(400).render("register", { message: {msg: "User already exists with this email.", path:"general"} })
         }
 
-        const { name, email, phone, password } = req.body;
+        const {email, phone, password } = req.body;
+        const firstName = req.body['first-name'];
+        const lastName = req.body['last-name'];
+        const name = firstName + lastName;
 
         // Creating Hash of password
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(password, salt);
+
+        const question = req.body['security-question'].trim();
+        const answer = req.body['security-ans'].trim();
         user = new User({
             email: email,
             password: hash,
             name: name,
             phone: phone,
-            'security-question': req.body['security-question'],
-            'security-ans': req.body['security-ans'],
+            'security-question': question,
+            'security-ans': answer,
             seller: false,
             address: []
         })
@@ -91,8 +99,7 @@ router.post("/register", checkAuth, [
         const authtoken = jwt.sign(data, JWT_SECRET);
         res.cookie('authtoken', authtoken, { httpOnly: true, secure: process.env.TOKEN_HEADER_KEY == "user_token_header_key" });
 
-        // res.redirect(returnTo || '/');
-        res.send("Success")
+        res.redirect(returnTo || '/');
 
     } catch (error) {
         console.log(error)
@@ -107,15 +114,13 @@ router.post("/login", checkAuth, [
 ], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        // return res.status(400).render("login", { message: errors.array()[0].msg });
-        return res.send(errors)
+        return res.status(400).render("login", { message: errors.array()[0]});
     }
 
     try {
         let user = await User.findOne({ email: req.body.email }).select('+password')
         if (!user) {
-            // return res.status(400).render("login",{message: "User doesn't exists."})
-            return res.send("User doesn't exists.")
+            return res.status(400).render("login",{message: {msg: "User doesn't exists.",path:"email"}})
         }
 
         let hash = user.password
@@ -123,8 +128,7 @@ router.post("/login", checkAuth, [
         const result = await bcrypt.compare(req.body.password, hash)
 
         if (!result) {
-            // return res.status(400).render("login",{message: "Wrong Password!"})
-            return res.send("Wrong Password!")
+            return res.status(400).render("login",{message: {msg: "Wrong Password!",path: "password"}})
         }
 
         const data = {
@@ -136,8 +140,7 @@ router.post("/login", checkAuth, [
         const authtoken = jwt.sign(data, JWT_SECRET);
         res.cookie('authtoken', authtoken, { httpOnly: true, secure: process.env.TOKEN_HEADER_KEY == "user_token_header_key" });
 
-        // res.redirect(returnTo || '/');
-        res.send(authtoken)
+        res.redirect(returnTo || '/');
 
     } catch (error) {
         console.log(error)
@@ -150,21 +153,18 @@ router.post("/forgot", checkAuth, [
 ], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        // return res.status(400).render("forgot", { section: "Email" , message: errors.array()[0].msg });
-        return res.send(errors)
+        return res.status(400).render("forgot", { section: "Email" , message: errors.array()[0]});
     }
 
     try {
         let user = await User.findOne({ email: req.body.email })
         if (!user) {
-            // return res.status(400).render("login",{ section: "Email" ,message: "User doesn't exists."})
-            return res.send("User doesn't exists.")
+            return res.status(400).render("login",{ section: "Email" ,message: {msg: "User doesn't exists.",path: "general"}})
         }
 
         let question = user['security-question']
 
-        // res.redirect(`/forgot-question?email=${user.email}&question=${question}`)
-        res.send(question)
+        res.redirect(`/forgot-question?email=${user.email}&question=${question}`)
 
     } catch (error) {
         console.log(error)
@@ -176,14 +176,13 @@ router.post("/forgot-question", checkAuth, async (req, res) => {
     try {
         let user = await User.findOne({ email: req.body.email })
         if (!user) {
-            // return res.status(400).render("forgot",{ section: "Question" ,message: "Having some issue with your account."})
-            return res.send("Having some issue with your account.")
+            return res.status(400).render("forgot",{ section: "Question" ,message: {msg: "Having some issue with your account.", path: "genral"}})
         }
 
         let answer = user['security-ans'];
         let userResponse = req.body.answer;
         if (answer.toUpperCase().trim() != userResponse.toUpperCase().trim()) {
-            res.render('forgot', { section: "Question", 'question-type': user['security-question'], email: req.body.email, message: "Wrong Answer!" })
+            res.render('forgot', { section: "Question", questionType: user['security-question'], email: req.body.email, message: {msg: "Wrong Answer!", path: "genral"} })
         }
 
         const verify = {
@@ -196,8 +195,7 @@ router.post("/forgot-question", checkAuth, async (req, res) => {
         const verifiedToken = jwt.sign(verify, JWT_SECRET);
         res.cookie('verifiedToken', verifiedToken, { httpOnly: true, secure: process.env.TOKEN_HEADER_KEY == "user_token_header_key" });
 
-        // res.redirect('/change-password')
-        res.send(verifiedToken)
+        res.redirect('/change-password')
 
     } catch (error) {
         console.log(error)
@@ -223,22 +221,19 @@ router.post('/change-password', checkAuth, [
 ], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        // return res.status(400).render("forgot", { section: "Password" , message: errors.array()[0].msg });
-        return res.send(errors)
+        return res.status(400).render("forgot", { section: "Password" , message: errors.array()[0]});
     }
 
     try {
         const verifiedToken = req.cookies.verifiedToken
         if (!verifiedToken) {
-            // return res.status(400).render("forgot", { section: "Email", message: "Your not verified to change password." });
-            return res.send("Your not verified to change password.")
+            return res.status(400).render("forgot", { section: "Email", message: {msg: "Your not verified to change password.",path:"general"} });
         }
 
         jwt.verify(verifiedToken, JWT_SECRET, async (err, decoded) => {
             if (err) {
                 // Invalid token
-                // return res.status(400).render("forgot", { section: "Email", message: "Your verification got a Error!" });
-                return res.send(err)
+                return res.status(400).render("forgot", { section: "Email", message: {msg: "Your verification got a Error!",path:"general"} });
             } else {
                 // Valid token
                 const user = decoded.user;

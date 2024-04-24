@@ -1,0 +1,62 @@
+extends base.pug
+block metaElements
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(name="robots" content="INDEX, FOLLOW")
+    meta(name="keywords" content="AJKart login, Login to AJKart, Account login AJKart, Sign in AJKart, User login AJKart, Customer login AJKart, Secure login AJKart, Access my account AJKart, Member login AJKart, Login credentials AJKart, Login portal AJKart, Login page AJKart, Login process AJKart, AJKart account access, Account authentication AJKart, Login form AJKart, Login verification AJKart, Login security AJKart, Login details AJKart, Login procedure AJKart")
+    meta(name="description" content=`Unlock exclusive benefits and seamless shopping by logging in to AJKart. Your security is our priority, providing a secure and user-friendly login process. Enjoy personalized offers and easy access to a wide range of products. Join AJKart today for a rewarding shopping experience.`)
+block style
+    include ../static/css/forgot.css
+block title 
+    title AJ-Kart | Forgot 
+block content 
+    section.forgot-container
+        .left 
+            .left-head
+                p.forgot-head Forgot Password 
+                p.welcome-text Welcome back! Let's secure your shopping experience.
+            img(src='../static/img/water-flash-2.png').design-img 
+        .right 
+            if (section == "Email")
+                form(action="/auth/login", method="post").auth-from
+                    if (message && message.path == "general")
+                        .warning 
+                            p #{message.msg} 
+                    .input
+                        input.input-element(type="email", name="email",id="email",required="required")
+                        label.input-label(for="email") Enter Your Email
+                    button.btn(type="submit") Next
+            else if (section == "Question")
+                form(action="/auth/login", method="post").auth-from
+                    if (message && message.path == "general")
+                        .warning 
+                            p #{message.msg} 
+                    if (questionType == "first-pet")
+                        h3.que What was the name of your first pet?
+                    if (questionType == "birth-place")
+                        h3.que In which city were you born?
+                    if (questionType == "sports-team")
+                        h3.que What is your favorite sports team?
+                    if (questionType == "vacation-place")
+                        h3.que What is your favorite vacation
+                    .input
+                        input.input-element(type="text", name="answer",id="answer",required="required")
+                        label.input-label(for="answer") Answer
+                    button.btn(type="submit") Verify
+            else if (section == "Password")
+                form(action="/auth/login", method="post").auth-from
+                    if (message && message.path == "general")
+                        .warning 
+                            p #{message.msg} 
+                    .input
+                        input.input-element(type="password", name="password",id="password",required="required")
+                        label.input-label(for="password") Enter New Password
+                    if (message && message.path == "email")
+                        .warn #{message.msg}
+                    .input
+                        input.input-element(type="password", name="confirm",id="confirm",required="required")
+                        label.input-label(for="confirm") Confirm Password
+                    button.btn(type="submit") Change Password
+            a.link(href="/auth/login") Already have an account? Log In
+block scripts 
+    script(src="/static/js/input.js") 

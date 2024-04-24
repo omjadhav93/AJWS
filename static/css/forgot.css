@@ -3,7 +3,7 @@
     margin: 0;
 }
 
-.login-container {
+.forgot-container {
     display: flex;
     flex-direction: row;
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.697);
@@ -21,7 +21,7 @@
     row-gap: 170px;
     padding: 50px 30px;
     border-radius: 10px;
-    background-image: linear-gradient(135deg, #28576a, #72819a, #28576a);
+    background-image: linear-gradient(135deg, #a4a6a8, #66676a, #191919);
 }
 
 .left-head {
@@ -30,7 +30,7 @@
     row-gap: 10px;
 }
 
-.login-head {
+.forgot-head {
     font-size: 30px;
     font-weight: 600;
     color: rgb(249, 251, 251);
@@ -101,15 +101,6 @@
     color: #555;
 }
 
-.forgot {
-    padding-left: 5px;
-    padding-top: 2px;
-    text-decoration: none;
-    font-size: 14px;
-    display: block;
-    margin-top: 0.4rem;
-}
-
 .btn {
     margin-top: 40px;
     padding: 10px 0px;
@@ -138,19 +129,12 @@
     text-decoration: none;
 }
 
+.que{
+    padding-left: 3px;
+}
+
 .warn {
     font-size: 13px;
     color: red;
     padding-left: 5px;
-}
-
-.warning{
-    color: rgb(224, 250, 26);
-    background-color: rgba(238, 35, 35, 0.796);
-    padding: 10px 15px;
-    text-align: center;
-    align-items: center;
-    border: none;
-    border-radius: 10px;
-    box-shadow: 2px 2px 5px solid black;
 }
