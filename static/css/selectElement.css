@@ -1,0 +1,51 @@
+.selectOptBtn {
+    position: relative;
+    background-color: transparent;
+    width: 45%;
+    border: none;
+    outline: none;
+    border-bottom: 1.2px solid rgb(170, 170, 170);
+    font-family: 'Roboto', 'Open Sans', 'Helvetica', sans-serif;
+    color: #999;
+    margin-top: 9px;
+    font-size: 16px;
+    /* Adjust as needed */
+    padding: 0px 5px;
+    text-align: left;
+
+}
+
+.opt {
+    text-decoration: none;
+    border-bottom: 1px solid rgb(69, 69, 69);
+    padding: 10px 20px;
+    color: rgb(39, 39, 39);
+}
+
+.opt:hover{
+    background-color: rgb(39, 245, 245);
+}
+
+.opt:active{
+    background-color: rgb(39, 226, 226);
+    color: black;
+}
+
+.selectOptContainer {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgb(69, 69, 69);
+    top: 110%;
+    left: 0;
+    overflow: hidden;
+    transition: transform 0.2s ease-in ;
+    transform-origin: top left;
+    z-index: 10;
+    background-color: white;
+    width: max-content;
+}
+
+.addOption{
+    transform: scaleY(0) !important;
+}

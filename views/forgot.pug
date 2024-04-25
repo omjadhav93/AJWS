@@ -23,7 +23,7 @@ block content
                         .warning 
                             p #{message.msg} 
                     .input
-                        input.input-element(type="email", name="email",id="email",required="required")
+                        input.input-element(type="email", name="email",id="email",required="required",value=`${otherDetails?otherDetails.phone:''}`)
                         label.input-label(for="email") Enter Your Email
                     button.btn(type="submit") Next
             else if (section == "Question")

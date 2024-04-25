@@ -34,6 +34,8 @@ router.get('/change-password', checkAuth, (req, res) => {
 router.post("/register", checkAuth, [
     body("first-name", "Enter a valid name ").isLength({ min: 2 }),
     body("last-name", "Enter a valid name ").isLength({ min: 2 }),
+    body("security-question", "Select a question for security. ").isLength({ min: 2 }),
+    body("security-ans", "Enter a valid answer.").isLength({ min: 2 }),
     body("email", "Enter a valid Email").isEmail(),
     body("phone").optional().matches(/^\d{10}$/).withMessage("Enter a valid 10-digit phone number"),
     body("password")
@@ -53,15 +55,14 @@ router.post("/register", checkAuth, [
 ], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        console.log(errors)
-        return res.status(400).render("register", { message: errors.array()[0]});
+        return res.status(400).render("register", { message: errors.array()[0], otherDetails: req.body});
     }
 
     try {
         // Check whether the user with these details exists or not.
         let user = await User.findOne({ email: req.body.email })
         if (user) {
-            return res.status(400).render("register", { message: {msg: "User already exists with this email.", path:"general"} })
+            return res.status(400).render("register", { message: {msg: "User already exists with this email.", path:"general"}, otherDetails: req.body })
         }
 
         const {email, phone, password } = req.body;
@@ -87,7 +88,7 @@ router.post("/register", checkAuth, [
         })
 
         user.save().then().catch((err) => {
-            res.status(404).send("Error to create User for you : " + err)
+            return res.status(404).render("register", { message: {msg: "Error to create User for you : ", path:"general"}, otherDetails: req.body })
         })
 
         const data = {
@@ -114,13 +115,13 @@ router.post("/login", checkAuth, [
 ], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).render("login", { message: errors.array()[0]});
+        return res.status(400).render("login", { message: errors.array()[0], otherDetails: req.body});
     }
 
     try {
         let user = await User.findOne({ email: req.body.email }).select('+password')
         if (!user) {
-            return res.status(400).render("login",{message: {msg: "User doesn't exists.",path:"email"}})
+            return res.status(400).render("login",{message: {msg: "User doesn't exists.",path:"email"}, otherDetails: req.body})
         }
 
         let hash = user.password
@@ -128,7 +129,7 @@ router.post("/login", checkAuth, [
         const result = await bcrypt.compare(req.body.password, hash)
 
         if (!result) {
-            return res.status(400).render("login",{message: {msg: "Wrong Password!",path: "password"}})
+            return res.status(400).render("login",{message: {msg: "Wrong Password!",path: "password"}, otherDetails: req.body})
         }
 
         const data = {
@@ -153,7 +154,7 @@ router.post("/forgot", checkAuth, [
 ], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).render("forgot", { section: "Email" , message: errors.array()[0]});
+        return res.status(400).render("forgot", { section: "Email" , message: errors.array()[0], otherDetails: req.body});
     }
 
     try {
@@ -176,7 +177,7 @@ router.post("/forgot-question", checkAuth, async (req, res) => {
     try {
         let user = await User.findOne({ email: req.body.email })
         if (!user) {
-            return res.status(400).render("forgot",{ section: "Question" ,message: {msg: "Having some issue with your account.", path: "genral"}})
+            return res.status(400).render("forgot",{ section: "Question" ,questionType: user['security-question'], email: req.body.email,message: {msg: "Having some issue with your account.", path: "general"}})
         }
 
         let answer = user['security-ans'];

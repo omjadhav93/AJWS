@@ -7,6 +7,7 @@ block metaElements
     meta(name="description" content=`Unlock exclusive benefits and seamless shopping by logging in to AJKart. Your security is our priority, providing a secure and user-friendly login process. Enjoy personalized offers and easy access to a wide range of products. Join AJKart today for a rewarding shopping experience.`)
 block style
     include ../static/css/register.css
+    include ../static/css/selectElement.css
 block title 
     title AJ-Kart | Register 
 block content
@@ -18,32 +19,36 @@ block content
                         p #{message.msg} 
                 .input-split 
                     .input
-                        input.input-element(type="text", name="first-name",id="first-name",required="required")
+                        input.input-element(type="text", name="first-name",id="first-name",required="required",value=`${otherDetails?otherDetails['first-name']:''}`)
                         label.input-label(for="first-name") First Name
                     .input
-                        input.input-element(type="text", name="last-name",id="last-name",required="required")
+                        input.input-element(type="text", name="last-name",id="last-name",required="required",value=`${otherDetails?otherDetails['last-name']:''}`)
                         label.input-label(for="last-name") Last Name
                 .input
-                    input.input-element(type="email", name="email",id="email",required="required")
+                    input.input-element(type="email", name="email",id="email",required="required",value=`${otherDetails?otherDetails.email:''}`)
                     label.input-label(for="email") Enter Your Email
                 if (message && message.path == "email")
                     .warn #{message.msg}
                 .input
-                    input.input-element(type="tel", name="phone",id="phone",pattern="[0-9]{10}",required="required")
+                    input.input-element(type="tel", name="phone",id="phone",pattern="[0-9]{10}",required="required",value=`${otherDetails?otherDetails.phone:''}`)
                     label.input-label(for="phone") Enter 10-digit number
                 if (message && message.path == "phone")
                     .warn #{message.msg}
                 .input-split 
+                    button.selectOptBtn#selectOptBtn(onclick='openOption()')
+                      #selected.selected Select a Security Question
+                      #selectOptContainer.selectOptContainer.addOption
+                        span.opt(onclick='select(this)', value="") Select a security question
+                        span.opt(onclick='select(this)', value="first-pet") What was the name of your first pet?
+                        span.opt(onclick='select(this)', value="birth-place") In which city were you born?
+                        span.opt(onclick='select(this)', value="sports-team") What is your favorite sports team?
+                        span.opt(onclick='select(this)', value="vacation-place") What is your favorite vacation
+                    input#selectedOption(type='hidden', name='security-question',required="required")
                     .input 
-                        select(name="security-question",id="security-question") 
-                            option(value="") Select a security question
-                            option(value="first-pet") What was the name of your first pet?
-                            option(value="birth-place") In which city were you born?
-                            option(value="sports-team") What is your favorite sports team?
-                            option(value="vacation-place") What is your favorite vacation
-                    .input 
-                        input.input-element(type="text",name="security-ans",id="security-ans")
+                        input.input-element(type="text",name="security-ans",id="security-ans",required="required")
                         label.input-label(for="security-ans") Answer
+                if (message && (message.path == "security-question" || message.path == "security-ans"))
+                    .warn #{message.msg} 
                 .input
                     input.input-element(type="password", name="password",id="password",required="required")
                     label.input-label(for="password") Password
@@ -52,7 +57,7 @@ block content
                 .input
                     input.input-element(type="password", name="confirm",id="confirm",required="required")
                     label.input-label(for="confirm") Confirm Password
-                button.btn(type="button") Next
+                button.btn(type="submit") Create an account
             a.link(href="/auth/login") Already have an account? Log In
         .right 
             .right-head
@@ -61,3 +66,4 @@ block content
             img(src='../static/img/water-flash-2.png').design-img 
 block scripts 
     script(src="/static/js/input.js") 
+    script(src="/static/js/selectElement.js") 
