@@ -18,7 +18,7 @@ block content
             img(src='../static/img/water-flash-2.png').design-img 
         .right 
             if (section == "Email")
-                form(action="/auth/login", method="post").auth-from
+                form(action="/auth/forgot", method="post").auth-from
                     if (message && message.path == "general")
                         .warning 
                             p #{message.msg} 
@@ -27,7 +27,7 @@ block content
                         label.input-label(for="email") Enter Your Email
                     button.btn(type="submit") Next
             else if (section == "Question")
-                form(action="/auth/login", method="post").auth-from
+                form(action="/auth/forgot-question", method="post").auth-from
                     if (message && message.path == "general")
                         .warning 
                             p #{message.msg} 
@@ -42,16 +42,17 @@ block content
                     .input
                         input.input-element(type="text", name="answer",id="answer",required="required")
                         label.input-label(for="answer") Answer
+                    input(type="hidden", name="email", value=email)
                     button.btn(type="submit") Verify
             else if (section == "Password")
-                form(action="/auth/login", method="post").auth-from
+                form(action="/auth/change-password", method="post").auth-from
                     if (message && message.path == "general")
                         .warning 
                             p #{message.msg} 
                     .input
                         input.input-element(type="password", name="password",id="password",required="required")
                         label.input-label(for="password") Enter New Password
-                    if (message && message.path == "email")
+                    if (message && message.path == "password")
                         .warn #{message.msg}
                     .input
                         input.input-element(type="password", name="confirm",id="confirm",required="required")

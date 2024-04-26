@@ -165,7 +165,7 @@ router.post("/forgot", checkAuth, [
 
         let question = user['security-question']
 
-        res.redirect(`/forgot-question?email=${user.email}&question=${question}`)
+        res.redirect(`/auth/forgot-question?email=${user.email}&question=${question}`)
 
     } catch (error) {
         console.log(error)
@@ -177,13 +177,13 @@ router.post("/forgot-question", checkAuth, async (req, res) => {
     try {
         let user = await User.findOne({ email: req.body.email })
         if (!user) {
-            return res.status(400).render("forgot",{ section: "Question" ,questionType: user['security-question'], email: req.body.email,message: {msg: "Having some issue with your account.", path: "general"}})
+            return res.status(400).render("login",{ section: "Email" ,message: {msg: "User doesn't exists.",path: "general"}})
         }
 
         let answer = user['security-ans'];
         let userResponse = req.body.answer;
         if (answer.toUpperCase().trim() != userResponse.toUpperCase().trim()) {
-            res.render('forgot', { section: "Question", questionType: user['security-question'], email: req.body.email, message: {msg: "Wrong Answer!", path: "genral"} })
+            return res.render('forgot', { section: "Question", questionType: user['security-question'], email: req.body.email, message: {msg: "Wrong Answer!", path: "general"} })
         }
 
         const verify = {
@@ -196,7 +196,7 @@ router.post("/forgot-question", checkAuth, async (req, res) => {
         const verifiedToken = jwt.sign(verify, JWT_SECRET);
         res.cookie('verifiedToken', verifiedToken, { httpOnly: true, secure: process.env.TOKEN_HEADER_KEY == "user_token_header_key" });
 
-        res.redirect('/change-password')
+        res.redirect('/auth/change-password')
 
     } catch (error) {
         console.log(error)
@@ -237,9 +237,12 @@ router.post('/change-password', checkAuth, [
                 return res.status(400).render("forgot", { section: "Email", message: {msg: "Your verification got a Error!",path:"general"} });
             } else {
                 // Valid token
-                const user = decoded.user;
-                if (user.status === "verified") {
-                    let user = await User.findOne({ id: user.id }).select('+password')
+                const verifyUser = decoded.user;
+                if (verifyUser.status === "verified") {
+                    let user = await User.findOne({ _id: verifyUser.id }).select('+password')
+                    if (!user) {
+                        return res.status(400).render("login",{ section: "Email" ,message: {msg: "User doesn't exists.",path: "general"}})
+                    }
                     let password = req.body.password;
                     const salt = await bcrypt.genSalt(10);
                     const hash = await bcrypt.hash(password, salt);
@@ -247,7 +250,7 @@ router.post('/change-password', checkAuth, [
                     await user.save().then().catch((err) => {
                         res.status(404).send("Error to change password : " + err)
                     })
-                    res.redirect("/login");
+                    res.redirect("/auth/login");
                 }
             }
         });
