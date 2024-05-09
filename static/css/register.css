@@ -62,51 +62,6 @@
     flex-direction: column;
 }
 
-.input {
-    position: relative;
-    margin-bottom: 0.1rem;
-    /* Adjust as needed */
-}
-
-.input-split {
-    display: flex;
-    flex-direction: row;
-    column-gap: 10px;
-    padding: 0;
-}
-
-.input-element {
-    border: none;
-    outline: none;
-    border-bottom: 1.2px solid rgb(170, 170, 170);
-    font-family: 'Roboto', 'Open Sans', 'Helvetica', sans-serif;
-    color: rgb(36, 36, 36);
-    margin-top: 25px;
-    font-size: 16px;
-    /* Adjust as needed */
-    padding: 5px;
-    width: 100%;
-}
-
-.input-label {
-    cursor: text;
-    position: absolute;
-    left: 5px;
-    top: 60%;
-    transform: translateY(-50%);
-    color: #999;
-    font-size: 16px;
-    transition: top 0.3s ease, font-size 0.3s ease, color 0.3s ease;
-    pointer-events: none;
-}
-
-.input-element:focus+.input-label,
-.input-element.has-content+.input-label  {
-    top: 35%;
-    font-size: 13.5px;
-    color: #555;
-}
-
 .btn {
     margin-top: 40px;
     padding: 10px 0px;

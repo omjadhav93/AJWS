@@ -19,10 +19,10 @@ let cabinetSchema = new mongoose.Schema({
     discount: Number,
     image: [Object],
     available: Boolean,
-    rating: [Number],
     'buyers-count': Number,
     'visiter-count': Number,
-    'rating-list': [Object]
+    'rating-list': [Object],
+    'raters-list': [Object]
 });
 
 let WaterFilterCabinet = mongoose.model('WaterFilterCabinet',cabinetSchema);

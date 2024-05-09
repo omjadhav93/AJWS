@@ -17,13 +17,15 @@
 
 .opt {
     text-decoration: none;
-    border-bottom: 1px solid rgb(69, 69, 69);
+    border-top: 1px solid rgb(69, 69, 69);
     padding: 10px 20px;
     color: rgb(39, 39, 39);
+    min-width: max-content;
 }
 
 .opt:hover{
     background-color: rgb(39, 245, 245);
+    cursor: pointer;
 }
 
 .opt:active{
@@ -44,6 +46,7 @@
     z-index: 10;
     background-color: white;
     width: max-content;
+    border-radius:10px;
 }
 
 .addOption{

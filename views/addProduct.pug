@@ -1,0 +1,198 @@
+extends base.pug
+block style
+        include ../static/css/addProduct.css
+        include ../static/css/selectElement.css
+        include ../static/css/input.css
+block title 
+    title AJkart | Add-Product
+block content 
+    form(action="/user/add-product/",method="post",id="addProductForm",enctype="multipart/form-data")
+        .section-1
+            fieldset#category-container.category-container.basic-container.same-height
+                <legend>Category</legend>
+                p.que 
+                    | Category 
+                    ion-icon(name="information-circle-outline")
+                button.selectOptBtn#category(type="button",onclick='openOption(this)',style="display: flex;flex-direction: row; column-gap: 10px;")
+                    #selected.selected Select a Category
+                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                    #selectOptContainer.selectOptContainer.addOption
+                        span.opt#default(onclick='select(this)', value="") Select a Category
+                        span.opt(onclick='select(this)', value="Home and Kitchen Appliances") Home & Kitchen Appliance 
+                input.selectedOption#category-input(type='hidden', name='product-category')
+                //- It is required to place input:hidden after its button because nextElementSiling is used in function select()
+
+                p.que 
+                    | Product
+                button.selectOptBtn#product-type(type="button",onclick='openOption(this)',style="display: flex;flex-direction: row; column-gap: 10px;")
+                    #selected.selected Select a Product
+                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                    #selectOptContainer.selectOptContainer.addOption
+                        span.opt#default(onclick='select(this)', value="") Select a Product
+                input.selectedOption#product-type-input(type='hidden', name='product-type')
+            
+            fieldset.price-section.basic-container.same-height
+                <legend>Price Setup</legend>
+                .que-box 
+                    p.que 
+                        | Price (In Rupees)
+                        ion-icon(name="information-circle-outline")
+                    input.text-input#price-value(type="number", name="price",placeholder="Ex.. 8000",required="required")
+                .que-box 
+                    p.que Discount (In Percentage)
+                    input.text-input#discount(type="number", name="discount",placeholder="Ex.. 20",onchange="discountChange()",required="required")
+                .que-box.final-price 
+                    p.que Final price (In Rupees)
+                    p#final-price-count
+            
+            fieldset.about-the-product.basic-container.same-height
+                <legend>Product Info</legend>
+                .que-box
+                    p.que 
+                        | Model Name 
+                        ion-icon(name="information-circle-outline")
+                    input.text-input(type="text",name="model-name",id="model-name",placeholder="Ex.. Aqua Pure",required="required")
+                .que-box
+                    p.que 
+                        | Brand Name 
+                        ion-icon(name="information-circle-outline")
+                    input.text-input(type="text",name="brand-name",id="brand-name",placeholder="Ex.. Crystal Clear",required="required")
+                .que-box
+                    p.que Which material is used in your product body?
+                    .radio-section
+                        <input type="radio" class="radio" name="material" value="Metal" id="body-type-metal" required/>
+                        <label class="radio-label" for="body-type-metal">Metal</label><br/>
+                        <input type="radio" class="radio" name="material" value="Plastic" id="body-type-plastic" required/>
+                        <label class="radio-label" for="body-type-plastic">Plastic</label><br/>
+                .que-box
+                    p.que Do you offer any waranty?
+                    .radio-section
+                        <input type="radio" class="radio" name="waranty" value="1" id="Yes" required/>
+                        <label class="radio-label" for="Yes">Yes</label><br/>
+                        <input type="radio" class="radio" name="waranty" value="0" id="No" required/>
+                        <label class="radio-label" for="No">No</label><br/>
+            
+            fieldset.colors.basic-container 
+                <legend>Select Colours</legend>
+                p.que In what colors do you have your product?
+                .colors-options 
+                    <div class="color-box"> 
+                      <input type="checkbox" name="color" onchange="fileSection()"  value="Black" id="Black" style="accent-color: black"/>
+                      <label for="Black"> Black</label>
+                    </div>
+                    <div class="color-box"> 
+                      <input type="checkbox" name="color" onchange="fileSection()"  value="White" id="White" style="accent-color: white"/>
+                      <label for="White"> White</label>
+                    </div>
+                    <div class="color-box"> 
+                      <input type="checkbox" name="color" onchange="fileSection()"  value="Gray" id="Gray" style="accent-color: grey"/>
+                      <label for="Gray"> Gray</label>
+                    </div>
+                    <div class="color-box"> 
+                      <input type="checkbox" name="color" onchange="fileSection()"  value="Navy" id="Navy blue" style="accent-color: navyblue"/>
+                      <label for="Navy blue"> Navy blue</label>
+                    </div>
+                    <div class="color-box"> 
+                      <input type="checkbox" name="color" onchange="fileSection()"  value="Royalblue" id="Royal blue" style="accent-color: royalblue"/>
+                      <label for="Royal blue"> Royal blue</label>
+                    </div>
+                    <div class="color-box"> 
+                      <input type="checkbox" name="color" onchange="fileSection()"  value="Lightblue" id="Light blue" style="accent-color: lightblue"/>
+                      <label for="Light blue"> Light blue</label>
+                    </div>
+                    <div class="color-box"> 
+                      <input type="checkbox" name="color" onchange="fileSection()"  value="Purple" id="Purple" style="accent-color: purple"/>
+                      <label for="Purple"> Purple</label>
+                    </div>
+                    <div class="color-box"> 
+                      <input type="checkbox" name="color" onchange="fileSection()"  value="Violet" id="Violet" style="accent-color: violet"/>
+                      <label for="Violet"> Violet</label>
+                    </div>
+                    <div class="color-box"> 
+                      <input type="checkbox" name="color" onchange="fileSection()"  value="Red" id="Red" style="accent-color: red"/>
+                      <label for="Red"> Red</label>
+                    </div>
+                    <div class="color-box"> 
+                      <input type="checkbox" name="color" onchange="fileSection()"  value="Maroon" id="Maroon" style="accent-color: maroon"/>
+                      <label for="Maroon"> Maroon</label>
+                    </div>
+                    <div class="color-box"> 
+                      <input type="checkbox" name="color" onchange="fileSection()"  value="Pink" id="Pink" style="accent-color: pink"/>
+                      <label for="Pink"> Pink</label>
+                    </div>
+                    <div class="color-box"> 
+                      <input type="checkbox" name="color" onchange="fileSection()"  value="Magenta" id="Magenta" style="accent-color: magenta"/>
+                      <label for="Magenta"> Magenta</label>
+                    </div>
+                    <div class="color-box"> 
+                      <input type="checkbox" name="color" onchange="fileSection()"  value="Lavender" id="Lavender" style="accent-color: lavender"/>
+                      <label for="Lavender"> Lavender</label>
+                    </div>
+                    <div class="color-box"> 
+                      <input type="checkbox" name="color" onchange="fileSection()"  value="Green" id="Green" style="accent-color: green"/>
+                      <label for="Green"> Green</label>
+                    </div>
+                    <div class="color-box"> 
+                      <input type="checkbox" name="color" onchange="fileSection()"  value="Limegreen" id="Lime green" style="accent-color: limegreen"/>
+                      <label for="Lime green"> Lime green</label>
+                    </div>
+                    <div class="color-box"> 
+                      <input type="checkbox" name="color" onchange="fileSection()"  value="Olivegreen" id="Olive green" style="accent-color: olivegreen"/>
+                      <label for="Olive green"> Olive green</label>
+                    </div>
+                    <div class="color-box"> 
+                      <input type="checkbox" name="color" onchange="fileSection()"  value="Yellow" id="Yellow" style="accent-color: yellow"/>
+                      <label for="Yellow"> Yellow</label>
+                    </div>
+                    <div class="color-box"> 
+                      <input type="checkbox" name="color" onchange="fileSection()"  value="Gold" id="Gold" style="accent-color: gold"/>
+                      <label for="Gold"> Gold</label>
+                    </div>
+                    <div class="color-box"> 
+                      <input type="checkbox" name="color" onchange="fileSection()"  value="Orange" id="Orange" style="accent-color: orange"/>
+                      <label for="Orange"> Orange</label>
+                    </div>
+                    <div class="color-box"> 
+                      <input type="checkbox" name="color" onchange="fileSection()"  value="Brown" id="Brown" style="accent-color: brown"/>
+                      <label for="Brown"> Brown</label>
+                    </div>
+                    <div class="color-box"> 
+                      <input type="checkbox" name="color" onchange="fileSection()"  value="Tan" id="Tan" style="accent-color: tan"/>
+                      <label for="Tan"> Tan</label>
+                    </div>
+                    <div class="color-box"> 
+                      <input type="checkbox" name="color" onchange="fileSection()"  value="Silver" id="Silver" style="accent-color: silver"/>
+                      <label for="Silver"> Silver</label>
+                    </div>
+            
+            fieldset.ratings.basic-container 
+              <legend>Rate Your Product</legend>
+              .que-box.rate-box  
+                p.que Over-All :
+                input.text-input(type="number", name="overall-rating",min="0",max="5",required="required")
+              .que-box.rate-box  
+                p.que Design :
+                input.text-input(type="number", name="design-rating",min="0",max="5",required="required")
+              .que-box.rate-box  
+                p.que Quality :
+                input.text-input(type="number", name="quality-rating",min="0",max="5",required="required")
+              .que-box.rate-box  
+                p.que Durability :
+                input.text-input(type="number", name="durability-rating",min="0",max="5",required="required")
+              .que-box.rate-box  
+                p.que Cost & Value :
+                input.text-input(type="number", name="costvalue-rating",min="0",max="5",required="required")
+        .actionBtns 
+          button.actionBtn.nextBtn(type="button",onclick="nextSection(this)") Next
+
+        .section-2
+            fieldset#images.images.basic-container 
+                <legend>Add Images</legend>
+                p.color-not-selected Please select atleast one colour to add respective images.
+            .actionBtns 
+              button.actionBtn.saveBtn(type="button",onclick="submitDone(event)") Save 
+              
+
+block scripts 
+    script(src="/static/js/input.js") 
+    script(src="/static/js/addProduct.js") 

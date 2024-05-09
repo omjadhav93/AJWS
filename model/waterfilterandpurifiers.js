@@ -21,10 +21,10 @@ let filterSchema = new mongoose.Schema({
     discount: Number,
     image: [Object],
     available: Boolean,
-    rating: [Number],
     'buyers-count': Number,
     'visiter-count': Number,
-    'rating-list': [Object]
+    'rating-list': Object,
+    'raters-list': [Object]
     // {rater,rating}
 });
 

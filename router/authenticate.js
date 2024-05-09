@@ -5,11 +5,10 @@ const Cart = require("../model/cart")
 const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
 const { body, validationResult } = require("express-validator");
-const checkAuth = require('./middleware/checkAuth')
+const checkAuth = require('./middleware/checkAuth');
 
 const JWT_SECRET = process.env.JWT_SECRET_KEY;
 
-let returnTo = null;
 
 router.get('/register', checkAuth, (req, res) => {
     res.render('register')
@@ -100,6 +99,9 @@ router.post("/register", checkAuth, [
         const authtoken = jwt.sign(data, JWT_SECRET);
         res.cookie('authtoken', authtoken, { httpOnly: true, secure: process.env.TOKEN_HEADER_KEY == "user_token_header_key" });
 
+        let returnTo = req.session.returnTo || null;
+        delete req.session.returnTo;
+
         res.redirect(returnTo || '/');
 
     } catch (error) {
@@ -140,6 +142,9 @@ router.post("/login", checkAuth, [
 
         const authtoken = jwt.sign(data, JWT_SECRET);
         res.cookie('authtoken', authtoken, { httpOnly: true, secure: process.env.TOKEN_HEADER_KEY == "user_token_header_key" });
+
+        let returnTo = req.session.returnTo || null;
+        delete req.session.returnTo;
 
         res.redirect(returnTo || '/');
 
@@ -260,5 +265,18 @@ router.post('/change-password', checkAuth, [
         res.status(500).send("Internal Server Error");
     }
 })
+
+router.post("/logout", (req, res) => {
+    try {
+        // Clear the auth token cookie
+        res.clearCookie('authtoken');
+        
+        // Redirect to login page or any other appropriate page
+        res.redirect('/');
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Internal Server Error");
+    }
+});
 
 module.exports = router;

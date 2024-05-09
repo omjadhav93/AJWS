@@ -3,11 +3,11 @@ var mongoose = require('mongoose');
 
 // Creating Schema
 var cardSchema = new mongoose.Schema({
-    'card-no' : Number,
+    cardNo : Number,
     title: String,
     image : String,
     desc : String,
-    'locate-to' : String,
+    locateTo : String,
     location : String
 })
 
@@ -23,9 +23,9 @@ var brandSchema = new mongoose.Schema({
     image: String
 })
 
-let card = mongoose.model("Card", cardSchema);
-let category = mongoose.model("Category", categorySchema);
-let brands = mongoose.model("Brand",brandSchema)
+let Card = mongoose.model("Card", cardSchema);
+let Category = mongoose.model("Category", categorySchema);
+let Brands = mongoose.model("Brand",brandSchema)
 
 // export cartSchema
-module.exports = {card,category,brands};
+module.exports = {Card, Category, Brands };

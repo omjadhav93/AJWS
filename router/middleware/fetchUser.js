@@ -3,16 +3,17 @@ const JWT_SECRET = process.env.JWT_SECRET_KEY;
 
 const fetchUser = (req, res, next) => {
     // Get the user from the jwt token and add id to req object
-    const token = req.cookies.authtoken || 0
+    let token = req.cookies.authtoken || 0
     try {
         if (!token) {
             req.session.returnTo = req.originalUrl;
-            res.redirect("/login");
+            res.redirect("/auth/login");
         } else {
             jwt.verify(token, JWT_SECRET, (err, data) => {
                 if (err) {
                     // Invalid token
-                    res.status(401).send({ error: "Invalid token." });
+                    req.session.returnTo = req.originalUrl;
+                    res.redirect("/login");
                 } else {
                     // Valid token
                     req.user = data.user; // Add user ID to request object
@@ -21,6 +22,7 @@ const fetchUser = (req, res, next) => {
             });
         };
     } catch (error) {
+        console.log(error)
         res.status(401).send({ error: "Please authenticate using a valid token" })
     }
 

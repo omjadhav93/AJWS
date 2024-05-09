@@ -210,6 +210,48 @@ navbar {
 }
 
 
+/* Footer */
+.footer{
+    background-color: black;
+    margin-top: 50px;
+}
+.footer-top{
+    display: flex;
+    flex-direction: row;
+    padding: 50px 30px;
+    row-gap: 100px;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    border-bottom: 1px solid white;
+}
+.footer-top>div{
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+.footer-section-heading h3{
+    color: #878787;
+    margin-bottom: 10px;
+}
+.footer-section-heading,.link{
+    width: max-content;
+}
+.link a{
+    color: white;
+    text-decoration: none;
+}
+.link p{
+    color: white;
+    line-height: 1.5;
+}
+.creator-watermark{
+    padding: 10px 0px;
+    width: 100%;
+    text-align: center;
+    color: white;
+}
+
+
 
 @keyframes rotate_border {
     0% {

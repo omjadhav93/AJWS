@@ -8,6 +8,7 @@ block metaElements
 block style
     include ../static/css/register.css
     include ../static/css/selectElement.css
+    include ../static/css/input.css
 block title 
     title AJ-Kart | Register 
 block content
@@ -35,7 +36,7 @@ block content
                 if (message && message.path == "phone")
                     .warn #{message.msg}
                 .input-split 
-                    button.selectOptBtn#selectOptBtn(onclick='openOption()')
+                    button.selectOptBtn(onclick='openOption(this)')
                       #selected.selected Select a Security Question
                       #selectOptContainer.selectOptContainer.addOption
                         span.opt(onclick='select(this)', value="") Select a security question
@@ -44,6 +45,7 @@ block content
                         span.opt(onclick='select(this)', value="sports-team") What is your favorite sports team?
                         span.opt(onclick='select(this)', value="vacation-place") What is your favorite vacation
                     input#selectedOption(type='hidden', name='security-question',required="required")
+                    //- It is required to place input:hidden after its button because nextElementSiling is used in function select()
                     .input 
                         input.input-element(type="text",name="security-ans",id="security-ans",required="required")
                         label.input-label(for="security-ans") Answer

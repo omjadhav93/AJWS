@@ -13,7 +13,7 @@ html
     block title
   body
     nav
-      a(href='#').logo
+      a(href='/').logo
         .logo-conatiner
           .logo-head AJ 
           .logo-side 
@@ -34,13 +34,16 @@ html
         p Cart
       div
         if LoggedIn
-          ion-icon.profile-icon(name='person')
+          form(action="/auth/logout", method="post") 
+            button(type="submit") 
+              ion-icon.profile-icon(name='person')
         else 
-          .login 
+          .login(onclick="window.location.href = '/auth/login'")
             p Login / SignIn
     navbar
       a.nav-box(href='#') All
-      a.nav-box(href='#') Recommendation
+      a.nav-box(href='#') Recommendation 
+      //- This recommendation tab is for details of parts products.
       a.nav-box(href='#') Book Plant
       a.nav-box(href='#') Top Brand
       a.nav-box(href='#') Services
@@ -49,6 +52,80 @@ html
       a.nav-box(href='#') Help
     
     block content
+
+    .footer 
+            .footer-top
+                .about-container 
+                    .footer-section-heading 
+                        h3 About Us
+                    .link
+                        a(href="/Contact") Contact Us
+                    .link 
+                        a(href="/#about-us") About Us 
+                .links-container 
+                    .footer-section-heading 
+                        h3 Links
+                    .link
+                        a(href="/user/search?value=Water Filter") Products
+                    .link
+                        a(href="/repair") Service
+                    .link
+                        a(href="/user/search?value=Domestic") Domestic Filter
+                    .link
+                        a(href="/user/search?value=Commercial") Commercial Filter
+                    .link
+                        a(href="/user/search?value=Industrial") Industrial Filter
+                    .link
+                        a(href="/user/search?value=Water Filter") Filter Cabinet
+                .search-container 
+                    .footer-section-heading 
+                        h3 Top Search
+                    .link 
+                        a(href="/user/search?value=Crystal Clear") Crystal Clear 
+                    .link 
+                        a(href="/user/search?value=Purosis") Purosis 
+                    .link 
+                        a(href="/user/search?value=Nile") Nile 
+                    .link 
+                        a(href="/user/search?value=Aqua Grand") Aqua Grand 
+                    .link 
+                        a(href="/user/search?value=Aqua Roma") Aqua Roma 
+                    .link 
+                        a(href="/user/search?value=Aqua Mars") Aqua Mars
+                    .link 
+                        a(href="/user/search?value=Aqua Digi") Aqua Digi
+                .social-container
+                    .footer-section-heading 
+                        h3 Social Media 
+                    .link
+                        a(href="") 
+                            <ion-icon name="logo-facebook"></ion-icon> 
+                            | Facebook
+                    .link
+                        a(href="https://wa.me/917387227775",target="blank") 
+                            <ion-icon name="logo-whatsapp"></ion-icon> 
+                            | Whatsapp
+                    .link
+                        a(href="https://www.instagram.com/aniljadhav2991?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",target="blank") 
+                            <ion-icon name="logo-instagram"></ion-icon> 
+                            | Instagram
+                .address-container 
+                    .footer-section-heading 
+                        h3 Office Address
+                    .link 
+                        p AJ Water Solutions , 
+                            br 
+                            | Hiware Kumbhar , Shikrapur ,
+                            br
+                            | Tal. Shirur , Dist. Pune ,
+                            br
+                            | Maharastra , India 
+                            br
+                            | Pincode : 412208
+                            br
+                            | Phone : +91-7387227775
+            h3.creator-watermark Creator : Om's Developers 
+
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
