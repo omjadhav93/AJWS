@@ -1,4 +1,4 @@
-// const fs = require('fs-extra');
+const fs = require('fs-extra');
 const express = require("express");
 const path = require("path");
 const router = express.Router();
@@ -26,6 +26,7 @@ function merge(left, right) {
         if (left[leftIndex].cardNo < right[rightIndex].cardNo) {
             result.push(left[leftIndex]);
             leftIndex++;
+        }else{
             result.push(right[rightIndex]);
             rightIndex++;
         }
@@ -43,9 +44,8 @@ function sequence(arr) {
     const middle = Math.floor(arr.length / 2);
     const left = arr.slice(0, middle);
     const right = arr.slice(middle);
-
-    const final = merge(sequence(left), sequence(right));
-    return final;
+    
+    return merge(sequence(left), sequence(right));
 }
 
 /* Sorting As per frequency of buying. */
@@ -222,16 +222,17 @@ router.post("/saveCard", fetchUser, upload.single('cardImage'), async (req, res)
             // const locateTo = req.body['locate-to'];
             // const location = req.body.location;
 
-            // let oldCard = await Card.find({ cardNo: cardNo });
-            // oldCard.forEach(card => {
-            //     let path = "static/productImg/" + card.image;
-            //     // Delete the file like normal
-            //     fs.unlink(path, (err) => {
-            //         if (err) console.log(err);
-            //         return;
-            //     });
-            // })
+            let oldCard = await Card.find({ cardNo: cardNo });
+            oldCard.forEach(card => {
+                let path = "static/productImg/" + card.image;
+                // Delete the file like normal
+                fs.unlink(path, (err) => {
+                    if (err) console.log(err);
+                    return;
+                });
+            })
 
+            await Card.deleteMany({cardNo: cardNo});
 
             let newCard = new Card({
                 cardNo: cardNo,
