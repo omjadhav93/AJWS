@@ -38,13 +38,25 @@ app.use('/auth',authenticate);
 const index = require("./router/index");
 app.use('/',index);
 
+// Search Page Router
+const search = require("./router/searching");
+app.use('/',search);
+
 // Add Product Form
 const addProduct = require("./router/addProduct");
 app.use('/user/add-product',addProduct);
 
-// Cart Form
+// Cart
 const cart = require("./router/cart");
 app.use('/user/',cart);
+
+// Repair Form
+const repair = require("./router/repairing");
+app.use('/repair/',repair);
+
+// Add Address Form
+const address = require("./router/address");
+app.use('/user/address/',address);
 
 // Server Start
 app.listen(PORT,() => {

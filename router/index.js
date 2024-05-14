@@ -1,3 +1,4 @@
+// const fs = require('fs-extra');
 const express = require("express");
 const path = require("path");
 const router = express.Router();
@@ -30,6 +31,7 @@ function merge(left, right) {
         }
     }
 
+
     return result.concat(left.slice(leftIndex)).concat(right.slice(rightIndex));
 }
 
@@ -42,7 +44,8 @@ function sequence(arr) {
     const left = arr.slice(0, middle);
     const right = arr.slice(middle);
 
-    return merge(sequence(left), sequence(right));
+    const final = merge(sequence(left), sequence(right));
+    return final;
 }
 
 /* Sorting As per frequency of buying. */
@@ -167,16 +170,16 @@ async function TopInDesignsListFinder() {
 
 
 router.get("/", fetchCheckUser, async (req, res) => {
-    let userId = (req.user != null)?req.user.id:new mongoose.Types.ObjectId('5f56a08d8d22222222222222');
+    let userId = (req.user != null) ? req.user.id : new mongoose.Types.ObjectId('5f56a08d8d22222222222222');
     const user = await User.findById(userId).select("-password");
     try {
         let cardList = sequence(await Card.find());
         let FreqPurchasedList = await FreqPurchasedListFinder();
         let TopInDesignsList = await TopInDesignsListFinder();
-        let categoryList = sequence(await Category.find());
+        let categoryList = [] // sequence(await Category.find());
         let lessPriceList = lessPriceListFinder();
         let otherBrandList = sequence(await Brands.find());
-
+        
         if (user) {
             if (user.seller) {
                 res.render("indexAdmin.pug", { LoggedIn: 1, cardList, FreqPurchasedList, TopInDesignsList, categoryList, lessPriceList, otherBrandList })
@@ -219,7 +222,16 @@ router.post("/saveCard", fetchUser, upload.single('cardImage'), async (req, res)
             // const locateTo = req.body['locate-to'];
             // const location = req.body.location;
 
-            let oldCard = await Card.deleteMany({cardNo: cardNo});
+            // let oldCard = await Card.find({ cardNo: cardNo });
+            // oldCard.forEach(card => {
+            //     let path = "static/productImg/" + card.image;
+            //     // Delete the file like normal
+            //     fs.unlink(path, (err) => {
+            //         if (err) console.log(err);
+            //         return;
+            //     });
+            // })
+
 
             let newCard = new Card({
                 cardNo: cardNo,

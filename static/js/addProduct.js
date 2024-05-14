@@ -516,7 +516,7 @@ const submitDone = async (event) => {
 //     //     'model-name': document.getElementById('model-name').value,
 //     //     'brand-name': document.getElementById('brand-name').value,
 //     //     material: document.querySelector('input[name="material"]:checked')?document.querySelector('input[name="material"]:checked').value:null,
-//     //     waranty: document.querySelector('input[name="waranty"]:checked')?document.querySelector('input[name="waranty"]:checked').value:null,
+//     //     warranty: document.querySelector('input[name="warranty"]:checked')?document.querySelector('input[name="warranty"]:checked').value:null,
 //     //     originalPrice: document.getElementById('price-value').value,
 //     //     discount: document.getElementById('discount').value,
 //     // };

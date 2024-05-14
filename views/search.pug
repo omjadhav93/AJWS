@@ -1,97 +1,91 @@
-extends base.pug
+extends base.pug 
 block metaElements
   meta(name="robots" content="INDEX, FOLLOW")
-  meta(name="keywords" content="cart, kart, my cart, my cart in aj kart, cart of aj kart, cart of crystal clear, crystal clear, aj kart, shopping cart, kart in aj kart, kart in crystal clear")
-  meta(name="description" content=`AJ Kart - Discover Crystal Clear Quality.
-        Explore our curated selection of top-quality water filters and purifiers, exclusively available on AJ Kart. From domestic to industrial solutions, find your perfect fit.
-        Experience seamless shopping with our user-friendly cart feature, ensuring a hassle-free checkout process.
-        AJ Kart - Your Trusted Source for Pure Water Solutions.`)
-block style
-    include ../static/css/search.css
+  meta(name="keywords" content="water filter products, best water filter products, water filter products for sale, water filter products price, domestic water filter, domestic water filter system, where to buy domestic water filter, domestic water filter price, Crystal Clear, Purosis, Nile, Aqua Grand, Aqua Drop Plus, Aqua Mars, Aqua Roma, Aqua Jade")
+  meta(name="description" content=`Discover the best water filter products for sale at AJKart. Explore a wide range of premium brands, including Crystal Clear, Purosis, Nile, Aqua Grand, Aqua Drop Plus, Aqua Mars, Aqua Roma, and Aqua Jade. Find the perfect water filter products to ensure clean and safe drinking water for you and your family. Shop now and experience the quality and purity that our top-notch water filter products offer.`)
+block style 
+    include ../static/css/search.css 
 block title 
-    title AJ-Kart | Cart
-block content
-    if data.length == 0
-        h3.emptyCart Your Cart Is Empty 
-    else
-        section.main-content
-            .filter-sign-small#openfilter(onclick="openFilter()")
-                    <ion-icon name="funnel" id="funnel"></ion-icon>
-            .filter-box-background#filter-box-background
-            .filter-box#filter-box
-                .filter-sign 
-                    <ion-icon name="funnel"></ion-icon> 
-                    label(for="") Filter
-                .fiter-brand 
-                    h4 Brand
-                    input(type="checkbox", name="brand", id="cc", value ="Crystal Clear",onchange="applyFilter()")
-                    label(for="cc") Crystal Clear
-                    br 
-                    input(type="checkbox", name="brand", id="Purosis", value ="Purosis",onchange="applyFilter()")
-                    label(for="Purosis") Purosis
-                    br 
-                    input(type="checkbox", name="brand", id="Nile", value ="Nile",onchange="applyFilter()")
-                    label(for="Nile") Nile
-                    br 
-                    input(type="checkbox", name="brand", id="AquaGrand", value ="Aqua Grand",onchange="applyFilter()")
-                    label(for="AquaGrand") Aqua Grand
-                    br 
-                    input(type="checkbox", name="brand", id="AquaDropPlus", value ="Aqua Drop Plus",onchange="applyFilter()")
-                    label(for="AquaDropPlus") Aqua Drop Plus
-                    br 
-                    input(type="checkbox", name="brand", id="AquaMars", value ="Aqua Mars",onchange="applyFilter()")
-                    label(for="AquaMars") Aqua Mars
-                    br 
-                    input(type="checkbox", name="brand", id="AquaRoma", value ="Aqua Roma",onchange="applyFilter()")
-                    label(for="AquaRoma") Aqua Roma
-                    br 
-                    input(type="checkbox", name="brand", id="AquaJade", value ="Aqua Jade",onchange="applyFilter()")
-                    label(for="AquaJade") Aqua Jade
-                    br 
-                .filter-price 
-                    h4 Price
-                    input(type='checkbox', name='Price', id="Lto5", value="0to5",onchange="applyFilter()")
-                    label(for="Lto5") Less than 5000&#x20B9;
-                    br
-                    input(type='checkbox', name='Price', id="5to8", value="5to8",onchange="applyFilter()")
-                    label(for="5to8") 5000&#x20B9; to 8000&#x20B9;
-                    br
-                    input(type='checkbox', name='Price',id="8to10", value="8to10",onchange="applyFilter()")
-                    label(for="8to10") 8000&#x20B9; to 10000&#x20B9;
-                    br
-                    input(type='checkbox', name='Price',id="10to12", value="10to12",onchange="applyFilter()")
-                    label(for="10to12") 10000&#x20B9; to 12000&#x20B9;
-                    br
-                    input(type='checkbox', name='Price',id="12to15", value="12to15",onchange="applyFilter()")
-                    label(for="12to15") 12000&#x20B9; to 15000&#x20B9;
-                    br
-                    input(type='checkbox', name='Price',id="15to20", value="15to20",onchange="applyFilter()")
-                    label(for="15to20") 15000&#x20B9; to 20000&#x20B9;
-                    br
-                    input(type='checkbox', name='Price',id="20toM", value="20to100",onchange="applyFilter()")
-                    label(for="20toM") 20000&#x20B9; or More
-                    br
-                .filter-material 
-                    h4 Material
-                    input(type="checkbox", name="material", id="metal", value="metal",onchange="applyFilter()")
-                    label(for="metal") Metal 
-                    br
-                    input(type="checkbox", name="material", id="Plastic", value="plastic",onchange="applyFilter()") 
-                    label(for="plastic") Plastic
-                    br
-            .search-output-area
-                h2.emptyCart Your Cart 
-                each item in data
+    title AJ-Kart | Search 
+block content 
+    section.search-statement 
+        p Search result for 
+        h4 "#{searchStatement}"
+    section.main-content
+        .filter-sign-small#openfilter(onclick="openFilter()")
+                <ion-icon name="funnel" id="funnel"></ion-icon>
+        .filter-box-background#filter-box-background
+        .filter-box#filter-box
+            .filter-sign 
+                <ion-icon name="funnel"></ion-icon> 
+                label(for="") Filter
+            .fiter-brand 
+                h4 Brand
+                input(type="checkbox", name="brand", id="cc", value ="Crystal Clear",onchange="applyFilter()")
+                label(for="cc") Crystal Clear
+                br 
+                input(type="checkbox", name="brand", id="Purosis", value ="Purosis",onchange="applyFilter()")
+                label(for="Purosis") Purosis
+                br 
+                input(type="checkbox", name="brand", id="Nile", value ="Nile",onchange="applyFilter()")
+                label(for="Nile") Nile
+                br 
+                input(type="checkbox", name="brand", id="AquaGrand", value ="Aqua Grand",onchange="applyFilter()")
+                label(for="AquaGrand") Aqua Grand
+                br 
+                input(type="checkbox", name="brand", id="AquaDropPlus", value ="Aqua Drop Plus",onchange="applyFilter()")
+                label(for="AquaDropPlus") Aqua Drop Plus
+                br 
+                input(type="checkbox", name="brand", id="AquaMars", value ="Aqua Mars",onchange="applyFilter()")
+                label(for="AquaMars") Aqua Mars
+                br 
+                input(type="checkbox", name="brand", id="AquaRoma", value ="Aqua Roma",onchange="applyFilter()")
+                label(for="AquaRoma") Aqua Roma
+                br 
+                input(type="checkbox", name="brand", id="AquaJade", value ="Aqua Jade",onchange="applyFilter()")
+                label(for="AquaJade") Aqua Jade
+                br 
+            .filter-price 
+                h4 Price
+                input(type='checkbox', name='Price', id="Lto5", value="0to5",onchange="applyFilter()")
+                label(for="Lto5") Less than 5000&#x20B9;
+                br
+                input(type='checkbox', name='Price', id="5to8", value="5to8",onchange="applyFilter()")
+                label(for="5to8") 5000&#x20B9; to 8000&#x20B9;
+                br
+                input(type='checkbox', name='Price',id="8to10", value="8to10",onchange="applyFilter()")
+                label(for="8to10") 8000&#x20B9; to 10000&#x20B9;
+                br
+                input(type='checkbox', name='Price',id="10to12", value="10to12",onchange="applyFilter()")
+                label(for="10to12") 10000&#x20B9; to 12000&#x20B9;
+                br
+                input(type='checkbox', name='Price',id="12to15", value="12to15",onchange="applyFilter()")
+                label(for="12to15") 12000&#x20B9; to 15000&#x20B9;
+                br
+                input(type='checkbox', name='Price',id="15to20", value="15to20",onchange="applyFilter()")
+                label(for="15to20") 15000&#x20B9; to 20000&#x20B9;
+                br
+                input(type='checkbox', name='Price',id="20toM", value="20to100",onchange="applyFilter()")
+                label(for="20toM") 20000&#x20B9; or More
+                br
+            .filter-material 
+                h4 Material
+                input(type="checkbox", name="material", id="metal", value="metal",onchange="applyFilter()")
+                label(for="metal") Metal 
+                br
+                input(type="checkbox", name="material", id="Plastic", value="plastic",onchange="applyFilter()") 
+                label(for="plastic") Plastic
+                br
+        .search-output-area 
+            each item in data
+                if item.available
                     .search-item(onclick="openProduct(this)")
-                        .remove-btn 
-                            form(action="/user/cart/remove", method="post") 
-                                input(type="hidden", name="model-number", value=item['model-number'])
-                                button(type="submit") Remove
                         .search-image
                             each img in item.image
                                 each obj in img
                                     each loc in [obj]
-                                        img.images(src='/static/productImg/' + loc[0])
+                                        each item in loc
+                                            img.images(src='/static/productImg/' + item)
                         .search-content
                             if item['product-type'] == 'Water Filter and Purifiers'
                                 if item['model-name'].length
@@ -146,7 +140,7 @@ block content
                                     <ion-icon name="star-outline"></ion-icon>
                             p.price 
                                 sup &#x20B9
-                                span #{(item['originalPrice'])-((item['originalPrice'])*(item['discount'])/100)} 
+                                span #{(item['originalPrice'])-((item['originalPrice'])*(item['discount'])/100)}  
                                 label M.R.P : 
                                     span &#x20B9 #{item['originalPrice']}
                                     |  (#{item['discount']}% discount)
@@ -156,7 +150,7 @@ block content
                             if item['warranty']
                                 p.warranty.points 
                                     <ion-icon name="shield-checkmark"></ion-icon> 
-                                    span #{item['warranty-count']} Of Waranty
+                                    span #{item['warranty-count']} Years Of Waranty
                             else if item['color'].length > 1
                                 p.multicolor.points 
                                     <ion-icon name="aperture"></ion-icon> 
@@ -176,4 +170,4 @@ block content
                         
 
 block scripts 
-    script(src="/static/javascript/search.js") 
+    script(src="/static/js/search.js") 

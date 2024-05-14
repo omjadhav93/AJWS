@@ -1,0 +1,157 @@
+#contactForm,.address-box{
+    width: 50%;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+}
+.address-line{
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 1px 2px 5px black;
+    padding: 10px;
+    position: relative;
+    line-height: 1.5;
+}
+.address-line ion-icon{
+    font-size: 24px;
+    color: red;
+    vertical-align: middle;
+    margin: 0px 5px;
+}
+.box{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+}
+input, textarea{
+    outline: none;
+    padding: 8px 10px;
+    font-size: 18px;
+    resize: none;
+}
+.btn-list{
+    display: flex;
+    flex-direction: row-reverse;
+    column-gap: 10px;
+}
+.btn{
+    display: block;
+    background-color: black;
+    color: white;
+    font-size: .95em;
+    font-weight: 600;
+    padding: 10px 20px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    margin: 0px auto;
+}
+.add-address{
+    background-color: rgb(55, 178, 178);
+    color: black;
+}
+.delete{
+    display: block;
+    background-color: blue;
+    color: yellow;
+    font-size: .75em;
+    font-weight: 600;
+    padding: 5px 10px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+}
+.main-btn{
+    display: block;
+    background-color: orange;
+    color: black;
+    font-size: .75em;
+    font-weight: 600;
+    padding: 5px 10px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+}
+.main-btn:hover, .delete:hover, .btn:hover{
+    cursor: pointer;
+}
+.main-btn:active, .delete:active, .btn:active{
+    cursor: pointer;
+}
+
+@media screen and (max-width: 1500px) {
+    #contactForm,.address-box{
+        width: 65%;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .address-box{
+        width: 75%;
+    }
+}
+
+@media screen and (max-width: 860px) {
+    #contactForm{
+        width: 70%;
+    }
+    .address-line{
+        box-shadow: 1px 1px 4px black;
+    }
+    input, textarea{
+        padding: 6px 8px;
+        font-size: 15px;
+    }
+    .btn{
+        font-size: .85em;
+        padding: 8px 15px;
+    }
+    h3{
+        font-size: 16px;
+    }
+    .box{
+        row-gap: 5px;
+    }
+}
+
+@media screen and (max-width: 660px) {
+    #contactForm,.address-box{
+        width: 80%;
+    }
+    .box{
+        row-gap: 2px;
+    }
+    .address-line{
+        font-size: 15px;
+    }
+    .address-line ion-icon{
+        font-size: 20px;
+        margin-right: 2px;
+    }
+}
+
+@media screen and (max-width: 520px) {
+    #contactForm,.address-box{
+        width: 88%;
+    }
+    input, textarea{
+        padding: 4px 6px;
+        font-size: 13px;
+    }
+    .btn{
+        font-size: .75em;
+        padding: 8px 15px;
+    }
+    h3{
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    #contactForm,.address-box{
+        width: 92%;
+        row-gap: 10px;
+    }
+}

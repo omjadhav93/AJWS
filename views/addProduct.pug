@@ -65,12 +65,10 @@ block content
                         <input type="radio" class="radio" name="material" value="Plastic" id="body-type-plastic" required/>
                         <label class="radio-label" for="body-type-plastic">Plastic</label><br/>
                 .que-box
-                    p.que Do you offer any waranty?
+                    p.que Warranty offered ?
                     .radio-section
-                        <input type="radio" class="radio" name="waranty" value="1" id="Yes" required/>
-                        <label class="radio-label" for="Yes">Yes</label><br/>
-                        <input type="radio" class="radio" name="waranty" value="0" id="No" required/>
-                        <label class="radio-label" for="No">No</label><br/>
+                        input.text-input#filteration-stages-count(type="number",min="0", name="warranty-count")
+                        label  Years of warranty
             
             fieldset.colors.basic-container 
                 <legend>Select Colours</legend>

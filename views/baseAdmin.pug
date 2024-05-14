@@ -42,14 +42,13 @@ html
             p Login / SignIn
     navbar
       a.nav-box(href='/') All
-      a.nav-box(href='#',onclick="alert('This Page Under Contruction!')") Recommendation 
-      //- This recommendation tab is for details of parts products.
-      a.nav-box(href='#') Book Plant
+      a.nav-box(href='#') Plant Bookings
       a.nav-box(href='#') Top Brand
-      a.nav-box(href='/user/address') Add Address 
-      a.nav-box(href='#') Buy Again
+      a.nav-box(href='/user/address') Service Requests
+      a.nav-box(href='#') New Orders
+      a.nav-box(href='/user/add-product') Add Product
       a.nav-box(href='/#about-us') About Us
-      a.nav-box(href='#') Help
+      a.nav-box(href='#') Help Asked
     
     block content
 
@@ -126,7 +125,7 @@ html
                             | Phone : +91-7387227775
             h3.creator-watermark Creator : Om's Developers 
 
-    script(src="/static/js/base.js")
+
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     block scripts

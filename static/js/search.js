@@ -7,28 +7,6 @@ imageSections.forEach((item) => {
     }
 })
 
-// Converting rating from number to star
-let rating = document.querySelectorAll('.rating')
-rating.forEach(rate => {
-    let count = Number(rate.textContent)
-    rate.innerHTML = "";
-    for (let i = 1; i <= 5; i++) {
-        if(i<=count){
-            let star = document.createElement('ion-icon');
-            star.setAttribute('name','star')
-            rate.appendChild(star)
-            rate.append(" ")
-        }else{
-            let star = document.createElement('ion-icon');
-            star.setAttribute('name','star-outline')
-            rate.appendChild(star)
-            rate.append(" ")
-        }
-        
-    }
-})
-
-
 // Applying Filters
 let searchItem = document.querySelectorAll('.search-item')
 const applyFilter = () => {

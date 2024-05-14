@@ -1,4 +1,4 @@
-extends base.pug
+extends baseAdmin.pug
 block metaElements
   meta(name="robots" content="INDEX, FOLLOW")
   meta(name="keywords" content="AJKart, Crystal Clear, water filter, water Plant, water filter installation, water filter installation near me, water filter installation cost, alkaline water filter, aquaguard water filter, at home water filter, at home water filter system, reverse osmosis water filter, how much is a water filter, water purifier. aquaguard water purifier, ro water purifier, kent water purifier, alkaline water purifier, water purifier aquaguard, water purifier at home, domestic water filter, industrial water filtration, best water filter brands")
@@ -28,63 +28,14 @@ block content
         .related-img
           img(src='https://www.kent.co.in/images/v3/ro-water-purifiers-updated.png', alt='')
         .selling-cards
-          .selling-card
-            button.edit(onclick='cardEdit(event,1)')
+          each card,i in cardList 
+            .selling-card 
+              button.edit(onclick=`cardEdit(event,${i+1})`)
                 ion-icon(name='color-wand')
                 | &nbsp;Edit
-            p.selling-card-heading Surprising Offers
-            img(src='https://image1.jdomni.in/product/22022023/30/32/76/25B159972478FA8EBCAAF5C257_1677035806801.png', alt='')
-            p.selling-card-note Flat 60% off on Purosis Products &#x1F631;&#x1F631;&#x1F631;
-            // Allow only 45 characters here.
-          .selling-card
-            button.edit(onclick='cardEdit(event,2)')
-                ion-icon(name='color-wand')
-                | &nbsp;Edit
-            p.selling-card-heading Newer One
-            img(src='https://m.media-amazon.com/images/I/31uyGdBxIAL._SX300_SY300_QL70_FMwebp_.jpg', alt='')
-            p.selling-card-note Ohh No! AquaGaurd on fire &#x1F525;&#x1F525;&#x1F525; 
-          .selling-card
-            button.edit(onclick='cardEdit(event,3)')
-                ion-icon(name='color-wand')
-                | &nbsp;Edit
-            p.selling-card-heading Best In Looks
-            img(src='https://azse77seaprodsa.blob.core.windows.net/b2b-dr-pickaboocdn/media/catalog/product/cache/90e3b9f4120fc209bf60003e3b0e1323/a/o/ao-smith-b3-water-purifier-1.jpg', alt='')
-            p.selling-card-note Do you want these crazy looks &#x2753;
-          .selling-card
-            button.edit(onclick='cardEdit(event,4)')
-                ion-icon(name='color-wand')
-                | &nbsp;Edit
-            p.selling-card-heading Brand Matters
-            img(src='https://azse77seaprodsa.blob.core.windows.net/b2b-dr-pickaboocdn/media/catalog/product/cache/90e3b9f4120fc209bf60003e3b0e1323/a/o/ao-smith-b3-water-purifier-1.jpg', alt='')
-            p.selling-card-note Do you want these crazy looks &#x2753;
-          .selling-card
-            button.edit(onclick='cardEdit(event,5)')
-                ion-icon(name='color-wand')
-                | &nbsp;Edit
-            p.selling-card-heading Electronic Components
-            img(src='https://m.media-amazon.com/images/I/81Lhgmgn+UL._AC_UF1000,1000_QL80_.jpg', alt='')
-            p.selling-card-note Electronics are &#x2764;&#xFE0F; of system !
-          .selling-card
-            button.edit(onclick='cardEdit(event,6)')
-                ion-icon(name='color-wand')
-                | &nbsp;Edit
-            p.selling-card-heading Our Creations
-            img(src='', alt='')
-            p.selling-card-note
-          .selling-card
-            button.edit(onclick='cardEdit(event,7)')
-                ion-icon(name='color-wand')
-                | &nbsp;Edit
-            p.selling-card-heading High Products
-            img(src='', alt='')
-            p.selling-card-note
-          .selling-card
-            button.edit(onclick='cardEdit(event,8)')
-                ion-icon(name='color-wand')
-                | &nbsp;Edit
-            p.selling-card-heading Major Add-Ons
-            img(src='', alt='')
-            p.selling-card-note
+              p.selling-card-heading #{card.title}
+              img(src='static/productImg/'+card.image , alt='')
+              p.selling-card-note #{card.desc}
     section.achievements
       h1.titles Achievements
       #onscreen.achieve-list
@@ -111,8 +62,13 @@ block content
     section.products.frequently
       h3 Frequently Purchased Products
       .products-list
-        .product-box
-          img.product-img(src='https://m.media-amazon.com/images/I/81Lhgmgn+UL._AC_UF1000,1000_QL80_.jpg', alt='')
+        each item in FreqPurchasedList
+          .product-box
+            each img in item.image
+              each obj in img
+                  each loc in [obj]
+                      each item in loc
+                        img.product-img(src='/static/productImg/' + item)
     section.as-you-wish
       // <h1 class="titles">As You Wish</h2>
       .as-you-wish-cards
@@ -139,8 +95,13 @@ block content
     section.products.designs
       h3 Top In Designs
       .products-list
-        .product-box
-          img.product-img(src='https://m.media-amazon.com/images/I/81Lhgmgn+UL._AC_UF1000,1000_QL80_.jpg', alt='')
+        each item in TopInDesignsList      
+          .product-box 
+            each img in item.image
+                each obj in img
+                    each loc in [obj]
+                        each item in loc
+                          img.product-img(src='/static/productImg/' + item)
     section.categories
       .category
         h3 Family Needs
@@ -180,10 +141,7 @@ block content
       .brand-box
         .cc-brand
           .cc-brand-logo
-            .change-op
-              button.change-btn(onclick='inputImage(event)') Change Image
-              input.inputImage(name='image', type='file', accept='.jpg,.jpeg,.png', onchange='validateFileType(event)')
-            img(src='crystal-clear-logo-crop.png', alt='crystal-clear-logo')
+            img(src='/static/img/crystal-clear-logo.png', alt='crystal-clear-logo')
           .cc-brand-intro
             h2 Introducing Crystal Clear - Where Pure Water Meets Perfection! 
             h4 Industry : AJ-Kart

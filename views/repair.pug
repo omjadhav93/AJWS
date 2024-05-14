@@ -1,0 +1,69 @@
+extends base.pug 
+block metaElements
+  meta(name="robots" content="INDEX, FOLLOW")
+  meta(name="keywords" content="Repair request form AJKart, Request for repair AJKart, Repair service request AJKart, Repair form submission AJKart, Submit repair request AJKart, Repair assistance form AJKart, Repair inquiry form AJKart, Repair service inquiry AJKart, Request a repair quote AJKart, Repair form process AJKart, AJKart repair service form, Repair form details AJKart, Repair request form submission AJKart, Online repair request form AJKart, Quick repair request AJKart, Efficient repair request form AJKart, Fill out repair request form AJKart, Repair service inquiry AJKart, Request repair support AJKart, Repair form assistance AJKart")
+  meta(name="description" content=`Need a repair for your water filter? Fill out AJKart's quick and efficient repair request form. Submit your details to request repair assistance from our dedicated team. Get your water filter back in top condition with AJKart's reliable repair service. Start the process now and experience seamless repair support at AJKart.`)
+block style 
+    include ../static/css/repair.css
+block title 
+    title AJ-Kart | Repair 
+block content 
+  .content
+    form(action="/repair/",method="post")
+      .heading
+        h1 Repair Request
+      .problem
+        .question
+          h3 Which type of Service Do you need ?
+          input(type='radio', name='service-type', value='Service', id='Service', required='')
+          label(for="Service")  Servicing
+          br
+          input(type='radio', name='service-type', value='Repairing', id='Repairing', required='')
+          label(for="Repairing")  Repairing
+          br
+          input(type='radio', name='service-type', value='Damage', id='Damage', required='')
+          label(for="Damage")  Damage Recovery
+          .done
+            button(type='button', onclick='done(this)') Done
+        .ans
+          h2 Service 
+          p : 
+          p#ans
+      .Filter-Type
+        .question
+          h3 Which type of filter you have ?
+          input(type='radio', name='filter-type', value='Domastic', id='Domastic', required='')
+          label(for="Domastic")  Domastic(&#x918;&#x930;&#x917;&#x941;&#x924;&#x940; &#x92B;&#x93F;&#x932;&#x94D;&#x91F;&#x930;)
+          br
+          input(type='radio', name='filter-type', value='Commercial', id='Commercial', required='')
+          label(for="Commercial")  Commercial(25,50 LPH)
+          br
+          input(type='radio', name='filter-type', value='Industrial', id='Industrial', required='')
+          label(for="Industrial")  Industrial(100,250,500,1000,2000 LPH)
+          .done
+            button(type='button', onclick='done(this)') Done
+        .ans
+          h2 Filter Type 
+          p : 
+          p#ans
+      .buyer-details
+        h2#det-heading Your Details
+        .buyer-name
+          h2 Name :- 
+          input#buyer-name(type='text', name='name', placeholder='Type your full Name', required='', value=`${user?user.name:''}`)
+        .buyer-address
+          h2 Address :- 
+          textarea#buyer-address(name='address', cols='30', rows='3', required='') #{user.address.length?user.address[0].add:''}
+        .buyer-pincode
+          h2 Pincode :- 
+          input#buyer-pincode(type='number', name='pincode', placeholder='412208', required='', value=`${user.address.length?user.address[0].pin:''}`)
+        .buyer-number
+          h2 Phone No. :- 
+          input#buyer-number(type='number', name='phone', placeholder='8888999910', required='', value=`${user?user.phone:''}`)
+        .order-submit
+          button(type='submit') Submit
+    .cancle
+      button#cancle
+        ion-icon(name='close-outline')
+block scripts 
+    script(src="/static/js/repair.js") 
