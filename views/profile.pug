@@ -1,0 +1,60 @@
+extends base.pug
+block metaElements
+  meta(name="robots" content="INDEX, FOLLOW")
+  meta(name="keywords" content="AJKart profile, My profile AJKart, User profile AJKart, Personal information AJKart, Edit profile AJKart, Profile settings AJKart, Update profile AJKart, Profile details AJKart, Account profile AJKart, View profile AJKart, Profile management AJKart, Profile dashboard AJKart, User account profile AJKart, Profile customization AJKart, Profile preferences AJKart, Profile privacy settings AJKart, Profile photo AJKart, Profile information update AJKart, My orders and profile AJKart, Profile security AJKart")
+  meta(name="description" content=`Manage your AJKart profile effortlessly with our user-friendly interface. Update your personal information, customize preferences, and view order details all in one place. Edit your profile settings and ensure your privacy with our secure profile management system. Keep your profile up-to-date with ease, including profile photo updates. Enjoy a seamless experience with AJKart's profile dashboard, putting you in control of your account details and security. Access your profile, view orders, and customize settings hassle-free. Your satisfaction is our priority, and AJKart makes managing your profile a breeze.`)
+block style 
+    include ../static/css/profile.css 
+block title 
+    title AJ-Kart | Profile 
+block content 
+    .profile-container 
+        .profile-menu 
+            p.profile-heading User Profile 
+            .profile-menu-list 
+                p.profile-menu-item.highlight(onclick="changeMenu(this)")
+                    <ion-icon name="person-outline"></ion-icon>
+                    | &nbsp&nbsp User Info
+                p.profile-menu-item(onclick="changeMenu(this)")
+                    <ion-icon name="heart-outline"></ion-icon>
+                    | &nbsp&nbsp Favorites
+                p.profile-menu-item(onclick="changeMenu(this)")
+                    <ion-icon name="bag-outline"></ion-icon>
+                    | &nbsp&nbsp Your Orders
+                p.profile-menu-item(onclick="changeMenu(this)")
+                    <ion-icon name="settings-outline"></ion-icon>
+                    | &nbsp&nbsp Settings
+                p.profile-menu-item(onclick="changeMenu(this)")
+                    <ion-icon name="notifications-outline"></ion-icon>
+                    | &nbsp&nbsp Notification
+            .logout 
+                form(action="/auth/logout", method="post") 
+                    button.logout-btn(type="submit") <ion-icon name="log-out-outline"></ion-icon> &nbsp Logout
+              
+        .profile-content
+            .user-info 
+                .user-top 
+                    p.user-logo <ion-icon name="person-outline"></ion-icon>
+                    .user-detail
+                        p.user-name User Name 
+                        p.user-address District, State
+                .user-data 
+                    .data-box-split 
+                        .data-box 
+                            p.data-head Name
+                            p.data-value Omkar Jadhav
+                        .data-box 
+                            p.data-head Email Address 
+                            p.data-value sample42@gmail.com
+                    .data-box-split 
+                        .data-box 
+                            p.data-head Phone
+                            p.data-value 7276241430
+                        .data-box 
+                            p.data-head Location 
+                            p.data-value District, State
+                    .data-change 
+                        button.data-change-btn Edit Profile
+
+block scripts 
+    script(src="../static/js/profile.js") 

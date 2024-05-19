@@ -1,0 +1,171 @@
+extends base.pug 
+block metaElements
+  meta(name="robots" content="INDEX, FOLLOW")
+  meta(name="keywords" content=data['model-name']+", "+data['tank-capacity']+" Liters , "+data['filteration-method']+", "+data['brand-name']+", "+data['included-components']+", "+data['price']+" rupees , "+data['color'])
+  meta(name="description" content='Introducing our latest water filter - the '+data['model-name']+' This advanced model boasts a tank_capacity of '+data['tank-capacity']+' Liters, ensuring a steady supply of purified water. With '+data['filteration-method']+' , it guarantees the highest level of water purity. Manufactured by the trusted brand '+data['brand-name']+', the '+data['model-name']+' includes essential included_components, such as '+data['included-components']+'. You can experience the unparalleled benefits of this top-tier water filter at a competitive price. Choose the AquaMax Pro in your preferred color option and elevate your water quality today. Trust in AJKart to provide you with the best water filter products for your needs.')
+block style 
+    include ../static/css/product.css 
+block title 
+    title AJ-Kart | Product 
+block content 
+    .product-file 
+        .image-locater 
+            .top-part#top-part
+                each item in data.image 
+                    .image-preview 
+                        each obj in item 
+                            each img in [obj]
+                                each loc in img
+                                    .images
+                                        img(src='/static/productImg/' + loc) 
+            .bottom-part
+                each item,colorIndex in data.image 
+                    .image-data
+                        each obj in item 
+                            each img in [obj]
+                                each loc,imgIndex in img
+                                    .images(onclick='slider(' + colorIndex + ',' + imgIndex + ')')
+                                        img(src='/static/productImg/' + loc) 
+        .product-info 
+            if data['product-type'] == 'Water Filter and Purifiers'
+                if data['model-name'].length
+                    p.heading #{data['model-name']} based on 
+                        each method,i in data['filteration-method']
+                            if i == 0
+                                |#{method} 
+                            else 
+                                |+ #{method}
+                        |  Technique 
+                        each component,i in data['included-components']
+                            if i == 0
+                                |with #{component}
+                            else 
+                                |, #{component}
+                        | and Automatic UF+TDS controller 
+                        if data['tank-capacity']
+                            |having #{data['tank-capacity']}-L Tank 
+                        |by #{data['brand-name']}
+                else 
+                    p.heading #{data['brand-name']} Presents a Purifier based on 
+                        each method,i in data['filteration-method']
+                            if i == 0
+                                |#{method} 
+                            else 
+                                |+ #{method}
+                        |  Technique 
+                        each component,i in data['included-components']
+                            if i == 0
+                                |with #{component}
+                            else 
+                                |, #{component}
+                        | and Automatic UF+TDS controller 
+                        if data['tank-capacity']
+                            |having #{data['tank-capacity']}-L Tank 
+            else if data['product-type'] == 'Water Filter Appliances' && req.body['filter-part'] == 'Cabinet'
+                if data['model-name'].length
+                    p.heading #{data['filter-type']} of #{data['model-name']} with #{data['tank-full-indicator']} indicators 
+                        if data['tank-capacity']
+                            |having #{data['tank-capacity']}-L Tank 
+                        |designed by #{data['brand-name']}
+                else 
+                    p.heading Purifier #{data['filter-type']} with #{data['tank-full-indicator']} indicators 
+                        if data['tank-capacity']
+                            |having #{data['tank-capacity']}-L Tank 
+                        |designed by #{data['brand-name']}  
+            p.brand Brand: 
+                span #{data['brand-name']}
+            p.rating 
+                - var ratingCount = data['rating-list'].overall;
+                - for (var i = 0; i < ratingCount; i++)
+                    <ion-icon name="star"></ion-icon> 
+                - for (var i = ratingCount; i < 5; i++)
+                    <ion-icon name="star-outline"></ion-icon>
+            .priceSign 
+                    p Price
+            p.price 
+                label  -#{data['discount']}%
+                sup &#x20B9
+                span.value #{(data['originalPrice'])-((data['originalPrice'])*(data['discount'])/100)}
+                br 
+                | M.R.P : 
+                span.cutValue &#x20B9 #{data['originalPrice']}
+            p.currentColor 
+                | Color : 
+                span#currentColor #{data['color'][0]}
+            .color-locator 
+                each color,i in data['color']
+                    if i == 0
+                        .color-box.now(onclick='changeColor("' + color + '",' + i + ')')
+                            .color(style='background-color:' + color + ';')
+                    else
+                        .color-box(onclick='changeColor("' + color + '",' + i + ')') 
+                            .color(style='background-color:' + color + ';')
+            p.statement
+                | Installation of product at your home is provided by AJ-Kart at Free of Cost at time of delivery. Extra charges are applied only when there is a need of any extra component like booster pump, connector valves, as per the requirement.
+            p.analysis 
+                .specs
+                    .spec
+                      h4 Model 
+                      span : 
+                      p#model #{data['model-name']}
+                    .spec
+                      h4 Model No. 
+                      span : 
+                      p#model-number #{data['model-number']}
+                    .spec
+                      h4 Brand 
+                      span : 
+                      p#brand-name #{data['brand-name']}
+                    .spec
+                      h4 Color 
+                      span : 
+                      p#color #{data['color'][0]}
+                    .spec
+                      h4 Tank Full Indicator
+                      span : 
+                      p#tank-full-indicator #{data['tank-full-indicator']} 
+                    if data['waranty']
+                        .spec
+                          h4 Waranty 
+                          span : 
+                          p#waranty #{data['waranty-count']}
+                    .spec
+                      h4 Special Components 
+                      span : 
+                      p#filteration-method 
+                        each method,i in data['filteration-method']
+                            if i == 0
+                                |#{method}
+                            else
+                                |, #{method}
+                    .spec
+                      h4 Filteration Method  
+                      span : 
+                      p#filteration-method 
+                        each components,i in data['included-components']
+                            if i == 0
+                                |#{components}
+                            else
+                                |, #{components}
+                    .spec
+                      h4 Material 
+                      span : 
+                      p#material #{data['material']}
+                    .spec
+                      h4 Tank Capacity 
+                      span : 
+                      p#tank-capacity #{data['tank-capacity']} Litres
+                    .spec
+                      h4 Purifying Stages 
+                      span : 
+                      p#purifying-stages #{data['stages']} stage purification
+            form(action="/product/order", method="get", id="buyForm") 
+                input(type = "hidden", name = "model-number", value = data['model-number'])
+                input(type = "hidden", name = "color", value = data['color'][0], id="colorInForm")
+                button.btn#buyNow(onclick="buyNow",type="submit") Buy Now 
+            form(action="/user/cart" method="post", id="cartForm")
+                input(type = "hidden", name = "model-number", value = data['model-number'])
+                button.btn#addToCart(onclick="addNow",type="submit") Add To Cart 
+
+block scripts 
+    script(src="/static/js/product.js") 

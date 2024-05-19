@@ -92,7 +92,7 @@ router.post("/", fetchUser, uploadMultiple, async (req, res) => {
                 const WaterFilter = require("../model/waterfilterandpurifiers");
                 let waterFilter = new WaterFilter({
                     user_id: user.id,
-                    "model-number": "WF" + user.email.slice(0, 4) + Date.now().toString().slice(4, 10),
+                    "model-number": "WF" + req.body["brand-name"].slice(0,4) + Date.now().toString().slice(4, 10),
                     "product-category": req.body["product-category"],
                     "product-type": req.body["product-type"],
                     "filter-type": req.body["filter-type"],
@@ -139,7 +139,7 @@ router.post("/", fetchUser, uploadMultiple, async (req, res) => {
                     user_id: req.user.id,
                     "model-number":
                         "WFCAB" +
-                        user.email.slice(0, 4) +
+                        req.body["brand-name"].slice(0,4) +
                         Date.now().toString().slice(4, 10),
                     "product-category": req.body["product-category"],
                     "product-type": req.body["product-type"],

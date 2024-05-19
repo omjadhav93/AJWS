@@ -292,9 +292,7 @@ router.get("/search", fetchCheckUser, async (req, res) => {
 
         // Rendering Files
         if (user) {
-            let accName = user.name
-            let accEmail = user.email
-            res.render("search.pug", { initial: accName[0], Name: accName, Email: accEmail, data: data, searchStatement: text, })
+            res.render("search.pug", { LoggedIn: 1, data: data, searchStatement: text, })
         } else {
             res.render("search.pug", { data: data, searchStatement: text })
         }

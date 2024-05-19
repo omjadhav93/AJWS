@@ -71,6 +71,8 @@ nav a {
 .profile-icon {
     border: 2px solid white;
     border-radius: 50%;
+    background: none;
+    cursor: pointer;
 }
 
 /* Second Navbar */

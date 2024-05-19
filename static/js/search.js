@@ -69,5 +69,5 @@ const openFilter = () => {
 // Opening product 
 const openProduct = (e) => {
     const modelNo = e.getElementsByClassName('model-number')[0].textContent
-    window.location.href = `/user/product?modelNo=${modelNo}`
+    window.location.href = `/product?modelNo=${modelNo}`
 }

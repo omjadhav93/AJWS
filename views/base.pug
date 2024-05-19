@@ -34,9 +34,7 @@ html
         p Cart
       div
         if LoggedIn
-          form(action="/auth/logout", method="post") 
-            button(type="submit") 
-              ion-icon.profile-icon(name='person')
+          ion-icon.profile-icon(name='person',onclick="window.location.href = '/user/profile'")
         else 
           .login(onclick="window.location.href = '/auth/login'")
             p Login / SignIn

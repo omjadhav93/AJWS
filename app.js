@@ -42,6 +42,10 @@ app.use('/',index);
 const search = require("./router/searching");
 app.use('/',search);
 
+// Product Page Router
+const product = require("./router/product");
+app.use('/',product);
+
 // Add Product Form
 const addProduct = require("./router/addProduct");
 app.use('/user/add-product',addProduct);
@@ -57,6 +61,10 @@ app.use('/repair/',repair);
 // Add Address Form
 const address = require("./router/address");
 app.use('/user/address/',address);
+
+app.get('/user/profile',(req,res) => {
+    res.render("profile.pug");
+})
 
 // Server Start
 app.listen(PORT,() => {

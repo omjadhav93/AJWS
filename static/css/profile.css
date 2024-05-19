@@ -1,0 +1,195 @@
+.profile-container {
+    display: flex;
+    flex-direction: row;
+    column-gap: 40px;
+    padding: 30px 20px;
+    width: 100%;
+}
+
+.profile-menu {
+    display: flex;
+    flex-direction: column;
+    width: 15%;
+    row-gap: 20px;
+    padding-top: 30px;
+    box-shadow: inset -0.6px 0px 0px rgb(182, 172, 172);
+    position: relative;
+}
+
+.profile-heading {
+    font-size: 18px;
+    font-weight: 800;
+    text-align: center;
+    padding: 10px;
+    padding-bottom: 20px;
+    font-family: sans-serif;
+}
+
+.profile-menu-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-menu-item{
+    display: flex;
+    font-size: 16px;
+    align-items: center;
+    padding: 15px 10px;
+    padding-left: 30%;
+    color: rgb(111, 102, 102);
+    cursor: pointer;
+}
+
+.profile-menu-item > ion-icon{
+    font-size: 18px;
+}
+
+.profile-menu-item:hover{
+    background-color: rgb(225, 237, 246);
+}
+
+.profile-menu-item:active{
+    background-color: rgb(224, 225, 225);
+}
+
+.profile-menu-item.highlight{
+    border-right: 2px solid rgb(241, 37, 37);
+}
+
+.logout-btn {
+    border: none;
+    outline: none;
+    background: none;
+    color: red;
+    display: flex;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: sans-serif;
+    align-items: center;
+    position: absolute;
+    bottom: 5%;
+    left: 25%;
+    cursor: pointer;
+}
+
+.logout-btn:active {
+    color: rgb(28, 28, 28);
+}
+
+.logout-btn > ion-icon {
+    -moz-transform: scale(-1);
+    -webkit-transform: scale(-1);
+    -o-transform: scale(-1);
+    -ms-transform: scale(-1);
+    transform: scale(-1);
+    font-size: 18px;
+}
+
+.profile-content {
+    height: 80vh;
+    width: 85%;
+    position: relative;
+}
+
+.user-info {
+    padding: 80px 10%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.user-top {
+    display: flex;
+    flex-direction: row;
+    column-gap: 40px;
+}
+
+.user-logo{
+    font-size: 55px;
+    color: black;
+    background: linear-gradient(to right, rgb(255, 188, 143), rgb(255, 118, 27));
+    border-radius: 50%;
+    padding: 20px;
+    overflow: hidden;
+    box-shadow: 3px 10px 15px rgba(0, 0, 0, 0.199);
+}
+
+.user-detail {
+    padding: 10px 0px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+    justify-content: center;
+}   
+
+.user-name {
+    font-size: 18px;
+    font-family: sans-serif;
+    font-weight: 600;
+}
+
+.user-address {
+    font-size: 14px;
+    color: rgb(101, 111, 110);
+}
+
+.user-data {
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+    margin-top: 40px;
+    width: 70%;
+}
+
+.data-box-split {
+    display: flex;
+    flex-direction: row;
+    column-gap: 5%;
+}
+
+.data-box {
+    width: 50%;
+}
+
+.data-head {
+    font-size: 16px;
+    font-family: sans-serif;
+    font-weight: 600;
+    padding-left: 5px;
+    margin-bottom: 10px;
+    color: rgb(20 116 95);
+}
+
+.data-value {
+    font-size: 16px;
+    padding: 10px 20px;
+    width: 100%;
+    text-align: center;
+    border: 0.3px solid rgb(187, 195, 195);
+    border-radius: 8px;
+    background-color: rgb(233, 241, 241);
+    color: rgb(32, 32, 32);
+}
+
+.data-change{
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+}
+
+.data-change-btn {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background-color: rgb(244, 34, 34);
+    color: whitesmoke;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+    padding: 10px;
+    width: 20%;
+    border-radius: 10px;
+    box-shadow: 2px 4px 6px rgba(67, 67, 67, 0.293);
+}
