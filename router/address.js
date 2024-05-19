@@ -8,9 +8,15 @@ router.get("/", fetchUser, async (req, res) => {
   let userId = req.user.id;
   const user = await User.findById(userId).select("-password");
   try {
+    if (!user) {
+      req.session.returnTo = req.originalUrl;
+      res.redirect("/auth/login");
+    }
+
     let address = user.address;
 
     res.render("address.pug", {
+      LoggedIn: 1, Seller: user.seller,
       address: address,
     });
   } catch (error) {
@@ -23,10 +29,15 @@ router.post("/", fetchUser, async (req, res) => {
   let userId = req.user.id;
   const user = await User.findById(userId).select("-password");
   try {
+    if (!user) {
+      req.session.returnTo = req.originalUrl;
+      res.redirect("/auth/login");
+    }
+
     let address = user.address;
 
     address.push({
-      add: req.body.address,
+      add: req.body['address-1'] + ', ' + req.body['address-2'],
       dist: req.body.district,
       state: req.body.state,
       pin: req.body.pincode,
@@ -47,7 +58,7 @@ router.post("/delete", fetchUser, async (req, res) => {
   try {
     if (!user) {
       req.session.returnTo = req.originalUrl;
-      res.redirect("/login");
+      res.redirect("/auth/login");
     }
 
     let address = user.address;
@@ -69,6 +80,11 @@ router.post("/main", fetchUser, async (req, res) => {
   let userId = req.user.id;
   const user = await User.findById(userId).select("-password");
   try {
+    if (!user) {
+      req.session.returnTo = req.originalUrl;
+      res.redirect("/auth/login");
+    }
+    
     let address = user.address;
 
     var index = req.body.index;

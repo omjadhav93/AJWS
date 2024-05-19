@@ -73,3 +73,49 @@ const quantity = (x) => {
         document.getElementById('quantity').value = newValue;
     }
 }
+
+window.onload = () => {
+    const selectOps = document.querySelectorAll('.selectOptBtn');
+    selectOps.forEach(select => {
+        const selected = select.querySelector('#selected');
+        const opts = select.querySelectorAll('.opt');
+        let check = true;
+        opts.forEach(opt => {
+            if(opt.getAttribute('value') == selected.textContent.trim()){
+                check = false;
+            }
+        })
+        if(check){
+            select.querySelector('.opt').click();
+            select.querySelector('.opt').click();
+        }
+    })
+}
+
+// Submit Form
+const submitDone = async () => {
+    /* Submitting Form */
+    const form = document.getElementById('orderForm');
+  
+    form.addEventListener(
+      "submit",
+      () => {
+        form.reportValidity();
+      },
+      false,
+    );
+  
+    const selects = document.querySelectorAll('input[type="hidden"]');
+    let selectCheck = false;
+    selects.forEach(select => {
+      if (!select.value && select.value.length == 0) {
+        alert(`Please select your ${select.getAttribute('name').toUpperCase()} .`);
+        selectCheck = true;
+        return;
+      }
+    })
+  
+    if (selectCheck) return;
+  
+    form.requestSubmit();
+  }

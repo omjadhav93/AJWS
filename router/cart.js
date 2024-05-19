@@ -26,7 +26,7 @@ router.get("/cart", fetchUser, async (req, res) => {
     try {
         if (!user) {
             req.session.returnTo = req.originalUrl;
-            res.redirect("/login");
+            res.redirect("/auth/login");
         }
 
         let userCart = await Cart.findOne({user_id: user.id});
@@ -47,7 +47,7 @@ router.get("/cart", fetchUser, async (req, res) => {
         const modelList = userCart.modelList;
         const data = await dataList(modelList);
 
-        res.render("cart.pug", { LoggedIn: 1,data: data});
+        res.render("cart.pug", { LoggedIn: 1, Seller: user.seller,data: data});
 
     } catch (error) {
         console.error(error.message);

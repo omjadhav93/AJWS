@@ -67,7 +67,7 @@ router.post("/register", checkAuth, [
         const {email, phone, password } = req.body;
         const firstName = req.body['first-name'];
         const lastName = req.body['last-name'];
-        const name = firstName + lastName;
+        const name = firstName + ' ' + lastName;
 
         // Creating Hash of password
         const salt = await bcrypt.genSalt(10);

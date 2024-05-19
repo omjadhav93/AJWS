@@ -13,7 +13,7 @@ const fetchUser = (req, res, next) => {
                 if (err) {
                     // Invalid token
                     req.session.returnTo = req.originalUrl;
-                    res.redirect("/login");
+                    res.redirect("/auth/login");
                 } else {
                     // Valid token
                     req.user = data.user; // Add user ID to request object

@@ -56,10 +56,10 @@ router.get('/', fetchUser, async (req, res) => {
     try {
         if (!user) {
             req.session.returnTo = req.originalUrl;
-            res.redirect("/login");
+            res.redirect("/auth/login");
         }
         if (user.seller) {
-            res.render("addProduct", { LoggedIn: 1 });
+            res.render("addProduct", { LoggedIn: 1, Seller: user.seller });
         } else {
             return res.status(400).send("You are not autherized to add products.");
         }
@@ -76,7 +76,7 @@ router.post("/", fetchUser, uploadMultiple, async (req, res) => {
     try {
         if (!user) {
             req.session.returnTo = req.originalUrl;
-            return res.redirect("/login");
+            return res.redirect("/auth/login");
         }
         if (user.seller) {
             let imageArray = [];

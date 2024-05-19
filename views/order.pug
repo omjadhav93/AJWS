@@ -11,7 +11,7 @@ block content
             .exit-icon 
                 <ion-icon name="exit-outline"></ion-icon>
             .exit-text Cancle Order
-    form(action="", method="post").form-container  
+    form(action="", method="post", id="orderForm").form-container  
         .address-section 
             p.shipping-heading Shipping
             .input
@@ -24,29 +24,31 @@ block content
                 input.input-element(type="text", name="address-2", id="address-2")
                 label.input-label(for="address-2") Address Line 2 (Optional)
             .input-split
-                button.selectOptBtn#category(type="button",onclick='openOption(this)')
-                    #selected.selected Select State
+                button.selectOptBtn(type="button",onclick='openOption(this)')
+                    #selected.selected #{user && user.address.length?user.address[0].state:'Select State'}
                     <ion-icon name="arrow-forward-outline"></ion-icon>
                     #selectOptContainer.selectOptContainer.addOption
+                        span.opt(onclick='select(this)', value="") Select State
                         span.opt(onclick='select(this)', value="Maharastra") Maharastra
-                input#selectedOption(type='hidden', name='state',required="required")
-                button.selectOptBtn#category(type="button",onclick='openOption(this)')
-                    #selected.selected Select District
+                input#selectedOption(type='hidden', name='state',required="required", value=`${user && user.address.length?user.address[0].state:''}`)
+                button.selectOptBtn(type="button",onclick='openOption(this)')
+                    #selected.selected #{user && user.address.length?user.address[0].dist:'Select District'}
                     <ion-icon name="arrow-forward-outline"></ion-icon>
                     #selectOptContainer.selectOptContainer.addOption
+                        span.opt(onclick='select(this)', value="") Select District
                         span.opt(onclick='select(this)', value="Ahmednagar") Ahmednagar
                         span.opt(onclick='select(this)', value="Aurangabad") Sambhajinagar
                         span.opt(onclick='select(this)', value="Mumbai") Mumbai
                         span.opt(onclick='select(this)', value="Pune") Pune
                         span.opt(onclick='select(this)', value="Thane") Thane
-                input#selectedOption(type='hidden', name='district',required="required")
+                input#selectedOption(type='hidden', name='district',required="required", value=`${user && user.address.length?user.address[0].dist:''}`)
             .input-split  
                 .input
                     input.input-element(type="number", name="pincode", id="pincode", required="required", value=`${user && user.address.length?user.address[0].pin:''}`)
                     label.input-label(for="pincode") Pin-Code
                 .input
-                    input.input-element(type="number", name="pincode", id="pincode", required="required", value=`${user?user.phone:''}`)
-                    label.input-label(for="pincode") Mobile Number
+                    input.input-element(type="number", name="number", id="number", required="required", value=`${user?user.phone:''}`)
+                    label.input-label(for="number") Mobile Number
             .input(style="display:flex;margin-top:25px;padding-left: 10px;align-items: center;")
                 input(type="checkbox", name="save-address", id="save-address", style="ascent-color: blue; margin-right: 10px;cursor: pointer;width: 15px;height: 15px;") 
                 label(for="save-address", style="font-size: 15px") Save address for future
@@ -92,7 +94,7 @@ block content
                 .total-amount-tail &#x20B9 #{price-disPrice}
                 input(type="hidden", name="Amount", value=`${price-disPrice}`)
             .submit-section 
-                button.submit-btn(type="submit") Countinue & Pay
+                button.submit-btn(type="button", onclick="submitDone()") Countinue & Pay
 
 
 block scripts 

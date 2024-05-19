@@ -1,42 +1,171 @@
-#contactForm,.address-box{
+#contactForm,
+.address-box {
     width: 50%;
     margin: 20px auto;
     display: flex;
     flex-direction: column;
+}
+
+.address-box {
     row-gap: 20px;
 }
-.address-line{
+
+.address-line {
     background-color: white;
     border-radius: 10px;
-    box-shadow: 1px 2px 5px black;
+    box-shadow: 0.8px 1.2px 5px #0000006e;
     padding: 10px;
     position: relative;
     line-height: 1.5;
 }
-.address-line ion-icon{
+
+.address-line ion-icon {
     font-size: 24px;
     color: red;
     vertical-align: middle;
     margin: 0px 5px;
 }
-.box{
+
+.heading{
+    padding-left: 10px;
+    font-size: 25px;
+    font-weight: 600;
+    font-family: sans-serif;
+}
+
+.input {
+    position: relative;
     width: 100%;
+    /* Adjust as needed */
+}
+
+.input-split {
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+    padding: 0;
+    width: 100%;
+}
+
+.input-element {
+    border: none;
+    outline: none;
+    border-radius: 15px;
+    background-color: rgb(232, 239, 237);
+    font-family: 'Roboto', 'Open Sans', 'Helvetica', sans-serif;
+    color: rgb(26, 25, 25);
+    margin-top: 25px;
+    font-size: 15px;
+    font-weight: 600;
+    /* Adjust as needed */
+    padding-left: 20px;
+    padding-top: 20px;
+    padding-right: 10px;
+    padding-bottom: 13px;
+    width: 100%;
+}
+
+.input-label {
+    cursor: text;
+    position: absolute;
+    left: 20px;
+    top: 65%;
+    transform: translateY(-50%);
+    color: #363030;
+    font-size: 15px;
+    transition: top 0.3s ease, font-size 0.3s ease, color 0.3s ease;
+    pointer-events: none;
+}
+
+.input-element:focus+.input-label,
+.input-element.has-content+.input-label {
+    top: 48%;
+    font-size: 11.5px;
+    color: #767474;
+}
+
+.selectOptBtn {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    position: relative;
+    border: none;
+    outline: none;
+    border-radius: 15px;
+    background-color: rgb(232, 239, 237);
+    font-family: 'Roboto', 'Open Sans', 'Helvetica', sans-serif;
+    color: rgb(26, 25, 25);
+    margin-top: 25px;
+    font-size: 16px;
+    /* Adjust as needed */
+    padding-left: 20px;
+    padding-top: 16.5px;
+    padding-right: 10px;
+    padding-bottom: 16.5px;
+}
+
+.opt {
+    text-decoration: none;
+    border-top: 1px solid rgb(69, 69, 69);
+    padding: 10px 20px;
+    color: rgb(39, 39, 39);
+    width: 100%;
+    text-align: left;
+}
+
+.opt:hover {
+    background-color: rgb(39, 245, 245);
+    cursor: pointer;
+}
+
+.opt:active {
+    background-color: rgb(39, 226, 226);
+    color: black;
+}
+
+.selectOptContainer {
+    position: absolute;
     display: flex;
     flex-direction: column;
-    row-gap: 5px;
+    border: 1px solid rgba(69, 69, 69, 0.813);
+    top: 105%;
+    left: 0;
+    overflow: hidden;
+    transition: transform 0.2s ease-in;
+    transform-origin: top left;
+    z-index: 10;
+    background-color: rgb(247, 253, 252);
+    width: 100%;
+    max-height: 200px;
+    overflow-y: scroll;
+    -webkit-scrollbar: none;
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+    border-radius: 10px;
 }
-input, textarea{
-    outline: none;
-    padding: 8px 10px;
-    font-size: 18px;
-    resize: none;
+
+.addOption {
+    transform: scaleY(0) !important;
 }
-.btn-list{
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+.btn-list {
     display: flex;
     flex-direction: row-reverse;
     column-gap: 10px;
 }
-.btn{
+
+.btn {
     display: block;
     background-color: black;
     color: white;
@@ -48,11 +177,13 @@ input, textarea{
     border-radius: 5px;
     margin: 0px auto;
 }
-.add-address{
+
+.add-address {
     background-color: rgb(55, 178, 178);
     color: black;
 }
-.delete{
+
+.delete {
     display: block;
     background-color: blue;
     color: yellow;
@@ -63,7 +194,8 @@ input, textarea{
     outline: none;
     border-radius: 5px;
 }
-.main-btn{
+
+.main-btn {
     display: block;
     background-color: orange;
     color: black;
@@ -74,83 +206,110 @@ input, textarea{
     outline: none;
     border-radius: 5px;
 }
-.main-btn:hover, .delete:hover, .btn:hover{
+
+.main-btn:hover,
+.delete:hover,
+.btn:hover {
     cursor: pointer;
 }
-.main-btn:active, .delete:active, .btn:active{
+
+.main-btn:active,
+.delete:active,
+.btn:active {
     cursor: pointer;
 }
 
 @media screen and (max-width: 1500px) {
-    #contactForm,.address-box{
+
+    #contactForm,
+    .address-box {
         width: 65%;
     }
 }
 
 @media screen and (max-width: 1200px) {
-    .address-box{
+    .address-box {
         width: 75%;
     }
 }
 
 @media screen and (max-width: 860px) {
-    #contactForm{
+    #contactForm {
         width: 70%;
     }
-    .address-line{
+
+    .address-line {
         box-shadow: 1px 1px 4px black;
     }
-    input, textarea{
+
+    input,
+    textarea {
         padding: 6px 8px;
         font-size: 15px;
     }
-    .btn{
+
+    .btn {
         font-size: .85em;
         padding: 8px 15px;
     }
-    h3{
+
+    h3 {
         font-size: 16px;
     }
-    .box{
+
+    .box {
         row-gap: 5px;
     }
 }
 
 @media screen and (max-width: 660px) {
-    #contactForm,.address-box{
+
+    #contactForm,
+    .address-box {
         width: 80%;
     }
-    .box{
+
+    .box {
         row-gap: 2px;
     }
-    .address-line{
+
+    .address-line {
         font-size: 15px;
     }
-    .address-line ion-icon{
+
+    .address-line ion-icon {
         font-size: 20px;
         margin-right: 2px;
     }
 }
 
 @media screen and (max-width: 520px) {
-    #contactForm,.address-box{
+
+    #contactForm,
+    .address-box {
         width: 88%;
     }
-    input, textarea{
+
+    input,
+    textarea {
         padding: 4px 6px;
         font-size: 13px;
     }
-    .btn{
+
+    .btn {
         font-size: .75em;
         padding: 8px 15px;
     }
-    h3{
+
+    h3 {
         font-size: 14px;
     }
 }
 
 @media screen and (max-width: 400px) {
-    #contactForm,.address-box{
+
+    #contactForm,
+    .address-box {
         width: 92%;
         row-gap: 10px;
     }

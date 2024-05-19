@@ -36,25 +36,57 @@ block content
                 .user-top 
                     p.user-logo <ion-icon name="person-outline"></ion-icon>
                     .user-detail
-                        p.user-name User Name 
-                        p.user-address District, State
+                        p.user-name #{user.name}
+                        p.user-address #{user.address.length?user.address[0].dist:'Unknown'}, #{user.address.length?user.address[0].state:'Location'}
                 .user-data 
                     .data-box-split 
                         .data-box 
                             p.data-head Name
-                            p.data-value Omkar Jadhav
+                            p.data-value #{user.name}
                         .data-box 
                             p.data-head Email Address 
-                            p.data-value sample42@gmail.com
+                            p.data-value #{user.email}
                     .data-box-split 
                         .data-box 
                             p.data-head Phone
-                            p.data-value 7276241430
+                            p.data-value #{user.phone}
                         .data-box 
                             p.data-head Location 
-                            p.data-value District, State
+                            if user.address.length
+                                p.data-value #{user.address[0].dist}, #{user.address[0].state}
+                            else 
+                                p.add-address(onclick="window.location.href = '/user/address'") Add a Address 
                     .data-change 
                         button.data-change-btn Edit Profile
+            .favorites
+            .your-orders 
+            .settings 
+                .personal-info 
+                    p.setting-head 
+                        | Personal Information
+                        span.setting-edit(onclick="edit('personal-info')") Edit
+                    .data-box 
+                        p.data-head Name
+                        p.data-value #{user.name}
+                    .data-box 
+                        p.data-head Address  
+                        if user.address.length
+                            p.data-value #{user.address[0].dist}, #{user.address[0].state}
+                        else 
+                            p.data-value No Address Found
+                .email-info 
+                    p.setting-head 
+                        | Email Address 
+                        span.setting-edit(onclick="edit('email-info')") Edit
+                    .data-box
+                        p.data-value #{user.email}                    
+                .phone-number 
+                    p.setting-head 
+                        | Phone Number 
+                        span.setting-edit(onclick="edit('phone-number')") Edit
+                    .data-box
+                        p.data-value #{user.phone}
+            .notifications
 
 block scripts 
     script(src="../static/js/profile.js") 

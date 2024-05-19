@@ -16,7 +16,7 @@ block content
                         h3 Main Address 
                         .address-line
                             <ion-icon name="location"></ion-icon>  
-                            | #{obj.add} , #{obj.pin}
+                            | #{obj.add}, #{obj.dist}, #{obj.state}, #{obj.pin}
                             .btn-list
                                 form(action="/user/address/delete", method="post") 
                                     input(type="hidden", name="index", value=i)
@@ -25,7 +25,7 @@ block content
                     else 
                         .address-line
                             <ion-icon name="location"></ion-icon>  
-                            | #{obj.add} , #{obj.pin}
+                            | #{obj.add}, #{obj.dist}, {obj.state}, #{obj.pin}
                             .btn-list
                                 form(action="/user/address/delete", method="post") 
                                     input(type="hidden", name="index", value=i)
@@ -36,12 +36,35 @@ block content
             button.btn.add-address(onclick="addAddress()") Add a Address 
         else
             form(action="/user/address", method="post", id="contactForm") 
-                .box 
-                    h3 Address 
-                    textarea(name="address", cols="30", rows="10") 
-                .box 
-                    h3 Pincode No.
-                    input(type="tel", name="pincode", placeholder="Pincode", value=Phone)
-                button.btn(type="submit") Submit  
+                .heading Address 
+                .input
+                    input.input-element(type="text", name="address-1", id="address-1", required="required")
+                    label.input-label(for="address-1") Address Line 1
+                .input
+                    input.input-element(type="text", name="address-2", id="address-2")
+                    label.input-label(for="address-2") Address Line 2 (Optional)
+                .input-split
+                    button.selectOptBtn(type="button",onclick='openOption(this)')
+                        #selected.selected Select State
+                        <ion-icon name="arrow-forward-outline"></ion-icon>
+                        #selectOptContainer.selectOptContainer.addOption
+                            span.opt(onclick='select(this)', value="") Select State
+                            span.opt(onclick='select(this)', value="Maharastra") Maharastra
+                    input#selectedOption(type='hidden', name='state',required="required")
+                    button.selectOptBtn(type="button",onclick='openOption(this)')
+                        #selected.selected Select District
+                        <ion-icon name="arrow-forward-outline"></ion-icon>
+                        #selectOptContainer.selectOptContainer.addOption
+                            span.opt(onclick='select(this)', value="") Select District
+                            span.opt(onclick='select(this)', value="Ahmednagar") Ahmednagar
+                            span.opt(onclick='select(this)', value="Aurangabad") Sambhajinagar
+                            span.opt(onclick='select(this)', value="Mumbai") Mumbai
+                            span.opt(onclick='select(this)', value="Pune") Pune
+                            span.opt(onclick='select(this)', value="Thane") Thane
+                    input#selectedOption(type='hidden', name='district',required="required")  
+                .input
+                    input.input-element(type="number", name="pincode", id="pincode", required="required")
+                    label.input-label(for="pincode") Pin-Code
+                button.btn(type="button",style="margin-top: 25px;", onclick="submitDone()") Submit  
 block scripts
     script(src="/static/js/address.js")       

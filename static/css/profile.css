@@ -30,7 +30,7 @@
     flex-direction: column;
 }
 
-.profile-menu-item{
+.profile-menu-item {
     display: flex;
     font-size: 16px;
     align-items: center;
@@ -40,19 +40,19 @@
     cursor: pointer;
 }
 
-.profile-menu-item > ion-icon{
+.profile-menu-item>ion-icon {
     font-size: 18px;
 }
 
-.profile-menu-item:hover{
+.profile-menu-item:hover {
     background-color: rgb(225, 237, 246);
 }
 
-.profile-menu-item:active{
+.profile-menu-item:active {
     background-color: rgb(224, 225, 225);
 }
 
-.profile-menu-item.highlight{
+.profile-menu-item.highlight {
     border-right: 2px solid rgb(241, 37, 37);
 }
 
@@ -76,7 +76,7 @@
     color: rgb(28, 28, 28);
 }
 
-.logout-btn > ion-icon {
+.logout-btn>ion-icon {
     -moz-transform: scale(-1);
     -webkit-transform: scale(-1);
     -o-transform: scale(-1);
@@ -89,15 +89,29 @@
     height: 80vh;
     width: 85%;
     position: relative;
+    overflow: hidden;
 }
 
-.user-info {
+.profile-content>div {
+    transition: transform 0.3s ease-in-out;
+}
+
+.user-info,
+.settings,
+.favorites,
+.your-orders,
+.notifications {
     padding: 80px 10%;
     height: 100%;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
+    background-color: white;
+}
+
+.user-info {
+    z-index: 1;
 }
 
 .user-top {
@@ -106,7 +120,7 @@
     column-gap: 40px;
 }
 
-.user-logo{
+.user-logo {
     font-size: 55px;
     color: black;
     background: linear-gradient(to right, rgb(255, 188, 143), rgb(255, 118, 27));
@@ -122,7 +136,7 @@
     flex-direction: column;
     row-gap: 5px;
     justify-content: center;
-}   
+}
 
 .user-name {
     font-size: 18px;
@@ -173,7 +187,26 @@
     color: rgb(32, 32, 32);
 }
 
-.data-change{
+.add-address {
+    display: block;
+    font-size: .95em;
+    font-weight: 600;
+    background-color: rgb(55, 178, 178);
+    color: black;
+    padding: 10px 20px;
+    text-align: center;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    width: 100%;
+    cursor: pointer;
+}
+
+.add-address:active {
+    background-color: rgb(233, 241, 241);
+}
+
+.data-change {
     padding: 20px;
     text-align: center;
     width: 100%;
@@ -192,4 +225,125 @@
     width: 20%;
     border-radius: 10px;
     box-shadow: 2px 4px 6px rgba(67, 67, 67, 0.293);
+}
+
+.personal-info {
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+    padding-bottom: 20px;
+    border-bottom: 0.4px solid rgb(218, 218, 218);
+    transition: all 0.3s ease-in-out;
+}
+
+.setting-head {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.setting-edit {
+    font-size: 17px;
+    margin-left: 20px;
+    cursor: pointer;
+    color: blue;
+}
+
+.setting-edit:active {
+    color: black;
+}
+
+.email-info,
+.phone-number {
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+    margin-top: 30px;
+    padding-bottom: 20px;
+    border-bottom: 0.4px solid rgb(218, 218, 218);
+    transition: all 0.3s ease-in-out;
+}
+
+.change-opt {
+    display: flex;
+    flex-direction: row;
+    column-gap: 15px;
+}
+
+.save-btn {
+    display: block;
+    background-color: rgb(226, 50, 50);
+    color: rgb(54, 54, 54);
+    font-size: .95em;
+    font-weight: 600;
+    padding: 10px 20px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    height: max-content;
+    margin: auto 0;
+    cursor: pointer;
+}
+
+.save-btn:active {
+    background-color: rgb(251, 133, 133);
+}
+
+.input {
+    position: relative;
+    width: 55%;
+    /* Adjust as needed */
+}
+
+.input-split {
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+    padding: 0;
+    width: 70%;
+}
+
+.input-element {
+    border: none;
+    outline: none;
+    border-radius: 15px;
+    background-color: rgb(232, 239, 237);
+    font-family: 'Roboto', 'Open Sans', 'Helvetica', sans-serif;
+    color: rgb(26, 25, 25);
+    margin-top: 0px;
+    font-size: 15px;
+    font-weight: 600;
+    /* Adjust as needed */
+    padding-left: 20px;
+    padding-top: 20px;
+    padding-right: 10px;
+    padding-bottom: 13px;
+    width: 100%;
+}
+
+.input-label {
+    cursor: text;
+    position: absolute;
+    left: 20px;
+    top: 48%;
+    transform: translateY(-50%);
+    color: #363030;
+    font-size: 15px;
+    transition: top 0.3s ease, font-size 0.3s ease, color 0.3s ease;
+    pointer-events: none;
+}
+
+.input-element:focus+.input-label,
+.input-element.has-content+.input-label {
+    top: 28%;
+    font-size: 11.5px;
+    color: #767474;
+}
+
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
 }

@@ -62,9 +62,9 @@ app.use('/repair/',repair);
 const address = require("./router/address");
 app.use('/user/address/',address);
 
-app.get('/user/profile',(req,res) => {
-    res.render("profile.pug");
-})
+// Profile 
+const profile = require("./router/profile");
+app.use('/user/profile/',profile)
 
 // Server Start
 app.listen(PORT,() => {

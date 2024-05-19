@@ -292,7 +292,7 @@ router.get("/search", fetchCheckUser, async (req, res) => {
 
         // Rendering Files
         if (user) {
-            res.render("search.pug", { LoggedIn: 1, data: data, searchStatement: text, })
+            res.render("search.pug", { LoggedIn: 1, Seller: user.seller, data: data, searchStatement: text, })
         } else {
             res.render("search.pug", { data: data, searchStatement: text })
         }

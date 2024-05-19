@@ -182,9 +182,9 @@ router.get("/", fetchCheckUser, async (req, res) => {
         
         if (user) {
             if (user.seller) {
-                res.render("indexAdmin.pug", { LoggedIn: 1, cardList, FreqPurchasedList, TopInDesignsList, categoryList, lessPriceList, otherBrandList })
+                res.render("indexAdmin.pug", { LoggedIn: 1, Seller: user.seller, cardList, FreqPurchasedList, TopInDesignsList, categoryList, lessPriceList, otherBrandList })
             } else {
-                res.render("index.pug", { LoggedIn: 1, cardList, FreqPurchasedList, TopInDesignsList, categoryList, lessPriceList, otherBrandList })
+                res.render("index.pug", { LoggedIn: 1, Seller: user.seller, cardList, FreqPurchasedList, TopInDesignsList, categoryList, lessPriceList, otherBrandList })
 
             }
         } else {
