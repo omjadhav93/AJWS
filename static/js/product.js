@@ -17,27 +17,27 @@ for (let i = 0; i < imagePreview.length; i++) {
 //specs hide
 var specs = document.querySelectorAll('.spec')
 specs.forEach((item) => {
-    if(!(item.lastElementChild.innerHTML) || item.lastElementChild.innerHTML == " "){
-        item.style.display = 'none'
-    }
+  if (!(item.lastElementChild.innerHTML) || item.lastElementChild.innerHTML == " ") {
+    item.style.display = 'none'
+  }
 })
 
 // Image Slider
-const slider = (c,i) => { // c = index of color for which slide changing asked , i = image index
+const slider = (c, i) => { // c = index of color for which slide changing asked , i = image index
   let images = imagePreview[c].querySelectorAll(".images");
   images.forEach(img => {
-    img.style.transform = `translateX(-${100*i}%)`
+    img.style.transform = `translateX(-${100 * i}%)`
   })
 }
 
 // Color changer
-const changeColor = (color,j) => {
+const changeColor = (color, j) => {
   // image changing
   for (let i = 0; i < imagePreview.length; i++) {
     if (i == j) {
       imagePreview[i].classList.remove("hideImage");
     }
-    else{
+    else {
       imagePreview[i].classList.add("hideImage");
     }
   }
@@ -47,18 +47,18 @@ const changeColor = (color,j) => {
     if (i == j) {
       imageLocater[i].classList.remove("hideImage");
     }
-    else{
+    else {
       imageLocater[i].classList.add("hideImage");
     }
   }
-  
+
   // color names & option change
   let colors = document.getElementsByClassName('color-box')
   for (let i = 0; i < colors.length; i++) {
     if (i == j) {
       colors[i].classList.add("now");
     }
-    else{
+    else {
       colors[i].classList.remove("now");
     }
   }
@@ -70,69 +70,120 @@ const changeColor = (color,j) => {
 
 // Touchscroll for images
 var touchsurface = document.getElementById('top-part'),
-    startX,
-    startY,
-    startPlace,
-    dist,
-    threshold = 50, //required min distance traveled to be considered swipe
-    allowedTime = 1000, // maximum time allowed to travel that distance
-    elapsedTime,
-    startTime
+  startX,
+  startY,
+  startPlace,
+  dist,
+  threshold = 50, //required min distance traveled to be considered swipe
+  allowedTime = 1000, // maximum time allowed to travel that distance
+  elapsedTime,
+  startTime
 
-function swipeHead(isrightswipe,direction){
-    if(isrightswipe){
-      let c;
-      let j;
-      let end = false;
-      let imagePreview = document.getElementsByClassName("image-preview");
-      for (let i = 0; i < imagePreview.length; i++) {
-        let images = imagePreview[i].querySelectorAll(".images");
-        images.forEach((image, index) => {
-          let imgTag = image.querySelector('img')
-          if(startPlace == image || startPlace == imgTag){
-            c = i;
-            j = index;
-            if(index == images.length - 1){
-              end = true;
-            }
+function swipeHead(isrightswipe, direction) {
+  if (isrightswipe) {
+    let c;
+    let j;
+    let end = false;
+    let imagePreview = document.getElementsByClassName("image-preview");
+    for (let i = 0; i < imagePreview.length; i++) {
+      let images = imagePreview[i].querySelectorAll(".images");
+      images.forEach((image, index) => {
+        let imgTag = image.querySelector('img')
+        if (startPlace == image || startPlace == imgTag) {
+          c = i;
+          j = index;
+          if (index == images.length - 1) {
+            end = true;
           }
-        });
-      }
-
-
-      if(direction < 0){
-        if(end){
-          return;
         }
-        slider(c,++j);
-      }else if(direction > 0) {
-        slider(c,--j);
-      }
+      });
     }
+
+
+    if (direction < 0) {
+      if (end) {
+        return;
+      }
+      slider(c, ++j);
+    } else if (direction > 0) {
+      slider(c, --j);
+    }
+  }
 }
 
-touchsurface.addEventListener('touchstart', function(e){
-    var touchobj = e.changedTouches[0]
-    startPlace = e.target
-    dist = 0
-    startX = touchobj.pageX
-    startY = touchobj.pageY
-    startTime = new Date().getTime() // record time when finger first makes contact with surface
-    
+touchsurface.addEventListener('touchstart', function (e) {
+  var touchobj = e.changedTouches[0]
+  startPlace = e.target
+  dist = 0
+  startX = touchobj.pageX
+  startY = touchobj.pageY
+  startTime = new Date().getTime() // record time when finger first makes contact with surface
+
 })
 
-touchsurface.addEventListener('touchmove', function(e){
-     // prevent scrolling when inside DIV
+touchsurface.addEventListener('touchmove', function (e) {
+  // prevent scrolling when inside DIV
 })
 
-touchsurface.addEventListener('touchend', function(e){
-    var touchobj = e.changedTouches[0]
-    dist = touchobj.pageX - startX // get total dist traveled by finger while in contact with surface
-    elapsedTime = new Date().getTime() - startTime // get time elapsed
-    // check that elapsed time is within specified, horizontal dist traveled >= threshold, and vertical dist traveled <= 100
-    var swiperightBol = (elapsedTime <= allowedTime && (Math.abs(dist) >= threshold) && Math.abs(touchobj.pageY - startY) <= 200)
-    if(swiperightBol){
-        swipeHead(swiperightBol,dist)
-        e.preventDefault()
-    }
+touchsurface.addEventListener('touchend', function (e) {
+  var touchobj = e.changedTouches[0]
+  dist = touchobj.pageX - startX // get total dist traveled by finger while in contact with surface
+  elapsedTime = new Date().getTime() - startTime // get time elapsed
+  // check that elapsed time is within specified, horizontal dist traveled >= threshold, and vertical dist traveled <= 100
+  var swiperightBol = (elapsedTime <= allowedTime && (Math.abs(dist) >= threshold) && Math.abs(touchobj.pageY - startY) <= 200)
+  if (swiperightBol) {
+    swipeHead(swiperightBol, dist)
+    e.preventDefault()
+  }
 })
+
+// Like Product
+const addLike = () => {
+  const modelNo = document.getElementById('model-number').textContent.trim();
+
+  fetch('/api/addFav', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ modelNo: modelNo })
+  })
+    .then(response => response.json())
+    .then(stats => {
+      if (stats.msg == "Unsigned") {
+        alert("You need to login to save the product you Favourites list.");
+      } else if (stats.msg == "Success") {
+        const likeBtn = document.getElementById('like-btn');
+        likeBtn.setAttribute('onclick', 'removeLike()')
+        likeBtn.style.color = 'red';
+        likeBtn.innerHTML = '<ion-icon name="heart"></ion-icon>';
+      } else {
+        alert("Something went wrong to save the product in Favourite list.");
+      }
+    })
+    .catch(error => console.error('Error adding favourite:', error));
+}
+
+const removeLike = () => {
+  const modelNo = document.getElementById('model-number').textContent.trim();
+
+  fetch('/api/removeFav', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ modelNo: modelNo })
+  })
+    .then(response => response.json())
+    .then(stats => {
+      if (stats.msg == "Success") {
+        const likeBtn = document.getElementById('like-btn');
+        likeBtn.setAttribute('onclick', 'addLike()')
+        likeBtn.style.color = 'black';
+        likeBtn.innerHTML = '<ion-icon name="heart-outline"></ion-icon>';
+      } else {
+        alert("Something went wrong to unlike the product in Favourite list.");
+      }
+    })
+    .catch(error => console.error('Error adding favourite:', error));
+}

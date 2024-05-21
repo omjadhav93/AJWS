@@ -38,7 +38,7 @@ block content
               p.selling-card-note #{card.desc}
     section.achievements
       h1.titles Achievements
-      #onscreen.achieve-list
+      #achieve-list.achieve-list
         .achieve-box
           p.sells
             span.achieve-num 20
@@ -61,14 +61,17 @@ block content
           p.note Happy Customers 
     section.products.frequently
       h3 Frequently Purchased Products
-      .products-list
-        each item in FreqPurchasedList
-          .product-box
-            each img in item.image
-              each obj in img
-                  each loc in [obj]
-                      each item in loc
-                        img.product-img(src='/static/productImg/' + item)
+      .products-list#frequent
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
     section.as-you-wish
       // <h1 class="titles">As You Wish</h2>
       .as-you-wish-cards
@@ -94,14 +97,17 @@ block content
           button.use-recommendation-btn.btn Use Recommendation
     section.products.designs
       h3 Top In Designs
-      .products-list
-        each item in TopInDesignsList      
-          .product-box 
-            each img in item.image
-                each obj in img
-                    each loc in [obj]
-                        each item in loc
-                          img.product-img(src='/static/productImg/' + item)
+      .products-list#topDesign
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
     section.categories
       .category
         h3 Family Needs
@@ -133,9 +139,17 @@ block content
           img.product-img(src='https://productimages.withfloats.com/tile/62dfc96a4d6f11000151b6ef.jpg', alt='')
     section.products.less-price
       h3 Less In Price
-      .products-list
-        .product-box
-          img.product-img(src='https://m.media-amazon.com/images/I/81Lhgmgn+UL._AC_UF1000,1000_QL80_.jpg', alt='')
+      .products-list#lessPrice
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
     section.branding
       h2.titles Brands
       .brand-box
@@ -272,3 +286,4 @@ block content
         | better environment, one drop at a time.
 block scripts 
     script(src="/static/js/indexAdmin.js") 
+    script(src="/static/js/index.js") 

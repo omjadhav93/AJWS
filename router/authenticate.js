@@ -163,7 +163,7 @@ router.post("/forgot", checkAuth, [
     }
 
     try {
-        let user = await User.findOne({ email: req.body.email })
+        let user = await User.findOne({ email: req.body.email }).select('+security-question')
         if (!user) {
             return res.status(400).render("login",{ section: "Email" ,message: {msg: "User doesn't exists.",path: "general"}})
         }
@@ -180,7 +180,7 @@ router.post("/forgot", checkAuth, [
 
 router.post("/forgot-question", checkAuth, async (req, res) => {
     try {
-        let user = await User.findOne({ email: req.body.email })
+        let user = await User.findOne({ email: req.body.email }).select('+security-question +security-ans')
         if (!user) {
             return res.status(400).render("login",{ section: "Email" ,message: {msg: "User doesn't exists.",path: "general"}})
         }

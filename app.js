@@ -66,6 +66,9 @@ app.use('/user/address/',address);
 const profile = require("./router/profile");
 app.use('/user/profile/',profile)
 
+const api = require("./router/api");
+app.use('/api/',api);
+
 // Server Start
 app.listen(PORT,() => {
     console.log(`The App Start On Port : ${PORT}`);

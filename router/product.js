@@ -1,9 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const fetchCheckUser = require("./middleware/fetchCheckAuth")
+const fetchUser = require("./middleware/fetchUser")
 const mongoose = require('mongoose')
 
 const User = require("../model/user");
+const { Favourite } = require("../model/lists");
+const Order = require("../model/orders");
 
 const products = require("../model/waterfilterandpurifiers");
 
@@ -16,9 +19,11 @@ router.get("/product", fetchCheckUser, async (req, res) => {
 
     // Rendering Files
     if (user) {
+      const favList = await Favourite.findOne({user_id: userId});
       res.render("product.pug", {
         LoggedIn: 1, Seller: user.seller,
         data: productData,
+        fav: favList?(favList.modelNums.includes(modelNo)):false
       });
     } else {
       res.render("product.pug", { data: productData });
@@ -29,9 +34,9 @@ router.get("/product", fetchCheckUser, async (req, res) => {
   }
 });
 
-router.get("/product/order", fetchCheckUser, async (req, res) => {
-  let userId = (req.user != null) ? req.user.id : new mongoose.Types.ObjectId('5f56a08d8d22222222222222');
-  const user = await User.findById(userId).select({ password: 0, 'security-question': 0, 'security-ans': 0 });
+router.get("/product/order", fetchUser, async (req, res) => {
+  let userId = req.user.id;
+  const user = await User.findById(userId).select('-password');
   try {
     if (!user) {
       req.session.returnTo = req.originalUrl;
@@ -55,6 +60,15 @@ router.get("/product/order", fetchCheckUser, async (req, res) => {
   }
 })
 
-
+router.post('/product/order', fetchUser, async (req,res) => {
+  let userId = req.user.id;
+  const user = await User.findById(userId).select('-password');
+  try {
+    // Save Order
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+})
 
 module.exports = router;

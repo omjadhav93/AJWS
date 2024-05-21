@@ -11,7 +11,7 @@ block title
     title AJ-Kart
 block content
     header
-      .head-box
+      .head-box.image-skeleton
         .left-shift-banner 
           <ion-icon name="chevron-back"></ion-icon>
         .right-shift-banner 
@@ -33,7 +33,7 @@ block content
               p.selling-card-note #{card.desc}
     section.achievements
       h1.titles Achievements
-      #onscreen.achieve-list
+      #achieve-list.achieve-list
         .achieve-box
           p.sells
             span.achieve-num 20
@@ -56,14 +56,17 @@ block content
           p.note Happy Customers 
     section.products.frequently
       h3 Frequently Purchased Products
-      .products-list
-        each item in FreqPurchasedList
-          .product-box
-            each img in item.image
-              each obj in img
-                  each loc in [obj]
-                      each item in loc
-                        img.product-img(src='/static/productImg/' + item)
+      .products-list#frequent
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
     section.as-you-wish
       // <h1 class="titles">As You Wish</h2>
       .as-you-wish-cards
@@ -89,14 +92,17 @@ block content
           button.use-recommendation-btn.btn Use Recommendation
     section.products.designs
       h3 Top In Designs
-      .products-list
-        each item in TopInDesignsList      
-          .product-box 
-            each img in item.image
-                each obj in img
-                    each loc in [obj]
-                        each item in loc
-                          img.product-img(src='/static/productImg/' + item)
+      .products-list#topDesign
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
     section.categories
       each item in categoryList
         .category
@@ -109,14 +115,17 @@ block content
                         img.product-img(src='/static/img/' + item)
     section.products.less-price
       h3 Less In Price
-      .products-list
-        each item in lessPriceList
-          .product-box 
-            each img in item.image
-              each obj in img
-                  each loc in [obj]
-                      each item in loc
-                        img.product-img(src='/static/productImg/' + item)
+      .products-list#lessPrice
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
+        .product-box.image-skeleton
     section.branding
       h2.titles Brands
       .brand-box
@@ -136,13 +145,16 @@ block content
               | At Crystal Clear, we take great pride in upholding the highest standards of purity, driven by a passion for delivering clean water that enriches lives. As we continue to innovate and evolve, we invite you to embrace the essence of clean water with Crystal Clear - where every sip is an invigorating celebration of clarity.
         h3.sub-titles Other Brands
         .brands
-          each item in otherBrandList
-            .brand(onclick="window.location.href='/user/search?value=" + item.title + "'")
-              each img in item.image
-                each obj in img
-                    each loc in [obj]
-                        each item in loc
-                          img.circular(src='/static/img/' + item, alt='purosis-logo')
+          .brand
+            img.circular(src='/static/img/water-drop.png', alt='purosis-logo')
+          .brand.image-skeleton
+          .brand.image-skeleton
+          .brand.image-skeleton
+          .brand.image-skeleton
+          .brand.image-skeleton
+          .brand.image-skeleton
+          .brand.image-skeleton
+          .brand.image-skeleton
     section#service.servicing
       h2.titles Service
       .service

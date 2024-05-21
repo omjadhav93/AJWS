@@ -17,11 +17,11 @@ block content
                     | &nbsp&nbsp User Info
                 p.profile-menu-item(onclick="changeMenu(this)")
                     <ion-icon name="heart-outline"></ion-icon>
-                    | &nbsp&nbsp Favorites
+                    | &nbsp&nbsp favourites
                 p.profile-menu-item(onclick="changeMenu(this)")
                     <ion-icon name="bag-outline"></ion-icon>
                     | &nbsp&nbsp Your Orders
-                p.profile-menu-item(onclick="changeMenu(this)")
+                p.profile-menu-item#settings-menu(onclick="changeMenu(this)")
                     <ion-icon name="settings-outline"></ion-icon>
                     | &nbsp&nbsp Settings
                 p.profile-menu-item(onclick="changeMenu(this)")
@@ -57,10 +57,11 @@ block content
                             else 
                                 p.add-address(onclick="window.location.href = '/user/address'") Add a Address 
                     .data-change 
-                        button.data-change-btn Edit Profile
-            .favorites
+                        button.data-change-btn(onclick="document.getElementById('settings-menu').click()") Edit Profile
+            .favourites#favourite
+                h3(style="text-align: center;") You have not liked any product yet
             .your-orders 
-            .settings 
+            .settings#setting 
                 .personal-info 
                     p.setting-head 
                         | Personal Information

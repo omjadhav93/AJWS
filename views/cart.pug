@@ -108,7 +108,7 @@ block content
                                             else 
                                                 |, #{component}
                                         | and Automatic UF+TDS controller 
-                                        if item['tank-capacity']
+                                        if item['tank-capacity'] >= 9
                                             |having #{item['tank-capacity']}-L Tank 
                                         |by #{item['brand-name']}
                                 else 
@@ -125,17 +125,17 @@ block content
                                             else 
                                                 |, #{component}
                                         | and Automatic UF+TDS controller 
-                                        if item['tank-capacity']
+                                        if item['tank-capacity'] >= 9
                                             |having #{item['tank-capacity']}-L Tank 
-                            else if item['product-type'] == 'Water Filter Appliances' && req.body['filter-part'] == 'Cabinet'
+                            else if item['product-type'] == 'Water Filter Appliances' && item['filter-part'] == 'Cabinet'
                                 if item['model-name'].length
                                     p.heading #{item['filter-type']} of #{item['model-name']} with #{item['tank-full-indicator']} indicators 
-                                        if item['tank-capacity']
+                                        if item['tank-capacity'] && item['tank-capacity'] >= 7
                                             |having #{item['tank-capacity']}-L Tank 
                                         |designed by #{item['brand-name']}
                                 else 
                                     p.heading Purifier #{item['filter-type']} with #{item['tank-full-indicator']} indicators 
-                                        if item['tank-capacity']
+                                        if item['tank-capacity'] && item['tank-capacity'] >= 7
                                             |having #{item['tank-capacity']}-L Tank 
                                         |designed by #{item['brand-name']}  
                             p.rating 
@@ -176,4 +176,4 @@ block content
                         
 
 block scripts 
-    script(src="/static/javascript/search.js") 
+    script(src="/static/js/search.js") 

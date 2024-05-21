@@ -48,147 +48,22 @@ function sequence(arr) {
     return merge(sequence(left), sequence(right));
 }
 
-/* Sorting As per frequency of buying. */
-function freqMerge(left, right) {
-    let result = [];
-    let leftIndex = 0;
-    let rightIndex = 0;
-
-    while (leftIndex < left.length && rightIndex < right.length) {
-        if (left[leftIndex]['buyers-count'] == right[rightIndex]['buyers-count']) {
-            if (left[leftIndex]['visiter-count'] < right[rightIndex]['visiter-count']) {
-                result.push(left[leftIndex]);
-                leftIndex++;
-            } else {
-                result.push(right[rightIndex]);
-                rightIndex++;
-            }
-        } else if (left[leftIndex]['buyers-count'] < right[rightIndex]['buyers-count']) {
-            result.push(left[leftIndex]);
-            leftIndex++;
-        } else {
-            result.push(right[rightIndex]);
-            rightIndex++;
-        }
-    }
-
-    return result.concat(left.slice(leftIndex)).concat(right.slice(rightIndex));
-}
-
-function freqSequence(arr) {
-    if (arr.length <= 1) {
-        return arr;
-    }
-
-    const middle = Math.floor((arr.length) / 2);
-    const left = arr.slice(0, middle);
-    const right = arr.slice(middle);
-
-
-    return freqMerge(freqSequence(left), freqSequence(right));
-}
-
-async function FreqPurchasedListFinder() {
-    let data = await dataFinder(6000);
-    data = freqSequence(data);
-    return data.slice(0, 10);
-}
-
-/* Sorting as per Low Price. */
-function priceMerge(left, right) {
-    let result = [];
-    let leftIndex = 0;
-    let rightIndex = 0;
-
-    while (leftIndex < left.length && rightIndex < right.length) {
-        if (left[leftIndex].originalPrice < right[rightIndex].originalPrice) {
-            result.push(left[leftIndex]);
-            leftIndex++;
-        } else {
-            result.push(right[rightIndex]);
-            rightIndex++;
-        }
-    }
-
-    return result.concat(left.slice(leftIndex)).concat(right.slice(rightIndex));
-}
-
-function priceSequence(arr) {
-    if (arr.length <= 1) {
-        return arr;
-    }
-
-    const middle = Math.floor(arr.length / 2);
-    const left = arr.slice(0, middle);
-    const right = arr.slice(middle);
-
-    return priceMerge(priceSequence(left), priceSequence(right));
-}
-
-async function lessPriceListFinder() {
-    let data = await dataFinder(2500);
-    data = priceSequence(data);
-    return data.slice(0, 10);
-}
-
-/* Sorting as per design ratings. */
-function designMerge(left, right) {
-    let result = [];
-    let leftIndex = 0;
-    let rightIndex = 0;
-
-    while (leftIndex < left.length && rightIndex < right.length) {
-        if (left[leftIndex]['rating-list'].design < right[rightIndex]['rating-list'].design) {
-            result.push(left[leftIndex]);
-            leftIndex++;
-        } else {
-            result.push(right[rightIndex]);
-            rightIndex++;
-        }
-    }
-
-    return result.concat(left.slice(leftIndex)).concat(right.slice(rightIndex));
-}
-
-function designSequence(arr) {
-    if (arr.length <= 1) {
-        return arr;
-    }
-
-    const middle = Math.floor(arr.length / 2);
-    const left = arr.slice(0, middle);
-    const right = arr.slice(middle);
-
-    return designMerge(designSequence(left), designSequence(right));
-}
-
-async function TopInDesignsListFinder() {
-    let data = await dataFinder(6000);
-    data = designSequence(data);
-    return data.slice(0, 10);
-}
-
-
 router.get("/", fetchCheckUser, async (req, res) => {
     let userId = (req.user != null) ? req.user.id : new mongoose.Types.ObjectId('5f56a08d8d22222222222222');
     const user = await User.findById(userId).select("-password");
     try {
         let cardList = sequence(await Card.find());
-        let FreqPurchasedList = await FreqPurchasedListFinder();
-        let TopInDesignsList = await TopInDesignsListFinder();
         let categoryList = [] // sequence(await Category.find());
-        let lessPriceList = lessPriceListFinder();
         let otherBrandList = sequence(await Brands.find());
-        
         if (user) {
             if (user.seller) {
-                res.render("indexAdmin.pug", { LoggedIn: 1, Seller: user.seller, cardList, FreqPurchasedList, TopInDesignsList, categoryList, lessPriceList, otherBrandList })
+                res.render("indexAdmin.pug", { LoggedIn: 1, Seller: user.seller, cardList, categoryList, otherBrandList })
             } else {
-                res.render("index.pug", { LoggedIn: 1, Seller: user.seller, cardList, FreqPurchasedList, TopInDesignsList, categoryList, lessPriceList, otherBrandList })
+                res.render("index.pug", { LoggedIn: 1, Seller: user.seller, cardList, categoryList, otherBrandList })
 
             }
         } else {
-            res.render("index.pug", { cardList, FreqPurchasedList, TopInDesignsList, categoryList, lessPriceList, otherBrandList })
+            res.render("index.pug", { cardList, categoryList, otherBrandList })
         }
     } catch (error) {
         console.error(error.message);

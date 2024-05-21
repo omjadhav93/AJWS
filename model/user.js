@@ -41,12 +41,14 @@ var UserSchema = new mongoose.Schema({
 
     'security-question': {
         type: String,
-        required: true
+        required: true,
+        select: false // Ensures that the password field is not returned by default in queries
     },
 
     'security-ans': {
         type: String,
-        required: true
+        required: true,
+        select: false // Ensures that the password field is not returned by default in queries
     },
     seller: Boolean,
     address: [Object],
