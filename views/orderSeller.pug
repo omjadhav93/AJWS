@@ -1,0 +1,241 @@
+extends base.pug 
+block metaElements
+    meta(name="robots" content="INDEX, FOLLOW")
+block style 
+    include ../static/css/orderSeller.css 
+block title 
+    title AJ-Kart | Order Received 
+block content 
+    .content 
+        p.heading Orders List
+        .order-menu 
+            .menu(onclick="changeOrderList(0)") All
+            .menu(onclick="changeOrderList(1)") Placed
+            .menu(onclick="changeOrderList(2)") Received
+            .menu(onclick="changeOrderList(3)") In Stock
+            .menu(onclick="changeOrderList(4)") Shipped
+            .menu(onclick="changeOrderList(5)") Delivered
+        #order-list
+            .table-container    
+                table
+                  thead
+                    tr
+                      th Order ID
+                      th Model Number
+                      th Receiver Name
+                      th Receiver Phone
+                      th Image
+                      th Color
+                      th Address
+                      th Order Date
+                      th Quantity
+                      th Payment Status
+                      th Order Stage
+                      th Action
+                  tbody
+                    each order in orders
+                      tr
+                        td.order-id= order.orderId
+                        td.order-modn(onclick=`window.location.href = "/product?modelNo=${order['model-number']}"`)= order['model-number']
+                        td= order['recevier-name']
+                        td= order['recevier-phone']
+                        td.order-img(onclick=`window.location.href = "/product?modelNo=${order['model-number']}"`)
+                          img(src='/static/productImg/'+order.image alt="Product Image" width="80")
+                        td= order.color
+                        td.address-col(onclick=`redirectToGoogleMaps('${order.address.add}, ${order.address.dist}, ${order.address.state}, ${order.address.pin}')`)= `${order.address.add}, ${order.address.dist}, ${order.address.state}, ${order.address.pin}`
+                        td= new Date(order.orderDate).toLocaleDateString()
+                        td.quantity-col= order.quantity
+                        td.payment-col= order.payment ? 'Paid / ' + order.payStatus : 'Unpaid / ' + order.payStatus
+                        td.order-stage(class='stage-'+order.orderStage, orderId=order.orderId)= order.orderStage
+                        td.action-col
+            .table-container    
+                .options
+                    button.select-btn(type="button" onclick="selectAll('stg-1')") Select All 
+                    button.action-btn(type="button" class="stg-1" stage="1" onclick="changeStageMultiple(this)") Receive
+                table
+                  thead
+                    tr
+                      th
+                      th Order ID
+                      th Model Number
+                      th Receiver Name
+                      th Receiver Phone
+                      th Image
+                      th Color
+                      th Address
+                      th Order Date
+                      th Quantity
+                      th Payment Status
+                      th Order Stage
+                      th Action
+                  tbody
+                    each order in orders
+                        if order.orderStage == 1
+                            tr
+                              td
+                                input(type="checkbox" class="stg-1" data-order-id=order.orderId)
+                              td.order-id= order.orderId
+                              td.order-modn(onclick=`window.location.href = "/product?modelNo=${order['model-number']}"`)= order['model-number']
+                              td= order['recevier-name']
+                              td= order['recevier-phone']
+                              td.order-img(onclick=`window.location.href = "/product?modelNo=${order['model-number']}"`)
+                                img(src='/static/productImg/'+order.image alt="Product Image" width="80")
+                              td= order.color
+                              td.address-col(onclick=`redirectToGoogleMaps('${order.address.add}, ${order.address.dist}, ${order.address.state}, ${order.address.pin}')`)= `${order.address.add}, ${order.address.dist}, ${order.address.state}, ${order.address.pin}`
+                              td= new Date(order.orderDate).toLocaleDateString()
+                              td.quantity-col= order.quantity
+                              td.payment-col= order.payment ? 'Paid / ' + order.payStatus : 'Unpaid / ' + order.payStatus
+                              td.order-stage(class='stage-'+order.orderStage, orderId=order.orderId)= order.orderStage
+                              td.action-col
+            .table-container    
+                .options
+                    button.select-btn(type="button" onclick="selectAll('stg-2')") Select All 
+                    button.action-btn(type="button" class="stg-2" stage="2" onclick="changeStageMultiple(this)") In Stock
+                table
+                  thead
+                    tr
+                      th
+                      th Order ID
+                      th Model Number
+                      th Receiver Name
+                      th Receiver Phone
+                      th Image
+                      th Color
+                      th Address
+                      th Order Date
+                      th Quantity
+                      th Payment Status
+                      th Order Stage
+                      th Action
+                  tbody
+                    each order in orders
+                        if order.orderStage == 2
+                            tr
+                              td
+                                input(type="checkbox" class="stg-2" data-order-id=order.orderId)
+                              td.order-id= order.orderId
+                              td.order-modn(onclick=`window.location.href = "/product?modelNo=${order['model-number']}"`)= order['model-number']
+                              td= order['recevier-name']
+                              td= order['recevier-phone']
+                              td.order-img(onclick=`window.location.href = "/product?modelNo=${order['model-number']}"`)
+                                img(src='/static/productImg/'+order.image alt="Product Image" width="80")
+                              td= order.color
+                              td.address-col(onclick=`redirectToGoogleMaps('${order.address.add}, ${order.address.dist}, ${order.address.state}, ${order.address.pin}')`)= `${order.address.add}, ${order.address.dist}, ${order.address.state}, ${order.address.pin}`
+                              td= new Date(order.orderDate).toLocaleDateString()
+                              td.quantity-col= order.quantity
+                              td.payment-col= order.payment ? 'Paid / ' + order.payStatus : 'Unpaid / ' + order.payStatus
+                              td.order-stage(class='stage-'+order.orderStage, orderId=order.orderId)= order.orderStage
+                              td.action-col
+            .table-container    
+                .options
+                    button.select-btn(type="button" onclick="selectAll('stg-3')") Select All 
+                    button.action-btn(type="button" class="stg-3" stage="3" onclick="changeStageMultiple(this)") Delivering
+                table
+                  thead
+                    tr
+                      th
+                      th Order ID
+                      th Model Number
+                      th Receiver Name
+                      th Receiver Phone
+                      th Image
+                      th Color
+                      th Address
+                      th Order Date
+                      th Quantity
+                      th Payment Status
+                      th Order Stage
+                      th Action
+                  tbody
+                    each order in orders
+                        if order.orderStage == 3
+                            tr
+                              td
+                                input(type="checkbox" class="stg-3" data-order-id=order.orderId)
+                              td.order-id= order.orderId
+                              td.order-modn(onclick=`window.location.href = "/product?modelNo=${order['model-number']}"`)= order['model-number']
+                              td= order['recevier-name']
+                              td= order['recevier-phone']
+                              td.order-img(onclick=`window.location.href = "/product?modelNo=${order['model-number']}"`)
+                                img(src='/static/productImg/'+order.image alt="Product Image" width="80")
+                              td= order.color
+                              td.address-col(onclick=`redirectToGoogleMaps('${order.address.add}, ${order.address.dist}, ${order.address.state}, ${order.address.pin}')`)= `${order.address.add}, ${order.address.dist}, ${order.address.state}, ${order.address.pin}`
+                              td= new Date(order.orderDate).toLocaleDateString()
+                              td.quantity-col= order.quantity
+                              td.payment-col= order.payment ? 'Paid / ' + order.payStatus : 'Unpaid / ' + order.payStatus
+                              td.order-stage(class='stage-'+order.orderStage, orderId=order.orderId)= order.orderStage
+                              td.action-col
+            .table-container    
+                .options
+                    button.select-btn(type="button" onclick="selectAll('stg-4')") Select All 
+                    button.action-btn(type="button" class="stg-4" stage="4" onclick="changeStageMultiple(this)") Delivered
+                table
+                  thead
+                    tr
+                      th
+                      th Order ID
+                      th Model Number
+                      th Receiver Name
+                      th Receiver Phone
+                      th Image
+                      th Color
+                      th Address
+                      th Order Date
+                      th Quantity
+                      th Payment Status
+                      th Order Stage
+                      th Action
+                  tbody
+                    each order in orders
+                        if order.orderStage == 4
+                            tr
+                              td
+                                input(type="checkbox" class="stg-4" data-order-id=order.orderId)
+                              td.order-id= order.orderId
+                              td.order-modn(onclick=`window.location.href = "/product?modelNo=${order['model-number']}"`)= order['model-number']
+                              td= order['recevier-name']
+                              td= order['recevier-phone']
+                              td.order-img(onclick=`window.location.href = "/product?modelNo=${order['model-number']}"`)
+                                img(src='/static/productImg/'+order.image alt="Product Image" width="80")
+                              td= order.color
+                              td.address-col(onclick=`redirectToGoogleMaps('${order.address.add}, ${order.address.dist}, ${order.address.state}, ${order.address.pin}')`)= `${order.address.add}, ${order.address.dist}, ${order.address.state}, ${order.address.pin}`
+                              td= new Date(order.orderDate).toLocaleDateString()
+                              td.quantity-col= order.quantity
+                              td.payment-col= order.payment ? 'Paid / ' + order.payStatus : 'Unpaid / ' + order.payStatus
+                              td.order-stage(class='stage-'+order.orderStage, orderId=order.orderId)= order.orderStage
+                              td.action-col
+            .table-container
+                table
+                  thead
+                    tr
+                      th Order ID
+                      th Model Number
+                      th Receiver Name
+                      th Receiver Phone
+                      th Image
+                      th Color
+                      th Address
+                      th Order Date
+                      th Quantity
+                      th Payment Status
+                      th Order Stage
+                      th Action
+                  tbody
+                    each order in orders
+                        if order.orderStage == 5
+                            tr
+                              td.order-id= order.orderId
+                              td.order-modn(onclick=`window.location.href = "/product?modelNo=${order['model-number']}"`)= order['model-number']
+                              td= order['recevier-name']
+                              td= order['recevier-phone']
+                              td.order-img(onclick=`window.location.href = "/product?modelNo=${order['model-number']}"`)
+                                img(src='/static/productImg/'+order.image alt="Product Image" width="80")
+                              td= order.color
+                              td.address-col(onclick=`redirectToGoogleMaps('${order.address.add}, ${order.address.dist}, ${order.address.state}, ${order.address.pin}')`)= `${order.address.add}, ${order.address.dist}, ${order.address.state}, ${order.address.pin}`
+                              td= new Date(order.orderDate).toLocaleDateString()
+                              td.quantity-col= order.quantity
+                              td.payment-col= order.payment ? 'Paid / ' + order.payStatus : 'Unpaid / ' + order.payStatus
+                              td.order-stage(class='stage-'+order.orderStage, orderId=order.orderId)= order.orderStage
+                              td.action-col
+block scripts       
+    script(src="/static/js/orderSeller.js") 

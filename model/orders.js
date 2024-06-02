@@ -6,9 +6,40 @@ var orderSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    
+    orderId: {
+        type: String,
+        required: true,
+        default: Date.now().toString().substr(-8)
+    },
 
     'model-number': {
         type: String,
+        required: true
+    },
+    
+    'recevier-name': {
+        type: String,
+        required: true
+    },
+
+    'recevier-phone': {
+        type: Number,
+        required: true
+    },
+    
+    image: {
+        type: String,
+        required: true
+    },
+
+    color: {
+        type: String,
+        required: true
+    },
+
+    address: {
+        type: Object,
         required: true
     },
 
@@ -24,9 +55,20 @@ var orderSchema = new mongoose.Schema({
         default: 1
     },
 
-    status: {
+    payment: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
+
+    payStatus: {
         type: String,
-        default: "In Progress"
+        required: true
+    },
+
+    orderStage: {
+        type: Number,
+        default: 1
     }
 })
 

@@ -1,0 +1,263 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.brand-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 20px;
+    font-size: 24px;
+    font-weight: 600;
+    font-family: sans-serif;
+}
+
+.brand-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+}
+
+.brand-item {
+    border: 1px solid #ddd;
+    padding: 20px 10px;
+    border-radius: 10px;
+    width: calc(32% - 80px); /* Adjust width as needed */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.brand-logo {
+    max-width: 100px;
+    margin-bottom: 10px;
+    border-radius: 50%;
+}
+
+.brand-name {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.brand-description, .brand-origin, .brand-categories {
+    margin: 5px 10px;
+    text-align: center;
+    color: rgb(66, 63, 63);
+    font-family: pop;
+    font-size: 16px;
+}
+
+.brand-description {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5; /* Change this number to the desired number of lines */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.brand-origin, .brand-categories {
+    font-weight: 600;
+}
+
+.brand-link {
+    margin-top: 15px;
+    text-decoration: none;
+    color: #007BFF;
+}
+
+.brand-item > ion-icon {
+    font-size: 250px;
+    color: rgb(98, 92, 92);
+    margin: auto;
+    cursor: pointer;
+}
+
+/* Edit buttons */
+.edit {
+    padding: 5px 10px;
+    background-color: #ffffff;
+    border-radius: 2px;
+    border: .5px solid black;
+    color: rgb(45, 52, 52);
+    position: absolute;
+    right: 0;
+    bottom: 100%;
+    display: flex;
+    vertical-align: middle;
+}
+
+.edit:hover {
+    cursor: pointer;
+}
+
+.edit:active {
+    background-color: aqua;
+}
+
+.edit>ion-icon {
+    font-size: 16px;
+}
+
+.edit.delete{
+    right: 18%;
+}
+
+/* Edit Form POPUP */
+#content {
+    position: relative;
+    padding-bottom: 50px;
+}
+
+.form-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(52, 50, 50, 0.605);
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    height: max-content;
+}
+
+.form-head-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 7px 10px;
+    background-color: rgb(162, 190, 185);
+    box-shadow: inset 0px -2px 3px solid rgb(43, 43, 43);
+}
+
+.form-heading {
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.form-head-box>ion-icon {
+    font-size: 19px;
+    cursor: pointer;
+}
+
+.form-bottom-box {
+    display: flex;
+    justify-content: center;
+    background-color: white;
+}
+
+.form-bottom-box>form{
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    padding: 20px 30px;
+    width: 100%;
+    height: 60vh;
+}
+
+.desc-label {
+    cursor: text;
+    margin-left: 5px;
+    color: #555;
+    font-size: 16px;
+}
+
+.desc-input{
+    border-color: #999;
+    outline: none;
+    font-family: 'Roboto', 'Open Sans', 'Helvetica', sans-serif;
+    color: rgb(36, 36, 36);
+    margin-top: 5px;
+    font-size: 16px;
+    /* Adjust as needed */
+    padding: 5px;
+    width: 100%;
+    resize: none;
+}
+
+.brand-logo-form {
+    position: relative;
+    width: 100%;
+    height: 20vh;
+    border-radius: 5px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.brand-logo-form>img {
+    box-shadow: 0.8px 0.8px 1px rgba(0, 0, 0, 0.746);
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 50%;
+}
+
+.change-op {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.37);
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    z-index: 10;
+}
+
+.change-op:hover {
+    opacity: 1;
+}
+
+.change-btn {
+    padding: 10px 15px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    border: .5px solid black;
+    color: rgb(45, 52, 52);
+}
+
+.inputImage {
+    position: absolute;
+    transform: scale(0);
+}
+
+.brand-submit {
+    padding: 10px;
+    text-align: center;
+}
+
+.brand-submit-btn{
+    width: max-content;
+    padding: 10px 20px;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    font-size: 16px;
+    background: #5c5ca1;
+    color: white;
+    cursor: pointer;
+}
+
+.brand-submit-btn:active {
+    background-color: #007BFF;
+}
+
+
+/* Disable body scroll */
+.no-scroll {
+    height: 100vh;
+    overflow: hidden;
+}

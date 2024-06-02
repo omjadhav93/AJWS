@@ -25,6 +25,8 @@ router.get("/cart", fetchUser, async (req, res) => {
     const user = await User.findById(userId).select("-password");
     try {
         if (!user) {
+            // Clear the auth token cookie
+            res.clearCookie('authtoken');
             req.session.returnTo = req.originalUrl;
             res.redirect("/auth/login");
         }
@@ -60,6 +62,8 @@ router.post('/cart',fetchUser, async (req,res) => {
     const user = await User.findById(userId).select("-password");
     try {
         if (!user) {
+            // Clear the auth token cookie
+            res.clearCookie('authtoken');
             req.session.returnTo = req.originalUrl;
             res.redirect("/auth/login");
         }
@@ -92,6 +96,8 @@ router.post('/cart/remove',fetchUser, async (req,res) => {
     const user = await User.findById(userId).select("-password");
     try {
         if (!user) {
+            // Clear the auth token cookie
+            res.clearCookie('authtoken');
             req.session.returnTo = req.originalUrl;
             res.redirect("/auth/login");
         }

@@ -1,0 +1,55 @@
+extends base.pug
+block metaElements
+  meta(name="robots" content="INDEX, FOLLOW")
+  meta(name="keywords" content="AJKart, Crystal Clear, water filter, water Plant, water filter installation, water filter installation near me, water filter installation cost, alkaline water filter, aquaguard water filter, at home water filter, at home water filter system, reverse osmosis water filter, how much is a water filter, water purifier. aquaguard water purifier, ro water purifier, kent water purifier, alkaline water purifier, water purifier aquaguard, water purifier at home, domestic water filter, industrial water filtration, best water filter brands")
+  meta(name="description" content=`Looking for reliable water filters and purifiers? Get the best water filter installation services near you, courtesy of AJKart. From alkaline water filters to reverse osmosis systems, we have a wide range of solutions for your home and industry needs. Discover top brands like Aquaguard, Kent, and more, all available on AJKart!
+      At Home or Industrial, we have the perfect water filtration system for you. Say goodbye to impurities and enjoy fresh, purified water every day. Get expert water filter installation at an affordable cost through AJKart.
+      Shop now and experience the benefits of a premium water purifier at home. Take control of your water quality with our state-of-the-art systems. Invest in your health and well-being today with our trusted water filters and purifiers, available exclusively on AJKart.`)
+block style
+    include ../static/css/brands.css
+    if Seller 
+        include ../static/css/input.css
+block title 
+    title AJ-Kart
+block content
+    #content
+        .brand-header Top Brands
+        .brand-list
+            if Seller 
+                each brand in brands 
+                    .brand-item
+                        button.edit(onclick=`addBrandForm(event)`)
+                            ion-icon(name='color-wand')
+                            | &nbsp;Edit
+                        button.edit.delete(onclick=`deleteBrand('${brand._id}')`)
+                            ion-icon(name='color-wand')
+                            | &nbsp;Delete
+                        img.brand-logo(src=brand.logoUrl, alt='Brand Logo')
+                        h2.brand-name #{brand.name}
+                        p.brand-description #{brand.description}
+                        p.brand-origin Country of Origin: #{brand.origin}
+                        p.brand-categories 
+                            | Product Categories: &nbsp
+                            each category in brand.categories
+                                | #{category}, 
+                        a.brand-link(href='/search?value='+brand.name) View All Products
+                    // Repeat for more brands
+                .brand-item(onclick="addBrandForm(false)")
+                    <ion-icon name="add-circle-outline"></ion-icon>
+            else 
+                each brand in brands 
+                    .brand-item
+                        img.brand-logo(src=brand.logoUrl, alt='Brand Logo')
+                        h2.brand-name #{brand.name}
+                        p.brand-description #{brand.description}
+                        p.brand-origin Country of Origin: #{brand.origin}
+                        p.brand-categories 
+                            | Product Categories: &nbsp
+                            each category in brand.categories
+                                | #{category}, 
+                        a.brand-link(href='/search?value='+brand.name) View All Products
+                    // Repeat for more brands
+block scripts 
+    if Seller 
+        script(src="../static/js/brands.js") 
+        script(src="../static/js/input.js") 

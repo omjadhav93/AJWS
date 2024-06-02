@@ -20,6 +20,20 @@ const changeMenu = (e) => {
     })
 }
 
+// Your Orders Section
+const orderList = document.querySelectorAll('.list-item')
+
+orderList.forEach((list, i) => {
+    list.style.transform = `translateX(${i * 100}%)`;
+})
+
+const changeOrderList = (index) => {
+    orderList.forEach((list, i) => {
+        list.style.transform = `translateX(${i * 100 - index * 100}%)`;
+    })
+}
+
+// Setting Section
 const edit = cls => {
     const section = document.querySelector(`.${cls}`);
     const setHead = section.querySelector('.setting-head');
@@ -210,15 +224,15 @@ const closeEdit = (e) => {
 
 // Fetching products
 // Function to fetch products from the server
-function fetchProducts(sectionId) {
-    fetch(`/api/${sectionId}`)
+function fetchFavourites() {
+    fetch(`/api/favourite`)
         .then(response => response.json())
         .then(data => {
             if (data.length == 0) {
                 return;
             }
-            const productsDiv = document.getElementById(`${sectionId}`);
-            productsDiv.innerHTML = ''; // Clear existing content
+            const productsDiv = document.getElementById(`favourite`);
+            productsDiv.innerHTML = `<p class="fav-heading">Your Favourites</p>`; // Clear existing content
             data.forEach(product => {
                 const searchDiv = document.createElement('div');
                 searchDiv.setAttribute('onclick', `window.location.href = '/product?modelNo=${product['model-number']}'`);
@@ -372,7 +386,137 @@ function fetchProducts(sectionId) {
         .catch(error => console.error('Error fetching products:', error));
 }
 
+async function fetchOrders() {
+    try {
+        const response = await fetch('/api/orders'); // Adjust the URL as needed
+        const orders = await response.json();
+        displayOrders(orders);
+    } catch (error) {
+        console.error('Error fetching orders:', error);
+    }
+}
+
+function formatDate(isoString) {
+    const date = new Date(isoString);
+    const day = date.getDate();
+    const month = date.toLocaleString('default', { month: 'short' });
+    const year = date.getFullYear();
+    let hours = date.getHours();
+    const minutes = date.getMinutes();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+    const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+
+    return `${day}-${month}-${year}, ${hours}:${formattedMinutes} ${ampm}`;
+}
+
+function createOrderElement(order) {
+    const orderContainer = document.createElement('div');
+    orderContainer.classList.add('order-container');
+    orderContainer.setAttribute('onclick', `window.location.href='/order/status?orderId=${order.orderId}'`);
+
+    const orderLeft = document.createElement('div');
+    orderLeft.classList.add('order-left');
+
+    const orderDetail = document.createElement('div');
+    orderDetail.classList.add('order-detail');
+
+    const orderId = document.createElement('p');
+    orderId.classList.add('order-id');
+    orderId.textContent = `Order#: ${order.orderId}`;
+
+    const orderDate = document.createElement('p');
+    orderDate.classList.add('order-date');
+    orderDate.textContent = formatDate(order.orderDate);
+
+    orderDetail.appendChild(orderId);
+    orderDetail.appendChild(orderDate);
+    orderLeft.appendChild(orderDetail);
+
+    if (order.orderStage >= 1 && order.orderStage < 5) {
+        const orderDelivery = document.createElement('p');
+        orderDelivery.classList.add('order-delivery');
+        orderDelivery.textContent = `Estimated delivery on 25 May`; // Customize as needed
+        orderLeft.appendChild(orderDelivery);
+    } else if (order.orderStage == 5) {
+        const orderDelivery = document.createElement('p');
+        orderDelivery.classList.add('order-delivery');
+        orderDelivery.textContent = `Delivered on 25 May`; // Customize as needed
+        orderLeft.appendChild(orderDelivery);
+    } else if (order.orderStage == 0) {
+        const orderDelivery = document.createElement('p');
+        orderDelivery.classList.add('order-delivery');
+        orderDelivery.textContent = `Cancelled on 25 May`;
+        orderLeft.appendChild(orderDelivery);
+    }
+
+
+    const orderRight = document.createElement('div');
+    orderRight.classList.add('order-right');
+
+    const orderImg = document.createElement('div');
+    orderImg.classList.add('order-img');
+
+    const img = document.createElement('img');
+    img.src = '/static/productImg/' + order.image;
+    img.alt = '';
+
+    orderImg.appendChild(img);
+    orderRight.appendChild(orderImg);
+
+    if (order.orderStage >= 1 && order.orderStage < 5) {
+        const orderPayStatus = document.createElement('p');
+        orderPayStatus.classList.add('order-pay-status');
+        orderPayStatus.textContent = order.payStatus;
+        orderRight.appendChild(orderPayStatus);
+    } else if (order.orderStage == 5) {
+        const orderPayStatus = document.createElement('p');
+        orderPayStatus.classList.add('order-rated');
+        orderPayStatus.innerHTML = `You Rated : 
+            <ion-icon name="star"></ion-icon> 
+            <ion-icon name="star"></ion-icon> 
+            <ion-icon name="star"></ion-icon> 
+            <ion-icon name="star"></ion-icon> 
+            <ion-icon name="star-outline"></ion-icon> `;
+        orderRight.appendChild(orderPayStatus); // Customize as needed
+    } else if(order.orderStage == 0){
+        const orderPayStatus = document.createElement('p');
+        orderPayStatus.classList.add('order-pay-status');
+        orderPayStatus.textContent = order.payStatus;
+        orderRight.appendChild(orderPayStatus);
+    }
+
+    orderContainer.appendChild(orderLeft);
+    orderContainer.appendChild(orderRight);
+
+    return orderContainer;
+}
+
+function displayOrders(orders) {
+    const allOrders = document.getElementById('All-orders'); // Adjust the container ID as needed
+    const onGoing = document.getElementById('Ongoing-orders');
+    const deliveredOrders = document.getElementById('Delivered-orders');
+    const cancelledOrders = document.getElementById('Cancelled-orders');
+    orders.forEach(order => {
+        const orderElement = createOrderElement(order);
+        allOrders.appendChild(orderElement);
+
+        // Create a clone of the order element for other sections
+        const orderElementClone = orderElement.cloneNode(true);
+        if (order.orderStage >= 1 && order.orderStage < 5) {
+            onGoing.appendChild(orderElementClone);
+        } else if (order.orderStage == 5) {
+            deliveredOrders.appendChild(orderElementClone);
+        } else if (order.orderStage == 0) {
+            cancelledOrders.appendChild(orderElementClone);
+        }
+    });
+}
+
 // Initialize the observer when the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
-    fetchProducts('favourite');
+    fetchFavourites();
+    fetchOrders();
 });

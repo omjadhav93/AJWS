@@ -6,7 +6,8 @@ const bcrypt = require("bcrypt");
 
 
 const User = require("../model/user");
-const { Favourite } = require('../model/lists');
+const { Favourite, CancleOrder } = require('../model/lists');
+const Order = require('../model/orders')
 
 async function dataFinder(compare) {
     let requireModel = require(`../model/waterfilterandpurifiers`);
@@ -310,7 +311,7 @@ router.post('/auth/update', fetchCheckAuth, async (req, res) => {
         const result = await bcrypt.compare(req.body.password, hash)
 
         if (!result) {
-            return res.status(200).send({msg: "Wrong Password!"});
+            return res.status(200).send({ msg: "Wrong Password!" });
         }
 
         let check = false;
@@ -319,30 +320,118 @@ router.post('/auth/update', fetchCheckAuth, async (req, res) => {
             const firstName = req.body['first-name'];
             const lastName = req.body['last-name'];
             const name = firstName + ' ' + lastName;
-            if(user.name = name){
+            if (user.name = name) {
                 check = true;
             }
         }
         if (req.body.email) {
-            if(user.email = req.body.email){
+            if (user.email = req.body.email) {
                 check = true;
             }
         }
         if (req.body.phone) {
-            if(user.phone = req.body.phone){
+            if (user.phone = req.body.phone) {
                 check = true;
             }
         }
-        
-        if(check){
+
+        if (check) {
             user.save().then(() => {
                 res.status(200).send({ msg: "Changes Saved Successfully! Reload Page To See Changes." });
             }).catch(err => {
                 res.status(400).send({ msg: `Error to save details: ${err}` });
             })
-        }else{
+        } else {
             res.status(200).send({ msg: "Please provide at least one field to update." });
         }
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).send("Internal Server Error");
+    }
+})
+
+router.get('/orders', fetchCheckAuth, async (req, res) => {
+    let userId = (req.user != null) ? req.user.id : new mongoose.Types.ObjectId('5f56a08d8d22222222222222');
+    const user = await User.findById(userId).select("-password");
+    try {
+        if (!user) {
+            return res.status(200).send({ msg: "You have not signed in correctly!" });
+        }
+
+        const orders = await Order.find({ user_id: userId }).sort({ orderDate: -1 }).exec();
+
+        res.status(200).send(orders);
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).send("Internal Server Error");
+    }
+})
+
+router.post('/order/update', fetchCheckAuth, async (req, res) => {
+    let userId = (req.user != null) ? req.user.id : new mongoose.Types.ObjectId('5f56a08d8d22222222222222');
+    const user = await User.findById(userId).select("-password");
+    try {
+        if (!user) {
+            return res.status(200).send({ msg: "You have not signed in correctly!" });
+        }
+
+        if (!user.seller) {
+            return res.status(200).send({ msg: "You are not autherized to edit orders!" });
+        }
+
+        const orderIds = req.body.orderIds;
+        const changeStage = req.body.stage;
+
+        for (const orderId of orderIds) {
+            const order = await Order.findOne({ orderId: orderId });
+            order.orderStage = changeStage;
+
+            await order.save();
+        }
+
+        res.status(200).send({ msg: "Order stage changed successfully." });
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).send("Internal Server Error");
+    }
+})
+
+router.get('/order/cancle/reason', fetchCheckAuth, async (req, res) => {
+    let userId = (req.user != null) ? req.user.id : new mongoose.Types.ObjectId('5f56a08d8d22222222222222');
+    const user = await User.findById(userId).select("-password");
+    try {
+        if (!user) {
+            return res.status(200).send({ msg: "You have not signed in correctly!" });
+        }
+
+        const reason = await CancleOrder.findOne({ orderId: req.query.orderId });
+
+        res.status(200).send(reason);
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).send("Internal Server Error");
+    }
+})
+
+router.get('/seller/products', fetchCheckAuth, async (req, res) => {
+    let userId = (req.user != null) ? req.user.id : new mongoose.Types.ObjectId('5f56a08d8d22222222222222');
+    const user = await User.findById(userId).select("-password");
+    try {
+        if (!user) {
+            return res.status(200).send({ msg: "You have not signed in correctly!" });
+        }
+
+        if (!user.seller) {
+            return res.status(200).send({ msg: "You are not autherized to edit orders!" });
+        }
+
+        const products = await dataFinder(0);
+
+        res.status(200).send(products);
 
     } catch (error) {
         console.log(error)

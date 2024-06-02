@@ -48,7 +48,11 @@ app.use('/',product);
 
 // Add Product Form
 const addProduct = require("./router/addProduct");
-app.use('/user/add-product',addProduct);
+app.use('/user/',addProduct);
+
+// Add Brands
+const brand = require("./router/brand");
+app.use('/',brand);
 
 // Cart
 const cart = require("./router/cart");
@@ -62,10 +66,23 @@ app.use('/repair/',repair);
 const address = require("./router/address");
 app.use('/user/address/',address);
 
+// Book Plants
+const plantBooking = require("./router/plantBooking");
+app.use('/',plantBooking);
+
 // Profile 
 const profile = require("./router/profile");
 app.use('/user/profile/',profile)
 
+// Buy Agian 
+const buyAgain = require("./router/buyAgain");
+app.use('/buy-again',buyAgain)
+
+// Help 
+const help = require("./router/help");
+app.use('/help',help)
+
+// APIs
 const api = require("./router/api");
 app.use('/api/',api);
 

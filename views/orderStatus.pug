@@ -1,0 +1,99 @@
+extends base.pug 
+block metaElements
+    meta(name="robots" content="INDEX, FOLLOW")
+block style 
+    include ../static/css/orderStatus.css 
+block title 
+    title AJ-Kart | Order Status
+block content
+    .content
+        .status-bar-container 
+            ul.status-list 
+                li.status-stage 
+                    p.status-text Order Placed
+                    p.status-indicator.first-indicator(class=(order.orderStage>=1?'reached':'')) 1
+                li.status-stage 
+                    p.status-text Order Received
+                    p.status-indicator(class=(order.orderStage>=2?'reached':'')) 2
+                li.status-stage 
+                    p.status-text Received Stock
+                    p.status-indicator(class=(order.orderStage>=3?'reached':'')) 3
+                li.status-stage 
+                    p.status-text Out For Delivery
+                    p.status-indicator(class=(order.orderStage>=4?'reached':'')) 4
+                li.status-stage 
+                    p.status-text Delivered
+                    p.status-indicator(class=(order.orderStage>=5?'reached':'')) 5
+        .info-container
+            .info-order 
+                img.delivery-truck(src="/static/img/delivery-truck-run.png", alt="")
+                .info 
+                    p.info-head 
+                        | Order# : 
+                        span.info-detail &nbsp #{order.orderId}
+                .info 
+                    p.info-head 
+                        | Order Date : 
+                        -var date = new Date(order.orderDate)
+                        -const day = date.getDate();
+                        -const month = date.toLocaleString('default', { month: 'short' });
+                        -const year = date.getFullYear();
+                        -let hours = date.getHours();
+                        -const minutes = date.getMinutes();
+                        -const ampm = hours >= 12 ? 'PM' : 'AM';
+                        -hours = hours % 12;
+                        -hours = hours ? hours : 12;
+                        -const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+                        span.info-detail &nbsp #{day}-#{month}-#{year}, #{hours}:#{formattedMinutes} #{ampm}
+                //- .info 
+                //-     p.info-head 
+                //-         | Delivery Date : 
+                //-         span.info-detail &nbsp 22-Dec-2024
+                .info 
+                    p.info-head 
+                        | Recevier's Name : 
+                        span.info-detail &nbsp #{order['recevier-name']}
+                .info 
+                    p.info-head 
+                        | Recevier's Number : 
+                        span.info-detail &nbsp #{order['recevier-phone']}
+                .info 
+                    p.info-head 
+                        | Recevier's Address  : 
+                        span.info-detail &nbsp #{order.address.add}, #{order.address.dist}, #{order.address.state}, #{order.address.pin}
+                .info 
+                    p.info-head 
+                        | Payment : 
+                        span.info-detail &nbsp Incomplete
+                .info 
+                    p.info-head 
+                        | Pay Mode : 
+                        span.info-detail &nbsp #{order.payStatus} 
+                .info 
+                    p.info-head 
+                        | Product Model No. : 
+                        span.info-detail(onclick="window.location.href = '/product?modelNo=order['model-number']'") &nbsp #{order['model-number']} 
+                .info 
+                    p.info-head 
+                        | Quantity : 
+                        span.info-detail &nbsp #{order.quantity}
+                .info 
+                    p.info-head 
+                        | Colour : 
+                        span.info-detail &nbsp #{order.color}
+            .info-image 
+                .image-section 
+                    each image in images
+                        .image-box
+                            img(src="/static/productImg/"+image, alt="")
+                .image-pointer 
+                    -for (i = 0; i < images.length; i++)
+                        if i == 0
+                            .pointer.fill(onclick = `imageChanger(${i})`)
+                        else 
+                            .pointer(onclick = `imageChanger(${i})`)
+        .cancle-opt 
+            button.cancle-btn(type="button" style="width:max-content;border-radius:10px;" onclick=`cancleConfirm(${order.orderStage},${order.orderId})`) Cancle Order
+
+block scripts 
+    script(src="/static/js/orderStatus.js") 

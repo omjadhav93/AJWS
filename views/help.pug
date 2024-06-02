@@ -1,0 +1,157 @@
+extends base.pug 
+block metaElements
+    meta(name="robots" content="INDEX, FOLLOW")
+block style 
+    include ../static/css/help.css 
+block title 
+    title AJ-Kart | Help 
+block content 
+    if Seller
+        .help-container 
+            center 
+                h2(style="margin-bottom: 20px;") Help Asked
+            each Help in pastHelps 
+                if Help.reviewed == false 
+                    .booking-container 
+                        p.customer-name 
+                            span.head Customer Name : 
+                            | #{Help.user_name}
+                        p.customer-phone 
+                            span.head Customer Email : 
+                            | #{Help.user_email}
+                        p.customer-phone 
+                            span.head Customer Mobile Number : 
+                            | #{Help.user_phone}
+                        p.problem-type 
+                            span.head Problem Regarding :
+                            | #{Help.problem_type.problemType}
+                        if Help.problem_type.problemType == 'Order'
+                            p.order-number 
+                                span.head Order Number :
+                                | #{Help.problem_type.orderNumber}
+                        p.customer-requirement 
+                            span.head Problem : 
+                            | #{Help.description}
+                        p.Help-status 
+                            span.head Status : 
+                            span.active-status Active
+                        button.review-btn(type="button", onclick=`markReviewed('${Help._id}')`) Reviewed
+
+            each Help in pastHelps 
+                if Help.reviewed == true 
+                    .booking-container.reviewed  
+                        p.customer-name 
+                            span.head Customer Name : 
+                            | #{Help.user_name}
+                        p.customer-phone 
+                            span.head Customer Email : 
+                            | #{Help.user_email}
+                        p.customer-phone 
+                            span.head Customer Mobile Number : 
+                            | #{Help.user_phone}
+                        p.problem-type 
+                            span.head Problem Regarding :
+                            | #{Help.problem_type.problemType}
+                        if Help.problem_type.problemType == 'Order'
+                            p.order-number 
+                                span.head Order Number :
+                                | #{Help.problem_type.orderNumber}
+                        p.customer-requirement 
+                            span.head Problem : 
+                            | #{Help.description}
+                        p.Help-status 
+                            span.head Status : 
+                            span.deactive-status Solved
+
+    else
+        .help-container
+            if msg 
+                .msg #{msg}
+            <div class="container">
+                <h1>Contact Customer Support</h1>
+                <form action="/help" method="POST" id="supportForm">
+                    <div>
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div>
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div>
+                        <label for="phone">Mobile Number:</label>
+                        <input type="number" id="phone" name="phone" pattern="[0-9]{10}" required>
+                    </div>
+                    <div>
+                        <label for="problemType">Problem Type:</label>
+                        <select id="problemType" name="problemType" required>
+                            <option value="">Select a problem type</option>
+                            <option value="Order">Problem with order</option>
+                            <option value="Platform">Problem with platform</option>
+                            <option value="Service">Problem with service</option>
+                        </select>
+                    </div>
+                    <div id="orderNumberDiv" style="display: none;">
+                        <label for="orderNumber">Order Number:</label>
+                        <input type="text" id="orderNumber" name="orderNumber">
+                    </div>
+                    <div>
+                        <label for="description">Describe your problem:</label>
+                        <textarea id="description" name="description" rows="4" required></textarea>
+                    </div>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+            each Help in pastHelps 
+                if Help.reviewed == false 
+                    .booking-container 
+                        p.customer-name 
+                            span.head Customer Name : 
+                            | #{Help.user_name}
+                        p.customer-phone 
+                            span.head Customer Email : 
+                            | #{Help.user_email}
+                        p.customer-phone 
+                            span.head Customer Mobile Number : 
+                            | #{Help.user_phone}
+                        p.problem-type 
+                            span.head Problem Regarding :
+                            | #{Help.problem_type.problemType}
+                        if Help.problem_type.problemType == 'Order'
+                            p.order-number 
+                                span.head Order Number :
+                                | #{Help.problem_type.orderNumber}
+                        p.customer-requirement 
+                            span.head Problem : 
+                            | #{Help.description}
+                        p.Help-status 
+                            span.head Status : 
+                            span.active-status Active
+            each Help in pastHelps 
+                if Help.reviewed == true 
+                    .booking-container.reviewed  
+                        p.customer-name 
+                            span.head Customer Name : 
+                            | #{Help.user_name}
+                        p.customer-phone 
+                            span.head Customer Email : 
+                            | #{Help.user_email}
+                        p.customer-phone 
+                            span.head Customer Mobile Number : 
+                            | #{Help.user_phone}
+                        p.problem-type 
+                            span.head Problem Regarding :
+                            | #{Help.problem_type.problemType}
+                        if Help.problem_type.problemType == 'Order'
+                            p.order-number 
+                                span.head Order Number :
+                                | #{Help.problem_type.orderNumber}
+                        p.customer-requirement 
+                            span.head Problem : 
+                            | #{Help.description}
+                        p.Help-status 
+                            span.head Status : 
+                            span.deactive-status Solved
+    
+block scripts 
+    script(src="../static/js/help.js") 

@@ -50,11 +50,13 @@ let uploadMultiple = upload.fields([
     { name: "Silver-image", maxCount: 5 },
 ]);
 
-router.get('/', fetchUser, async (req, res) => {
+router.get('/add-product', fetchUser, async (req, res) => {
     let userId = req.user.id;
     const user = await User.findById(userId).select('-password');
     try {
         if (!user) {
+            // Clear the auth token cookie
+            res.clearCookie('authtoken');
             req.session.returnTo = req.originalUrl;
             res.redirect("/auth/login");
         }
@@ -70,7 +72,7 @@ router.get('/', fetchUser, async (req, res) => {
 
 })
 
-router.post("/", fetchUser, uploadMultiple, async (req, res) => {
+router.post("/add-product", fetchUser, uploadMultiple, async (req, res) => {
     let userId = req.user.id;
     const user = await User.findById(userId).select('-password');
     try {
@@ -92,7 +94,7 @@ router.post("/", fetchUser, uploadMultiple, async (req, res) => {
                 const WaterFilter = require("../model/waterfilterandpurifiers");
                 let waterFilter = new WaterFilter({
                     user_id: user.id,
-                    "model-number": "WF" + req.body["brand-name"].slice(0,4) + Date.now().toString().slice(4, 10),
+                    "model-number": "WF" + req.body["brand-name"].slice(0, 4) + Date.now().toString().slice(4, 10),
                     "product-category": req.body["product-category"],
                     "product-type": req.body["product-type"],
                     "filter-type": req.body["filter-type"],
@@ -104,7 +106,7 @@ router.post("/", fetchUser, uploadMultiple, async (req, res) => {
                     "tank-capacity": req.body["tank-capacity"],
                     stages: req.body["filteration-stages"],
                     material: req.body.material,
-                    warranty: (req.body["warranty-count"]>0?1:0),
+                    warranty: (req.body["warranty-count"] > 0 ? 1 : 0),
                     "warranty-count": req.body["warranty-count"],
                     originalPrice: req.body.price,
                     discount: req.body.discount,
@@ -112,7 +114,7 @@ router.post("/", fetchUser, uploadMultiple, async (req, res) => {
                     available: true,
                     'buyers-count': 10,
                     'visiter-count': 50,
-                    'rating-list':{
+                    'rating-list': {
                         overall: req.body['overall-rating'],
                         design: req.body['design-rating'],
                         quality: req.body['quality-rating'],
@@ -139,7 +141,7 @@ router.post("/", fetchUser, uploadMultiple, async (req, res) => {
                     user_id: req.user.id,
                     "model-number":
                         "WFCAB" +
-                        req.body["brand-name"].slice(0,4) +
+                        req.body["brand-name"].slice(0, 4) +
                         Date.now().toString().slice(4, 10),
                     "product-category": req.body["product-category"],
                     "product-type": req.body["product-type"],
@@ -150,7 +152,7 @@ router.post("/", fetchUser, uploadMultiple, async (req, res) => {
                     "brand-name": req.body["brand-name"],
                     "tank-capacity": req.body["tank-capacity"],
                     material: req.body.material,
-                    warranty: (req.body["warranty-count"]>0?1:0),
+                    warranty: (req.body["warranty-count"] > 0 ? 1 : 0),
                     "warranty-count": req.body["warranty-count"],
                     originalPrice: req.body.price,
                     discount: req.body.discount,
@@ -158,7 +160,7 @@ router.post("/", fetchUser, uploadMultiple, async (req, res) => {
                     available: true,
                     'buyers-count': 10,
                     'visiter-count': 50,
-                    'rating-list':{
+                    'rating-list': {
                         overall: req.body['overall-rating'],
                         design: req.body['design-rating'],
                         quality: req.body['quality-rating'],
@@ -180,6 +182,75 @@ router.post("/", fetchUser, uploadMultiple, async (req, res) => {
         } else {
             return res.status(400).send("You are not autherized to add products.");
         }
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Server Error");
+    }
+})
+
+const products = require("../model/waterfilterandpurifiers");
+
+router.post("/product/delete", fetchUser, async (req, res) => {
+    let userId = req.user.id;
+    const user = await User.findById(userId).select('-password');
+    try {
+        const itemId = req.body.itemId;
+        const product = await products.findById(itemId);
+        if (user.seller && user.id == product.user_id) {
+            const imageArray = product.image;
+            imageArray.forEach((img) => {
+                let obj = Object.values(img)[0];
+                obj.forEach(async (loc) => {
+                    let path = "static/productImg/" + loc;
+                    // Delete the file like normal
+                    fs.unlink(path, (err) => {
+                        if (err) console.log(err);
+                        return;
+                    });
+                });
+            });
+
+            await products.findByIdAndDelete(itemId);
+        }
+
+        res.redirect("/user/profile");
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Server Error");
+    }
+})
+
+router.post('/product/available', fetchUser, async (req, res) => {
+    let userId = req.user.id;
+    const user = await User.findById(userId).select('-password');
+    try {
+        const itemId = req.body.itemId;
+        const product = await products.findById(itemId);
+        if (user.seller && user._id == product.user_id) {
+            product.available = true;
+            await product.save();
+        }
+
+
+        res.redirect("/user/profile");
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Server Error");
+    }
+})
+
+router.post('/product/unavailable', fetchUser, async (req, res) => {
+    let userId = req.user.id;
+    const user = await User.findById(userId).select('-password');
+    try {
+        const itemId = req.body.itemId;
+        const product = await products.findById(itemId);
+        if (user.seller && user._id == product.user_id) {
+            product.available = false;
+            await product.save();
+        }
+
+        res.redirect("/user/profile");
     } catch (error) {
         console.error(error.message);
         res.status(500).send("Internal Server Error");

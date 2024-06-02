@@ -1,0 +1,172 @@
+extends base.pug 
+block metaElements
+    meta(name="robots" content="INDEX, FOLLOW")
+block style 
+    include ../static/css/search.css 
+block title 
+    title AJ-Kart | Buy Again 
+block content 
+    if data.length == 0
+        h3.emptyCart Your Cart Is Empty 
+    else
+    section.main-content
+        .filter-sign-small#openfilter(onclick="openFilter()")
+                <ion-icon name="funnel" id="funnel"></ion-icon>
+        .filter-box-background#filter-box-background
+        .filter-box#filter-box
+            .filter-sign 
+                <ion-icon name="funnel"></ion-icon> 
+                label(for="") Filter
+            .fiter-brand 
+                h4 Brand
+                input(type="checkbox", name="brand", id="cc", value ="Crystal Clear",onchange="applyFilter()")
+                label(for="cc") Crystal Clear
+                br 
+                input(type="checkbox", name="brand", id="Purosis", value ="Purosis",onchange="applyFilter()")
+                label(for="Purosis") Purosis
+                br 
+                input(type="checkbox", name="brand", id="Nile", value ="Nile",onchange="applyFilter()")
+                label(for="Nile") Nile
+                br 
+                input(type="checkbox", name="brand", id="AquaGrand", value ="Aqua Grand",onchange="applyFilter()")
+                label(for="AquaGrand") Aqua Grand
+                br 
+                input(type="checkbox", name="brand", id="AquaDropPlus", value ="Aqua Drop Plus",onchange="applyFilter()")
+                label(for="AquaDropPlus") Aqua Drop Plus
+                br 
+                input(type="checkbox", name="brand", id="AquaMars", value ="Aqua Mars",onchange="applyFilter()")
+                label(for="AquaMars") Aqua Mars
+                br 
+                input(type="checkbox", name="brand", id="AquaRoma", value ="Aqua Roma",onchange="applyFilter()")
+                label(for="AquaRoma") Aqua Roma
+                br 
+                input(type="checkbox", name="brand", id="AquaJade", value ="Aqua Jade",onchange="applyFilter()")
+                label(for="AquaJade") Aqua Jade
+                br 
+            .filter-price 
+                h4 Price
+                input(type='checkbox', name='Price', id="Lto5", value="0to5",onchange="applyFilter()")
+                label(for="Lto5") Less than 5000&#x20B9;
+                br
+                input(type='checkbox', name='Price', id="5to8", value="5to8",onchange="applyFilter()")
+                label(for="5to8") 5000&#x20B9; to 8000&#x20B9;
+                br
+                input(type='checkbox', name='Price',id="8to10", value="8to10",onchange="applyFilter()")
+                label(for="8to10") 8000&#x20B9; to 10000&#x20B9;
+                br
+                input(type='checkbox', name='Price',id="10to12", value="10to12",onchange="applyFilter()")
+                label(for="10to12") 10000&#x20B9; to 12000&#x20B9;
+                br
+                input(type='checkbox', name='Price',id="12to15", value="12to15",onchange="applyFilter()")
+                label(for="12to15") 12000&#x20B9; to 15000&#x20B9;
+                br
+                input(type='checkbox', name='Price',id="15to20", value="15to20",onchange="applyFilter()")
+                label(for="15to20") 15000&#x20B9; to 20000&#x20B9;
+                br
+                input(type='checkbox', name='Price',id="20toM", value="20to100",onchange="applyFilter()")
+                label(for="20toM") 20000&#x20B9; or More
+                br
+            .filter-material 
+                h4 Material
+                input(type="checkbox", name="material", id="metal", value="metal",onchange="applyFilter()")
+                label(for="metal") Metal 
+                br
+                input(type="checkbox", name="material", id="Plastic", value="plastic",onchange="applyFilter()") 
+                label(for="plastic") Plastic
+                br
+        .search-output-area 
+            h2.emptyCart Buy Again
+            each item in data
+                if item.available
+                    .search-item(onclick="openProduct(this)")
+                        .search-image
+                            each img in item.image
+                                each obj in img
+                                    each loc in [obj]
+                                        each item in loc
+                                            img.images(src='/static/productImg/' + item)
+                        .search-content
+                            if item['product-type'] == 'Water Filter and Purifiers'
+                                if item['model-name'].length
+                                    p.heading #{item['model-name']} based on 
+                                        each method,i in item['filteration-method']
+                                            if i == 0
+                                                |#{method} 
+                                            else 
+                                                |+ #{method}
+                                        |  Technique 
+                                        each component,i in item['included-components']
+                                            if i == 0
+                                                |with #{component}
+                                            else 
+                                                |, #{component}
+                                        | and Automatic UF+TDS controller 
+                                        if item['tank-capacity'] >= 9
+                                            |having #{item['tank-capacity']}-L Tank 
+                                        |by #{item['brand-name']}
+                                else 
+                                    p.heading #{item['brand-name']} Presents a Purifier based on 
+                                        each method,i in item['filteration-method']
+                                            if i == 0
+                                                |#{method} 
+                                            else 
+                                                |+ #{method}
+                                        |  Technique 
+                                        each component,i in item['included-components']
+                                            if i == 0
+                                                |with #{component}
+                                            else 
+                                                |, #{component}
+                                        | and Automatic UF+TDS controller 
+                                        if item['tank-capacity'] && item['tank-capacity'] >= 9
+                                            |having #{item['tank-capacity']}-L Tank 
+                            else if item['product-type'] == 'Water Filter Appliances' && item['filter-part'] == 'Cabinet'
+                                if item['model-name'].length
+                                    p.heading #{item['filter-type']} of #{item['model-name']} with #{item['tank-full-indicator']} indicators 
+                                        if item['tank-capacity'] && item['tank-capacity'] >= 7
+                                            |having #{item['tank-capacity']}-L Tank 
+                                        |designed by #{item['brand-name']}
+                                else 
+                                    p.heading Purifier #{item['filter-type']} with #{item['tank-full-indicator']} indicators 
+                                        if item['tank-capacity'] && item['tank-capacity'] >= 7
+                                            |having #{item['tank-capacity']}-L Tank 
+                                        |designed by #{item['brand-name']}  
+                            p.rating 
+                                - var ratingCount = item['rating-list'].overall;
+                                - for (var i = 0; i < ratingCount; i++)
+                                    <ion-icon name="star"></ion-icon> 
+                                - for (var i = ratingCount; i < 5; i++)
+                                    <ion-icon name="star-outline"></ion-icon>
+                            p.price 
+                                sup &#x20B9
+                                span #{(item['originalPrice'])-((item['originalPrice'])*(item['discount'])/100)}  
+                                label M.R.P : 
+                                    span &#x20B9 #{item['originalPrice']}
+                                    |  (#{item['discount']}% discount)
+                            p.brand.points
+                                <ion-icon name="business"></ion-icon> 
+                                span #{item['brand-name']}
+                            if item['warranty']
+                                p.warranty.points 
+                                    <ion-icon name="shield-checkmark"></ion-icon> 
+                                    span #{item['warranty-count']} Years Of Waranty
+                            else if item['color'].length > 1
+                                p.multicolor.points 
+                                    <ion-icon name="aperture"></ion-icon> 
+                                    span Multicolor Available 
+                            p.stages.points
+                                <ion-icon name="water"></ion-icon> 
+                                span #{item['stages']} Stage Purification
+                            p.delivery.points
+                                <ion-icon name="bus"></ion-icon> 
+                                span Free Delivery
+                            label(for="keyword",class="model-number") #{item['model-number']}
+                            label(for="keyword",class="product-type") #{item['product-type']}
+                            label(for="keyword",class="material") #{item['material']}
+                            each color,i in item['color']  
+                                label(for="keyword") #{color} ,
+                            label(for="keyword",class="tank-capacity") #{item['tank-capacity']} Liters
+                        
+
+block scripts 
+    script(src="/static/js/search.js") 

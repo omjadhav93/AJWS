@@ -25,7 +25,7 @@ block content
                     else 
                         .address-line
                             <ion-icon name="location"></ion-icon>  
-                            | #{obj.add}, #{obj.dist}, {obj.state}, #{obj.pin}
+                            | #{obj.add}, #{obj.dist}, #{obj.state}, #{obj.pin}
                             .btn-list
                                 form(action="/user/address/delete", method="post") 
                                     input(type="hidden", name="index", value=i)

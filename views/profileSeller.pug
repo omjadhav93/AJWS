@@ -17,10 +17,10 @@ block content
                     | &nbsp&nbsp User Info
                 p.profile-menu-item(onclick="changeMenu(this)")
                     <ion-icon name="heart-outline"></ion-icon>
-                    | &nbsp&nbsp favourites
+                    | &nbsp&nbsp Brands
                 p.profile-menu-item(onclick="changeMenu(this)")
                     <ion-icon name="bag-outline"></ion-icon>
-                    | &nbsp&nbsp Your Orders
+                    | &nbsp&nbsp Products
                 p.profile-menu-item#settings-menu(onclick="changeMenu(this)")
                     <ion-icon name="settings-outline"></ion-icon>
                     | &nbsp&nbsp Settings
@@ -58,21 +58,19 @@ block content
                                 p.add-address(onclick="window.location.href = '/user/address'") Add a Address 
                     .data-change 
                         button.data-change-btn(onclick="document.getElementById('settings-menu').click()") Edit Profile
-            .favourites#favourite
-                h3(style="text-align: center;") You have not liked any product yet
-            .your-orders 
-                p.fav-heading Your Orders
-                .order-menu 
-                    .menu(onclick="changeOrderList(0)") All
-                    .menu(onclick="changeOrderList(1)") Ongoing
-                    .menu(onclick="changeOrderList(2)") Delivered
-                    .menu(onclick="changeOrderList(3)") Cancelled
-                #order-list
-                    .list-item#All-orders
-                    .list-item#Ongoing-orders
-                    .list-item#Delivered-orders
-                    .list-item#Cancelled-orders
-                    
+            .brands
+            .products 
+                .head-section
+                    p.fav-heading Products
+                    button.avail-btn.add-btn(type="button", onclick="window.location.href = '/user/add-product'") Add Product
+                .product-menu 
+                    .menu(onclick="changeList(0)") All
+                    .menu(onclick="changeList(1)") Available 
+                    .menu(onclick="changeList(2)") Unavailable
+                #product-list
+                    .list-item#All-products
+                    .list-item#Available
+                    .list-item#Unavailable
             .settings#setting 
                 .personal-info 
                     p.setting-head 
@@ -102,4 +100,4 @@ block content
             .notifications
 
 block scripts 
-    script(src="../static/js/profile.js") 
+    script(src="../static/js/profileSeller.js") 

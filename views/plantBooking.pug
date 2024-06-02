@@ -1,0 +1,127 @@
+extends base.pug
+block metaElements
+  meta(name="robots" content="INDEX, FOLLOW")
+block style
+    include ../static/css/plantBooking.css
+    include ../static/css/input.css
+block title 
+    title AJ-Kart | Book Plant
+block content
+    #container
+        if Seller 
+            //- Content for seller
+            center 
+                h2 Plant Bookings
+            each Booking in prevBookings 
+                if Booking.reviewed == false 
+                    .booking-container 
+                        p.customer-name 
+                            span.head Customer Name : 
+                            | #{Booking.user_name}
+                        p.customer-phone 
+                            span.head Customer Phone Number : 
+                            | #{Booking.user_phone}
+                        p.customer-whatsapp 
+                            span.head Customer Whatsapp Number : 
+                            | #{Booking.user_whatsapp}
+                        p.customer-requirement 
+                            span.head Asked For : 
+                            | #{Booking.requirement}
+                        p.date-placed 
+                            -var date = new Date(Booking.createdAt)
+                            -const day = date.getDate();
+                            -const month = date.toLocaleString('default', { month: 'short' });
+                            -const year = date.getFullYear();
+                            -let hours = date.getHours();
+                            -const minutes = date.getMinutes();
+                            -const ampm = hours >= 12 ? 'PM' : 'AM';
+                            -hours = hours % 12;
+                            -hours = hours ? hours : 12;
+                            -const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+                            span.head Requested On : 
+                            | #{day}-#{month}-#{year}, #{hours}:#{formattedMinutes} #{ampm}
+                        p.booking-status 
+                            span.head Request Status : 
+                            span.active-status Active
+                        button.review-btn(type="button", onclick=`markReviewed('${Booking._id}')`) Reviewed
+                    
+            each Booking in prevBookings 
+                if Booking.reviewed == true 
+                    .booking-container.reviewed 
+                        p.customer-name 
+                            span.head Customer Name : 
+                            | #{Booking.user_name}
+                        p.customer-phone 
+                            span.head Customer Phone Number : 
+                            | #{Booking.user_phone}
+                        p.customer-whatsapp 
+                            span.head Customer Whatsapp Number : 
+                            | #{Booking.user_whatsapp}
+                        p.customer-requirement 
+                            span.head Asked For : 
+                            | #{Booking.requirement}
+                        p.booking-status 
+                            span.head Request Status : 
+                            span.deactive-status Completed
+        else 
+            if msg 
+                .msg #{msg}
+            each Booking in prevBookings 
+                if Booking.reviewed == false 
+                    .booking-container 
+                        p.customer-name 
+                            span.head Customer Name : 
+                            | #{Booking.user_name}
+                        p.customer-phone 
+                            span.head Customer Phone Number : 
+                            | #{Booking.user_phone}
+                        p.customer-whatsapp 
+                            span.head Customer Whatsapp Number : 
+                            | #{Booking.user_whatsapp}
+                        p.customer-requirement 
+                            span.head Asked For : 
+                            | #{Booking.requirement}
+                        p.booking-status 
+                            span.head Request Status : 
+                            span.active-status Active
+            form(action="/booking-request", method="post")
+                <div class="announcement">
+                    <h2>Book Your Customized Water Plant Today!</h2>
+                    <p>Fill in your details to book a customized water plant. Our agent will contact you to explain all customization offers and cost management tailored to your requirements. Experience the best in personalized water solutions!</p>
+                </div>  
+                .input
+                    input.input-element(type="text", name="name",id="name",required="required")
+                    label.input-label(for="name") Customer Name
+                .input-split
+                    .input
+                        input.input-element(type="tel", name="phone",id="phone",pattern="[0-9]{10}",required="required")
+                        label.input-label(for="phone") Enter Phone Number
+                    .input
+                        input.input-element(type="tel", name="whatsapp",id="whatsapp",pattern="[0-9]{10}",required="required")
+                        label.input-label(for="whatsapp") Enter Whatsapp Number
+                .input.desc-input-box 
+                    <label class="desc-label" for="myTextarea">Describe your requirement : </label>
+                    <textarea class="desc-input" rows="4" id="myTextarea" name="requirement" required></textarea>
+                button.booking-btn(type="submit") Submit Request
+            each Booking in prevBookings 
+                if Booking.reviewed == true 
+                    .booking-container.reviewed  
+                        p.customer-name 
+                            span.head Customer Name : 
+                            | #{Booking.user_name}
+                        p.customer-phone 
+                            span.head Customer Phone Number : 
+                            | #{Booking.user_phone}
+                        p.customer-whatsapp 
+                            span.head Customer Whatsapp Number : 
+                            | #{Booking.user_whatsapp}
+                        p.customer-requirement 
+                            span.head Asked For : 
+                            | #{Booking.requirement}
+                        p.booking-status 
+                            span.head Request Status : 
+                            span.deactive-status Completed
+
+block scripts 
+    script(src="/static/js/plantBooking.js") 
+    script(src="/static/js/input.js") 

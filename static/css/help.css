@@ -1,0 +1,141 @@
+.help-container {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    margin: 0;
+    padding: 20px;
+    position: relative;
+}
+
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+h1 {
+    text-align: center;
+    color: #007BFF;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form div {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+form label {
+    margin-bottom: 5px;
+    color: #333;
+}
+
+form input,
+form textarea,
+form select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+    resize: none;
+}
+
+form input:focus,
+form textarea:focus,
+form select:focus {
+    border-color: #007BFF;
+    outline: none;
+}
+
+form button {
+    padding: 10px 15px;
+    background-color: #007BFF;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+.msg {
+    display: block;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) scale(0);
+    transform-origin: center;
+    width: max-content;
+    max-width: 50%;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0.4px 0.7px 2px rgba(0, 0, 0, 0.73);
+    background-color: #4ca052;
+    color: rgb(255, 252, 252);
+    transition: transform 0.15s ease-in;
+}
+.booking-container {
+    width: 60%;
+    margin: 2px auto;
+    margin-bottom: 10px;
+    padding: 20px;
+    border: 0.4px solid blue;
+    border-radius: 10px;
+    background-color: #7ffff9bf;
+    font-size: 17px;
+    line-height: 1.2;
+    position: relative;
+}
+
+.booking-container > p {
+    color: #252f2f;
+}
+
+.booking-container.reviewed{
+    opacity: 0.75;
+}
+
+.head {
+    font-weight: 600;
+    font-family: sans-serif;
+    color: black;
+}
+
+.active-status {
+    font-weight: 600;
+    color: blue;
+    font-family: sans-serif;
+}
+
+.deactive-status {
+    font-weight: 600;
+    color: rgb(19, 124, 30);
+    font-family: sans-serif;
+}
+.review-btn {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    padding: 10px 20px;
+    width: max-content;
+    background-color: #05d402;
+    border-radius: 10px;
+    cursor: pointer;
+}

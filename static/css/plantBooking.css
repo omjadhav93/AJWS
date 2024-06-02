@@ -1,0 +1,140 @@
+#container {
+    width: 100vw;
+    display: grid;
+    grid-template-columns: 60%;
+    justify-content: center;
+    row-gap: 30px;
+    padding-top: 30px;
+    position: relative;
+}
+
+.msg {
+    display: block;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) scale(0);
+    transform-origin: center;
+    width: max-content;
+    max-width: 50%;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0.4px 0.7px 2px rgba(0, 0, 0, 0.73);
+    background-color: #4ca052;
+    color: rgb(255, 252, 252);
+    transition: transform 0.15s ease-in;
+}
+
+.booking-container {
+    width: 100%;
+    padding: 20px;
+    border: 0.4px solid blue;
+    border-radius: 10px;
+    background-color: #7ffff9bf;
+    font-size: 17px;
+    line-height: 1.2;
+    position: relative;
+}
+
+.booking-container > p {
+    color: #252f2f;
+}
+
+.booking-container.reviewed{
+    opacity: 0.75;
+}
+
+.head {
+    font-weight: 600;
+    font-family: sans-serif;
+    color: black;
+}
+
+.active-status {
+    font-weight: 600;
+    color: blue;
+    font-family: sans-serif;
+}
+
+.deactive-status {
+    font-weight: 600;
+    color: rgb(19, 124, 30);
+    font-family: sans-serif;
+}
+
+.announcement {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f0f8ff;
+    border-left: 5px solid #007BFF;
+    font-family: Arial, sans-serif;
+    color: #333;
+    border-radius: 5px;
+}
+.announcement h2 {
+    color: #007BFF;
+    margin-bottom: 10px;
+}
+.announcement p {
+    line-height: 1.6;
+}
+
+.desc-input-box {
+    margin-top: 15px;
+    padding: 5px;
+}
+
+.desc-label {
+    cursor: text;
+    color: #555;
+    font-size: 16px;
+}
+
+.desc-input{
+    border-color: #999;
+    outline: none;
+    font-family: 'Roboto', 'Open Sans', 'Helvetica', sans-serif;
+    color: rgb(36, 36, 36);
+    margin-top: 10px;
+    font-size: 14px;
+    /* Adjust as needed */
+    padding: 10px;
+    width: 100%;
+    resize: none;
+}
+
+.review-btn {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    padding: 10px 20px;
+    width: max-content;
+    background-color: #05d402;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.booking-btn {
+    border: none;
+    outline: none;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    padding: 10px 20px;
+    width: max-content;
+    margin: 10px 50%;
+    transform: translateX(-50%);
+    background-color: #0264ee;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.booking-btn:active, .review-btn:active {
+    background-color: #02b7ee;
+}

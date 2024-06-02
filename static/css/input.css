@@ -1,6 +1,7 @@
 .input {
     position: relative;
     margin-bottom: 0.1rem;
+    width: 100%;
     /* Adjust as needed */
 }
 
@@ -9,6 +10,7 @@
     flex-direction: row;
     column-gap: 10px;
     padding: 0;
+    width: 100%;
 }
 
 .input-element {

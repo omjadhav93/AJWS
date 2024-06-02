@@ -1,0 +1,258 @@
+.content {
+    display: flex;
+    flex-direction: column;
+    height: 90vh;
+    position: relative;
+}
+
+.heading{
+    font-size: 28px;
+    font-weight: 600;
+    font-family: pop;
+    width: 100%;
+    text-align: center;
+    padding: 25px;
+}
+
+.order-menu{
+    display: flex;
+    padding-left: 20px;
+    border-top: 1px solid rgb(0, 0, 0);
+    border-bottom: 1px solid rgb(0, 0, 0);
+    margin-bottom: 10px;
+}
+
+.menu {
+    padding: 10px 20px;
+    font-size: 17px;
+    font-family: pop;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.menu:hover {
+    background-color: rgb(136, 202, 224);
+}
+
+#order-list{
+    width: 95%;
+    flex-grow: 1;
+    height: 100%;
+    margin: 0px auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.table-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: max-content;
+    max-height: 100%;
+    overflow: auto;
+    transition: transform 0.3s ease-in;
+}
+
+.table-container:first-child{
+    z-index: 1;
+    background-color: white;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table,
+th,
+td {
+    border: 1px solid black;
+}
+
+th, .action-col, .quantity-col {
+    padding: 10px;
+    text-align: center;
+}
+
+td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+} 
+
+.order-modn, .order-img {
+    cursor: pointer;
+}
+
+.order-modn:hover{
+    color: blue;
+    text-decoration: underline;
+}
+
+.address-col:hover {
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
+}
+
+.payment-col{
+    color: red;
+    font-family: pop;
+    font-weight: 600;
+}
+
+.stage-0 {
+    color: red;
+}
+
+.stage-1 {
+    color: Blue;
+}
+
+.stage-2 {
+    color: Orange;
+}
+
+.stage-3 {
+    color: Purple;
+}
+
+.stage-4 {
+    color: Teal;
+}
+
+.stage-5 {
+    color: Green;
+}
+
+.options {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px 20px;
+}
+
+.action-btn, .select-btn {
+    border: none;
+    outline: none;
+    padding: 10px 20px ;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: rgb(9, 223, 223);
+    border-radius: 10px;
+}
+
+.action-btn:active, .select-btn:active{
+    background-color: rgb(142, 154, 154);
+}
+
+.stg-0{
+    background-color: red;
+}
+
+.stg-1{
+    background-color: Orange;
+}
+
+.stg-2{
+    color: white;
+    background-color: Purple;
+}
+
+.stg-3{
+    color: white;
+    background-color: Teal;
+}
+
+.stg-4{
+    color: white;
+    background-color: Green;
+}
+
+input[type="checkbox"]{
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+
+.confirm-background {
+    z-index: 20;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(52, 50, 50, 0.605);
+}
+
+.confirm-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.confirm-head-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 7px 10px;
+    background-color: rgb(162, 190, 185);
+    box-shadow: inset 0px -2px 3px solid rgb(43, 43, 43);
+}
+
+.confirm-heading {
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.confirm-head-box>ion-icon {
+    font-size: 19px;
+    cursor: pointer;
+}
+
+.confirm-bottom-box {
+    padding: 40px 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 20px;
+    background-color: white;
+}
+
+.confirm-statement {
+    font-size: 16px;
+}
+
+.ok-btn-div {
+    display: flex;
+    justify-content: center;
+}
+
+.ok-btn {
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    outline: none;
+    width: 43%;
+    cursor: pointer;
+    background-color: rgb(62, 202, 62);
+}
+
+.ok-btn:hover {
+    background-color: rgb(175, 184, 184);
+}
+
+/* Disable body scroll */
+.no-scroll {
+    height: 100vh;
+    overflow: hidden;
+}

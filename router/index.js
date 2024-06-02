@@ -54,7 +54,7 @@ router.get("/", fetchCheckUser, async (req, res) => {
     try {
         let cardList = sequence(await Card.find());
         let categoryList = [] // sequence(await Category.find());
-        let otherBrandList = sequence(await Brands.find());
+        let otherBrandList = [] // sequence(await Brands.find());
         if (user) {
             if (user.seller) {
                 res.render("indexAdmin.pug", { LoggedIn: 1, Seller: user.seller, cardList, categoryList, otherBrandList })
@@ -89,6 +89,13 @@ router.post("/saveCard", fetchUser, upload.single('cardImage'), async (req, res)
     let userId = req.user.id;
     const user = await User.findById(userId).select("-password");
     try {
+        if (!user) {
+          // Clear the auth token cookie
+          res.clearCookie('authtoken');
+          req.session.returnTo = req.originalUrl;
+          res.redirect("/auth/login");
+    }
+
         if (user.seller) {
             const cardNo = req.body.cardNo;
             const title = req.body.title;
