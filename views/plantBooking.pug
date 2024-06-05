@@ -60,9 +60,22 @@ block content
                         p.customer-requirement 
                             span.head Asked For : 
                             | #{Booking.requirement}
+                        p.date-placed 
+                            -var date = new Date(Booking.createdAt)
+                            -const day = date.getDate();
+                            -const month = date.toLocaleString('default', { month: 'short' });
+                            -const year = date.getFullYear();
+                            -let hours = date.getHours();
+                            -const minutes = date.getMinutes();
+                            -const ampm = hours >= 12 ? 'PM' : 'AM';
+                            -hours = hours % 12;
+                            -hours = hours ? hours : 12;
+                            -const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+                            span.head Requested On : 
+                            | #{day}-#{month}-#{year}, #{hours}:#{formattedMinutes} #{ampm}
                         p.booking-status 
                             span.head Request Status : 
-                            span.deactive-status Completed
+                            span.deactive-status Reviewed
         else 
             if msg 
                 .msg #{msg}
@@ -120,7 +133,7 @@ block content
                             | #{Booking.requirement}
                         p.booking-status 
                             span.head Request Status : 
-                            span.deactive-status Completed
+                            span.deactive-status Reviewed
 
 block scripts 
     script(src="/static/js/plantBooking.js") 

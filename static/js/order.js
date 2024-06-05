@@ -1,21 +1,3 @@
-// Get all input elements
-const inputs = document.querySelectorAll('.input-element');
-
-// Add event listener to each input
-inputs.forEach(input => {
-    if (input.value) {
-        input.classList.add('has-content');
-    }
-    input.addEventListener('input', function () {
-        // Check if input has value
-        if (this.value) {
-            this.classList.add('has-content');
-        } else {
-            this.classList.remove('has-content');
-        }
-    });
-});
-
 // Get all elements with the same class
 const selectOptContainer = document.querySelectorAll('.selectOptContainer');
 
@@ -50,6 +32,10 @@ const select = (e) => {
     let target = e.parentElement.parentElement;
     target.querySelector('#selected').innerText = text;
     target.nextElementSibling.value = value;
+
+    if(target.getAttribute('id') == 'state') {
+        stateSelected(value,true);
+    }
 }
 
 window.addEventListener('click', function (e) {
@@ -60,6 +46,37 @@ window.addEventListener('click', function (e) {
         }
     })
 });
+
+/* Setting options for district as per state. */
+
+const statesAndDist = {
+    'Maharastra': ['Ahmednagar','Sambhajinagar','Mumbai','Pune','Thane']
+}
+
+const stateSelected = async (value, declick) => {
+    const district = document.getElementById('district');
+    const oldOptions = district.querySelectorAll('.opt:not(#default)');
+
+    oldOptions.forEach(opt => {
+        opt.remove();
+    })
+
+    if(value) {
+        const districts = statesAndDist[value];
+        districts.forEach(dist => {
+            let newOption = document.createElement('span');
+            newOption.setAttribute('value', dist);
+            newOption.setAttribute('onclick', 'select(this)');
+            newOption.textContent = dist;
+            newOption.className = 'opt';
+            district.querySelector('#selectOptContainer').appendChild(newOption);
+        })
+    }
+
+    if(declick){
+        district.querySelector('#default').dispatchEvent(new Event('click'));
+    }
+}
 
 // Quantity Changer
 const quantity = (x) => {
@@ -74,9 +91,9 @@ const quantity = (x) => {
     }
 }
 
-window.onload = () => {
+window.onload = async () => {
     const selectOps = document.querySelectorAll('.selectOptBtn');
-    selectOps.forEach(select => {
+    for(const select of selectOps){
         const selected = select.querySelector('#selected');
         const opts = select.querySelectorAll('.opt');
         let check = true;
@@ -86,34 +103,43 @@ window.onload = () => {
             }
         })
         if (check) {
-            select.querySelector('.opt').click();
-            select.querySelector('.opt').click();
+            select.querySelector('#default').click();
+            select.querySelector('#default').click();
+        }else if(select.getAttribute('id') == 'state') {
+            await stateSelected(selected.textContent.trim(),false);
         }
-    })
+    }
 }
 
 // Submit Form
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('repairForm');
+
+    if (form) {
+        form.addEventListener('submit', (event) => {
+            if (!form.checkValidity()) {
+                document.querySelector('.content').click()
+                event.preventDefault(); // Prevent the form from submitting
+                form.reportValidity(); // Show the validity error messages
+            } else {
+            }
+        }, false);
+    }
+});
+
 const submitDone = () => {
     /* Submitting Form */
     const form = document.getElementById('orderForm');
 
-    form.addEventListener(
-        "submit",
-        () => {
-            form.reportValidity();
-        },
-        false,
-    );
-
     const selects = document.querySelectorAll('input[type="hidden"]');
     let selectCheck = false;
-    selects.forEach(select => {
+    for(const select of selects) {
         if (!select.value && select.value.length == 0) {
             alert(`Please select your ${select.getAttribute('name').toUpperCase()} .`);
             selectCheck = true;
             return;
         }
-    })
+    }
 
     if (selectCheck) return;
 
@@ -151,7 +177,7 @@ const confirmPage = () => {
     const yesNoBtns = document.createElement('div');
     yesNoBtns.classList.add('yes-no-btn');
     yesNoBtns.innerHTML = `
-    <button type="button" class="yes-btn" onclick="document.getElementById('orderForm').requestSubmit()">Yes</button>
+    <button type="button" class="yes-btn" onclick="submitForm()">Yes</button>
     <button type="button" class="no-btn" onclick="document.getElementById('content').click()">No</button>`
     confBtmDiv.appendChild(yesNoBtns);
 
@@ -171,3 +197,7 @@ const closeConfirm = (e) => {
     }
 }
 
+function submitForm() {
+    const form = document.getElementById('repairForm');
+    form.dispatchEvent(new Event('submit')); // Manually trigger the submit event
+}

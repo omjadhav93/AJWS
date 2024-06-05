@@ -8,62 +8,249 @@ block style
 block title 
     title AJ-Kart | Repair 
 block content 
-  .content
-    form(action="/repair/",method="post")
-      .heading
-        h1 Repair Request
-      .problem
-        .question
-          h3 Which type of Service Do you need ?
-          input(type='radio', name='service-type', value='Service', id='Service', required='')
-          label(for="Service")  Servicing
-          br
-          input(type='radio', name='service-type', value='Repairing', id='Repairing', required='')
-          label(for="Repairing")  Repairing
-          br
-          input(type='radio', name='service-type', value='Damage', id='Damage', required='')
-          label(for="Damage")  Damage Recovery
-          .done
-            button(type='button', onclick='done(this)') Done
-        .ans
-          h2 Service 
-          p : 
-          p#ans
-      .Filter-Type
-        .question
-          h3 Which type of filter you have ?
-          input(type='radio', name='filter-type', value='Domastic', id='Domastic', required='')
-          label(for="Domastic")  Domastic(&#x918;&#x930;&#x917;&#x941;&#x924;&#x940; &#x92B;&#x93F;&#x932;&#x94D;&#x91F;&#x930;)
-          br
-          input(type='radio', name='filter-type', value='Commercial', id='Commercial', required='')
-          label(for="Commercial")  Commercial(25,50 LPH)
-          br
-          input(type='radio', name='filter-type', value='Industrial', id='Industrial', required='')
-          label(for="Industrial")  Industrial(100,250,500,1000,2000 LPH)
-          .done
-            button(type='button', onclick='done(this)') Done
-        .ans
-          h2 Filter Type 
-          p : 
-          p#ans
-      .buyer-details
-        h2#det-heading Your Details
-        .buyer-name
-          h2 Name :- 
-          input#buyer-name(type='text', name='name', placeholder='Type your full Name', required='', value=`${user?user.name:''}`)
-        .buyer-address
-          h2 Address :- 
-          textarea#buyer-address(name='address', cols='30', rows='3', required='') #{user.address.length?user.address[0].add:''}
-        .buyer-pincode
-          h2 Pincode :- 
-          input#buyer-pincode(type='number', name='pincode', placeholder='412208', required='', value=`${user.address.length?user.address[0].pin:''}`)
-        .buyer-number
-          h2 Phone No. :- 
-          input#buyer-number(type='number', name='phone', placeholder='8888999910', required='', value=`${user?user.phone:''}`)
-        .order-submit
-          button(type='submit') Submit
-    .cancle
-      button#cancle
-        ion-icon(name='close-outline')
+    .content
+        if Seller 
+            //- Content for seller
+            center 
+                h2 Service Request
+            each Booking in prevBookings 
+                if Booking.reviewed == false 
+                    .booking-container
+                        p.view-details(onclick="viewDetails(this)") View Details
+                        p.request-id 
+                            span.head Request Id : 
+                            | #{Booking.requestId}
+                        p.customer-name 
+                            span.head Customer Name : 
+                            | #{Booking.customer_name}
+                        p.customer-phone 
+                            span.head Customer Phone Number : 
+                            | #{Booking.customer_phone}
+                        p.customer-address 
+                            span.head Customer Address : 
+                            | #{Booking.customer_address.add}, #{Booking.customer_address.dist}, #{Booking.customer_address.state} - #{Booking.customer_address.pin}
+                        p.date-placed 
+                            -var date = new Date(Booking.createdAt)
+                            -const day = date.getDate();
+                            -const month = date.toLocaleString('default', { month: 'short' });
+                            -const year = date.getFullYear();
+                            -let hours = date.getHours();
+                            -const minutes = date.getMinutes();
+                            -const ampm = hours >= 12 ? 'PM' : 'AM';
+                            -hours = hours % 12;
+                            -hours = hours ? hours : 12;
+                            -const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+                            span.head Requested On : 
+                            | #{day}-#{month}-#{year}, #{hours}:#{formattedMinutes} #{ampm}
+                        p.booking-status 
+                            span.head Request Status : 
+                            span.active-status Active
+                        p.product-category.extras.hidden 
+                            span.head Product Category : 
+                            | #{Booking.product_category}
+                        p.product-type.extras.hidden 
+                            span.head Product Type : 
+                            | #{Booking.product_type}
+                        p.model-number.extras.hidden 
+                            span.head Model Number : 
+                            a(href=`/product?modelNo=${Booking.model_number}`) #{Booking.model_number}
+                        p.product-brand.extras.hidden
+                            span.head Product Brand : 
+                            a(href=`/search?value=${Booking.product_brand}`)  #{Booking.product_brand}
+                        button.review-btn(type="button", onclick=`markReviewed('${Booking._id}')`) Reviewed
+                    
+            each Booking in prevBookings 
+                if Booking.reviewed == true 
+                    .booking-container.reviewed 
+                        p.view-details(onclick="viewDetails(this)") View Details
+                        p.request-id 
+                            span.head Request Id : 
+                            | #{Booking.requestId}
+                        p.customer-name 
+                            span.head Customer Name : 
+                            | #{Booking.customer_name}
+                        p.customer-phone 
+                            span.head Customer Phone Number : 
+                            | #{Booking.customer_phone}
+                        p.customer-address 
+                            span.head Customer Address : 
+                            | #{Booking.customer_address.add}, #{Booking.customer_address.dist}, #{Booking.customer_address.state} - #{Booking.customer_address.pin}
+                        p.date-placed 
+                            -var date = new Date(Booking.createdAt)
+                            -const day = date.getDate();
+                            -const month = date.toLocaleString('default', { month: 'short' });
+                            -const year = date.getFullYear();
+                            -let hours = date.getHours();
+                            -const minutes = date.getMinutes();
+                            -const ampm = hours >= 12 ? 'PM' : 'AM';
+                            -hours = hours % 12;
+                            -hours = hours ? hours : 12;
+                            -const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+                            span.head Requested On : 
+                            | #{day}-#{month}-#{year}, #{hours}:#{formattedMinutes} #{ampm}
+                        p.booking-status 
+                            span.head Request Status : 
+                            span.deactive-status Reviewed
+                        p.product-category.extras.hidden 
+                            span.head Product Category : 
+                            | #{Booking.product_category}
+                        p.product-type.extras.hidden 
+                            span.head Product Type : 
+                            | #{Booking.product_type}
+                        p.model-number.extras.hidden 
+                            span.head Model Number : 
+                            a(href=`/product?modelNo=${Booking.model_number}`) #{Booking.model_number}
+                        p.product-brand.extras.hidden
+                            span.head Product Brand : 
+                            a(href=`/search?value=${Booking.product_brand}`)  #{Booking.product_brand}
+        else 
+            if msg 
+                .msg #{msg}
+            each Booking in prevBookings 
+                if Booking.reviewed == false 
+                    .booking-container 
+                        p.view-details(onclick="viewDetails(this)") View Details
+                        p.request-id 
+                            span.head Request Id : 
+                            | #{Booking.requestId}
+                        p.customer-name 
+                            span.head Customer Name : 
+                            | #{Booking.customer_name}
+                        p.customer-phone 
+                            span.head Customer Phone Number : 
+                            | #{Booking.customer_phone}
+                        p.customer-address 
+                            span.head Customer Address : 
+                            | #{Booking.customer_address.add}, #{Booking.customer_address.dist}, #{Booking.customer_address.state} - #{Booking.customer_address.pin}
+                        p.booking-status 
+                            span.head Request Status : 
+                            span.active-status Active
+                        p.product-category.extras.hidden 
+                            span.head Product Category : 
+                            | #{Booking.product_category}
+                        p.product-type.extras.hidden 
+                            span.head Product Type : 
+                            | #{Booking.product_type}
+                        p.model-number.extras.hidden 
+                            span.head Model Number : 
+                            a(href=`/product?modelNo=${Booking.model_number}`) #{Booking.model_number}
+                        p.product-brand.extras.hidden
+                            span.head Product Brand : 
+                            a(href=`/search?value=${Booking.product_brand}`)  #{Booking.product_brand}
+            center.add-request-heading 
+                h2 Add Request
+            form#repairForm(action="/repair", method="post")  
+                .repair-container 
+                    .product-details 
+                        center 
+                            h2 Product Details
+                        p.que 
+                            | Product Category *
+                        button.selectOptBtn#category(type="button",onclick='openOption(this)',style="display: flex;flex-direction: row; column-gap: 10px;margin-top: 0;")
+                            #selected.selected Select a Category
+                            <ion-icon name="arrow-forward-outline"></ion-icon>
+                            #selectOptContainer.selectOptContainer.addOption
+                                span.opt#default(onclick='select(this)', value="") Select a Category
+                                span.opt(onclick='select(this)', value="Home and Kitchen Appliances") Home & Kitchen Appliance 
+                        input.selectedOption#category-input(type='hidden', name='productCategory')
+
+                        p.que 
+                            | Product Type *
+                        button.selectOptBtn#product-type(type="button",onclick='openOption(this)',style="display: flex;flex-direction: row; column-gap: 10px;margin-top: 0;")
+                            #selected.selected Select a Product
+                            <ion-icon name="arrow-forward-outline"></ion-icon>
+                            #selectOptContainer.selectOptContainer.addOption
+                                span.opt#default(onclick='select(this)', value="") Select a Product
+                        input.selectedOption#product-type-input(type='hidden', name='productType')
+
+                        p.que 
+                            | Have you bought this from AJWS ? *
+                        .bought-from-who
+                            input#bought-from-us(type="radio", name="boughtFrom", value="1", required="required")
+                            label(for="bought-from-us") &nbsp Yes
+                            | &nbsp &nbsp &nbsp &nbsp 
+                            input#bought-from-other(type="radio", name="boughtFrom", value="0" required="required")
+                            label(for="bought-from-other") &nbsp No
+
+                        p.que 
+                            | Model Number (Can find it on product page.)
+                        input#model-number(type="text", name="modelNo", placeholder="Ex.. WFPuro458585 (Optional)")
+
+                        p.que 
+                            | Product Brand 
+                        input#brand-Name(type="text", name="brandName", placeholder=`Ex.. Purosis (Mention "Local" if don't now the brand)`, required="required")
+
+                    .customer-details 
+                        center 
+                            h2 Customer Details
+                        .input
+                            input.input-element(type="text", name="name", id="name", required="required", value=`${user?user.name:''}`)
+                            label.input-label(for="name") Customer's Name
+                        .input
+                            input.input-element(type="text", name="address-1", id="address-1", required="required", value=`${user && user.address.length?user.address[0].add:''}`)
+                            label.input-label(for="address-1") Address Line 1
+                        .input
+                            input.input-element(type="text", name="address-2", id="address-2")
+                            label.input-label(for="address-2") Address Line 2 (Optional)
+                        .input-split
+                            button.selectOptBtn#state(type="button",onclick='openOption(this)')
+                                #selected.selected #{user && user.address.length?user.address[0].state:'Select State'}
+                                <ion-icon name="arrow-forward-outline"></ion-icon>
+                                #selectOptContainer.selectOptContainer.addOption
+                                    span.opt#default(onclick='select(this)', value="") Select State
+                                    span.opt(onclick='select(this)', value="Maharastra") Maharastra
+                            input#selectedOption(type='hidden', name='state',required="required", value=`${user && user.address.length?user.address[0].state:''}`)
+                            button.selectOptBtn#district(type="button",onclick='openOption(this)')
+                                #selected.selected #{user && user.address.length?user.address[0].dist:'Select District'}
+                                <ion-icon name="arrow-forward-outline"></ion-icon>
+                                #selectOptContainer.selectOptContainer.addOption
+                                    span.opt#default(onclick='select(this)', value="") Select District
+                            input#selectedOption(type='hidden', name='district',required="required", value=`${user && user.address.length?user.address[0].dist:''}`)
+                        .input-split  
+                            .input
+                                input.input-element(type="number", name="pincode", id="pincode", required="required", value=`${user && user.address.length?user.address[0].pin:''}`)
+                                label.input-label(for="pincode") Pin-Code
+                            .input
+                                input.input-element(type="number", name="phone", id="phone", required="required", value=`${user?user.phone:''}`)
+                                label.input-label(for="phone") Mobile Number
+                .submit-btn-box 
+                    .charge-warning
+                        input#charge-statement(type="checkbox", name="charge-statement", required="required")
+                        label(for="charge-statement") &nbsp A travel fee for the technician will be charged if your problem is fixed, no matter what the problem is. 
+                    button.submit-btn(type="button", onclick="submitDone()") Place Request
+
+            each Booking in prevBookings 
+                if Booking.reviewed == true 
+                    .booking-container.reviewed  
+                        p.view-details(onclick="viewDetails(this)") View Details
+                        p.request-id 
+                            span.head Request Id : 
+                            | #{Booking.requestId}
+                        p.customer-name 
+                            span.head Customer Name : 
+                            | #{Booking.customer_name}
+                        p.customer-phone 
+                            span.head Customer Phone Number : 
+                            | #{Booking.customer_phone}
+                        p.customer-address 
+                            span.head Customer Address : 
+                            | #{Booking.customer_address.add}, #{Booking.customer_address.dist}, #{Booking.customer_address.state} - #{Booking.customer_address.pin}
+                        p.booking-status 
+                            span.head Request Status : 
+                            span.deactive-status Reviewed
+                        p.product-category.extras.hidden 
+                            span.head Product Category : 
+                            | #{Booking.product_category}
+                        p.product-type.extras.hidden 
+                            span.head Product Type : 
+                            | #{Booking.product_type}
+                        p.model-number.extras.hidden 
+                            span.head Model Number : 
+                            a(href=`/product?modelNo=${Booking.model_number}`) #{Booking.model_number}
+                        p.product-brand.extras.hidden
+                            span.head Product Brand : 
+                            a(href=`/search?value=${Booking.product_brand}`)  #{Booking.product_brand}
+
 block scripts 
-    script(src="/static/js/repair.js") 
+    script(src="../static/js/repair.js") 
+    script(src="../static/js/input.js") 

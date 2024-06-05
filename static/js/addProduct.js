@@ -361,13 +361,13 @@ const nextSection = (e) => {
     }
 
     let radioCheck = false;
-    radios.forEach(radio => {
+    for(const radio of radios) {
         if (!radio.value && radio.value.length == 0) {
             alert(`Please select the ${radio.getAttribute('name')} of your product. It's Important!`);
             radioCheck = true;
             return;
         }
-    })
+    }
 
     if (radioCheck) {
         return;
@@ -429,13 +429,13 @@ const submitDone = async (event) => {
     }
 
     let radioCheck = false;
-    radios.forEach(radio => {
+    for(const radio of radios)  {
         if (!radio.value && radio.value.length == 0) {
             alert(`Please select the ${radio.getAttribute('name')} of your product. It's Important!`);
             radioCheck = true;
             return;
         }
-    })
+    }
 
     if (radioCheck) return;
 
