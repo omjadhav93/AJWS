@@ -83,7 +83,45 @@ function initObserver() {
     observer.observe(lessPrice);
 }
 
+// Fetch Brands
+function fetchBrand() {
+    fetch(`/api/brands`)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            const brandsDiv = document.getElementById('brands');
+            brandsDiv.innerHTML = '';
+            data.forEach(brand => {
+                const imageDiv = document.createElement('img');
+                imageDiv.classList.add('product-img');
+                imageDiv.src = `/${brand.logoUrl}`;
+                const brandElement = document.createElement('div');
+                brandElement.classList.add('brand');
+                brandElement.appendChild(imageDiv);
+                brandsDiv.appendChild(brandElement);
+            });
+        })
+}
+function initiateBrandObs() {
+    const brandsDiv = document.getElementById('brands');
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                fetchBrand();
+                observer.unobserve(entry.target); // Fetch products only once
+            }
+        });
+    }, {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+    });
+
+    observer.observe(brandsDiv)
+}
+
 // Initialize the observer when the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
     initObserver();
+    initiateBrandObs();
 });

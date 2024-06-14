@@ -24,12 +24,12 @@ html
           .logo-side 
             .logo-side-up Water 
             .logo-side-down Solutions
-      a.icon-plus-text(href='/repair')
+      a.icon-plus-text#repair-request(href='/repair')
         ion-icon.repair-icon(name='build')
         p Maintenance
       .search-box
         input#search(type='text', name='search', placeholder='Search for Product, Brands, Accessories and More. ',  autocomplete="off")
-      a.icon-plus-text(href='/user/cart')
+      a.icon-plus-text#cart(href='/user/cart')
         ion-icon.cart-icon(name='cart')
         p Cart
       div
@@ -39,26 +39,32 @@ html
           .login(onclick="window.location.href = '/auth/login'")
             p Login / SignIn
     navbar
-        if Seller
-            a.nav-box(href='/') All
-            a.nav-box(href='/plant-booking') Plant Bookings
-            a.nav-box(href='/brands') Top Brand
-            a.nav-box(href='#') Service Requests
-            a.nav-box(href='/order/seller') New Orders
-            a.nav-box(href='/user/add-product') Add Product
-            a.nav-box(href='/#about-us') About Us
-            a.nav-box(href='/help') Help Asked
-        else
-            a.nav-box(href='/') All
-            a.nav-box(href='#',onclick="alert('This Page Under Contruction!')") Recommendation 
-            //- This recommendation tab is for details of parts products.
-            a.nav-box(href='/plant-booking') Book Plant
-            a.nav-box(href='/brands') Top Brand
-            a.nav-box(href='/user/address') Add Address 
-            a.nav-box(href='/buy-again') Buy Again
-            a.nav-box(href='/#about-us') About Us
-            a.nav-box(href='/help') Help
+        .left-nav
+            if Seller
+                a.nav-box(href='/') All
+                a.nav-box(href='/plant-booking') Plant Bookings
+                a.nav-box(href='/brands') Top Brand
+                a.nav-box(href='#') Service Requests
+                a.nav-box(href='/order/seller') New Orders
+                a.nav-box(href='/user/add-product') Add Product
+                a.nav-box(href='/#about-us') About Us
+                a.nav-box(href='/help') Help Asked
+            else
+                a.nav-box(href='/') All
+                a.nav-box(href='/repair') Service
+                //- a.nav-box(href='#',onclick="alert('This Page Under Contruction!')") Recommendation 
+                //- //- This recommendation tab is for details of parts products.
+                a.nav-box(href='/plant-booking') Book Plant
+                a.nav-box(href='/brands') Top Brand
+                a.nav-box(href='/user/address') Add Address 
+                a.nav-box(href='/buy-again') Buy Again
+                a.nav-box(href='/#about-us') About Us
+                a.nav-box(href='/help') Help
+        .right-nav
     main
+        #loading
+        .repair-btn(onclick="window.location.href = '/repair' ")
+            ion-icon(name='build')
         block content
 
     .footer 
@@ -134,7 +140,7 @@ html
                             | Phone : +91-7387227775
             h3.creator-watermark Creator : Om's Developers 
 
-    script(src="/static/js/base.js")
+    block scripts
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    block scripts
+    script(src="/static/js/base.js")

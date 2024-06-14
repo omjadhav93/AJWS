@@ -12,7 +12,7 @@ const cookieParser = require('cookie-parser');
 dotenv.config();
 
 mongoose.connect('mongodb://127.0.0.1:27017/Refresh');
-let PORT = process.env.PORT || 5500;
+let PORT = process.env.PORT || 5500; 
 let SESSION_SECRET = process.env.SESSION_SECRET
 
 // View Engine Setup
@@ -87,6 +87,6 @@ const api = require("./router/api");
 app.use('/api/',api);
 
 // Server Start
-app.listen(PORT,() => {
+app.listen(PORT,'192.168.11.2',() => {
     console.log(`The App Start On Port : ${PORT}`);
 })

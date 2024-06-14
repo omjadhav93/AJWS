@@ -11,19 +11,24 @@ header {
     width: 100%;
     aspect-ratio: 2/1;
     border-radius: 10px;
-    padding: 10px;
     display: flex;
     background-image: url(/static/img/20.jpg);
     background-repeat: no-repeat;
     background-size: cover;
 }
 
-.banner-box{
+.banner-box {
     height: 100%;
     width: 100%;
 }
 
-.banner-slide{
+/* 
+.banner {
+    max-width: 100%;
+    max-height: 100%;
+} */
+
+.banner-slide {
     display: flex;
     height: 100%;
     width: 100%;
@@ -39,7 +44,7 @@ header {
     align-items: center;
     padding: 0px 10px;
     border-radius: 10px;
-    opacity: 0.25;
+    opacity: 0.65;
     background-color: rgb(126, 170, 174);
 }
 
@@ -106,7 +111,8 @@ header {
     width: 78%;
     position: absolute;
     top: 60%;
-    left: 11%;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -277,6 +283,7 @@ header {
     border-radius: 10px;
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
     padding: 10px;
     row-gap: 20px;
     align-items: center;
@@ -348,7 +355,7 @@ header {
     width: 80%;
     margin: 0px auto;
     margin-top: 30px;
-    display: flex;
+    display: none;
     flex-direction: row;
     column-gap: 1%;
 }
@@ -384,7 +391,7 @@ header {
     flex-direction: column;
     row-gap: 15px;
     border-radius: 10px;
-    box-shadow: 4px 4px 12px black;
+    box-shadow: 1px 2px 7px #7e7272;
     padding: 20px;
     width: 80%;
     margin: 0px auto;
@@ -499,7 +506,6 @@ header {
 
 .service-quality h2 {
     color: blue;
-    text-decoration: underline solid black 2px;
     margin-top: 5px;
 }
 
@@ -761,4 +767,722 @@ header {
     margin: 5px 50%;
     transform: translateX(-50%);
     width: fit-content;
+}
+
+@media screen and (max-width: 1631px) {
+    .as-you-wish-img {
+        height: 60%;
+    }
+
+    .as-you-wish-text {
+        font-size: 21px;
+    }
+
+    .btn {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
+}
+
+@media screen and (max-width: 1400px) {
+    .as-you-wish-card {
+        row-gap: 10px;
+    }
+
+    header {
+        grid-template-columns: 90%;
+    }
+
+    .left-shift-banner {
+        left: 5%;
+    }
+
+    .right-shift-banner {
+        right: 5%;
+    }
+
+    .selling-cards {
+        width: 87%;
+    }
+
+    .achievements,
+    .products,
+    .as-you-wish,
+    .brand-box,
+    .testimonials,
+    .about-us {
+        width: 90%;
+    }
+
+    .achievements {
+        padding-top: 33vw;
+    }
+
+    .service {
+        width: 76%;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .achievements {
+        padding-top: 35vw;
+    }
+
+    .selling-card-heading {
+        padding: 7px 15px;
+        font-size: 17px;
+    }
+
+    .selling-card>img {
+        margin: 0px 15px;
+        max-width: 88%;
+        max-height: 70%;
+    }
+
+    .selling-card-note {
+        padding: 5px 15px;
+        font-size: 16px;
+    }
+
+    .as-you-wish-img {
+        height: 55%;
+    }
+
+    .as-you-wish-text {
+        font-size: 18px;
+    }
+
+    .btn {
+        padding: 8px 12px;
+        font-size: 0.75rem;
+    }
+
+    .designs,
+    .less-price {
+        margin-top: 20px;
+    }
+
+    .branding,
+    .servicing,
+    .testimonials,
+    .about-us {
+        padding-top: 25px;
+    }
+
+    .as-you-wish {
+        margin-top: 25px;
+    }
+
+    .cc-brand {
+        column-gap: 20px;
+    }
+
+    .cc-brand-intro {
+        width: 57%;
+    }
+
+    .cc-brand-intro h2,
+    .service-quality h2 {
+        font-size: 20px;
+    }
+
+    .cc-brand-intro h4 {
+        font-size: 16px;
+    }
+
+    .cc-brand-intro p {
+        line-height: 1.5;
+        display: -webkit-box;
+        -webkit-line-clamp: 10;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .cc-brand-logo img {
+        box-shadow: 2px 2px 5px black;
+    }
+
+    .service {
+        width: 82%;
+        padding: 10px;
+        column-gap: 15px;
+    }
+
+    .service-quality ul {
+        font-size: 16px;
+        margin-left: 30px;
+    }
+
+    .service-btn {
+        font-size: 0.85em;
+        padding: 8px 15px;
+        border: 0.3px solid #807777;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .selling-cards {
+        column-gap: 3%;
+    }
+
+    .selling-card {
+        width: 30%;
+    }
+
+    .achievements {
+        padding-top: 77vw;
+    }
+
+    .titles {
+        font-size: 28px;
+    }
+
+    .sells {
+        font-size: 40px;
+    }
+
+    .note {
+        font-size: 14px;
+    }
+
+    .as-you-wish-text {
+        font-size: 14px;
+    }
+
+    .as-you-wish-img {
+        height: 50%;
+    }
+
+    .btn {
+        padding: 7px 11px;
+        font-size: 0.65rem;
+    }
+
+    .service-quality h2 {
+        font-size: 18px;
+    }
+
+    .service-btn {
+        font-size: 0.75em;
+        padding: 7px 12px;
+    }
+
+    .service {
+        width: 87%;
+    }
+
+}
+
+@media screen and (max-width: 860px) {
+    .left-shift-banner>ion-icon, .right-shift-banner>ion-icon {
+        font-size: 40px;
+    }
+
+    .selling-card {
+        aspect-ratio: 291.8 / 353.3;
+    }
+
+    .selling-card-heading {
+        font-size: 15px;
+    }
+
+    .selling-card>img {
+        max-height: 67%;
+    }
+
+    .selling-card-note {
+        font-size: 14px;
+    }
+
+    .achievements {
+        padding-top: 85vw;
+    }
+
+    .testimonial-card {
+        max-width: 90%;
+    }
+
+    .service-quality ul {
+        font-size: 14px;
+        margin-left: 25px;
+        line-height: 16px;
+    }
+
+    .service-quality h2 {
+        font-size: 16px;
+    }
+
+    .service-btn {
+        font-size: 0.67em;
+        padding: 6px 10px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .service {
+        width: 60%;
+        flex-direction: column;
+        row-gap: 10px;
+        justify-content: center;
+    }
+
+    .service>div {
+        width: 100%;
+    }
+
+    .service-quality {
+        justify-content: space-between;
+        align-items: center;
+        row-gap: 10px;
+    }
+
+    .service-btn {
+        position: relative;
+        left: 0;
+        transform: translateX(0);
+        font-size: 0.75rem;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    header {
+        grid-template-columns: 95%;
+    }
+
+    .left-shift-banner {
+        left: 2.5%;
+    }
+
+    .right-shift-banner {
+        right: 2.5%;
+    }
+
+    .left-shift-banner>ion-icon, .right-shift-banner>ion-icon {
+        font-size: 35px;
+    }
+
+    .left-shift-banner, .right-shift-banner {
+        padding: 0 5px;
+    }
+
+    .selling-cards {
+        width: 92%;
+        column-gap: 2%;
+    }
+
+    .selling-card {
+        width: 32%;
+    }
+
+    .achievements,
+    .products,
+    .as-you-wish,
+    .brand-box,
+    .testimonials,
+    .about-us {
+        width: 95%;
+    }
+
+    .products {
+        margin-top: 50px;
+    }
+
+    .products>h3 {
+        font-size: 16px;
+    }
+
+    .products-list {
+        aspect-ratio: 5.8;
+        margin: 10px 5px 7px 7px;
+    }
+
+    .as-you-wish-cards {
+        flex-wrap: nowrap;
+        column-gap: 8px;
+        overflow: auto;
+    }
+
+    .as-you-wish-card {
+        aspect-ratio: 1/1.2;
+        width: 30%;
+        min-width: 30%;
+    }
+
+    .achievements {
+        padding-top: 92vw;
+    }
+
+    .selling-card-heading {
+        font-size: 13px;
+    }
+
+    .selling-card-note {
+        font-size: 13px;
+    }
+
+    .sells {
+        font-size: 30px;
+    }
+
+    .note {
+        font-size: 12px;
+    }
+
+    .titles {
+        font-size: 25px;
+        margin: 20px auto;
+    }
+
+    .achievements {
+        padding-top: 98vw;
+    }
+
+
+    .sub-titles {
+        margin: 6px auto;
+        font-size: 16px;
+    }
+
+    .brands {
+        column-gap: 15px;
+    }
+
+    .brand {
+        width: 15%;
+        min-width: 15%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .achievements {
+        padding-top: 103vw;
+    }
+
+    .cc-brand {
+        flex-direction: column;
+        row-gap: 8px;
+    }
+
+    .cc-brand-logo {
+        width: 100%;
+        text-align: center;
+    }
+
+    .cc-brand-logo img {
+        position: relative;
+        width: 90%;
+        box-shadow: none;
+    }
+
+    .cc-brand-intro {
+        width: 100%;
+    }
+
+    .service {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    header {
+        grid-template-columns: 97.5%;
+    }
+
+    .left-shift-banner {
+        left: 1.2%;
+    }
+
+    .right-shift-banner {
+        right: 1.2%;
+    }
+
+    .left-shift-banner>ion-icon, .right-shift-banner>ion-icon {
+        font-size: 30px;
+    }
+
+    .left-shift-banner, .right-shift-banner {
+        height: 65%;
+    }
+
+    .selling-cards {
+        width: 95%;
+        column-gap: 1%;
+    }
+
+    .selling-card {
+        width: 32.5%;
+    }
+
+    .achievements,
+    .products,
+    .as-you-wish,
+    .brand-box,
+    .testimonials{
+        width: 97.5%;
+    }
+
+    .about-content {
+        padding: 15px;
+    }
+
+    .achievements {
+        padding-top: 110vw;
+    }
+
+    .products {
+        margin-top: 35px;
+    }
+
+    .sells {
+        font-size: 25px;
+    }
+
+    .note {
+        font-size: 10px;
+    }
+
+    .titles {
+        font-size: 23px;
+        margin: 15px auto;
+    }
+
+    .service {
+        width: 80%;
+    }
+
+    .testimonial-card {
+        margin: 8px;
+        padding: 15px;
+    }
+
+    .selling-card-heading {
+        padding: 6.5px 13px;
+        font-size: 12px;
+    }
+
+    .selling-card>img {
+        margin: 0px 13px;
+        max-height: 66%;
+    }
+
+    .selling-card-note {
+        padding: 4.5px 13px;
+        font-size: 11px;
+    }
+
+    .brands {
+        padding: 0 15px;
+    }
+
+    .sub-titles {
+        margin: 0 auto;
+    }
+
+    .as-you-wish-card {
+        row-gap: 5px;
+    }
+
+    .cc-brand-intro h2, .service-quality h2 {
+        font-size: 16px;
+        text-align: center;
+    }
+
+    .cc-brand-intro h4 {
+        font-size: 15px;
+        color: blue;
+        text-align: center;
+    }
+
+    .cc-brand-intro p {
+        line-height: 1.3;
+        font-size: 14px;
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 470px) {
+    .selling-card {
+        width: 32.65%;
+    }
+
+    .selling-card-heading {
+        padding: 5.5px 10px;
+        font-size: 11px;
+    }
+
+    .selling-card>img {
+        margin: 0px 10px;
+        max-height: 66%;
+    }
+
+    .selling-card-note {
+        padding: 4.5px 10px;
+        font-size: 10px;
+    }
+
+    .titles {
+        font-size: 21px;
+        margin: 10px auto;
+    }
+
+    .sells {
+        font-size: 22px;
+    }
+
+    .note {
+        font-size: 9px;
+    }
+
+    .achievements {
+        padding-top: 112vw;
+    }
+
+    .as-you-wish-text {
+        font-size: 12px;
+    }
+
+    .btn {
+        padding: 6px 9px;
+        font-size: 0.55rem;
+    }
+
+    .as-you-wish-img {
+        height: 47%;
+    }
+
+    .products>h3 {
+        font-size: 14px;
+    }
+
+    .products {
+        padding: 12px;
+    }
+
+    .testimonial-content {
+        font-size: 15px;
+    }
+
+    .testimonial-author {
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 410px) {
+    .left-shift-banner>ion-icon, .right-shift-banner>ion-icon {
+        font-size: 20px;
+    }
+
+    .achievements {
+        padding-top: 116vw;
+    }
+
+    .selling-card-heading {
+        padding: 5px 8px;
+        font-size: 10px;
+    }
+
+    .selling-card>img {
+        margin: 0px 8px;
+    }
+
+    .selling-card-note {
+        padding: 4px 8px;
+        font-size: 9px;
+    }
+
+    .as-you-wish-cards {
+        column-gap: 5px;
+    }
+
+    .as-you-wish-text {
+        font-size: 10px;
+    }
+
+    .as-you-wish-card {
+        aspect-ratio: 1/1.3;
+        padding: 5px;
+        row-gap: 0;
+    }
+
+    .btn {
+        padding: 5px 8px;
+        font-size: 0.50rem;
+    }
+
+    .service {
+        width: 90%;
+    }
+
+    .cc-brand-intro h2, .service-quality h2 {
+        font-size: 15px;
+    }
+
+    .service-quality ul {
+        font-size: 13px;
+        line-height: 15px;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .selling-cards {
+        row-gap: 10px;
+    }
+
+    .selling-card-heading {
+        padding: 4px 6px;
+        font-size: 9px;
+    }
+
+    .selling-card>img {
+        margin: 0px 6px;
+        max-height: 65%;
+    }
+
+    .selling-card-note {
+        padding: 4px 6px;
+        font-size: 8px;
+    }
+
+    .achieve-box {
+        padding: 5px;
+    }
+
+    .sells {
+        font-size: 20px;
+    }
+
+    .note {
+        font-size: 8px;
+    }
+
+    .achievements {
+        padding-top: 118vw;
+    }
+
+    .titles {
+        font-size: 19px;
+    }
+
+    .products>h3 {
+        font-size: 13px;
+    }
+
+    .cc-brand-intro h2, .service-quality h2 {
+        font-size: 14px;
+    }
+
+    .cc-brand-intro h4 {
+        font-size: 13px;
+    }
+
+    .cc-brand-intro p {
+        line-height: 1.2;
+        font-size: 12px;
+    }
+
+    .brands {
+        padding: 0 5px;
+        column-gap: 10px;
+    }
 }

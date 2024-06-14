@@ -8,6 +8,7 @@ const bcrypt = require("bcrypt");
 const User = require("../model/user");
 const { Favourite, CancleOrder } = require('../model/lists');
 const Order = require('../model/orders')
+const { Brand } = require('../model/home')
 
 async function dataFinder(compare) {
     let requireModel = require(`../model/waterfilterandpurifiers`);
@@ -417,6 +418,7 @@ router.get('/order/cancle/reason', fetchCheckAuth, async (req, res) => {
     }
 })
 
+
 router.get('/seller/products', fetchCheckAuth, async (req, res) => {
     let userId = (req.user != null) ? req.user.id : new mongoose.Types.ObjectId('5f56a08d8d22222222222222');
     const user = await User.findById(userId).select("-password");
@@ -424,14 +426,28 @@ router.get('/seller/products', fetchCheckAuth, async (req, res) => {
         if (!user) {
             return res.status(200).send({ msg: "You have not signed in correctly!" });
         }
-
+        
         if (!user.seller) {
             return res.status(200).send({ msg: "You are not autherized to edit orders!" });
         }
-
+        
         const products = await dataFinder(0);
-
+        
         res.status(200).send(products);
+        
+    } catch (error) {
+        console.log(error)
+        res.status(500).send("Internal Server Error");
+    }
+})
+
+router.get('/brands', fetchCheckAuth, async (req, res) => {
+    let userId = (req.user != null) ? req.user.id : new mongoose.Types.ObjectId('5f56a08d8d22222222222222');
+    const user = await User.findById(userId).select("-password");
+    try {
+        const brands = await Brand.find().sort({ updatedAt: -1 }).exec();
+
+        res.status(200).send(brands);
 
     } catch (error) {
         console.log(error)

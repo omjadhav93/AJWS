@@ -7,18 +7,37 @@
     font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
 }
 
-html, body {
+html,
+body {
     height: 100%;
     margin: 0;
 }
 
-body{
+body {
     display: flex;
     flex-direction: column;
+    overflow-y: hidden;
 }
 
 main {
-    flex: 1; /* This makes sure the main content takes up the remaining space */
+    flex: 1;
+    position: relative;
+    /* This makes sure the main content takes up the remaining space */
+}
+
+#loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 20;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 90vh;
+    background: url('static/img/loader.gif') no-repeat center 40%;
+    background-size: 40%;
+    background-color: white;
 }
 
 .hide-element {
@@ -33,6 +52,7 @@ nav {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    z-index: 50;
 }
 
 nav a {
@@ -97,6 +117,59 @@ navbar {
     top: 0;
     background-color: rgb(99, 90, 90);
     z-index: 100;
+    transition: height .5s;
+}
+
+.left-nav {
+    display: flex;
+    flex-direction: row;
+    column-gap: 5px;
+}
+
+.left-nav.short {
+    display: flex;
+    flex-direction: column;
+}
+
+.right-nav {
+    display: flex;
+    flex-direction: row-reverse;
+    column-gap: 10px;
+    margin-right: 10px;
+    position: absolute;
+    right: 0;
+    top: 1px;
+    width: 70%;
+    padding-top: 2px;
+}
+
+.right-nav>.nav-box {
+    padding: 2px;
+}
+
+.right-nav>.nav-box:hover {
+    background-color: white;
+}
+
+.menu-box {
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+#menu-btn {
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 32px;
+    padding: 0px 7px;
+}
+
+#menu-btn:hover {
+    cursor: pointer;
+}
+
+#menu-btn:active {
+    background-color: aqua;
 }
 
 .nav-box {
@@ -211,6 +284,7 @@ navbar {
     font-size: 17px;
     color: #e0dcdf;
     font-weight: 600;
+    border: 2px solid white;
 }
 
 .login:hover {
@@ -219,48 +293,87 @@ navbar {
     color: #e6d9e4;
 }
 
-.login:active{
+.login:active {
     cursor: pointer;
     background-color: rgb(32, 33, 33);
     color: #f2e6f0;
 }
 
+/* Repair Btn */
+.repair-btn {
+    width: fit-content;
+    padding: 8px 10px;
+    border: 1px solid rgb(151, 137, 137);
+    border-radius: 50%;
+    box-shadow: 1px 2px 5px rgba(72, 67, 67, 0.737);
+    background-color: orange;
+    position: fixed;
+    bottom: 4vh;
+    right: 4vh;
+    z-index: 10;
+}
+
+.repair-btn.animate {
+    animation: highlight .2s 1s 5;
+}
+
+.repair-btn ion-icon {
+    font-size: 40px;
+}
+
+.repair-btn:hover {
+    cursor: pointer;
+}
+
+.repair-btn:active {
+    background-color: rgb(248, 216, 155);
+}
+
 
 /* Footer */
-.footer{
+.footer {
     background-color: black;
     margin-top: 50px;
 }
-.footer-top{
+
+.footer-top {
     display: flex;
     flex-direction: row;
     padding: 50px 30px;
     row-gap: 100px;
+    column-gap: 10px;
     justify-content: space-evenly;
     flex-wrap: wrap;
     border-bottom: 1px solid white;
 }
-.footer-top>div{
+
+.footer-top>div {
     display: flex;
     flex-direction: column;
     row-gap: 10px;
 }
-.footer-section-heading h3{
+
+.footer-section-heading h3 {
     color: #878787;
     margin-bottom: 10px;
 }
-.footer-section-heading,.link{
+
+.footer-section-heading,
+.link {
     width: max-content;
 }
-.link a{
+
+.link a {
     color: white;
     text-decoration: none;
 }
-.link p{
+
+.link p {
     color: white;
     line-height: 1.5;
 }
-.creator-watermark{
+
+.creator-watermark {
     padding: 10px 0px;
     width: 100%;
     text-align: center;
@@ -284,10 +397,153 @@ navbar {
 }
 
 @keyframes image_skeleton {
-    0%{
+    0% {
         background-color: #9dbbb7;
     }
-    100%{
+
+    100% {
         background-color: #deefed;
+    }
+}
+
+@keyframes highlight {
+    0%{
+        transform: translateY(0%);
+    }
+    50%{
+        transform: translateY(-50%);
+    }
+    100%{
+        transform: translateY(0%);
+    }
+}
+
+
+@media screen and (max-width: 1500px) {
+    nav {
+        padding: 5px 50px;
+    }
+}
+
+@media screen and (max-width: 1250px) {
+    nav {
+        padding: 5px 20px;
+    }
+}
+
+@media screen and (max-width: 1150px) {
+    .icon-plus-text>p {
+        display: none;
+    }
+
+    .repair-icon,
+    .cart-icon {
+        font-size: 32px;
+    }
+
+    .login {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+
+    .logo-head {
+        font-size: 27px;
+    }
+
+    .logo-side-up,
+    .logo-side-down {
+        font-size: 11px;
+    }
+}
+
+
+@media screen and (max-width: 860px) {
+    nav {
+        justify-content: space-between;
+        padding: 4px 20px;
+    }
+
+    navbar {
+        background-color: white;
+        border-bottom: 1px solid rgb(4, 4, 50);
+        height: 38px;
+    }
+
+    navbar.active {
+        height: 315px;
+    }
+
+    .left-nav.short {
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .nav-box {
+        display: flex;
+        padding: 0px;
+        border: 1px solid white;
+        border-radius: 10px;
+        color: #6b2590;
+        width: 100%;
+        padding: 7px 10px;
+        font-size: 16px;
+    }
+
+    .nav-box:hover {
+        background-color: rgb(198, 149, 244);
+        cursor: pointer;
+    }
+
+    .search-box {
+        border-radius: 0;
+        flex: 1;
+    }
+
+    #search {
+        background-color: #f8e8e8;
+        border: 0.3px solid #cebbbb;
+        border-radius: 7px;
+        background-size: auto 46%;
+        background-position: 12px center;
+        background-repeat: no-repeat;
+        padding: 7px 10px 7px 40px;
+        font-size: 13px;
+    }
+
+    .cart-icon {
+        color: rgb(114, 105, 105);
+    }
+
+    .repair-btn{
+        bottom: 3vh;
+        right: 3vh;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .repair-btn ion-icon{
+        font-size: 30px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .repair-btn{
+        bottom: 4vh;
+        right: 3vh;
+    }
+
+    nav {
+        justify-content: space-between;
+        padding: 4px 10px;
+    }
+
+    #loading {
+        background-size: 80%;
+    }
+}
+
+@media screen and (max-width: 440px) {
+    .repair-btn ion-icon{
+        font-size: 25px;
     }
 }

@@ -101,7 +101,8 @@
 .favourites,
 .your-orders,
 .notifications,
-.products {
+.products,
+.brands {
     display: flex;
     flex-direction: column;
     padding: 80px 10%;
@@ -232,7 +233,8 @@
 
 .favourites,
 .your-orders,
-.products {
+.products,
+.brands {
     padding: 0px 40px;
     padding-top: 30px;
     width: 90%;
@@ -246,10 +248,50 @@
 }
 
 .fav-heading {
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 600;
     padding-left: 20px;
-    margin-bottom: 25px;
+}
+
+#brands-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    row-gap: 20px;
+    column-gap: 20px;
+}
+
+.brand-container{
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    height: max-content;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgb(88, 85, 85);
+    cursor: pointer;
+}
+
+.brand-image {
+    width: 100%;
+    aspect-ratio: 1;
+    border-bottom: 0.6px solid rgb(105, 100, 100);
+    padding: 25px;
+}
+
+.brand-image > img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.brand-name {
+    text-align: center;
+    padding: 12px;
+}
+
+.brand-name > p{
+    font-size: 18px;
+    font-weight: 600;
+    color: rgb(56, 54, 54);
 }
 
 .search-item {
@@ -359,6 +401,8 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
 #All-products, #Available, #Unavailable {

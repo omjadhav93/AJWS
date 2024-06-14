@@ -220,11 +220,43 @@ const closeEdit = (e) => {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    fetch('/api/seller/products') // Replace with your actual API endpoint
+    fetch('/api/seller/products') 
         .then(response => response.json())
         .then(data => renderProducts(data))
         .catch(error => console.error('Error fetching data:', error));
+    fetch('/api/brands') 
+        .then(response => response.json())
+        .then(data => createBrandElements(data))
+        .catch(error => console.error('Error fetching data:', error));
 });
+
+function createBrandElements(brands) {
+    const brandsContainer = document.getElementById('brands-list');
+
+    brands.forEach(brand => {
+        const brandContainer = document.createElement('div');
+        brandContainer.className = 'brand-container';
+        brandContainer.setAttribute('onclick','window.location.href = "/brands"')
+
+        const brandImage = document.createElement('div');
+        brandImage.className = 'brand-image';
+        const img = document.createElement('img');
+        img.src = '/' + brand.logoUrl;
+        img.alt = brand.name;
+        brandImage.appendChild(img);
+
+        const brandName = document.createElement('div');
+        brandName.className = 'brand-name';
+        const p = document.createElement('p');
+        p.textContent = brand.name;
+        brandName.appendChild(p);
+
+        brandContainer.appendChild(brandImage);
+        brandContainer.appendChild(brandName);
+
+        brandsContainer.appendChild(brandContainer);
+    });
+}
 
 function renderProducts(data) {
     const allProductsContainer = document.getElementById('All-products');
