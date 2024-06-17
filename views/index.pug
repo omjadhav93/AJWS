@@ -17,19 +17,12 @@ block content
         .right-shift-banner 
           <ion-icon name="chevron-forward"></ion-icon>
         .banner-box
-          .banner-slide
-            .offer-headline
-              h1(style='color: rgb(0 255 223);') Mega Diwali Dhamaka Sale
-              p(style='color: #392136;font-weight: 600;')
-                | A water filter with RO+UV technologies will be priced only under 5000 rs.
-              button.btn(style='background-color: orange;', onmousedown="this.style.backgroundColor = 'aqua'", onmouseup="this.style.backgroundColor = 'orange'") Buy Now
-            .related-img
-              img(src='https://www.kent.co.in/images/v3/ro-water-purifiers-updated.png', alt='')
+          img.banner(src="/static/img/banner-1.jpg", alt="")
         .selling-cards
           each card in cardList 
             .selling-card 
               p.selling-card-heading #{card.title}
-              img(src='static/productImg/'+card.image , alt='')
+              img(src='static/productImg/'+card.image , alt='', onclick=`${card.modelNo?'/product?modelNo=${'+card.modelNo+'}':'alert("These products are not available yet.")'}`)
               p.selling-card-note #{card.desc}
     section.achievements
       h1.titles Achievements
@@ -74,22 +67,22 @@ block content
           .as-you-wish-img
             img(src='/static/img/water-drop.png', alt='')
           p.as-you-wish-text See our suggestions as per your water quality.
-          button.try-suggestion-btn.btn Try Suggestion
+          button.try-suggestion-btn.btn(href='#',onclick="alert('This feature is under development!')") Try Suggestion
         .as-you-wish-card
           .as-you-wish-img
             img(src='/static/img/mineral-water-plant.jpg', alt='')
           p.as-you-wish-text Do you want to set-up a mineral water plant ?
-          button.book-now-btn.btn Book Now
+          button.book-now-btn.btn(onclick="window.location.href= '/plant-booking'") Book Now
         .as-you-wish-card
           .as-you-wish-img
             img(src='/static/img/cross-spanner.webp', alt='')
           p.as-you-wish-text Do you need any maintenance or repairing service ?
-          button.add-request-btn.btn Add Request
+          button.add-request-btn.btn(onclick="window.location.href= '/repair'") Add Request
         .as-you-wish-card
           .as-you-wish-img
             img(src='/static/img/product-jpeg.webp', alt='')
           p.as-you-wish-text Do you want to add some more purification stages ?
-          button.use-recommendation-btn.btn Use Recommendation
+          button.use-recommendation-btn.btn(href='#',onclick="alert('This Page Under Contruction!')") Use Recommendation
     section.products.designs
       h3 Top In Designs
       .products-list#topDesign
@@ -130,7 +123,7 @@ block content
       h2.titles Brands
       .brand-box
         .cc-brand
-          .cc-brand-logo(onclick="window.location.href='/user/search?value=Crystal Clear'")
+          .cc-brand-logo(onclick=`window.location.href='/search?value="Crystal Clear"'`)
             img(src='/static/img/crystal-clear-logo.png', alt='crystal-clear-logo')
           .cc-brand-intro
             h2 Introducing Crystal Clear - Where Pure Water Meets Perfection! 

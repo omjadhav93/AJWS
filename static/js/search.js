@@ -64,6 +64,18 @@ const applyFilter = () => {
 const openFilter = () => {
     document.getElementById('filter-box').classList.toggle('active')
     document.getElementById('filter-box-background').classList.toggle('active')
+    if(document.getElementById('filter-box').classList.contains('active')){
+        window.addEventListener('click', closeFilter, true);
+    }
+}
+
+const closeFilter = (e) => {
+    const clickArea = document.querySelector('body');
+    const nonClickArea = document.querySelector('.filter-box');
+    if (clickArea.contains(e.target) && !nonClickArea.contains(e.target)) {
+        window.removeEventListener('click', closeFilter, true);
+        openFilter()
+    }
 }
 
 // Opening product 

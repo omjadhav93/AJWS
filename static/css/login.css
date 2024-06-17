@@ -91,7 +91,7 @@
     background-color: rgb(251, 151, 151);
 }
 
-.link {
+.anLink {
     margin: 0px auto;
     font-weight: 500;
     font-size: 16.5px;
@@ -105,7 +105,7 @@
     padding-left: 5px;
 }
 
-.warning{
+.warning {
     color: rgb(224, 250, 26);
     background-color: rgba(238, 35, 35, 0.796);
     padding: 10px 15px;
@@ -113,5 +113,173 @@
     align-items: center;
     border: none;
     border-radius: 10px;
-    box-shadow: 2px 2px 5px solid black;margin-bottom: 5px;
+    box-shadow: 2px 2px 5px solid black;
+    margin-bottom: 5px;
+}
+
+@media screen and (max-width: 1400px) {
+    .login-container {
+        width: 60%;
+    }
+
+    .left {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    .login-container {
+        width: 75%;
+    }
+}
+
+@media screen and (max-width: 860px) {
+    .login-container {
+        width: 80%;
+    }
+
+    .right {
+        width: 50%;
+        padding: 50px 28px;
+    }
+}
+
+@media screen and (max-width: 720px) {
+    .login-container {
+        width: 83%;
+    }
+
+    .left {
+        row-gap: 150px;
+        padding: 40px 25px;
+    }
+
+    .right {
+        width: 50%;
+        padding: 30px 23px;
+    }
+
+    .design-img {
+        width: 150px;
+    }
+
+    .anLink {
+        font-size: 14px;
+    }
+
+    .login-head {
+        font-size: 27px;
+    }
+
+    .welcome-text {
+        font-size: 15px;
+    }
+
+
+    .forgot {
+        padding-left: 4px;
+        font-size: 12px;
+        margin-top: 0.3rem;
+    }
+
+    .btn {
+        padding: 7px 0px;
+        margin-top: 35px;
+        font-size: 13px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .login-container {
+        width: 95%;
+        box-shadow: 1px 1px 3px #7c6f6f;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .login-container {
+        width: 97%;
+    }
+
+    .anLink{
+        font-size: 12px;
+    }
+
+    .design-img {
+        width: 100px;
+    }
+
+    .right {
+        padding: 22px 17px;
+    }
+
+    .left {
+        row-gap: 100px;
+        padding: 30px 22px;
+    }
+
+    .login-head {
+        font-size: 24px;
+    }
+
+    .welcome-text {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .forgot {
+        padding-left: 4px;
+        font-size: 10px;
+        margin-top: 0.15rem;
+    }
+
+    .btn {
+        padding: 5px 0px;
+        margin-top: 25px;
+        font-size: 10px;
+    }
+
+    .anLink {
+        font-size: 9.5px;
+    }
+}
+
+@media screen and (max-width: 370px) {
+    .login-container {
+        width: 98.5%;
+    }
+
+    .left-head {
+        row-gap: 3px;
+    }
+
+    .design-img {
+        width: 75px;
+    }
+
+    .left {
+        row-gap: 85px;
+        padding: 26px 18px;
+    }
+
+    .login-head {
+        font-size: 18.3px;
+    }
+
+    .welcome-text {
+        font-size: 9.5px;
+    }
+
+    .right {
+        padding: 18px 12px;
+    }
+
+    .anLink {
+        font-size: 7.5px;
+    }
+
+    .btn{
+        margin-top: 20px;
+    }
 }

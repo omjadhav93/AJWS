@@ -100,6 +100,7 @@ router.post("/saveCard", fetchUser, upload.single('cardImage'), async (req, res)
             const cardNo = req.body.cardNo;
             const title = req.body.title;
             const image = req.file.filename;
+            const modelNo = req.body.modelNo;
             const desc = req.body.desc;
             // const locateTo = req.body['locate-to'];
             // const location = req.body.location;
@@ -120,6 +121,7 @@ router.post("/saveCard", fetchUser, upload.single('cardImage'), async (req, res)
                 cardNo: cardNo,
                 title: title,
                 image: image,
+                modelNo: modelNo,
                 desc: desc
             })
 

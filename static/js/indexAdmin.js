@@ -21,7 +21,8 @@ const cardEdit = (e,cardNo) => {
                         alt="">
                 </div>
                 <textarea name="desc" class="selling-card-note-edit" spellcheck="false" maxlength="45"
-                    rows="2">${note}</textarea>
+                rows="2">${note}</textarea>
+                <input type="text" name="modelNo" class="selling-card-heading-edit" spellcheck="false" maxlength="20" placeholder="Model Number" />
                 <button type="submit" class="submit-btn btn">Submit</button>
             </form>
             `

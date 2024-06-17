@@ -12,7 +12,7 @@ const cookieParser = require('cookie-parser');
 dotenv.config();
 
 mongoose.connect('mongodb://127.0.0.1:27017/Refresh');
-let PORT = process.env.PORT || 5500; 
+let PORT = process.env.PORT || 5500;
 let SESSION_SECRET = process.env.SESSION_SECRET
 
 // View Engine Setup
@@ -21,7 +21,7 @@ app.set("views", "./views");
 
 app.use('/static', express.static('static'))
 app.use(express.json())
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 // Use cookie-parser middleware to parse cookies
 app.use(cookieParser());
 app.use(session({
@@ -32,61 +32,61 @@ app.use(session({
 
 // Authenticate Router
 const authenticate = require("./router/authenticate");
-app.use('/auth',authenticate);
+app.use('/auth', authenticate);
 
 // Home Page Router
 const index = require("./router/index");
-app.use('/',index);
+app.use('/', index);
 
 // Search Page Router
 const search = require("./router/searching");
-app.use('/',search);
+app.use('/', search);
 
 // Product Page Router
 const product = require("./router/product");
-app.use('/',product);
+app.use('/', product);
 
 // Add Product Form
 const addProduct = require("./router/addProduct");
-app.use('/user/',addProduct);
+app.use('/user/', addProduct);
 
 // Add Brands
 const brand = require("./router/brand");
-app.use('/',brand);
+app.use('/', brand);
 
 // Cart
 const cart = require("./router/cart");
-app.use('/user/',cart);
+app.use('/user/', cart);
 
 // Repair Form
 const repair = require("./router/repairing");
-app.use('/repair/',repair);
+app.use('/repair/', repair);
 
 // Add Address Form
 const address = require("./router/address");
-app.use('/user/address/',address);
+app.use('/user/address/', address);
 
 // Book Plants
 const plantBooking = require("./router/plantBooking");
-app.use('/',plantBooking);
+app.use('/', plantBooking);
 
 // Profile 
 const profile = require("./router/profile");
-app.use('/user/profile/',profile)
+app.use('/user/profile/', profile)
 
 // Buy Agian 
 const buyAgain = require("./router/buyAgain");
-app.use('/buy-again',buyAgain)
+app.use('/buy-again', buyAgain)
 
 // Help 
 const help = require("./router/help");
-app.use('/help',help)
+app.use('/help', help)
 
 // APIs
 const api = require("./router/api");
-app.use('/api/',api);
+app.use('/api/', api);
 
 // Server Start
-app.listen(PORT,'192.168.11.2',() => {
+app.listen(PORT, () => {
     console.log(`The App Start On Port : ${PORT}`);
 })

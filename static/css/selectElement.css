@@ -52,3 +52,18 @@
 .addOption{
     transform: scaleY(0) !important;
 }
+
+@media screen and (max-width: 360px) {
+    .selectOptBtn {
+        font-size: 13px;
+    }
+
+    .selectOptContainer {
+        top: 107%;
+    }
+
+    .opt {
+        padding: 7px 15px;
+        font-size: 12px;
+    }
+}

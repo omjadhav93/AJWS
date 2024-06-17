@@ -19,14 +19,8 @@ block content
           <ion-icon name="chevron-back"></ion-icon>
         .right-shift-banner 
           <ion-icon name="chevron-forward"></ion-icon>
-        .offer-headline
-          h1(style='color: rgb(0 255 223);') Mega Diwali Dhamaka Sale
-          p(style='color: #392136;font-weight: 600;')
-            | A water filter with RO+UV technologies will be priced only
-            | under 5000 rs.
-          button.btn(style='background-color: orange;', onmousedown="this.style.backgroundColor = 'aqua'", onmouseup="this.style.backgroundColor = 'orange'") Buy Now
-        .related-img
-          img(src='https://www.kent.co.in/images/v3/ro-water-purifiers-updated.png', alt='')
+        .banner-box
+          img.banner(src="/static/img/banner-1.jpg", alt="")
         .selling-cards
           each card,i in cardList 
             .selling-card 
@@ -34,7 +28,7 @@ block content
                 ion-icon(name='color-wand')
                 | &nbsp;Edit
               p.selling-card-heading #{card.title}
-              img(src='static/productImg/'+card.image , alt='')
+              img(src='static/productImg/'+card.image , alt='', onclick=`${card.modelNo?'window.location.href = "/product?modelNo='+card.modelNo+'"':'alert("These products are not available yet.")'}`)
               p.selling-card-note #{card.desc}
     section.achievements
       h1.titles Achievements
@@ -79,22 +73,22 @@ block content
           .as-you-wish-img
             img(src='https://i.pinimg.com/originals/4f/a8/cc/4fa8ccd95866db239face1f4749df505.png', alt='')
           p.as-you-wish-text See our suggestions as per your water quality.
-          button.try-suggestion-btn.btn Try Suggestion
+          button.try-suggestion-btn.btn(href='#',onclick="alert('This feature is under development!')") Try Suggestion
         .as-you-wish-card
           .as-you-wish-img
             img(src='https://www.hyperfilteration.in/blogs/wp-content/uploads/2020/12/mineral-water-plant.jpg', alt='')
           p.as-you-wish-text Do you want to set-up a mineral water plant ?
-          button.book-now-btn.btn Book Now
+          button.book-now-btn.btn(onclick="window.location.href= '/plant-booking'") Book Now
         .as-you-wish-card
           .as-you-wish-img
             img(src='https://logowik.com/content/uploads/images/mechanic-repair-service3310.logowik.com.webp', alt='')
           p.as-you-wish-text Do you need any maintenance or repairing service ?
-          button.add-request-btn.btn Add Request
+          button.add-request-btn.btn(onclick="window.location.href= '/repair'") Add Request
         .as-you-wish-card
           .as-you-wish-img
             img(src='https://5.imimg.com/data5/ANDROID/Default/2021/8/ON/BJ/GC/105159739/product-jpeg-500x500.jpeg', alt='')
           p.as-you-wish-text Do you want to add some more purification stages ?
-          button.use-recommendation-btn.btn Use Recommendation
+          button.use-recommendation-btn.btn(href='#',onclick="alert('This Page Under Contruction!')") Use Recommendation
     section.products.designs
       h3 Top In Designs
       .products-list#topDesign
@@ -154,7 +148,7 @@ block content
       h2.titles Brands
       .brand-box
         .cc-brand
-          .cc-brand-logo
+          .cc-brand-logo(onclick=`window.location.href='/search?value="Crystal Clear"'`)
             img(src='/static/img/crystal-clear-logo.png', alt='crystal-clear-logo')
           .cc-brand-intro
             h2 Introducing Crystal Clear - Where Pure Water Meets Perfection! 
@@ -178,34 +172,17 @@ block content
               | enriches lives. As we continue to innovate and evolve, we invite you to embrace the essence of
               | clean water with Crystal Clear - where every sip is an invigorating celebration of clarity.
         h3.sub-titles Other Brands
-        .brands
+        .brands#brands
           .brand
-            .delete-op
-              button.delete-btn Delete
-            img.circular(src='purosis-logo.jpg', alt='purosis-logo')
-          .brand
-            .delete-op
-              button.delete-btn Delete
-            img.circular(src='aqua-grand-logo.jpg', alt='aqua-grand-logo')
-          .brand
-            .delete-op
-              button.delete-btn Delete
-            img.circular(src='aqua-roma-logo.png', alt='aqua-roma-logo')
-          .brand
-            .delete-op
-              button.delete-btn Delete
-            img.circular(src='nile-logo.png', alt='nile-logo')
-          .brand
-            .delete-op
-              button.delete-btn Delete
-            img.circular(src='aqua-mars-logo.png', alt='aqua-mars-logo')
-          .brand
-            .delete-op
-              button.delete-btn Delete
-            img.circular(src='aqua-digi-logo.png', alt='aqua-digi-logo')
-          .brand
-            .plus-sign(onclick='inputImage(event)') +
-            input.inputImage(name='image', type='file', accept='.jpg,.jpeg,.png', onchange='validateFileType(event)')
+            img.circular(src='/static/img/water-drop.png', alt='purosis-logo')
+          .brand.image-skeleton
+          .brand.image-skeleton
+          .brand.image-skeleton
+          .brand.image-skeleton
+          .brand.image-skeleton
+          .brand.image-skeleton
+          .brand.image-skeleton
+          .brand.image-skeleton
     section#service.servicing
       h2.titles Service
       .service

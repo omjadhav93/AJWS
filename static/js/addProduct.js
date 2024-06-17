@@ -20,12 +20,12 @@ const category = {
 const product = {
     'Water Filter and Purifiers': `<p class="que subQueCategory">What type of water filter is this ?</p>
     <div class="radio-section subQueCategory" style="margin-top: 0;">
-      <input type="radio" name="filter-type" value="Domastic" id="fiter-type-domastic" required/>
-      <label for="fiter-type-domastic"> Domastic</label><br/>
-      <input type="radio" name="filter-type" value="Commercial" id="fiter-type-commercial" required/>
-      <label for="fiter-type-commercial"> Commercial</label><br/>
-      <input type="radio" name="filter-type" value="Industrial" id="fiter-type-industrial" required/>
-      <label for="fiter-type-industrial"> Industrial</label><br/>
+      <input type="radio" class="radio" name="filter-type" value="Domastic" id="fiter-type-domastic" required/>
+      <label for="fiter-type-domastic" class="radio-label"> Domastic</label><br/>
+      <input type="radio" class="radio" name="filter-type" value="Commercial" id="fiter-type-commercial" required/>
+      <label for="fiter-type-commercial" class="radio-label"> Commercial</label><br/>
+      <input type="radio" class="radio" name="filter-type" value="Industrial" id="fiter-type-industrial" required/>
+      <label for="fiter-type-industrial" class="radio-label"> Industrial</label><br/>
     </div>
   `,
     'Water Filter Appliances': `<p class="que subQueCategory">Which component you want to sell here ?</p>
@@ -91,16 +91,18 @@ const queData = {
     </div>
       `,
     'filteration-stages': `<p class="que">No. of Stages in purification process. </p>
-      <input type="number" min="0" name="filteration-stages" class="text-input" id="filteration-stages-count" required/>
-      <label> Stage Purification</label>`,
+      <div class="radio-section">
+        <input type="number" min="0" name="filteration-stages" class="text-input" id="filteration-stages-count" required/>
+        <label> Stage Purification</label>
+      <div>`,
     'tank-full-indicator': `<p class="que">Which type of tank full indicators are present in your product?</p>
     <div class="radio-section">
-      <input type="radio" name="tank-full-indicator" value="light bulbs" id="tank-full-bulb" required/>
-      <label for="tank-full-bulb"> Light bulbs</label><br/>
-      <input type="radio" name="tank-full-indicator" value="light bars" id="tank-full-bars" required/>
-      <label for="tank-full-bars"> Light bars</label><br/>
-      <input type="radio" name="tank-full-indicator" value="digital" id="tank-full-digital" required/>
-      <label for="tank-full-digital"> Digital</label><br/>
+      <input type="radio" class="radio" name="tank-full-indicator" value="light bulbs" id="tank-full-bulb" required/>
+      <label for="tank-full-bulb" class="radio-label"> Light bulbs</label><br/>
+      <input type="radio" class="radio" name="tank-full-indicator" value="light bars" id="tank-full-bars" required/>
+      <label for="tank-full-bars" class="radio-label"> Light bars</label><br/>
+      <input type="radio" class="radio" name="tank-full-indicator" value="digital" id="tank-full-digital" required/>
+      <label for="tank-full-digital" class="radio-label"> Digital</label><br/>
     </div>
   `
 }
@@ -380,7 +382,7 @@ const nextSection = (e) => {
     document.querySelector('#category-container').classList.add('stop-editing');
 
     const field = document.createElement("fieldset");
-    let cls = ["basic-container", "extra-questions"];
+    let cls = [ "extra-questions","basic-container"];
     field.classList.add(...cls);
     field.innerHTML = "<legend>Product Details</legend>";
     document.querySelector('.section-1').appendChild(field);

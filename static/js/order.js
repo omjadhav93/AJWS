@@ -113,7 +113,7 @@ window.onload = async () => {
 
 // Submit Form
 document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('repairForm');
+    const form = document.getElementById('orderForm');
 
     if (form) {
         form.addEventListener('submit', (event) => {
@@ -198,6 +198,8 @@ const closeConfirm = (e) => {
 }
 
 function submitForm() {
-    const form = document.getElementById('repairForm');
+    const form = document.getElementById('orderForm');
+    console.log(form);
+    form.requestSubmit(); 
     form.dispatchEvent(new Event('submit')); // Manually trigger the submit event
 }

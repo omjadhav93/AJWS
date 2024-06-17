@@ -6,6 +6,7 @@ var cardSchema = new mongoose.Schema({
     cardNo: Number,
     title: String,
     image: String,
+    modelNo: String,
     desc: String,
     locateTo: String,
     location: String

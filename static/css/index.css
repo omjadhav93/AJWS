@@ -22,17 +22,17 @@ header {
     width: 100%;
 }
 
-/* 
+
 .banner {
     max-width: 100%;
     max-height: 100%;
-} */
+}
 
-.banner-slide {
+/* .banner-slide {
     display: flex;
     height: 100%;
     width: 100%;
-}
+} */
 
 .left-shift-banner,
 .right-shift-banner {
@@ -44,7 +44,7 @@ header {
     align-items: center;
     padding: 0px 10px;
     border-radius: 10px;
-    opacity: 0.65;
+    opacity: 0.30;
     background-color: rgb(126, 170, 174);
 }
 
@@ -72,7 +72,7 @@ header {
     background-color: rgb(199, 199, 199);
 }
 
-.offer-headline {
+/* .offer-headline {
     width: 50%;
     height: 60%;
     display: flex;
@@ -105,7 +105,7 @@ header {
 .related-img>img {
     max-width: 100%;
     max-height: 100%;
-}
+} */
 
 .selling-cards {
     width: 78%;
@@ -747,8 +747,9 @@ header {
     background-color: rgba(0, 0, 0, 0.829);
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
+    padding-bottom: 20px;
     row-gap: 10px;
     z-index: 10;
     transform: scale(0);
@@ -975,7 +976,9 @@ header {
 }
 
 @media screen and (max-width: 860px) {
-    .left-shift-banner>ion-icon, .right-shift-banner>ion-icon {
+
+    .left-shift-banner>ion-icon,
+    .right-shift-banner>ion-icon {
         font-size: 40px;
     }
 
@@ -1058,11 +1061,13 @@ header {
         right: 2.5%;
     }
 
-    .left-shift-banner>ion-icon, .right-shift-banner>ion-icon {
+    .left-shift-banner>ion-icon,
+    .right-shift-banner>ion-icon {
         font-size: 35px;
     }
 
-    .left-shift-banner, .right-shift-banner {
+    .left-shift-banner,
+    .right-shift-banner {
         padding: 0 5px;
     }
 
@@ -1197,11 +1202,13 @@ header {
         right: 1.2%;
     }
 
-    .left-shift-banner>ion-icon, .right-shift-banner>ion-icon {
+    .left-shift-banner>ion-icon,
+    .right-shift-banner>ion-icon {
         font-size: 30px;
     }
 
-    .left-shift-banner, .right-shift-banner {
+    .left-shift-banner,
+    .right-shift-banner {
         height: 65%;
     }
 
@@ -1218,7 +1225,7 @@ header {
     .products,
     .as-you-wish,
     .brand-box,
-    .testimonials{
+    .testimonials {
         width: 97.5%;
     }
 
@@ -1283,7 +1290,8 @@ header {
         row-gap: 5px;
     }
 
-    .cc-brand-intro h2, .service-quality h2 {
+    .cc-brand-intro h2,
+    .service-quality h2 {
         font-size: 16px;
         text-align: center;
     }
@@ -1298,6 +1306,15 @@ header {
         line-height: 1.3;
         font-size: 14px;
         text-align: center;
+    }
+
+    .edit {
+        padding: 3px 7px;
+        font-size: 12px;
+    }
+
+    .edit>ion-icon {
+        font-size: 12px;
     }
 }
 
@@ -1369,7 +1386,9 @@ header {
 }
 
 @media screen and (max-width: 410px) {
-    .left-shift-banner>ion-icon, .right-shift-banner>ion-icon {
+
+    .left-shift-banner>ion-icon,
+    .right-shift-banner>ion-icon {
         font-size: 20px;
     }
 
@@ -1414,7 +1433,8 @@ header {
         width: 90%;
     }
 
-    .cc-brand-intro h2, .service-quality h2 {
+    .cc-brand-intro h2,
+    .service-quality h2 {
         font-size: 15px;
     }
 
@@ -1468,7 +1488,8 @@ header {
         font-size: 13px;
     }
 
-    .cc-brand-intro h2, .service-quality h2 {
+    .cc-brand-intro h2,
+    .service-quality h2 {
         font-size: 14px;
     }
 

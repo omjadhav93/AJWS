@@ -126,22 +126,24 @@ router.post("/login", checkAuth, [
             return res.status(400).render("login",{message: {msg: "User doesn't exists.",path:"email"}, otherDetails: req.body})
         }
 
+        
         let hash = user.password
-
+        
         const result = await bcrypt.compare(req.body.password, hash)
-
+        
         if (!result) {
             return res.status(400).render("login",{message: {msg: "Wrong Password!",path: "password"}, otherDetails: req.body})
         }
-
+        
         const data = {
             user: {
                 id: user.id
             }
         }
-
+        
         const authtoken = jwt.sign(data, JWT_SECRET);
-        res.cookie('authtoken', authtoken, { httpOnly: true, secure: process.env.TOKEN_HEADER_KEY == "user_token_header_key" });
+        res.cookie('authtoken', authtoken, { httpOnly: false, secure: process.env.TOKEN_HEADER_KEY == "user_token_header_key" });
+        // res.cookie('authtoken', authtoken);
 
         let returnTo = req.session.returnTo || null;
         delete req.session.returnTo;

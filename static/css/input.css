@@ -39,8 +39,45 @@
 }
 
 .input-element:focus+.input-label,
-.input-element.has-content+.input-label  {
+.input-element.has-content+.input-label {
     top: 35%;
     font-size: 13.5px;
     color: #555;
+}
+
+@media screen and (max-width: 720px) {
+    .input-element {
+        font-size: 14px;
+        margin-top: 20px;
+    }
+
+    .input-label {
+        top: 65%;
+        font-size: 14px;
+    }
+
+    .input-element:focus+.input-label,
+    .input-element.has-content+.input-label {
+        top: 37%;
+        font-size: 12.5px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .input-element {
+        font-size: 12px;
+        margin-top: 10px;
+        padding: 4px;
+    }
+
+    .input-label {
+        font-size: 12px;
+        left: 4px;
+    }
+
+    .input-element:focus+.input-label,
+    .input-element.has-content+.input-label {
+        top: 29%;
+        font-size: 10.5px;
+    }
 }

@@ -88,13 +88,13 @@ function fetchBrand() {
     fetch(`/api/brands`)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             const brandsDiv = document.getElementById('brands');
             brandsDiv.innerHTML = '';
             data.forEach(brand => {
                 const imageDiv = document.createElement('img');
                 imageDiv.classList.add('product-img');
                 imageDiv.src = `/${brand.logoUrl}`;
+                imageDiv.setAttribute('onclick',`window.location.href= "/search?value=${brand.name}"`)
                 const brandElement = document.createElement('div');
                 brandElement.classList.add('brand');
                 brandElement.appendChild(imageDiv);

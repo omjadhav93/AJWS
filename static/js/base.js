@@ -6,6 +6,13 @@ document.getElementById('search').addEventListener("keydown", function (e) {
     }
 })
 
+// Menu Button Work
+const openMenu = () => {
+    document.getElementsByTagName('navbar')[0].classList.toggle('active')
+}
+
+
+
 window.onload = () => {
     if (screen.width < 860) {
         // Moving Cart btn
@@ -30,11 +37,6 @@ window.onload = () => {
         document.getElementsByClassName('left-nav')[0].prepend(menuDiv)
     }
 
-
-    // Menu Button Work
-    const openMenu = () => {
-        document.getElementsByTagName('navbar')[0].classList.toggle('active')
-    }
     const repairAnimate = setInterval(() => {
         document.getElementsByClassName('repair-btn')[0].classList.toggle('animate')
     }, 3000);
