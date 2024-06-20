@@ -25,7 +25,8 @@ body {
     border: 1px solid #ddd;
     padding: 20px 10px;
     border-radius: 10px;
-    width: calc(32% - 80px); /* Adjust width as needed */
+    width: calc(32% - 80px);
+    /* Adjust width as needed */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
@@ -44,7 +45,9 @@ body {
     margin-bottom: 10px;
 }
 
-.brand-description, .brand-origin, .brand-categories {
+.brand-description,
+.brand-origin,
+.brand-categories {
     margin: 5px 10px;
     text-align: center;
     color: rgb(66, 63, 63);
@@ -55,12 +58,14 @@ body {
 .brand-description {
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 5; /* Change this number to the desired number of lines */
+    -webkit-line-clamp: 5;
+    /* Change this number to the desired number of lines */
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.brand-origin, .brand-categories {
+.brand-origin,
+.brand-categories {
     font-weight: 600;
 }
 
@@ -70,7 +75,7 @@ body {
     color: #007BFF;
 }
 
-.brand-item > ion-icon {
+.brand-item>ion-icon {
     font-size: 250px;
     color: rgb(98, 92, 92);
     margin: auto;
@@ -103,7 +108,7 @@ body {
     font-size: 16px;
 }
 
-.edit.delete{
+.edit.delete {
     right: 18%;
 }
 
@@ -156,7 +161,7 @@ body {
     background-color: white;
 }
 
-.form-bottom-box>form{
+.form-bottom-box>form {
     display: flex;
     flex-direction: column;
     row-gap: 10px;
@@ -172,7 +177,7 @@ body {
     font-size: 16px;
 }
 
-.desc-input{
+.desc-input {
     border-color: #999;
     outline: none;
     font-family: 'Roboto', 'Open Sans', 'Helvetica', sans-serif;
@@ -239,7 +244,7 @@ body {
     text-align: center;
 }
 
-.brand-submit-btn{
+.brand-submit-btn {
     width: max-content;
     padding: 10px 20px;
     border: none;
@@ -260,4 +265,150 @@ body {
 .no-scroll {
     height: 100vh;
     overflow: hidden;
+}
+
+@media screen and (max-width: 1300px) {
+    .brand-item {
+        width: calc(35% - 80px);
+    }
+}
+
+@media screen and (max-width: 1050px) {
+    .brand-item {
+        width: calc(34% - 30px);
+    }
+}
+
+@media screen and (max-width: 860px) {
+    .brand-list {
+        gap: 15px;
+        padding: 15px;
+    }
+
+    .brand-item {
+        width: calc(35% - 24px);
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .brand-list {
+        gap: 5px;
+        padding: 10px;
+    }
+
+    .brand-item {
+        padding: 10px 7px;
+        width: calc(35% - 17px);
+    }
+
+    .brand-name {
+        font-size: 1.3em;
+        margin-bottom: 3px;
+    }
+
+    .brand-description,
+    .brand-origin,
+    .brand-categories {
+        margin: 2px 5px;
+        font-size: 13px;
+    }
+
+    .brand-link {
+        margin-top: 10px;
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .brand-logo {
+        max-height: 80px;
+    }
+
+    .brand-name {
+        font-size: 1.1em;
+        margin-bottom: 0;
+    }
+
+    .brand-description,
+    .brand-origin,
+    .brand-categories {
+        margin: 2px 0px;
+        font-size: 11px;
+    }
+
+    .brand-item {
+        padding: 10px 11px;
+        width: calc(35% - 14px);
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+}
+
+@media screen and (max-width: 520px) {
+    .brand-item {
+        width: calc(36% - 17px);
+    }
+
+    .brand-logo {
+        max-height: 70px;
+    }
+
+    .brand-name {
+        font-size: 0.9em;
+    }
+
+    .brand-description,
+    .brand-origin,
+    .brand-categories {
+        margin: 0.5px 0px;
+        font-size: 9px;
+    }
+
+    .brand-link {
+        margin-top: 7px;
+        font-size: 12px;
+    }
+
+    .brand-header {
+        padding: 15px 20px 10px 20px;
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 460px) {
+    .brand-item {
+        width: calc(37% - 20px);
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .brand-item {
+        width: calc(46% - 20px);
+    }
+
+    .brand-list {
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 380px) {
+    .brand-item {
+        width: calc(52% - 20px);
+    }
+}
+
+@media screen and (max-width: 340px) {
+    .brand-list {
+        gap: 2px;
+        padding: 5px;
+    }
+
+    .brand-item {
+        width: calc(56% - 22px);
+    }
+}
+
+@media screen and (max-width: 300px) {
+    .brand-item {
+        width: calc(59% - 28px);
+    }
 }
