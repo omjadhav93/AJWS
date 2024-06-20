@@ -106,6 +106,13 @@
     box-shadow: 2px 2px 5px solid black;margin-bottom: 5px;
 }
 
+.selected {
+    width: 100%;
+    text-wrap: nowrap;
+    overflow: scroll;
+    scrollbar-width: none;
+}
+
 @media screen and (max-width: 1400px) {
     .register-container {
         width: 60%;
@@ -130,6 +137,10 @@
     .left {
         width: 50%;
         padding: 50px 28px;
+    }
+
+    .selectOptBtn {
+        font-size: 14px !important;
     }
 }
 
@@ -185,6 +196,7 @@
 
     .anLink{
         font-size: 12px;
+        margin-top: 5px;
     }
 
     .design-img {
@@ -206,6 +218,10 @@
 
     .welcome-text {
         font-size: 12px;
+    }
+
+    .selectOptBtn {
+        font-size: 13px !important;
     }
 }
 
@@ -257,5 +273,9 @@
 
     .btn{
         margin-top: 20px;
+    }
+
+    .selectOptBtn {
+        font-size: 12px !important;
     }
 }

@@ -37,49 +37,59 @@ const addAddress = () => {
     </div>
     <button class="btn" type="button" style="margin-top: 25px;" onclick="submitDone()">Submit</button>
   </form>`;
+  styleElements();
 }
 
-// Get all input elements
-const inputs = document.querySelectorAll('.input-element');
 
-// Add event listener to each input
-inputs.forEach(input => {
-  if (input.value) {
-    input.classList.add('has-content');
-  }
-  input.addEventListener('input', function () {
-    // Check if input has value
-    if (this.value) {
-      this.classList.add('has-content');
-    } else {
-      this.classList.remove('has-content');
+const styleElements = () => {
+  // Get all input elements
+  const inputs = document.querySelectorAll('.input-element');
+  
+  // Get all elements with the same class
+  const selectOptContainer = document.querySelectorAll('.selectOptContainer');
+  
+  // Add event listener to each input
+  inputs.forEach(input => {
+    if (input.value) {
+      input.classList.add('has-content');
     }
-  });
-});
-
-// Get all elements with the same class
-const selectOptContainer = document.querySelectorAll('.selectOptContainer');
-
-// Get the maximum width among all elements
-selectOptContainer.forEach(option => {
-  const elements = option.querySelectorAll('.opt')
-
-  let maxWidth = 0;
-  elements.forEach(element => {
-    const width = element.offsetWidth;
-    if (width > maxWidth) {
-      maxWidth = width;
-    }
-  });
-  // Set the width of all elements to the maximum width
-  elements.forEach((element, i) => {
-    element.style.width = maxWidth + 'px';
-    if (i == 0) {
-      element.style.border = 'none';
-    }
+    input.addEventListener('input', function () {
+      // Check if input has value
+      if (this.value) {
+        this.classList.add('has-content');
+      } else {
+        this.classList.remove('has-content');
+      }
+    });
   });
 
-})
+  // Get the maximum width among all elements
+  selectOptContainer.forEach(option => {
+    const elements = option.querySelectorAll('.opt')
+
+    let maxWidth = 0;
+    elements.forEach(element => {
+      const width = element.offsetWidth;
+      if (width > maxWidth) {
+        maxWidth = width;
+      }
+    });
+    // Set the width of all elements to the maximum width
+    elements.forEach((element, i) => {
+      element.style.width = maxWidth + 'px';
+      if (i == 0) {
+        element.style.border = 'none';
+      }
+    });
+
+  })
+}
+
+const isInputOnScreen = document.querySelectorAll('.input-element').length;
+
+if(isInputOnScreen){
+  styleElements();
+}
 
 const openOption = (btn) => {
   btn.querySelector("#selectOptContainer").classList.toggle("addOption")
