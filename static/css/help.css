@@ -86,6 +86,7 @@ form button:hover {
     color: rgb(255, 252, 252);
     transition: transform 0.15s ease-in;
 }
+
 .booking-container {
     width: 60%;
     margin: 2px auto;
@@ -99,11 +100,11 @@ form button:hover {
     position: relative;
 }
 
-.booking-container > p {
+.booking-container>p {
     color: #252f2f;
 }
 
-.booking-container.reviewed{
+.booking-container.reviewed {
     opacity: 0.75;
 }
 
@@ -124,6 +125,7 @@ form button:hover {
     color: rgb(19, 124, 30);
     font-family: sans-serif;
 }
+
 .review-btn {
     position: absolute;
     right: 10px;
@@ -138,4 +140,155 @@ form button:hover {
     background-color: #05d402;
     border-radius: 10px;
     cursor: pointer;
+}
+
+@media screen and (max-width: 1200px) {
+    .booking-container {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .booking-container {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 860px) {
+    .booking-container {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 740px) {
+    .booking-container {
+        width: 100%;
+    }
+
+    .review-btn {
+        font-size: 13px;
+        padding: 8px 16px;
+        border-radius: 7px;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .container {
+        margin: 30px auto;
+    }
+
+    h1 {
+        font-size: 25px;
+    }
+
+    .review-btn {
+        font-size: 12px;
+        padding: 7px 14px;
+        border-radius: 5px;
+    }
+}
+
+@media screen and (max-width: 460px) {
+    .help-container {
+        padding: 12px;
+    }
+
+    .container {
+        padding: 18px;
+        box-shadow: 0 0 7px rgba(0, 0, 0, 0.1);
+    }
+
+    form div {
+        margin-bottom: 10px;
+    }
+
+    .booking-container {
+        padding: 12px;
+        border: 0.3px solid blue;
+        font-size: 14px;
+        line-height: 1.1;
+    }
+
+    h1 {
+        margin-bottom: 13px;
+        font-size: 21px;
+    }
+
+    form label {
+        margin-bottom: 3px;
+        font-size: 13px;
+    }
+
+    form input,
+    form textarea,
+    form select {
+        padding: 6px;
+        font-size: 13px;
+    }
+
+    form button {
+        padding: 6px 10px;
+        font-size: 14px;
+    }
+
+    .review-btn {
+        font-size: 11px;
+        padding: 6px 12px;
+        right: 4px;
+        bottom: 4px;
+    }
+}
+
+@media screen and (max-width: 370px) {
+    .help-container {
+        padding: 10px;
+    }
+
+    .container {
+        padding: 15px;
+        margin: 20px auto;
+    }
+
+    form div {
+        margin-bottom: 7px;
+    }
+
+    .booking-container {
+        padding: 9px;
+        font-size: 12px;
+        line-height: 1;
+    }
+
+    h1 {
+        margin-bottom: 10px;
+        font-size: 18px;
+    }
+
+    form label {
+        margin-bottom: 2px;
+        font-size: 12px;
+    }
+
+    form input,
+    form textarea,
+    form select {
+        padding: 5px;
+        font-size: 12px;
+    }
+
+    form button {
+        padding: 6px 10px;
+        font-size: 14px;
+    }
+
+    .review-btn {
+        font-size: 9px;
+        padding: 4px 10px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    h1 {
+        font-size: 15px;
+    }
 }
