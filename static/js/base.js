@@ -14,7 +14,7 @@ const openMenu = () => {
 
 
 window.onload = () => {
-    if (screen.width < 860) {
+    if (screen.width <= 860) {
         // Moving Cart btn
         const cartMove = document.getElementById('cart')
         document.getElementsByClassName('right-nav')[0].appendChild(cartMove)

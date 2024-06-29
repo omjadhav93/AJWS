@@ -87,6 +87,6 @@ const api = require("./router/api");
 app.use('/api/', api);
 
 // Server Start
-app.listen(PORT, () => {
+app.listen(PORT,'192.168.11.2', () => {
     console.log(`The App Start On Port : ${PORT}`);
 })

@@ -1,10 +1,10 @@
 const addBrandForm = (edit) => {
     const confBkg = document.createElement('div')
     confBkg.classList.add('form-background');
-    const nav1 = document.querySelector('nav').offsetHeight;
     const nav2 = document.querySelector('navbar').offsetHeight;
     const screen = window.innerHeight;
-    confBkg.style.height = `${screen - nav1 - nav2}px`
+    confBkg.style.height = `${screen - nav2}px`;
+    confBkg.style.top = `${nav2}px`;
 
     const confDiv = document.createElement('div');
     confDiv.classList.add('form-container');

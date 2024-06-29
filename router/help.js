@@ -20,7 +20,7 @@ router.get('/', fetchUser, async (req, res) => {
 
         if (user.seller) {
             const Helps = await Help.find().sort({ createdAt: -1 }).exec();
-            res.status(200).render("help", {
+            return res.status(200).render("help", {
                 LoggedIn: 1,
                 Seller: user.seller,
                 pastHelps: Helps

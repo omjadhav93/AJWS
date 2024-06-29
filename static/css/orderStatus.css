@@ -165,8 +165,7 @@
 }
 
 .confirm-background {
-    position: absolute;
-    top: 0;
+    position: fixed;
     left: 0;
     width: 100%;
     display: flex;
@@ -255,7 +254,7 @@
 /* Disable body scroll */
 .no-scroll {
     height: 100vh;
-    overflow: hidden;
+    overflow-y: hidden !important;
 }
 
 .form-group {

@@ -270,8 +270,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 
 .confirm-background {
-    position: absolute;
-    top: 0;
+    position: fixed;
     left: 0;
     width: 100%;
     display: flex;
@@ -354,7 +353,7 @@ input[type=number]::-webkit-outer-spin-button {
 /* Disable body scroll */
 .no-scroll {
     height: 100vh;
-    overflow: hidden;
+    overflow-y: hidden !important;
 }
 
 .booking-container {

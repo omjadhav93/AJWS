@@ -14,7 +14,7 @@ block title
 block content
     #content
         .brand-header Top Brands
-        .brand-list
+        .brand-list( style=Seller?'row-gap: 30px;':'' )
             if Seller 
                 each brand in brands 
                     .brand-item
