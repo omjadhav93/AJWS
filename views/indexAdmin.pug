@@ -21,7 +21,7 @@ block content
           <ion-icon name="chevron-forward"></ion-icon>
         .banner-box
           img.banner(src="/static/img/banner-1.jpg", alt="")
-        .selling-cards
+        .selling-cards(style="row-gap: 25px;")
           each card,i in cardList 
             .selling-card 
               button.edit(onclick=`cardEdit(event,${i+1})`)
