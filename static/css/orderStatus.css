@@ -8,6 +8,8 @@
 }
 
 .status-bar-container {
+    display: flex;
+    justify-content: center;
     padding: 30px 40px;
     border-radius: 10px;
     box-shadow: 1.4px 1.4px 7px rgba(54, 53, 53, 0.26);
@@ -56,8 +58,8 @@
 }
 
 .first-indicator::after {
-    width: 0;
-    height: 0;
+    width: 0 !important;
+    height: 0 !important;
 }
 
 .reached {
@@ -280,4 +282,445 @@ textarea {
 textarea {
     height: 100px;
     resize: vertical;
+}
+
+
+@media screen and (max-width: 1700px) {
+    .status-indicator {
+        margin: 0px 106.5px;
+    }
+
+    .status-indicator::after {
+        width: 213px;
+        height: 6px;
+    }
+}
+
+@media screen and (max-width: 1550px) {
+    .status-indicator {
+        margin: 0px 98px;
+    }
+
+    .status-indicator::after {
+        width: 196px;
+    }
+}
+
+@media screen and (max-width: 1450px) {
+    .status-bar-container {
+        padding: 30px 20px;
+    }
+
+    .status-indicator {
+        margin: 0px 88px;
+    }
+
+    .status-indicator::after {
+        width: 176px;
+    }
+}
+
+@media screen and (max-width: 1250px) {
+    .content {
+        grid-template-columns: 90%;
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    .status-text {
+        font-size: 16px;
+    }
+
+    .status-indicator {
+        width: 30px;
+        height: 30px;
+        margin: 0px 79.5px;
+    }
+
+    .status-indicator::after {
+        width: 158px;
+        right: 30px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .status-indicator {
+        margin: 0px 67.35px;
+    }
+
+    .status-indicator::after {
+        width: 135px;
+    }
+
+    .image-section {
+        height: 80%;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .status-indicator {
+        margin: 0px 59.35px;
+    }
+
+    .status-indicator::after {
+        width: 119px;
+    }
+
+    .info-order {
+        width: 65%;
+    }
+}
+
+@media screen and (max-width: 820px) {
+    .content {
+        grid-template-columns: 95%;
+    }
+
+    .status-text,
+    .info-head,
+    .info-detail,
+    .status-indicator {
+        font-size: 14px;
+    }
+
+    .status-stage {
+        row-gap: 8px;
+    }
+
+    .status-indicator {
+        width: 27px;
+        height: 27px;
+    }
+
+    .status-indicator::after {
+        right: 27px;
+    }
+
+    .info-order {
+        padding: 20px 25px;
+        padding-top: 0;
+    }
+
+    .delivery-truck {
+        width: 160px;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .status-indicator {
+        margin: 0px 51.35px;
+    }
+
+    .status-indicator::after {
+        width: 103px;
+    }
+
+    .info-order {
+        row-gap: 2px;
+    }
+}
+
+@media screen and (max-width: 660px) {
+    .content {
+        row-gap: 20px;
+    }
+
+    .status-text,
+    .info-head,
+    .info-detail,
+    .status-indicator {
+        font-size: 12px;
+    }
+
+    .info-container {
+        column-gap: 10px;
+    }
+
+    .delivery-truck {
+        width: 130px;
+    }
+
+    .info-order {
+        row-gap: 0;
+    }
+
+    .status-stage {
+        row-gap: 5px;
+    }
+
+    .status-indicator {
+        margin: 0px 43.50px;
+    }
+
+    .status-indicator::after {
+        width: 87px;
+    }
+}
+
+@media screen and (max-width: 580px) {
+    .content {
+        grid-template-columns: 97%;
+        row-gap: 15px;
+        padding: 30px 0px;
+    }
+
+    .status-indicator {
+        margin: 0px 38.35px;
+        width: 22px;
+        height: 22px;
+    }
+
+    .status-indicator::after {
+        width: 77px;
+        right: 22px;
+        height: 4;
+    }
+
+    .status-text,
+    .info-head,
+    .info-detail,
+    .status-indicator {
+        font-size: 10px;
+    }
+
+    .delivery-truck {
+        width: 100px;
+    }
+
+    .cancle-btn, .dont-cancle-btn{
+        padding: 8px 16px;
+        font-size: 13px;
+        border-radius: 6px !important;
+    }
+
+    .confirm-container {
+        width: 80%;
+    }
+
+    .confirm-head-box {
+        padding: 5px 10px;
+    }
+
+    .confirm-heading {
+        font-size: 16px;
+    }
+
+    .confirm-head-box>ion-icon {
+        font-size: 17px;
+    }
+
+    .confirm-bottom-box {
+        padding: 30px 40px;
+        row-gap: 15px;
+    }
+
+    .confirm-statement, label {
+        font-size: 15px;
+    }
+
+    select, textarea {
+        padding: 8px;
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 485px) {
+    .status-bar-container {
+        padding: 15px 20px;
+        box-shadow: 1.4px 1.4px 4px rgba(54, 53, 53, 0.26);
+        border-radius: 5px;
+    }
+
+    .info-order {
+        box-shadow: 1.4px 1.4px 4px rgba(54, 53, 53, 0.26);
+        border-radius: 5px;
+    }
+
+    .status-indicator {
+        margin: 0px 33.45px;
+    }
+
+    .status-indicator::after {
+        width: 67px;
+    }
+
+    .confirm-container {
+        width: 85%;
+    }
+
+    .confirm-bottom-box {
+        padding: 25px 32px;
+        row-gap: 13.5px;
+    }
+
+    .confirm-statement, label {
+        font-size: 14px;
+    }
+
+    select, textarea {
+        padding: 7px;
+        font-size: 13px;
+    }
+}
+
+@media screen and (max-width: 445px) {
+
+    .status-text,
+    .info-head,
+    .info-detail,
+    .status-indicator {
+        font-size: 8px;
+    }
+
+    .status-stage {
+        row-gap: 3px;
+    }
+
+    .status-indicator {
+        margin: 0px 27.85px;
+        width: 18px;
+        height: 18px;
+    }
+
+    .status-indicator::after {
+        width: 56px;
+        right: 18px;
+    }
+
+    .content {
+        row-gap: 10px;
+        padding: 18px 0px;
+    }
+
+    .info-container {
+        column-gap: 5px;
+    }
+
+    .delivery-truck {
+        width: 80px;
+    }
+
+    .image-pointer {
+        column-gap: 7px;
+    }
+
+    .pointer {
+        width: 7px;
+        height: 7px;
+    }
+
+    .confirm-head-box {
+        padding: 4px 9px;
+    }
+
+    .confirm-heading {
+        font-size: 14.5px;
+    }
+
+    .confirm-head-box>ion-icon {
+        font-size: 15.5px;
+    }
+
+    .confirm-bottom-box {
+        padding: 22px 28px;
+        row-gap: 13px;
+    }
+
+    .confirm-statement, label {
+        font-size: 13px;
+    }
+
+    select, textarea {
+        padding: 6px;
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 380px) {
+    .content {
+        grid-template-columns: 98%;
+    }
+
+    .info-order {
+        padding: 10px 17px;
+        padding-top: 0;
+    }
+
+    .info-image {
+        padding: 10px 20px;
+    }
+
+    .status-indicator {
+        margin: 0px 26.05px;
+    }
+
+    .status-indicator::after {
+        width: 52px;
+    }
+
+    .cancle-btn, .dont-cancle-btn {
+        padding: 5px 13px;
+        font-size: 10px;
+        border-radius: 4px !important;
+    }
+
+    .cancle-opt {
+        padding: 8px;
+    }
+
+    .confirm-container {
+        width: 90%;
+    }
+
+    .confirm-head-box {
+        padding: 3.5px 8px;
+    }
+
+    .confirm-heading {
+        font-size: 13px;
+    }
+
+    .confirm-head-box>ion-icon {
+        font-size: 15px;
+    }
+
+    .confirm-bottom-box {
+        padding: 18px 24px;
+        row-gap: 12px;
+    }
+
+    .confirm-statement, label {
+        font-size: 11.5px;
+    }
+
+    select, textarea {
+        padding: 5px;
+        font-size: 10.5px;
+    }
+}
+
+@media screen and (max-width: 355px) {
+
+    .status-text,
+    .info-head,
+    .info-detail,
+    .status-indicator {
+        font-size: 6.5px;
+    }
+
+    .status-indicator{
+        font-weight: 600;
+        width: 14.5px;
+        height: 14.5px;
+        margin: 0px 22.05px;
+    }
+
+    .status-indicator::after {
+        right: 14.5px;
+        width: 43.5px;
+    }
+
+    .delivery-truck {
+        width: 70px;
+    }
 }

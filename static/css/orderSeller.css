@@ -5,7 +5,7 @@
     position: relative;
 }
 
-.heading{
+.heading {
     font-size: 28px;
     font-weight: 600;
     font-family: pop;
@@ -14,7 +14,7 @@
     padding: 25px;
 }
 
-.order-menu{
+.order-menu {
     display: flex;
     padding-left: 20px;
     border-top: 1px solid rgb(0, 0, 0);
@@ -34,7 +34,7 @@
     background-color: rgb(136, 202, 224);
 }
 
-#order-list{
+#order-list {
     width: 95%;
     flex-grow: 1;
     height: 100%;
@@ -44,6 +44,8 @@
 }
 
 .table-container {
+    display: grid;
+    grid-template-rows: auto 1fr;
     position: absolute;
     top: 0;
     left: 0;
@@ -54,7 +56,7 @@
     transition: transform 0.3s ease-in;
 }
 
-.table-container:first-child{
+.table-container:first-child {
     z-index: 1;
     background-color: white;
 }
@@ -68,27 +70,31 @@ table,
 th,
 td {
     border: 1px solid black;
+    width: fit-content;
 }
 
-th, .action-col, .quantity-col {
+th,
+.action-col,
+.quantity-col {
     padding: 10px;
     text-align: center;
 }
 
 td {
     padding: 10px;
-    text-align: left;
+    text-align: center;
 }
 
 th {
     background-color: #f2f2f2;
-} 
+}
 
-.order-modn, .order-img {
+.order-modn,
+.order-img {
     cursor: pointer;
 }
 
-.order-modn:hover{
+.order-modn:hover {
     color: blue;
     text-decoration: underline;
 }
@@ -99,7 +105,7 @@ th {
     text-decoration: underline;
 }
 
-.payment-col{
+.payment-col {
     color: red;
     font-family: pop;
     font-weight: 600;
@@ -134,46 +140,51 @@ th {
     flex-direction: row;
     justify-content: space-between;
     padding: 10px 20px;
+    width: 95vw;
+    position: sticky;
+    left: 0;
 }
 
-.action-btn, .select-btn {
+.action-btn,
+.select-btn {
     border: none;
     outline: none;
-    padding: 10px 20px ;
+    padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
     background-color: rgb(9, 223, 223);
     border-radius: 10px;
 }
 
-.action-btn:active, .select-btn:active{
+.action-btn:active,
+.select-btn:active {
     background-color: rgb(142, 154, 154);
 }
 
-.stg-0{
+.stg-0 {
     background-color: red;
 }
 
-.stg-1{
+.stg-1 {
     background-color: Orange;
 }
 
-.stg-2{
+.stg-2 {
     color: white;
     background-color: Purple;
 }
 
-.stg-3{
+.stg-3 {
     color: white;
     background-color: Teal;
 }
 
-.stg-4{
+.stg-4 {
     color: white;
     background-color: Green;
 }
 
-input[type="checkbox"]{
+input[type="checkbox"] {
     width: 20px;
     height: 20px;
     cursor: pointer;
@@ -254,4 +265,262 @@ input[type="checkbox"]{
 .no-scroll {
     height: 100vh;
     overflow-y: hidden !important;
+}
+
+
+@media screen and (max-width: 700px) {
+    .heading {
+        font-size: 25px;
+        padding: 20px;
+    }
+
+    .menu {
+        padding: 7px 17px;
+        font-size: 15px;
+    }
+
+    th {
+        padding: 7px;
+        font-size: 14px;
+    }
+
+    td {
+        padding: 7px;
+        font-size: 14px;
+    }
+
+    .order-img>img {
+        width: 70px;
+    }
+
+    #order-list {
+        width: 97%;
+    }
+
+    .options{
+        width: 97vw;
+    }
+
+    .order-menu {
+        margin-bottom: 7px;
+    }
+
+    .action-btn,
+    .select-btn {
+        padding: 7px 17px;
+        font-size: 14px;
+        border-radius: 7px;
+    }
+}
+
+@media screen and (max-width: 580px) {
+    .heading {
+        font-size: 22px;
+        padding: 17px;
+    }
+
+    .order-menu {
+        padding-left: 10px;
+    }
+
+    .menu {
+        padding: 5px 14px;
+        font-size: 13px;
+    }
+
+    th {
+        padding: 5px;
+        font-size: 12px;
+    }
+
+    td {
+        padding: 5px;
+        font-size: 12px;
+    }
+
+    .order-img>img {
+        width: 60px;
+    }
+
+    .action-btn,
+    .select-btn {
+        padding: 6px 14px;
+        font-size: 12px;
+    }
+
+    input[type="checkbox"] {
+        width: 17px;
+        height: 17px;
+    }
+}
+
+@media screen and (max-width: 470px) {
+    .heading {
+        font-size: 18px;
+        padding: 14px;
+    }
+
+    .order-menu {
+        padding-left: 7px;
+    }
+
+    .menu {
+        padding: 4px 12px;
+        font-size: 11px;
+    }
+
+    th {
+        padding: 4px;
+        font-size: 10px;
+    }
+
+    td {
+        padding: 4px;
+        font-size: 10px;
+    }
+
+    .order-img>img {
+        width: 53px;
+    }
+
+    #order-list {
+        width: 98%;
+    }
+
+    .options{
+        width: 98vw;
+        padding: 5px 10px;
+    }
+
+    .order-menu {
+        margin-bottom: 5px;
+    }
+
+    .action-btn,
+    .select-btn {
+        padding: 5px 12px;
+        font-size: 10px;
+        border-radius: 5px;
+    }
+
+    input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+@media screen and (max-width: 410px) {
+    .menu {
+        padding: 3.5px 10px;
+        font-size: 10px;
+    }
+
+    th {
+        padding: 3.5px;
+        font-size: 9px;
+    }
+
+    td {
+        padding: 3.5px;
+        font-size: 9px;
+    }
+
+    .order-img>img {
+        width: 50px;
+    }
+
+    .action-btn,
+    .select-btn {
+        padding: 4.5px 11px;
+        font-size: 9px;
+        border-radius: 4px;
+    }
+
+    input[type="checkbox"] {
+        width: 14px;
+        height: 14px;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .heading {
+        font-size: 16px;
+        padding: 11px;
+    }
+
+    .order-menu {
+        padding-left: 5px;
+    }
+
+    .menu {
+        padding: 3px 8.3px;
+        font-size: 9px;
+    }
+
+    th {
+        padding: 3px;
+        font-size: 8px;
+    }
+
+    td {
+        padding: 3px;
+        font-size: 8px;
+    }
+
+    .order-img>img {
+        width: 45px;
+    }
+
+    .action-btn,
+    .select-btn {
+        padding: 4px 10px;
+        font-size: 8px;
+        border-radius: 3px;
+    }
+
+    input[type="checkbox"] {
+        width: 13px;
+        height: 13px;
+    }
+}
+
+@media screen and (max-width: 315px) {
+    .heading {
+        font-size: 14px;
+        padding: 9px;
+    }
+
+    .order-menu {
+        padding-left: 3.5px;
+    }
+
+    .menu {
+        padding: 2.5px 7px;
+        font-size: 8px;
+    }
+
+    th {
+        padding: 2.5px;
+        font-size: 7px;
+    }
+
+    td {
+        padding: 2.5px;
+        font-size: 7px;
+    }
+
+    .order-img>img {
+        width: 40px;
+    }
+
+    .action-btn,
+    .select-btn {
+        padding: 3.5px 9px;
+        font-size: 7px;
+    }
+
+    input[type="checkbox"] {
+        width: 12px;
+        height: 12px;
+    }
 }
