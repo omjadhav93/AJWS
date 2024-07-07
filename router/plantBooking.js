@@ -19,7 +19,7 @@ router.get("/plant-booking", fetchUser, async (req, res) => {
         
         if(user.seller){
             const bookings = await PlantBooking.find().sort({createdAt: -1}).exec();
-            res.status(200).render("plantBooking",{
+            return res.status(200).render("plantBooking",{
                 LoggedIn: 1,
                 Seller: user.seller,
                 prevBookings: bookings
