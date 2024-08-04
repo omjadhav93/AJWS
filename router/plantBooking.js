@@ -62,7 +62,7 @@ router.post("/booking-request", fetchUser, async (req,res) => {
 
         const { name, phone, whatsapp, requirement } = req.body;
 
-        const prevBookings = await Repair.find({user_id: userId});
+        const prevBookings = await PlantBooking.find({user_id: userId});
         let check = true;
         prevBookings.forEach(booking => {
             if(!booking.reviewed && booking.user_name == name.trim()){
