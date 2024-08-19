@@ -59,15 +59,15 @@ block content
                     .data-change 
                         button.data-change-btn(onclick="document.getElementById('settings-menu').click()") Edit Profile
             .brands
-                .head-section(style="border-bottom: 1px solid gray;padding-bottom: 20px;")
+                .head-section(style="border-bottom: 1px solid gray;padding-bottom: 10px;")
                     p.fav-heading Brands
-                    button.avail-btn.add-btn(type="button", onclick="window.location.href = '/brands'") Add Brand 
+                    button.add-btn(type="button", onclick="window.location.href = '/brands'") Add Brand 
                 #brands-list
                     
             .products 
                 .head-section
                     p.fav-heading Products
-                    button.avail-btn.add-btn(type="button", onclick="window.location.href = '/user/add-product'") Add Product
+                    button.add-btn(type="button", onclick="window.location.href = '/user/add-product'") Add Product
                 .product-menu 
                     .menu(onclick="changeList(0)") All
                     .menu(onclick="changeList(1)") Available 
