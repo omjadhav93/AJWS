@@ -25,9 +25,9 @@ const viewDetails = (e) => {
     let state = hides[0].classList.contains('hidden');
     
     if(state){
-        e.textContent = 'View Less';
-    }else {
         e.textContent = 'View Details';
+    }else {
+        e.textContent = 'View Less';
     }
 }
 

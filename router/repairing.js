@@ -19,7 +19,7 @@ router.get("/", fetchUser, async (req, res) => {
 
     if (user.seller) {
       const bookings = await Repair.find().sort({ createdAt: -1 }).exec();
-      res.status(200).render("repair", {
+      return res.status(200).render("repair", {
         LoggedIn: 1,
         Seller: user.seller,
         prevBookings: bookings

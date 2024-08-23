@@ -36,9 +36,8 @@
 .repair-container {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
     width: 100%;
-    column-gap: 10%;
 }
 
 .product-details, .customer-details, .submit-btn-box  {
@@ -60,6 +59,11 @@
     display: flex;
     flex-direction: column;
     row-gap: 10px;
+    width: 45%;
+}
+
+.customer-details {
+    width: 45%;
 }
 
 .que {
@@ -400,10 +404,10 @@ input[type=number]::-webkit-outer-spin-button {
     border-top: 1.5px solid grey;
 }
 .add-request-heading > h2 {
-    width: max-content;
+    width: 100%;
     background-color: orange;
-    padding: 10px 20px;
-    border-radius: 10px;
+    padding: 10px;
+    border-radius: 5px;
 }
 
 .head {
@@ -438,4 +442,252 @@ input[type=number]::-webkit-outer-spin-button {
     background-color: #05d402;
     border-radius: 10px;
     cursor: pointer;
+}
+
+@media screen and (max-width: 1500px) {
+    .product-details,.customer-details {
+        width: 48%;
+    }
+}
+
+@media screen and (max-width: 1400px) {
+    .content {
+        grid-template-columns: 70%;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .product-details,.customer-details {
+        width: 49.5%;
+    }
+
+    .content {
+        grid-template-columns: 75%;
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    .content {
+        grid-template-columns: 80%;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .content {
+        grid-template-columns: 90%;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .content {
+        grid-template-columns: 95%;
+    }
+}
+
+@media screen and (max-width: 860px) {
+    .repair-container {
+        display: flex;
+        flex-direction: column;
+        row-gap: 10px;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .product-details,.customer-details {
+        width: 60%;
+    }   
+
+    input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+    }
+
+    .charge-warning {
+        align-items: center;
+        column-gap: 5px;
+        text-align: left;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .product-details,.customer-details {
+        width: 70%;
+    }
+
+    .booking-container {
+        padding: 17px;
+        font-size: 15px;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .product-details,.customer-details {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .product-details,.customer-details {
+        width: 90%;
+    }
+
+    .booking-container {
+        padding: 15px;
+        font-size: 13.5px;
+    }
+
+    .view-details {
+        font-size: 14px;
+    }
+
+    .review-btn {
+        font-size: 13px;
+        padding: 7px 15px;
+        border-radius: 8px;
+    }
+}
+
+@media screen and (max-width: 470px) {
+    .selectOptBtn {
+        font-size: 12px;
+        margin-top: 10px;
+        border-radius: 5px;
+        padding-left: 15px;
+        padding-top: 13px;
+        padding-right: 10px;
+        padding-bottom: 12px;
+    }
+
+    .selectOptContainer {
+        border-radius: 5px;
+    }
+
+    .input-element {
+        font-size: 12px;
+        margin-top: 10px;
+        border-radius: 5px;
+        padding-left: 10px;
+        padding-top: 12px;
+        padding-right: 7px;
+        padding-bottom: 10px;
+    }
+
+    .input-label {
+        top: 58%;
+        left: 10px;
+        font-size: 12px;
+    }
+
+    .input-element:focus+.input-label,
+    .input-element.has-content+.input-label {
+        top: 39%;
+        left: 11.5px;
+        font-size: 9.5px;
+    }
+
+    #model-number, #brand-Name {
+        font-size: 12px;
+    }
+
+    .que {
+        font-size: 13px;
+        margin-top: 5px;
+    }
+
+    .bought-from-who, .charge-warning {
+        font-size: 12px;
+        align-items: start;
+    }
+
+    input[type="radio"], input[type="checkbox"] {
+        width: 12px;
+        height: 12px;
+    }
+
+    .product-details{
+        row-gap: 5px;
+    }
+
+    h2 {
+        font-size: 1.15em;
+    }
+
+    .add-request-heading > h2 {
+        padding: 7px;
+    }
+
+    .product-details, .customer-details, .submit-btn-box {
+        width: 100%;
+        border-radius: 10px;
+        padding: 10px 25px;
+    }
+
+    .submit-btn {
+        border-radius: 7px;
+        font-size: 12px;
+        padding: 7px 15px;
+        margin-top: 10px;
+    }
+
+    .booking-container {
+        padding: 12px;
+        border: 0.3px solid blue;
+        font-size: 14px;
+        line-height: 1.1;
+    }
+
+    .view-details {
+        font-size: 13px;
+        right: 10px;
+        top: 6px;
+    }
+
+    .review-btn {
+        font-size: 11.5px;
+        padding: 5px 12px;
+        border-radius: 5px;
+        right: 10px;
+        bottom: 6px;
+    }
+
+    .content {
+        row-gap: 15px;
+    }
+}
+
+@media screen and (max-width: 370px) {
+    .booking-container {
+        padding: 9px;
+        font-size: 12px;
+        line-height: 1;
+        border-radius: 5px;
+    }
+
+    .view-details {
+        font-size: 11px;
+        right: 7px;
+        top: 6px;
+    }
+
+    .review-btn {
+        font-size: 9.5px;
+        padding: 4px 10px;
+        border-radius: 5px;
+        right: 7px;
+        bottom: 6px;
+    }
+
+    h2 {
+        font-size: 1.02em;
+    }
+
+    .add-request-heading > h2 {
+        padding: 5px;
+    }
+
+    .product-details, .customer-details, .submit-btn-box {
+        border-radius: 5px;
+        padding: 8px 15px;
+    }
 }
