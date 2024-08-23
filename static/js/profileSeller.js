@@ -296,7 +296,7 @@ function renderProducts(data) {
         const deleteButton = document.createElement('button');
         deleteButton.type = 'submit';
         deleteButton.className = 'delete-btn';
-        deleteButton.onclick = () => confirm('Are you sure you want to delete this Product');
+        deleteButton.onclick = () => confirm('Are you sure you want to delete this Product?');
         deleteButton.textContent = 'Delete';
         deleteForm.appendChild(deleteInput);
         deleteForm.appendChild(deleteButton);
@@ -313,6 +313,7 @@ function renderProducts(data) {
             const unavailButton = document.createElement('button');
             unavailButton.type = 'submit';
             unavailButton.className = 'unavail-btn';
+            unavailButton.onclick = () => confirm('Do you want to mark this product unavailable?');
             unavailButton.textContent = 'Unavailable';
             unavailForm.appendChild(unavailInput);
             unavailForm.appendChild(unavailButton);
@@ -328,6 +329,7 @@ function renderProducts(data) {
             const availButton = document.createElement('button');
             availButton.type = 'submit';
             availButton.className = 'avail-btn';
+            availButton.onclick = () => confirm('Do you want to mark this product available?');
             availButton.textContent = 'Available';
             availForm.appendChild(availInput);
             availForm.appendChild(availButton);

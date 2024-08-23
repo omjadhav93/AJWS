@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (form) {
         form.addEventListener('submit', (event) => {
             if (!form.checkValidity()) {
-                document.querySelector('.content').click()
+                document.querySelector('#content').click()
                 event.preventDefault(); // Prevent the form from submitting
                 form.reportValidity(); // Show the validity error messages
             } else {
@@ -199,7 +199,6 @@ const closeConfirm = (e) => {
 
 function submitForm() {
     const form = document.getElementById('orderForm');
-    console.log(form);
     form.requestSubmit(); 
     form.dispatchEvent(new Event('submit')); // Manually trigger the submit event
 }

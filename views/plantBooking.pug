@@ -115,7 +115,7 @@ block content
                 .input.desc-input-box 
                     <label class="desc-label" for="myTextarea">Describe your requirement : </label>
                     <textarea class="desc-input" rows="4" id="myTextarea" name="requirement" required></textarea>
-                button.booking-btn(type="submit") Submit Request
+                button.booking-btn(type="submit" onclick="window.confirm('Are you sure you want to submit the form.')") Submit Request
             each Booking in prevBookings 
                 if Booking.reviewed == true 
                     .booking-container.reviewed  

@@ -29,7 +29,7 @@ block content
                     | &nbsp&nbsp Notification
             .logout 
                 form(action="/auth/logout", method="post") 
-                    button.logout-btn(type="submit") <ion-icon name="log-out-outline"></ion-icon> &nbsp Logout
+                    button.logout-btn(type="submit" onclick="window.confirm('ADo you want to logout your account?')") <ion-icon name="log-out-outline"></ion-icon> &nbsp Logout
               
         .profile-content
             .user-info 

@@ -150,6 +150,18 @@ const productSelected = (value) => {
 
 }
 
+/* i button text */
+const iButton = (e,text) => {
+    if(e.parentElement.querySelector('.iBox')){
+        e.parentElement.querySelector('.iBox').remove();
+        return;
+    }
+    const iBoxDiv = document.createElement('div');
+    iBoxDiv.classList.add('iBox')
+    iBoxDiv.textContent = text;
+    e.parentElement.appendChild(iBoxDiv);
+}
+
 /* Select Design Setup */
 const openOption = (btn) => {
     btn.querySelector("#selectOptContainer").classList.toggle("addOption")
@@ -174,6 +186,13 @@ window.addEventListener('click', function (e) {
     selectBtns.forEach(btn => {
         if (!btn.contains(e.target) && !btn.querySelector("#selectOptContainer").classList.contains("addOption")) {
             openOption(btn);
+        }
+    })
+
+    const iBoxes = document.querySelectorAll('.iBox');
+    iBoxes.forEach(box => {
+        if(!box.contains(e.target) && !box.previousElementSibling.contains(e.target)){
+            iButton(box.previousElementSibling,'');
         }
     })
 });

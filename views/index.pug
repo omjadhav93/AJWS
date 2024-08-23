@@ -22,7 +22,7 @@ block content
           each card in cardList 
             .selling-card 
               p.selling-card-heading #{card.title}
-              img(src='static/productImg/'+card.image , alt='', onclick=`${card.modelNo?'/product?modelNo=${'+card.modelNo+'}':'alert("These products are not available yet.")'}`)
+              img(src='static/productImg/'+card.image , alt='', onclick=`${card.modelNo?'window.location.href= "/product?modelNo='+card.modelNo+'"':'alert("These products are not available yet.")'}`)
               p.selling-card-note #{card.desc}
     section.achievements
       h1.titles Achievements

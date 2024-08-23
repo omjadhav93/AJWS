@@ -80,7 +80,7 @@ router.get('/frequent', async (req, res) => {
         res.status(200).send(data);
     } catch (error) {
         console.log(error)
-        res.status(500).send("Internal Server Error");
+        res.status(500).send({msg: "Internal Server Error"});
     }
 })
 
@@ -138,7 +138,7 @@ router.get('/lessPrice', async (req, res) => {
         res.status(200).send(data);
     } catch (error) {
         console.log(error)
-        res.status(500).send("Internal Server Error");
+        res.status(500).send({msg: "Internal Server Error"});
     }
 })
 
@@ -197,7 +197,7 @@ router.get('/topDesign', async (req, res) => {
         res.status(200).send(data);
     } catch (error) {
         console.log(error)
-        res.status(500).send("Internal Server Error");
+        res.status(500).send({msg: "Internal Server Error"});
     }
 })
 
@@ -228,7 +228,7 @@ router.get('/favourite', fetchCheckAuth, async (req, res) => {
         }
     } catch (error) {
         console.log(error)
-        res.status(500).send("Internal Server Error");
+        res.status(500).send({msg: "Internal Server Error"});
     }
 });
 
@@ -348,7 +348,7 @@ router.post('/auth/update', fetchCheckAuth, async (req, res) => {
 
     } catch (error) {
         console.log(error)
-        res.status(500).send("Internal Server Error");
+        res.status(500).send({msg: "Internal Server Error"});
     }
 })
 
@@ -366,7 +366,7 @@ router.get('/orders', fetchCheckAuth, async (req, res) => {
 
     } catch (error) {
         console.log(error)
-        res.status(500).send("Internal Server Error");
+        res.status(500).send({msg: "Internal Server Error"});
     }
 })
 
@@ -396,7 +396,7 @@ router.post('/order/update', fetchCheckAuth, async (req, res) => {
 
     } catch (error) {
         console.log(error)
-        res.status(500).send("Internal Server Error");
+        res.status(500).send({msg: "Internal Server Error"});
     }
 })
 
@@ -414,7 +414,7 @@ router.get('/order/cancle/reason', fetchCheckAuth, async (req, res) => {
 
     } catch (error) {
         console.log(error)
-        res.status(500).send("Internal Server Error");
+        res.status(500).send({msg: "Internal Server Error"});
     }
 })
 
@@ -437,7 +437,7 @@ router.get('/seller/products', fetchCheckAuth, async (req, res) => {
         
     } catch (error) {
         console.log(error)
-        res.status(500).send("Internal Server Error");
+        res.status(500).send({msg: "Internal Server Error"});
     }
 })
 
@@ -451,7 +451,7 @@ router.get('/brands', fetchCheckAuth, async (req, res) => {
 
     } catch (error) {
         console.log(error)
-        res.status(500).send("Internal Server Error");
+        res.status(500).send({msg: "Internal Server Error"});
     }
 })
 

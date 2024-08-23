@@ -23,7 +23,7 @@ const cardEdit = (e,cardNo) => {
                 <textarea name="desc" class="selling-card-note-edit" spellcheck="false" maxlength="45"
                 rows="2">${note}</textarea>
                 <input type="text" name="modelNo" class="selling-card-heading-edit" spellcheck="false" maxlength="20" placeholder="Model Number" />
-                <button type="submit" class="submit-btn btn">Submit</button>
+                <button type="submit" class="submit-btn btn" onclick="window.confirm('Do you want to submit the form?')>Submit</button>
             </form>
             `
     editSection.setAttribute('onclick', 'checkOrClose(event)')

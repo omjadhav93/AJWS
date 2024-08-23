@@ -340,7 +340,7 @@ navbar {
     display: flex;
     flex-direction: row;
     padding: 50px 30px;
-    row-gap: 100px;
+    row-gap: 50px;
     column-gap: 10px;
     justify-content: space-evenly;
     flex-wrap: wrap;
@@ -540,10 +540,36 @@ navbar {
     #loading {
         background-size: 80%;
     }
+
+    .link a, .link p {
+        font-size: 14px;
+    }
+
+    .footer-section-heading h3 {
+        margin-bottom: 3px;
+        font-size: 1.02em;
+    }
+
+    .creator-watermark {
+        font-size: 1.07em;
+    }
 }
 
 @media screen and (max-width: 440px) {
     .repair-btn ion-icon{
         font-size: 25px;
+    }
+
+    .link a, .link p {
+        font-size: 12px;
+    }
+
+    .footer-section-heading h3 {
+        margin-bottom: 0px;
+        font-size: 0.95em;
+    }
+
+    .footer-top {
+        row-gap: 25px;
     }
 }

@@ -60,7 +60,7 @@ const addBrandForm = (edit) => {
                 <label class="input-label" for="categories">Categories (comma separated):</label>
             </div>
             <div class="brand-submit">
-                <button type="submit" class="brand-submit-btn">Add Brand</button>
+                <button type="submit" class="brand-submit-btn" onclick="window.confirm('Do you want to submit the form?')">Add Brand</button>
             </div>
         </form>`;
 
@@ -100,7 +100,7 @@ const addBrandForm = (edit) => {
                 <label class="input-label" for="categories">Categories (comma separated):</label>
             </div>
             <div class="brand-submit">
-                <button type="submit" class="brand-submit-btn">Add Brand</button>
+                <button type="submit" class="brand-submit-btn" onclick="window.confirm('Do you want to submit the form?')>Add Brand</button>
             </div>
         </form>`;
     }

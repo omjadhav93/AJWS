@@ -46,12 +46,17 @@ function fetchProducts(sectionId) {
         .then(data => {
             const productsDiv = document.getElementById(`${sectionId}`);
             productsDiv.innerHTML = ''; // Clear existing content
+            if(Object.hasOwn(data, 'msg')){
+                productsDiv.innerHTML = `<center>${data.msg}</center>`;
+                return;
+            }
             data.forEach(product => {
                 const imageDiv = document.createElement('img');
                 imageDiv.classList.add('product-img');
                 imageDiv.src = `/static/productImg/${product.image}`;
                 const productElement = document.createElement('div');
                 productElement.classList.add('product-box');
+                productElement.setAttribute('onclick',`window.location.href= '/product?modelNo=${product['model-number']}'`)
                 productElement.appendChild(imageDiv);
                 productsDiv.appendChild(productElement);
             });
@@ -90,6 +95,10 @@ function fetchBrand() {
         .then(data => {
             const brandsDiv = document.getElementById('brands');
             brandsDiv.innerHTML = '';
+            if(Object.hasOwn(data, 'msg')){
+                brandsDiv.innerHTML = `<center>${data.msg}</center>`;
+                return;
+            }
             data.forEach(brand => {
                 const imageDiv = document.createElement('img');
                 imageDiv.classList.add('product-img');

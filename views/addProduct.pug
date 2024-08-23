@@ -12,7 +12,7 @@ block content
                 <legend>Category</legend>
                 p.que 
                     | Category 
-                    ion-icon(name="information-circle-outline")
+                    ion-icon(name="information-circle-outline", onclick="iButton(this,`The 'Category' field refers to the product's primary use or type. For instance, if your product is a water filter, you would select 'Home and Kitchen Appliances'. This helps us and your potential customers understand where your product fits best.`)")
                 button.selectOptBtn#category(type="button",onclick='openOption(this)',style="display: flex;flex-direction: row; column-gap: 10px;")
                     #selected.selected Select a Category
                     <ion-icon name="arrow-forward-outline"></ion-icon>
@@ -36,7 +36,7 @@ block content
                 .que-box 
                     p.que 
                         | Price (In Rupees)
-                        ion-icon(name="information-circle-outline")
+                        ion-icon(name="information-circle-outline", onclick="iButton(this,`Add general price of this product in current market.`)")
                     input.text-input#price-value(type="number", name="price",placeholder="Ex.. 8000",required="required")
                 .que-box 
                     p.que Discount (In Percentage)
@@ -50,12 +50,12 @@ block content
                 .que-box
                     p.que 
                         | Model Name (Optional)
-                        ion-icon(name="information-circle-outline")
+                        ion-icon(name="information-circle-outline", onclick="iButton(this,`A model name is the name give to the particular design by the manufacturing company.`)")
                     input.text-input(type="text",name="model-name",id="model-name",placeholder="Ex.. Aqua Pure")
                 .que-box
                     p.que 
                         | Brand Name 
-                        ion-icon(name="information-circle-outline")
+                        ion-icon(name="information-circle-outline", onclick="iButton(this,`Brand name can be a name of manufacturing company of this product.`)")
                     input.text-input(type="text",name="brand-name",id="brand-name",placeholder="Ex.. Crystal Clear",required="required")
                 .que-box
                     p.que Which material is used in your product body?
