@@ -106,7 +106,6 @@ router.post("/brands/delete", fetchUser, async (req, res) => {
         }
 
         const brandId = req.body.brandId;
-        console.log(brandId)
         let oldBrand = await Brand.findById(brandId);
         let path = oldBrand.logoUrl;
         // Delete the file like normal

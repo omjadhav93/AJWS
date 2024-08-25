@@ -54,7 +54,6 @@ router.post("/register", checkAuth, [
 ], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        console.log(errors.array()[0])
         return res.status(400).render("register", { message: errors.array()[0], otherDetails: req.body});
     }
 
@@ -107,7 +106,7 @@ router.post("/register", checkAuth, [
 
     } catch (error) {
         console.log(error)
-        res.status(500).send("Internal Server Error");
+        res.status(500).render("register", {message: {msg: "Internal Server Error", path: "general"}, otherDetails: req.body });
     }
 
 })
@@ -153,7 +152,7 @@ router.post("/login", checkAuth, [
 
     } catch (error) {
         console.log(error)
-        res.status(500).send("Internal Server Error");
+        res.status(500).render("login", {message: {msg: "Internal Server Error", path: "general"}, otherDetails: req.body });
     }
 })
 
@@ -177,7 +176,7 @@ router.post("/forgot", checkAuth, [
 
     } catch (error) {
         console.log(error)
-        res.status(500).send("Internal Server Error");
+        res.status(500).render("forgot", { section: "Email" , message: {msg: "Internal Server Error", path: "general"}, otherDetails: req.body });
     }
 })
 
@@ -208,7 +207,7 @@ router.post("/forgot-question", checkAuth, async (req, res) => {
 
     } catch (error) {
         console.log(error)
-        res.status(500).send("Internal Server Error");
+        res.status(500).render('forgot', { section: "Email", message: {msg: "Internal Server Error", path: "general"}, otherDetails: req.body });
     }
 })
 
@@ -265,7 +264,7 @@ router.post('/change-password', checkAuth, [
 
     } catch (error) {
         console.log(error)
-        res.status(500).send("Internal Server Error");
+        res.status(500).render("login", {message: {msg: "Internal Server Error", path: "general"}});
     }
 })
 
