@@ -103,7 +103,7 @@
     align-items: center;
     border: none;
     border-radius: 10px;
-    box-shadow: 2px 2px 5px solid black;margin-bottom: 5px;
+    margin-bottom: 5px;
 }
 
 .selected {
@@ -180,6 +180,10 @@
         margin-top: 35px;
         font-size: 13px;
     }
+
+    .warn {
+        font-size: 12px;
+    }
 }
 
 @media screen and (max-width: 600px) {
@@ -223,6 +227,15 @@
     .selectOptBtn {
         font-size: 13px !important;
     }
+
+    .warn {
+        font-size: 11px;
+    }
+    
+    .warning {
+        font-size: 13px;
+        padding: 8px 12px;
+    }
 }
 
 @media screen and (max-width: 450px) {
@@ -234,6 +247,14 @@
 
     .anLink {
         font-size: 9.5px;
+    }
+
+    .warn {
+        font-size: 9px;
+    }
+
+    .warning {
+        font-size: 11px;
     }
 }
 
@@ -277,5 +298,17 @@
 
     .selectOptBtn {
         font-size: 12px !important;
+    }
+
+    .warn {
+        font-size: 7px;
+        padding-left: 3px;
+    }
+    
+    .warning {
+        font-size: 9px;
+        padding: 5px 9px;
+        border-radius: 5px;
+        margin-bottom: 3px;
     }
 }

@@ -54,6 +54,7 @@ router.post("/register", checkAuth, [
 ], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
+        console.log(errors.array()[0])
         return res.status(400).render("register", { message: errors.array()[0], otherDetails: req.body});
     }
 

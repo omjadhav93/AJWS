@@ -108,7 +108,7 @@
     align-items: center;
     border: none;
     border-radius: 10px;
-    box-shadow: 2px 2px 5px solid black;margin-bottom: 5px;
+    margin-bottom: 5px;
 }
 
 @media screen and (max-width: 1400px) {
@@ -174,6 +174,10 @@
         margin-top: 35px;
         font-size: 13px;
     }
+
+    .warn {
+        font-size: 12px;
+    }
 }
 
 @media screen and (max-width: 600px) {
@@ -212,6 +216,14 @@
     .welcome-text {
         font-size: 12px;
     }
+
+    .warn {
+        font-size: 11px;
+    }
+    
+    .warning {
+        padding: 8px 12px;
+    }
 }
 
 @media screen and (max-width: 450px) {
@@ -229,6 +241,14 @@
 
     .anLink {
         font-size: 9.5px;
+    }
+
+    .warn {
+        font-size: 9px;
+    }
+
+    .warning {
+        font-size: 11px;
     }
 }
 
@@ -268,5 +288,17 @@
 
     .btn{
         margin-top: 20px;
+    }
+
+    .warn {
+        font-size: 7px;
+        padding-left: 3px;
+    }
+    
+    .warning {
+        font-size: 9px;
+        padding: 5px 9px;
+        border-radius: 5px;
+        margin-bottom: 3px;
     }
 }

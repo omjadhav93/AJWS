@@ -25,6 +25,8 @@ block content
                     .input
                         input.input-element(type="text", name="last-name",id="last-name",required="required",value=`${otherDetails?otherDetails['last-name']:''}`)
                         label.input-label(for="last-name") Last Name
+                if (message &&( message.path == "first-name" || message.path == "last-name"))
+                    .warn #{message.msg}
                 .input
                     input.input-element(type="email", name="email",id="email",required="required",value=`${otherDetails?otherDetails.email:''}`)
                     label.input-label(for="email") Enter Your Email
