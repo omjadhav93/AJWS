@@ -30,7 +30,7 @@ block content
                         <ion-icon name="arrow-forward-outline"></ion-icon>
                         #selectOptContainer.selectOptContainer.addOption
                             span.opt#default(onclick='select(this)', value="") Select State
-                            span.opt(onclick='select(this)', value="Maharastra") Maharastra
+                            span.opt(onclick='select(this)', value="Maharashtra") Maharashtra
                     input#selectedOption(type='hidden', name='state',required="required", value=`${user && user.address.length?user.address[0].state:''}`)
                     button.selectOptBtn#district(type="button",onclick='openOption(this)')
                         #selected.selected #{user && user.address.length?user.address[0].dist:'Select District'}

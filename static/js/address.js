@@ -14,7 +14,7 @@ const addAddress = () => {
         <div class="selected" id="selected">Select State</div><ion-icon name="arrow-forward-outline"></ion-icon>
         <div class="selectOptContainer addOption" id="selectOptContainer">
           <span class="opt" onclick="select(this)" value="">Select State</span>
-          <span class="opt" onclick="select(this)" value="Maharastra">Maharastra</span>
+          <span class="opt" onclick="select(this)" value="Maharashtra">Maharashtra</span>
         </div>
       </button>
       <input id="selectedOption" type="hidden" name="state" required="required"/>

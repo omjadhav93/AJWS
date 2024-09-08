@@ -16,6 +16,9 @@ router.get("/product", fetchCheckUser, async (req, res) => {
   try {
     const modelNo = req.query.modelNo;
     const productData = await products.findOne({ "model-number": modelNo });
+    if(!productData){
+      return res.status(404).send("Something went wrong. Product not found!");
+    }
 
     // Rendering Files
     if (user) {
@@ -48,6 +51,9 @@ router.get("/product/order", fetchUser, async (req, res) => {
     const modelNo = req.query['model-number'];
     const color = req.query.color;
     const productData = await products.findOne({ "model-number": modelNo });
+    if(!productData){
+      return res.status(404).send("Something went wrong. Product not found!");
+    }
 
     // Rendering Files
     res.render("order.pug", {
@@ -103,6 +109,10 @@ router.post('/product/order', fetchUser, async (req, res) => {
     const modelNo = req.body.modelNo;
     const color = req.body.color;
     const product = await products.findOne({ "model-number": modelNo });
+    if(!productData){
+      return res.status(404).send("Something went wrong. Product not found!");
+    }
+
     const imageArr = product.image;
     const imageLocArrFinder = imageArr.find(item => item.hasOwnProperty(`${color}-image`));
     const imageLocArr = imageLocArrFinder ? imageLocArrFinder[`${color}-image`] : undefined;
@@ -152,6 +162,10 @@ router.get('/order/status', fetchUser, async (req, res) => {
     const modelNo = order['model-number'];
     const color = order.color;
     const product = await products.findOne({ "model-number": modelNo });
+    if(!productData){
+      return res.status(404).send("Something went wrong. Product not found!");
+    }
+
     const imageArr = product.image;
     const imageLocArrFinder = imageArr.find(item => item.hasOwnProperty(`${color}-image`));
     const imageLocArr = imageLocArrFinder ? imageLocArrFinder[`${color}-image`] : undefined;

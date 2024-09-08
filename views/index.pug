@@ -12,10 +12,10 @@ block title
 block content
     header
       .head-box.image-skeleton
-        .left-shift-banner 
-          <ion-icon name="chevron-back"></ion-icon>
-        .right-shift-banner 
-          <ion-icon name="chevron-forward"></ion-icon>
+        //- .left-shift-banner 
+        //-   <ion-icon name="chevron-back"></ion-icon>
+        //- .right-shift-banner 
+        //-   <ion-icon name="chevron-forward"></ion-icon>
         .banner-box
           img.banner(src="/static/img/banner-1.jpg", alt="")
         .selling-cards
@@ -97,15 +97,43 @@ block content
         .product-box.image-skeleton
         .product-box.image-skeleton
     section.categories
-      each item in categoryList
-        .category
-          h3 #{item.title}
-          .category-box
-            each img in item.image
-              each obj in img
-                  each loc in [obj]
-                      each item in loc
-                        img.product-img(src='/static/img/' + item)
+      //- each item in categoryList
+      //-   .category
+      //-     h3 #{item.title}
+      //-     .category-box
+      //-       each img in item.image
+      //-         each obj in img
+      //-             each loc in [obj]
+      //-                 each item in loc
+      //-                   img.product-img(src='/static/img/' + item)
+      .category
+        h3 Family Needs
+        .category-box
+          .change-op
+            button.change-btn(onclick='inputImage(event)') Change Image
+            input.inputImage(name='image', type='file', accept='.jpg,.jpeg,.png', onchange='validateFileType(event)')
+          img.product-img(src='https://aquatecplus.in/wp-content/uploads/2022/09/0.jpg', alt='')
+      .category
+        h3 Fancy Lovers
+        .category-box
+          .change-op
+            button.change-btn(onclick='inputImage(event)') Change Image
+            input.inputImage(name='image', type='file', accept='.jpg,.jpeg,.png', onchange='validateFileType(event)')
+          img.product-img(src='https://images.jdmagicbox.com/quickquotes/images_main/pure-it-water-purifiers-19-03-2021-024-223017263-avytg.png', alt='')
+      .category
+        h3 Need Capacity ?
+        .category-box
+          .change-op
+            button.change-btn(onclick='inputImage(event)') Change Image
+            input.inputImage(name='image', type='file', accept='.jpg,.jpeg,.png', onchange='validateFileType(event)')
+          img.product-img(src='https://ozeanro.com/media/catalog/product/cache/1/image/500x600/9df78eab33525d08d6e5fb8d27136e95/o/z/ozean_50lph.jpg', alt='')
+      .category
+        h3 Need Durability ?
+        .category-box
+          .change-op
+            button.change-btn(onclick='inputImage(event)') Change Image
+            input.inputImage(name='image', type='file', accept='.jpg,.jpeg,.png', onchange='validateFileType(event)')
+          img.product-img(src='https://productimages.withfloats.com/tile/62dfc96a4d6f11000151b6ef.jpg', alt='')
     section.products.less-price
       h3 Less In Price
       .products-list#lessPrice

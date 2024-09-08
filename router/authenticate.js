@@ -97,7 +97,8 @@ router.post("/register", checkAuth, [
         }
 
         const authtoken = jwt.sign(data, JWT_SECRET);
-        res.cookie('authtoken', authtoken, { httpOnly: true, secure: process.env.TOKEN_HEADER_KEY == "user_token_header_key" });
+        // res.cookie('authtoken', authtoken, { httpOnly: true, secure: process.env.TOKEN_HEADER_KEY == "user_token_header_key" });
+        res.cookie('authtoken', authtoken);
 
         let returnTo = req.session.returnTo || null;
         delete req.session.returnTo;
@@ -201,7 +202,8 @@ router.post("/forgot-question", checkAuth, async (req, res) => {
         }
 
         const verifiedToken = jwt.sign(verify, JWT_SECRET);
-        res.cookie('verifiedToken', verifiedToken, { httpOnly: true, secure: process.env.TOKEN_HEADER_KEY == "user_token_header_key" });
+        // res.cookie('verifiedToken', verifiedToken, { httpOnly: true, secure: process.env.TOKEN_HEADER_KEY == "user_token_header_key" });
+        res.cookie('verifiedToken', verifiedToken);
 
         res.redirect('/auth/change-password')
 

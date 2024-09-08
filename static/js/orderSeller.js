@@ -51,7 +51,7 @@ function selectAll(cls) {
 
 function redirectToGoogleMaps(address) {
     // Encode the origin and destination to make them URL-friendly
-    origin = 'Hiware Kumbhar, Shirur, Pune, Maharastra, 412208'
+    origin = 'Hiware Kumbhar, Shirur, Pune, Maharashtra, 412208'
     const encodedOrigin = encodeURIComponent(origin);
     const encodedDestination = encodeURIComponent(address);
     // Construct the Google Maps directions URL

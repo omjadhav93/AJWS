@@ -117,7 +117,7 @@ const categorySelected = async (value) => {
 /* Setting options for district as per state. */
 
 const statesAndDist = {
-    'Maharastra': ['Ahmednagar','Sambhajinagar','Mumbai','Pune','Thane']
+    'Maharashtra': ['Ahmednagar','Sambhajinagar','Mumbai','Pune','Thane']
 }
 
 const stateSelected = async (value) => {

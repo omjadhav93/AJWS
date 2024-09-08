@@ -292,7 +292,7 @@ function renderProducts(data) {
         const deleteInput = document.createElement('input');
         deleteInput.type = 'hidden';
         deleteInput.name = 'itemId';
-        deleteInput.value = item.id;
+        deleteInput.value = item._id;
         const deleteButton = document.createElement('button');
         deleteButton.type = 'submit';
         deleteButton.className = 'delete-btn';
@@ -472,7 +472,7 @@ function renderProducts(data) {
     });
 }
 
-function openProduct(element) {
+function openProduct(e) {
     const modelNo = e.getElementsByClassName('model-number')[0].textContent
     window.location.href = `/product?modelNo=${modelNo}`
 }
