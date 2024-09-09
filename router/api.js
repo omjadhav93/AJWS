@@ -25,14 +25,14 @@ function freqMerge(left, right) {
 
     while (leftIndex < left.length && rightIndex < right.length) {
         if (left[leftIndex]['buyers-count'] == right[rightIndex]['buyers-count']) {
-            if (left[leftIndex]['visiter-count'] < right[rightIndex]['visiter-count']) {
+            if (left[leftIndex]['visiter-count'] > right[rightIndex]['visiter-count']) {
                 result.push(left[leftIndex]);
                 leftIndex++;
             } else {
                 result.push(right[rightIndex]);
                 rightIndex++;
             }
-        } else if (left[leftIndex]['buyers-count'] < right[rightIndex]['buyers-count']) {
+        } else if (left[leftIndex]['buyers-count'] > right[rightIndex]['buyers-count']) {
             result.push(left[leftIndex]);
             leftIndex++;
         } else {
@@ -150,7 +150,7 @@ function designMerge(left, right) {
     let rightIndex = 0;
 
     while (leftIndex < left.length && rightIndex < right.length) {
-        if (left[leftIndex]['rating-list'].design < right[rightIndex]['rating-list'].design) {
+        if (left[leftIndex]['rating-list'].design > right[rightIndex]['rating-list'].design) {
             result.push(left[leftIndex]);
             leftIndex++;
         } else {

@@ -128,7 +128,7 @@ router.post("/add-product", fetchUser, uploadMultiple, async (req, res) => {
                 })
 
                 waterFilter.save().then(() => {
-                    res.redirect("user/profile");
+                    res.redirect("/user/profile");
                 }).catch((err) => {
                     res.status(404).send("Error to save : " + err);
                 })

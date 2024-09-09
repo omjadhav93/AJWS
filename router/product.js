@@ -15,6 +15,7 @@ router.get("/product", fetchCheckUser, async (req, res) => {
   const user = await User.findById(userId).select("-password");
   try {
     const modelNo = req.query.modelNo;
+    await products.updateOne({ "model-number": modelNo },{$inc: {"visiter-count": 1}})
     const productData = await products.findOne({ "model-number": modelNo });
     if(!productData){
       return res.status(404).send("Something went wrong. Product not found!");
@@ -108,12 +109,12 @@ router.post('/product/order', fetchUser, async (req, res) => {
 
     const modelNo = req.body.modelNo;
     const color = req.body.color;
-    const product = await products.findOne({ "model-number": modelNo });
+    const productData = await products.findOne({ "model-number": modelNo });
     if(!productData){
       return res.status(404).send("Something went wrong. Product not found!");
     }
 
-    const imageArr = product.image;
+    const imageArr = productData.image;
     const imageLocArrFinder = imageArr.find(item => item.hasOwnProperty(`${color}-image`));
     const imageLocArr = imageLocArrFinder ? imageLocArrFinder[`${color}-image`] : undefined;
 
@@ -134,7 +135,8 @@ router.post('/product/order', fetchUser, async (req, res) => {
       payStatus: "Cash On Delivery",
     })
 
-    newOrder.save().then(() => {
+    newOrder.save().then(async () => {
+      await products.updateOne({ "model-number": modelNo },{$inc: {"buyers-count": 1}})
       res.status(200).redirect(`/order/status?orderId=${newOrder.orderId}`);
     }).catch((err) => {
       res.status(400).send(err);
@@ -160,13 +162,17 @@ router.get('/order/status', fetchUser, async (req, res) => {
     const orderId = req.query.orderId.toString();
     const order = await Order.findOne({user_id: userId, orderId: orderId});
     const modelNo = order['model-number'];
+    if(order.orderStage == 0){
+      return res.redirect(`/product?modelNo=${modelNo}`);
+    }
+
     const color = order.color;
-    const product = await products.findOne({ "model-number": modelNo });
+    const productData = await products.findOne({ "model-number": modelNo });
     if(!productData){
       return res.status(404).send("Something went wrong. Product not found!");
     }
 
-    const imageArr = product.image;
+    const imageArr = productData.image;
     const imageLocArrFinder = imageArr.find(item => item.hasOwnProperty(`${color}-image`));
     const imageLocArr = imageLocArrFinder ? imageLocArrFinder[`${color}-image`] : undefined;
 
@@ -240,6 +246,7 @@ router.post('/order/cancle', fetchUser, async (req, res) => {
 
     await cancleOrder.save();
     await order.save();
+    await products.updateOne({ "model-number": order["model-number"] },{$inc: {"buyers-count": -1}})
 
     res.status(200).redirect('/user/profile');
   } catch (error) {

@@ -31,6 +31,8 @@ block content
                 .input
                     input.input-element(type="password", name="password",id="password",required="required")
                     label.input-label(for="password") Password
+                    label.view-password(for="password", onclick="changeView(this)")
+                        <ion-icon name="eye-outline"></ion-icon>
                 if (message && message.path == "password")
                     .warn #{message.msg}
                 a.forgot(href="/auth/forgot") Forgot Password ?
@@ -38,3 +40,4 @@ block content
             a.anLink(href="/auth/register") New to AJWS? Create an account 
 block scripts 
     script(src="/static/js/input.js") 
+    script(src="/static/js/register.js") 

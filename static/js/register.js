@@ -1,23 +1,6 @@
-const Verify = () => {
-    const password = document.getElementById('password').value 
-    const confirmPassword = document.getElementById('confirmPassword').value
-    if(password != confirmPassword){
-        alert("Passwords doesn't match")
-        return;
-    }
-    if(password.length < 6){
-        alert("Password should contain atleast 6 characters")
-        return;
-    }
-    const securityQuestion = document.getElementById('security-question').value
-    if(securityQuestion == ""){
-        alert("Please select a security question")
-        return;
-    }
-    const securityAns = document.getElementById('security-ans').value
-    if(securityAns == "" || securityAns == " "){
-        alert("Please write an answer for the security question")
-        return;
-    }
-    document.getElementById('registerForm').submit();
+const changeView = (e) => {
+    const input = e.parentElement;
+    const passwordInput = input.querySelector('.input-element');
+    e.innerHTML = passwordInput.type === 'password' ? '<ion-icon name="eye-off-outline"></ion-icon>' : '<ion-icon name="eye-outline"></ion-icon>';
+    passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
 }

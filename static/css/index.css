@@ -532,6 +532,10 @@ header {
     font-weight: 600;
 }
 
+.service-btn:hover{
+    cursor: pointer;
+}
+
 .about-us {
     padding-top: 50px;
     width: 80%;
@@ -1025,6 +1029,16 @@ header {
         font-size: 0.67em;
         padding: 6px 10px;
     }
+
+    .products-list{
+        margin: 12px 10px 10px 10px;
+        aspect-ratio: 5.8;
+        column-gap: 5px;
+    }
+
+    .product-box{
+        padding: 0;
+    }
 }
 
 @media screen and (max-width: 800px) {
@@ -1099,7 +1113,7 @@ header {
     }
 
     .products>h3 {
-        font-size: 16px;
+        font-size: 15px;
     }
 
     .products-list {
@@ -1407,6 +1421,11 @@ header {
         padding: 5px 9px;
         font-size: 8px;
     }
+
+    .products-list {
+        aspect-ratio: 5;
+        margin: 8px 3px 3px 5px;
+    }
 }
 
 @media screen and (max-width: 410px) {
@@ -1471,6 +1490,11 @@ header {
 
     .edit-heading {
         font-size: 16px;
+    }
+
+    .products-list {
+        aspect-ratio: 4.4;
+        margin: 6px 1px 1px 2.5px;
     }
 }
 

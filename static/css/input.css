@@ -38,11 +38,29 @@
     pointer-events: none;
 }
 
+.view-password {
+    position: absolute;
+    right: 10px;
+    top: 60%;
+    transform: translateY(-50%);
+    font-size: 24px;
+    color: rgb(70, 98, 96);
+    display: none;
+}
+
+.view-password:hover{
+    cursor: pointer;
+}
+
 .input-element:focus+.input-label,
 .input-element.has-content+.input-label {
     top: 35%;
     font-size: 13.5px;
     color: #555;
+}
+
+.input-element.has-content~.view-password {
+    display: block;
 }
 
 @media screen and (max-width: 720px) {

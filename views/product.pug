@@ -165,13 +165,20 @@ block content
                       h4 Purifying Stages 
                       span : 
                       p#purifying-stages #{data['stages']} stage purification
-            form(action="/product/order", method="get", id="buyForm") 
-                input(type = "hidden", name = "model-number", value = data['model-number'])
-                input(type = "hidden", name = "color", value = data['color'][0], id="colorInForm")
-                button.btn#buyNow(onclick="buyNow",type="submit") Buy Now 
-            form(action="/user/cart" method="post", id="cartForm")
-                input(type = "hidden", name = "model-number", value = data['model-number'])
-                button.btn#addToCart(onclick="addNow",type="submit") Add To Cart 
+            if data.available
+                form(action="/product/order", method="get", id="buyForm") 
+                    input(type = "hidden", name = "model-number", value = data['model-number'])
+                    input(type = "hidden", name = "color", value = data['color'][0], id="colorInForm")
+                    button.btn#buyNow(onclick="buyNow",type="submit") Buy Now 
+                form(action="/user/cart" method="post", id="cartForm")
+                    input(type = "hidden", name = "model-number", value = data['model-number'])
+                    button.btn#addToCart(onclick="addNow",type="submit") Add To Cart 
+            else 
+                form
+                    button.btn#buyNow(onclick="alert('This product is currently unavailable.')",type="button",style="background-color: rgb(181, 140, 220);") Buy Now 
+                form(action="/user/cart" method="post", id="cartForm")
+                    input(type = "hidden", name = "model-number", value = data['model-number'])
+                    button.btn#addToCart(onclick="addNow",type="submit") Add To Cart  
 
 block scripts 
     script(src="/static/js/product.js") 

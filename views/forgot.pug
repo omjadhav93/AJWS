@@ -53,12 +53,17 @@ block content
                     .input
                         input.input-element(type="password", name="password",id="password",required="required")
                         label.input-label(for="password") Enter New Password
+                        label.view-password(for="password", onclick="changeView(this)")
+                            <ion-icon name="eye-outline"></ion-icon>
                     if (message && message.path == "password")
                         .warn #{message.msg}
                     .input
                         input.input-element(type="password", name="confirm",id="confirm",required="required")
                         label.input-label(for="confirm") Confirm Password
+                        label.view-password(for="password", onclick="changeView(this)")
+                            <ion-icon name="eye-outline"></ion-icon>
                     button.btn(type="submit") Change Password
             a.anLink(href="/auth/login") Already have an account? Log In
 block scripts 
     script(src="/static/js/input.js") 
+    script(src="/static/js/register.js") 

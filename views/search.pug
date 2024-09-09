@@ -167,7 +167,98 @@ block content
                             each color,i in item['color']  
                                 label(for="keyword") #{color} ,
                             label(for="keyword",class="tank-capacity") #{item['tank-capacity']} Liters
-                        
+                else 
+                    .search-item(onclick="openProduct(this)")
+                        .search-image
+                            each img in item.image
+                                each obj in img
+                                    each loc in [obj]
+                                        each item in loc
+                                            img.images(src='/static/productImg/' + item)
+                        .search-content
+                            .warn-unavail &#128532; 
+                                span Currently Unavailable
+                            if item['product-type'] == 'Water Filter and Purifiers'
+                                if item['model-name'].length
+                                    p.heading #{item['model-name']} based on 
+                                        each method,i in item['filteration-method']
+                                            if i == 0
+                                                |#{method} 
+                                            else 
+                                                |+ #{method}
+                                        |  Technique 
+                                        each component,i in item['included-components']
+                                            if i == 0
+                                                |with #{component}
+                                            else 
+                                                |, #{component}
+                                        | and Automatic UF+TDS controller 
+                                        if item['tank-capacity'] >= 9
+                                            |having #{item['tank-capacity']}-L Tank 
+                                        |by #{item['brand-name']}
+                                else 
+                                    p.heading #{item['brand-name']} Presents a Purifier based on 
+                                        each method,i in item['filteration-method']
+                                            if i == 0
+                                                |#{method} 
+                                            else 
+                                                |+ #{method}
+                                        |  Technique 
+                                        each component,i in item['included-components']
+                                            if i == 0
+                                                |with #{component}
+                                            else 
+                                                |, #{component}
+                                        | and Automatic UF+TDS controller 
+                                        if item['tank-capacity'] && item['tank-capacity'] >= 9
+                                            |having #{item['tank-capacity']}-L Tank 
+                            else if item['product-type'] == 'Water Filter Appliances' && item['filter-part'] == 'Cabinet'
+                                if item['model-name'].length
+                                    p.heading #{item['filter-type']} of #{item['model-name']} with #{item['tank-full-indicator']} indicators 
+                                        if item['tank-capacity'] && item['tank-capacity'] >= 7
+                                            |having #{item['tank-capacity']}-L Tank 
+                                        |designed by #{item['brand-name']}
+                                else 
+                                    p.heading Purifier #{item['filter-type']} with #{item['tank-full-indicator']} indicators 
+                                        if item['tank-capacity'] && item['tank-capacity'] >= 7
+                                            |having #{item['tank-capacity']}-L Tank 
+                                        |designed by #{item['brand-name']}  
+                            p.rating 
+                                - var ratingCount = item['rating-list'].overall;
+                                - for (var i = 0; i < ratingCount; i++)
+                                    <ion-icon name="star"></ion-icon> 
+                                - for (var i = ratingCount; i < 5; i++)
+                                    <ion-icon name="star-outline"></ion-icon>
+                            p.price 
+                                sup &#x20B9
+                                span #{(item['originalPrice'])-((item['originalPrice'])*(item['discount'])/100)}  
+                                label M.R.P : 
+                                    span &#x20B9 #{item['originalPrice']}
+                                    |  (#{item['discount']}% discount)
+                            p.brand.points
+                                <ion-icon name="business"></ion-icon> 
+                                span #{item['brand-name']}
+                            if item['warranty']
+                                p.warranty.points 
+                                    <ion-icon name="shield-checkmark"></ion-icon> 
+                                    span #{item['warranty-count']} Years Of Waranty
+                            else if item['color'].length > 1
+                                p.multicolor.points 
+                                    <ion-icon name="aperture"></ion-icon> 
+                                    span Multicolor Available 
+                            p.stages.points
+                                <ion-icon name="water"></ion-icon> 
+                                span #{item['stages']} Stage Purification
+                            p.delivery.points
+                                <ion-icon name="bus"></ion-icon> 
+                                span Free Delivery
+                            label(for="keyword",class="model-number") #{item['model-number']}
+                            label(for="keyword",class="product-type") #{item['product-type']}
+                            label(for="keyword",class="material") #{item['material']}
+                            each color,i in item['color']  
+                                label(for="keyword") #{color} ,
+                            label(for="keyword",class="tank-capacity") #{item['tank-capacity']} Liters
+                                
 
 block scripts 
     script(src="/static/js/search.js") 

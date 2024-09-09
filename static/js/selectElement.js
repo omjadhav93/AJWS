@@ -31,6 +31,8 @@ const select = (e) => {
     let value = e.getAttribute('value');
     let target = e.parentElement.parentElement;
     target.querySelector('#selected').innerText = text;
+    if(value != "") target.querySelector('#selected').classList.add('darkSelect')
+    else target.querySelector('#selected').classList.remove('darkSelect')
     target.nextElementSibling.value = value;
 }
 

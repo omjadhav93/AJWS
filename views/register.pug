@@ -37,8 +37,8 @@ block content
                     label.input-label(for="phone") Enter 10-digit number
                 if (message && message.path == "phone")
                     .warn #{message.msg}
-                .input-split 
-                    button.selectOptBtn(onclick='openOption(this)')
+                .input-split
+                    button.selectOptBtn(type="button" onclick='openOption(this)')
                       #selected.selected Select a Security Question
                       #selectOptContainer.selectOptContainer.addOption
                         span.opt(onclick='select(this)', value="") Select a Security Question
@@ -56,11 +56,17 @@ block content
                 .input
                     input.input-element(type="password", name="password",id="password",required="required")
                     label.input-label(for="password") Password
-                if (message && message.path == "password")
+                    label.view-password(for="password", onclick="changeView(this)")
+                        <ion-icon name="eye-outline"></ion-icon>
+                if (message && (message.path == "password" || message.path == "confirm"))
                     .warn #{message.msg}
                 .input
                     input.input-element(type="password", name="confirm",id="confirm",required="required")
                     label.input-label(for="confirm") Confirm Password
+                    label.view-password(for="password", onclick="changeView(this)")
+                        <ion-icon name="eye-outline"></ion-icon>
+                if (message && message.path == "confirm")
+                    .warn #{message.msg}
                 button.btn(type="submit") Create an account
             a.anLink(href="/auth/login") Already have an account? Log In
         .right 
@@ -71,3 +77,4 @@ block content
 block scripts 
     script(src="/static/js/input.js") 
     script(src="/static/js/selectElement.js") 
+    script(src="/static/js/register.js") 

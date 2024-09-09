@@ -50,6 +50,13 @@ router.post("/register", checkAuth, [
                 throw new Error('Password must contain at least one special character');
             }
             return true;
+        }),
+    body("confirm")
+        .custom((value, { req }) => {
+          if (value !== req.body.password) {
+            throw new Error("Passwords do not match");
+          }
+          return true;
         })
 ], async (req, res) => {
     const errors = validationResult(req);
