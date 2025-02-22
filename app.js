@@ -34,6 +34,9 @@ app.use(session({
 const authenticate = require("./router/authenticate");
 app.use('/auth', authenticate);
 
+const auth = require("./router/auth");
+app.use('/', auth);
+
 // Home Page Router
 const index = require("./router/index");
 app.use('/', index);

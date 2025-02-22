@@ -1,25 +1,38 @@
-// importing modules
 var mongoose = require('mongoose');
-  
-  
-var UserSchema = new mongoose.Schema({  
-    name: {
+
+const addressSchema = new mongoose.Schema({
+    line1: { type: String, trim: true },
+    line2: { type: String, trim: true },
+    state: { type: String, trim: true },
+    country: { type: String, trim: true },
+    pin: { type: String, trim: true, match: [/^\d{6}$/, 'Pin code must be 6 digits'] },
+});
+
+var UserSchema = new mongoose.Schema({
+    firstName: {
         type: String,
         required: true,
-        minlength: 3, // Minimum length for the name
-        maxlength: 255, // Maximum length for the name
-        trim: true // Trims whitespace from the beginning and end of the name
+        minlength: 3,
+        maxlength: 255,
+        trim: true
+    },
+
+    lastName: {
+        type: String,
+        required: true,
+        minlength: 1,
+        maxlength: 255,
+        trim: true
     },
 
     email: {
         type: String,
         required: true,
-        unique: true, // Ensures uniqueness of email addresses
-        lowercase: true, // Converts email addresses to lowercase before saving
-        trim: true, // Trims whitespace from the beginning and end of email addresses
+        unique: true,
+        lowercase: true,
+        trim: true,
         validate: {
-            validator: function(value) {
-                // Using a simple regular expression for email validation
+            validator: function (value) {
                 return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
             },
             message: props => `${props.value} is not a valid email address!`
@@ -29,31 +42,32 @@ var UserSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
-        minlength: 6, // Minimum length for the password
-        select: false // Ensures that the password field is not returned by default in queries
+        minlength: 6,
+        select: false
     },
-    
+
     phone: {
         type: String,
-        match: /^\d{10}$/, // Matches 10-digit phone numbers
-        trim: true // Trims whitespace from the beginning and end of the phone number
+        match: /^\d{10}$/,
+        trim: true
     },
 
-    'security-question': {
-        type: String,
-        required: true,
-        select: false // Ensures that the password field is not returned by default in queries
+    isVerified: {
+        type: Boolean,
+        default: false
     },
 
-    'security-ans': {
-        type: String,
-        required: true,
-        select: false // Ensures that the password field is not returned by default in queries
+    seller: {
+        type: Boolean,
+        default: false
     },
-    seller: Boolean,
-    address: [Object],
+
+    address: {
+        type: [addressSchema],
+        default: [],
+    },
+}, {
+    timestamps: true,
 });
-  
-  
-// export userschema
+
 module.exports = mongoose.model("User", UserSchema);
