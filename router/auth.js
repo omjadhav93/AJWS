@@ -54,9 +54,14 @@ router.post('/register/generate-otp', [
     }
 
     try {
-        let checkUser = await User.findOne({ email: req.body.email });
-        if (checkUser) {
+        const checkUser = await User.findOne({ email: req.body.email });
+        if (checkUser && checkUser.isVerified) {
             return res.status(400).json({ msg: "User already exists with this email." });
+        }
+
+        if (!checkUser.isVerified) {
+            await Otp.deleteMany({ userId: checkUser._id });
+            await User.findByIdAndDelete(checkUser._id);
         }
 
         const { email, phone, password } = req.body;
@@ -110,10 +115,47 @@ AJ WATER SOLUTIONS`
 
         res.status(200).json({ success: true, msg: `OTP sent to ${email} .` });
 
-    } catch (err) {
-        console.log(err);
+    } catch (error) {
+        console.log(error);
         res.status(500).send({ msg: "Internal Server Error" });
     }
 })
+
+router.post('/register/validate-otp', async (req, res) => {
+    try {
+        const user = await User.findOne({ email: req.body.email });
+        if (!user) {
+            return res.status(400).json({ success: false, msg: "User not registered correctly." });
+        }
+
+        const otp = await Otp.findOne({ userId: user._id });
+        if (otp.otp === req.body.otp) {
+            await User.findByIdAndUpdate(user._id, { isVerified: true });
+            await Otp.deleteOne({ userId: user._id })
+            // Create JWT Token
+            const data = {
+                user: {
+                    id: user._id,
+                },
+            }
+            const authtoken = jwt.sign(data, JWT_SECRET);
+            // res.cookie('authtoken', authtoken, { httpOnly: true, secure: process.env.TOKEN_HEADER_KEY == "user_token_header_key" });
+            res.cookie('authtoken', authtoken);
+
+            let returnTo = req.session.returnTo || null;
+            delete req.session.returnTo;
+
+            res.redirect(returnTo || '/');
+        } else {
+            res.status(200).json({ success: false, msg: "Incorrect OTP!" })
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ msg: "Internal Server Error" });
+    }
+})
+
+// Resend otp
+// Delete otp from database after 20 minutes.
 
 module.exports = router;
