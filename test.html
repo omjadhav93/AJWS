@@ -2,142 +2,99 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Customer Support Form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Verification</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f7f7f7;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-        }
-        h1 {
-            text-align: center;
-            color: #007BFF;
-            margin-bottom: 20px;
-        }
-        form {
             display: flex;
-            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
         }
-        form div {
-            margin-bottom: 15px;
+        .otp-container {
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            text-align: center;
         }
-        form label {
-            margin-bottom: 5px;
-            color: #333;
+        .otp-inputs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
         }
-        form input, form textarea, form select {
-            width: 100%;
-            padding: 10px;
+        .otp-inputs input {
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            font-size: 18px;
             border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            font-size: 16px;
+            border-radius: 5px;
         }
-        form input:focus, form textarea:focus, form select:focus {
-            border-color: #007BFF;
-            outline: none;
-        }
-        form button {
-            padding: 10px 15px;
-            background-color: #007BFF;
-            border: none;
-            color: #fff;
-            cursor: pointer;
-            border-radius: 4px;
-            font-size: 16px;
-        }
-        form button:hover {
-            background-color: #0056b3;
+        .error-msg {
+            color: red;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Contact Customer Support</h1>
-        <form id="supportForm">
-            <div>
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
+    <div class="otp-container">
+        <h2>Enter OTP</h2>
+        <form id="otp-form">
+            <div class="otp-inputs">
+                <input type="text" maxlength="1" required>
+                <input type="text" maxlength="1" required>
+                <input type="text" maxlength="1" required>
+                <input type="text" maxlength="1" required>
+                <input type="text" maxlength="1" required>
+                <input type="text" maxlength="1" required>
             </div>
-            <div>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div>
-                <label for="problemType">Problem Type:</label>
-                <select id="problemType" name="problemType" required>
-                    <option value="">Select a problem type</option>
-                    <option value="order">Problem with order</option>
-                    <option value="platform">Problem with platform</option>
-                    <option value="service">Problem with service</option>
-                </select>
-            </div>
-            <div id="orderNumberDiv" style="display: none;">
-                <label for="orderNumber">Order Number:</label>
-                <input type="text" id="orderNumber" name="orderNumber">
-            </div>
-            <div>
-                <label for="description">Describe your problem:</label>
-                <textarea id="description" name="description" rows="4" required></textarea>
-            </div>
-            <button type="button" id="submitBtn">Submit</button>
+            <input type="hidden" id="email" value="user@example.com"> <!-- Replace dynamically -->
+            <button type="submit">Verify</button>
         </form>
+        <p class="error-msg" id="error-message"></p>
     </div>
-
+    
     <script>
-        document.getElementById('problemType').addEventListener('change', function() {
-            const orderNumberDiv = document.getElementById('orderNumberDiv');
-            if (this.value === 'order') {
-                orderNumberDiv.style.display = 'block';
-                document.getElementById('orderNumber').setAttribute('required', 'required');
-            } else {
-                orderNumberDiv.style.display = 'none';
-                document.getElementById('orderNumber').removeAttribute('required');
-            }
+        const inputs = document.querySelectorAll('.otp-inputs input');
+        inputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                if (e.target.value && index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                }
+            });
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                    inputs[index - 1].focus();
+                }
+            });
         });
 
-        document.getElementById('submitBtn').addEventListener('click', () => {
-            const form = document.getElementById('supportForm');
-
-            // Data to be sent
-            const data = {
-                name: form.name.value,
-                email: form.email.value,
-                problemType: form.problemType.value,
-                orderNumber: form.orderNumber.value,
-                description: form.description.value
-            };
-
-            // Create a form element
-            const dynamicForm = document.createElement('form');
-            dynamicForm.method = 'POST';
-            dynamicForm.action = 'https://example.com/support'; // Replace with the actual endpoint
-
-            // Add form fields dynamically
-            for (const key in data) {
-                if (data.hasOwnProperty(key) && data[key]) {
-                    const hiddenField = document.createElement('input');
-                    hiddenField.type = 'hidden';
-                    hiddenField.name = key;
-                    hiddenField.value = data[key];
-                    dynamicForm.appendChild(hiddenField);
-                }
+        document.getElementById('otp-form').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const otp = Array.from(inputs).map(input => input.value).join('');
+            const email = document.getElementById('email').value;
+            if (otp.length !== 6) {
+                document.getElementById('error-message').textContent = "Enter a 6-digit OTP";
+                return;
             }
+            
+            const response = await fetch('/login/validate-otp', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, otp })
+            });
 
-            // Append the form to the body
-            document.body.appendChild(dynamicForm);
-
-            // Submit the form
-            dynamicForm.submit();
+            const data = await response.json();
+            if (!data.success) {
+                document.getElementById('error-message').textContent = data.msg;
+            } else {
+                window.location.href = '/';
+            }
         });
     </script>
 </body>

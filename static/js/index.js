@@ -61,7 +61,7 @@ function fetchProducts(sectionId) {
                 productsDiv.appendChild(productElement);
             });
         })
-        .catch(error => console.error('Error fetching products:', error));
+        .catch(error => alert(`Error fetching products: ${error}`));
 }
 
 // Function to initialize Intersection Observer

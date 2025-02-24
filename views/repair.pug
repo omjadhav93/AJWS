@@ -28,7 +28,7 @@ block content
                             | #{Booking.customer_phone}
                         p.customer-address 
                             span.head Customer Address : 
-                            | #{Booking.customer_address.add}, #{Booking.customer_address.dist}, #{Booking.customer_address.state} - #{Booking.customer_address.pin}
+                            | #{Booking.customer_address.line1}, #{Booking.customer_address.line2},, #{Booking.customer_address.dist}, #{Booking.customer_address.state} - #{Booking.customer_address.pin}
                         p.date-placed 
                             -var date = new Date(Booking.createdAt)
                             -const day = date.getDate();
@@ -74,7 +74,7 @@ block content
                             | #{Booking.customer_phone}
                         p.customer-address 
                             span.head Customer Address : 
-                            | #{Booking.customer_address.add}, #{Booking.customer_address.dist}, #{Booking.customer_address.state} - #{Booking.customer_address.pin}
+                            | #{Booking.customer_address.line1}, #{Booking.customer_address.line2},, #{Booking.customer_address.dist}, #{Booking.customer_address.state} - #{Booking.customer_address.pin}
                         p.date-placed 
                             -var date = new Date(Booking.createdAt)
                             -const day = date.getDate();
@@ -121,7 +121,7 @@ block content
                             | #{Booking.customer_phone}
                         p.customer-address 
                             span.head Customer Address : 
-                            | #{Booking.customer_address.add}, #{Booking.customer_address.dist}, #{Booking.customer_address.state} - #{Booking.customer_address.pin}
+                            | #{Booking.customer_address.line1}, #{Booking.customer_address.line2},, #{Booking.customer_address.dist}, #{Booking.customer_address.state} - #{Booking.customer_address.pin}
                         p.booking-status 
                             span.head Request Status : 
                             span.active-status Active
@@ -184,7 +184,7 @@ block content
                         center 
                             h2 Customer Details
                         .input
-                            input.input-element(type="text", name="name", id="name", required="required", value=`${user?user.name:''}`)
+                            input.input-element(type="text", name="name", id="name", required="required", value=`${user?user.firstName+' '+user.lastName:''}`)
                             label.input-label(for="name") Customer's Name
                         .input
                             input.input-element(type="text", name="address-1", id="address-1", required="required", value=`${user && user.address.length?user.address[0].add:''}`)
@@ -234,7 +234,7 @@ block content
                             | #{Booking.customer_phone}
                         p.customer-address 
                             span.head Customer Address : 
-                            | #{Booking.customer_address.add}, #{Booking.customer_address.dist}, #{Booking.customer_address.state} - #{Booking.customer_address.pin}
+                            | #{Booking.customer_address.line1}, #{Booking.customer_address.line2},, #{Booking.customer_address.dist}, #{Booking.customer_address.state} - #{Booking.customer_address.pin}
                         p.booking-status 
                             span.head Request Status : 
                             span.deactive-status Reviewed

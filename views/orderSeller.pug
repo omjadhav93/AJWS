@@ -42,7 +42,7 @@ block content
                         td.order-img(onclick=`window.location.href = "/product?modelNo=${order['model-number']}"`)
                           img(src='/static/productImg/'+order.image alt="Product Image" width="80")
                         td= order.color
-                        td.address-col(onclick=`redirectToGoogleMaps('${order.address.add}, ${order.address.dist}, ${order.address.state}, ${order.address.pin}')`)= `${order.address.add}, ${order.address.dist}, ${order.address.state}, ${order.address.pin}`
+                        td.address-col(onclick=`redirectToGoogleMaps('${order.address.line1}, ${order.address.line2}, ${order.address.dist}, ${order.address.state}, ${order.address.pin}')`)= `${order.address.line1}, ${order.address.line2}, ${order.address.dist}, ${order.address.state}, ${order.address.pin}`
                         td= new Date(order.orderDate).toLocaleDateString()
                         td.quantity-col= order.quantity
                         td.payment-col= order.payment ? 'Paid / ' + order.payStatus : 'Unpaid / ' + order.payStatus
@@ -81,7 +81,7 @@ block content
                               td.order-img(onclick=`window.location.href = "/product?modelNo=${order['model-number']}"`)
                                 img(src='/static/productImg/'+order.image alt="Product Image" width="80")
                               td= order.color
-                              td.address-col(onclick=`redirectToGoogleMaps('${order.address.add}, ${order.address.dist}, ${order.address.state}, ${order.address.pin}')`)= `${order.address.add}, ${order.address.dist}, ${order.address.state}, ${order.address.pin}`
+                              td.address-col(onclick=`redirectToGoogleMaps('${order.address.line1}, ${order.address.line2}, ${order.address.dist}, ${order.address.state}, ${order.address.pin}')`)= `${order.address.line1}, ${order.address.line2}, ${order.address.dist}, ${order.address.state}, ${order.address.pin}`
                               td= new Date(order.orderDate).toLocaleDateString()
                               td.quantity-col= order.quantity
                               td.payment-col= order.payment ? 'Paid / ' + order.payStatus : 'Unpaid / ' + order.payStatus
@@ -120,7 +120,7 @@ block content
                               td.order-img(onclick=`window.location.href = "/product?modelNo=${order['model-number']}"`)
                                 img(src='/static/productImg/'+order.image alt="Product Image" width="80")
                               td= order.color
-                              td.address-col(onclick=`redirectToGoogleMaps('${order.address.add}, ${order.address.dist}, ${order.address.state}, ${order.address.pin}')`)= `${order.address.add}, ${order.address.dist}, ${order.address.state}, ${order.address.pin}`
+                              td.address-col(onclick=`redirectToGoogleMaps('${order.address.line1}, ${order.address.line2}, ${order.address.dist}, ${order.address.state}, ${order.address.pin}')`)= `${order.address.line1}, ${order.address.line1}, ${order.address.dist}, ${order.address.state}, ${order.address.pin}`
                               td= new Date(order.orderDate).toLocaleDateString()
                               td.quantity-col= order.quantity
                               td.payment-col= order.payment ? 'Paid / ' + order.payStatus : 'Unpaid / ' + order.payStatus
@@ -159,7 +159,7 @@ block content
                               td.order-img(onclick=`window.location.href = "/product?modelNo=${order['model-number']}"`)
                                 img(src='/static/productImg/'+order.image alt="Product Image" width="80")
                               td= order.color
-                              td.address-col(onclick=`redirectToGoogleMaps('${order.address.add}, ${order.address.dist}, ${order.address.state}, ${order.address.pin}')`)= `${order.address.add}, ${order.address.dist}, ${order.address.state}, ${order.address.pin}`
+                              td.address-col(onclick=`redirectToGoogleMaps('${order.address.line1}, ${order.address.line2}, ${order.address.dist}, ${order.address.state}, ${order.address.pin}')`)= `${order.address.line1}, ${order.address.line2}, ${order.address.dist}, ${order.address.state}, ${order.address.pin}`
                               td= new Date(order.orderDate).toLocaleDateString()
                               td.quantity-col= order.quantity
                               td.payment-col= order.payment ? 'Paid / ' + order.payStatus : 'Unpaid / ' + order.payStatus
@@ -198,7 +198,7 @@ block content
                               td.order-img(onclick=`window.location.href = "/product?modelNo=${order['model-number']}"`)
                                 img(src='/static/productImg/'+order.image alt="Product Image" width="80")
                               td= order.color
-                              td.address-col(onclick=`redirectToGoogleMaps('${order.address.add}, ${order.address.dist}, ${order.address.state}, ${order.address.pin}')`)= `${order.address.add}, ${order.address.dist}, ${order.address.state}, ${order.address.pin}`
+                              td.address-col(onclick=`redirectToGoogleMaps('${order.address.line1}, ${order.address.line2}, ${order.address.dist}, ${order.address.state}, ${order.address.pin}')`)= `${order.address.line1}, ${order.address.line2}, ${order.address.dist}, ${order.address.state}, ${order.address.pin}`
                               td= new Date(order.orderDate).toLocaleDateString()
                               td.quantity-col= order.quantity
                               td.payment-col= order.payment ? 'Paid / ' + order.payStatus : 'Unpaid / ' + order.payStatus
@@ -231,7 +231,7 @@ block content
                               td.order-img(onclick=`window.location.href = "/product?modelNo=${order['model-number']}"`)
                                 img(src='/static/productImg/'+order.image alt="Product Image" width="80")
                               td= order.color
-                              td.address-col(onclick=`redirectToGoogleMaps('${order.address.add}, ${order.address.dist}, ${order.address.state}, ${order.address.pin}')`)= `${order.address.add}, ${order.address.dist}, ${order.address.state}, ${order.address.pin}`
+                              td.address-col(onclick=`redirectToGoogleMaps('${order.address.line1}, ${order.address.line2}, ${order.address.dist}, ${order.address.state}, ${order.address.pin}')`)= `${order.address.line1}, ${order.address.line2}, ${order.address.dist}, ${order.address.state}, ${order.address.pin}`
                               td= new Date(order.orderDate).toLocaleDateString()
                               td.quantity-col= order.quantity
                               td.payment-col= order.payment ? 'Paid / ' + order.payStatus : 'Unpaid / ' + order.payStatus

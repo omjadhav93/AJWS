@@ -37,6 +37,9 @@ app.use('/auth', authenticate);
 const register = require("./router/register");
 app.use('/register', register);
 
+const login = require("./router/login");
+app.use('/login', login);
+
 // Home Page Router
 const index = require("./router/index");
 app.use('/', index);

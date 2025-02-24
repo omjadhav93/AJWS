@@ -17,9 +17,9 @@ block content
                 p.login-head Login 
                 p.welcome-text Your key to personalized shopping awaits. Access your wishlist and more, with a login.
             img(src='../static/img/water-flash-1.png').design-img 
-        .right 
+        .right#right
             //- if (message && message.path == "general")
-            form(action="/auth/login", method="post").auth-from
+            form#form.auth-from(action="/login", method="post")
                 if (message && message.path == "general")
                     .warning 
                         p #{message.msg} 
@@ -37,6 +37,8 @@ block content
                     .warn #{message.msg}
                 a.forgot(href="/auth/forgot") Forgot Password ?
                 button.btn(type="submit") Log In
+                p.or-line Or
+                button.btn.otp-btn(type="button", onclick="otpGeneration('login')") Login With OTP
             a.anLink(href="/auth/register") New to AJWS? Create an account 
 block scripts 
     script(src="/static/js/input.js") 

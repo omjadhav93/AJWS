@@ -36,13 +36,13 @@ block content
                 .user-top 
                     p.user-logo <ion-icon name="person-outline"></ion-icon>
                     .user-detail
-                        p.user-name #{user.name}
+                        p.user-name #{user.firstName} #{user.lastName}
                         p.user-address #{user.address.length?user.address[0].dist:'Unknown'}, #{user.address.length?user.address[0].state:'Location'}
                 .user-data 
                     .data-box-split 
                         .data-box 
                             p.data-head Name
-                            p.data-value #{user.name}
+                            p.data-value #{user.firstName} #{user.lastName}
                         .data-box 
                             p.data-head Email Address 
                             p.data-value #{user.email}
@@ -83,7 +83,7 @@ block content
                         span.setting-edit(onclick="edit('personal-info')") Edit
                     .data-box 
                         p.data-head Name
-                        p.data-value #{user.name}
+                        p.data-value #{user.firstName} #{user.lastName}
                     .data-box 
                         p.data-head Address  
                         if user.address.length

@@ -320,8 +320,7 @@ router.post('/auth/update', fetchCheckAuth, async (req, res) => {
         if (req.body['first-name'] && req.body['last-name']) {
             const firstName = req.body['first-name'];
             const lastName = req.body['last-name'];
-            const name = firstName + ' ' + lastName;
-            if (user.name = name) {
+            if ((user.firstName = firstName) && (user.lastName = lastName)) {
                 check = true;
             }
         }

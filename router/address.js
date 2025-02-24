@@ -40,20 +40,18 @@ router.post("/", fetchUser, async (req, res) => {
 
     let address = user.address;
     let newAddress = {
-      add: req.body['address-2'].length ? (req.body['address-1'] + ', ' + req.body['address-2']) : req.body['address-1'],
+      line1: req.body['address-1'],
+      line2: req.body['address-2'] || '',
       dist: req.body.district,
       state: req.body.state,
       pin: req.body.pincode,
     };
 
-    // Normalize the address for comparison (you can customize this based on your needs)
-    let newAddressStr = `${newAddress.add}, ${newAddress.dist}, ${newAddress.state}, ${newAddress.pin}`.toLowerCase();
-
-    // Check if the address already exists
-    let addressExists = address.some(addr => {
-      let existingAddressStr = `${addr.add}, ${addr.dist}, ${addr.state}, ${addr.pin}`.toLowerCase();
-      return existingAddressStr === newAddressStr;
-    });
+    let addressExists = user.address.some(addr => 
+      Object.keys(newAddress).every(key => 
+        addr[key]?.toLowerCase().trim() === newAddress[key]?.toLowerCase().trim()
+      )
+    );    
 
     if (addressExists) {
       return res.status(400).send("Address already exists");

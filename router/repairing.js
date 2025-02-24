@@ -78,7 +78,8 @@ router.post("/", fetchUser, async (req, res) => {
         customer_name: name.trim(),
         customer_phone: phone,
         customer_address: {
-          add: req.body['address-2'].length ? (req.body['address-1'] + ', ' + req.body['address-2']) : req.body['address-1'],
+          line1: req.body['address-1'],
+          line2: req.body['address-2'] || '',
           dist: req.body.district,
           state: req.body.state,
           pin: req.body.pincode,
