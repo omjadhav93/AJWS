@@ -30,12 +30,12 @@ app.use(session({
     saveUninitialized: false
 }));
 
-// Authenticate Router
+// Authentication Routes
 const authenticate = require("./router/authenticate");
 app.use('/auth', authenticate);
 
-const auth = require("./router/auth");
-app.use('/', auth);
+const register = require("./router/register");
+app.use('/register', register);
 
 // Home Page Router
 const index = require("./router/index");

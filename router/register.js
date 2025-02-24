@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require("jsonwebtoken");
+const cron = require("node-cron");
 const bcrypt = require('bcrypt');
 const crypto = require("crypto");
 const { body, validationResult } = require("express-validator");
@@ -17,11 +18,11 @@ function generateOTP() {
     return crypto.randomInt(100000, 999999);
 }
 
-router.get('/register', checkAuth, (req, res) => {
+router.get('/', checkAuth, (req, res) => {
     res.render('register')
 })
 
-router.post('/register/generate-otp', [
+router.post('/generate-otp', [
     body("first-name", "Enter a valid name ").isLength({ min: 2 }),
     body("last-name", "Enter a valid name ").isLength({ min: 2 }),
     body("email", "Enter a valid Email").isEmail(),
@@ -59,7 +60,7 @@ router.post('/register/generate-otp', [
             return res.status(400).json({ msg: "User already exists with this email." });
         }
 
-        if (!checkUser.isVerified) {
+        if (checkUser && !checkUser.isVerified) {
             await Otp.deleteMany({ userId: checkUser._id });
             await User.findByIdAndDelete(checkUser._id);
         }
@@ -103,7 +104,7 @@ router.post('/register/generate-otp', [
         sendingMail({
             from: "no-reply@example.com",
             to: `${email}`,
-            subject: "OTP Email Verification",
+            subject: "OTP For Email Verification",
             text: `Hello ${firstName},
 Your One-Time Password (OTP) for verification is: ${otpvalue}
 This OTP is valid for only 20 minutes. Please do not share it with anyone.
@@ -121,7 +122,7 @@ AJ WATER SOLUTIONS`
     }
 })
 
-router.post('/register/validate-otp', async (req, res) => {
+router.post('/validate-otp', async (req, res) => {
     try {
         const user = await User.findOne({ email: req.body.email });
         if (!user) {
@@ -131,7 +132,7 @@ router.post('/register/validate-otp', async (req, res) => {
         const otp = await Otp.findOne({ userId: user._id });
         if (otp.otp === req.body.otp) {
             await User.findByIdAndUpdate(user._id, { isVerified: true });
-            await Otp.deleteOne({ userId: user._id })
+            await Otp.deleteMany({ userId: user._id })
             // Create JWT Token
             const data = {
                 user: {
@@ -155,7 +156,76 @@ router.post('/register/validate-otp', async (req, res) => {
     }
 })
 
-// Resend otp
+router.post('/resend-otp', async (req, res) => {
+    try {
+        const user = await User.findOne({ email: req.body.email });
+        if (!user) {
+            return res.status(400).json({ success: false, msg: "User not registered correctly." });
+        }
+
+        if(user && user.isVerified) {
+            return res.status(400).json({ success: false, msg: "User already verified, can't resend the OTP. Try Login User." });
+        }
+
+        // Delete prev OTP
+        await Otp.deleteMany({ userId: user._id });
+
+        // OTP Geneartion
+        const otpvalue = generateOTP();
+        const newOtp = new Otp({
+            userId: user._id,
+            otp: otpvalue
+        })
+
+        const savedOtp = await newOtp.save();
+        if (!savedOtp) {
+            return User.findByIdAndDelete(user._id)
+                .then(() => res.status(404).json({ success: false, msg: "Error to generate OTP for you, try again. " }))
+                .catch((delErr) => res.status(404).json({ success: false, msg: "Error to generate OTP for you, try after 20 minutes. " }));
+        }
+
+        // Sending Email
+        sendingMail({
+            from: "no-reply@example.com",
+            to: `${user.email}`,
+            subject: "OTP For Email Verification",
+            text: `Hello ${user.firstName},
+Your One-Time Password (OTP) for verification is: ${otpvalue}
+This OTP is valid for only 20 minutes. Please do not share it with anyone.
+
+Enjoy your shopping with AJ Water Solutions.
+Best regards,  
+AJ WATER SOLUTIONS`
+        });
+
+        res.status(200).json({ success: true, msg: `OTP sent to ${user.email} .` });
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ msg: "Internal Server Error" });
+    }
+})
+
 // Delete otp from database after 20 minutes.
+// Run cleanup every 10 minutes
+cron.schedule("*/10 * * * *", async () => {
+    try {
+        const twentyMinutesAgo = new Date(Date.now() - 20 * 60 * 1000); // Get timestamp 20 min ago
+
+        // Find OTPs that expired (createdAt older than 20 min)
+        const expiredOtps = await Otp.find({ createdAt: { $lt: twentyMinutesAgo } }).select("userId");
+
+        for (const entry of expiredOtps) {
+            const user = await User.findById(entry.userId);
+            if(user && !user.isVerified){
+                await User.findByIdAndDelete(user._id); // Delete unverified user
+            }
+            await Otp.findByIdAndDelete(entry._id); // Also delete OTP record
+        }
+    } catch (error) {
+        console.error("Error in cleanup job:", error);
+    }
+});
+
 
 module.exports = router;
