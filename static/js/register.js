@@ -5,7 +5,7 @@ const changeView = (e) => {
     passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
 }
 
-const otpSubmition = () => {
+const otpSubmition = (type) => {
     const interval = setInterval(() => {
         const otpFormElement = document.getElementById('otp-form');
         if (otpFormElement) {
@@ -23,7 +23,7 @@ const otpSubmition = () => {
                 }
 
                 try {
-                    const response = await fetch('/login/validate-otp', {
+                    const response = await fetch(`/${type}/validate-otp`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -47,15 +47,15 @@ const otpSubmition = () => {
     }, 1); // Check every 1ms
 }
 
-const otpForm = (msg, email) => {
+const otpForm = (email, type) => {
     const url = new URL(location);
     window.history.pushState({}, "", url);
 
-    const formSpace = document.getElementById('right');
+    const formSpace = document.getElementById('form-section');
     formSpace.innerHTML = `
-        <p class="res-msg">${msg}</p>
         <div class="otp-container">
-            <h2>Enter OTP</h2>
+            <p class="res-msg">Please enter OTP sent to email</p>
+            <p class="res-msg">${email}</p>
             <form action="" id="otp-form">
                 <input type="hidden" id="email" name="email" value="${email}">
                 <div class="otp-inputs">
@@ -66,7 +66,7 @@ const otpForm = (msg, email) => {
                     <input type="text" maxlength="1" required>
                     <input type="text" maxlength="1" required>
                 </div>
-                <button type="submit">Verify</button>
+                <button type="submit" class="btn verify-btn">Verify</button>
                 <p class="error-msg" id="error-message"></p>
             </form>
         </div>
@@ -86,29 +86,82 @@ const otpForm = (msg, email) => {
         });
     });
 
-    otpSubmition();
+    otpSubmition(type);
 
 };
 
 const otpGeneration = async (type) => {
-    const email = document.getElementById('email').value;
+    // Define required fields for each type
+    const formFields = {
+        login: ['email'],
+        register: ['first-name', 'last-name', 'email', 'phone', 'password', 'confirm'],
+        forgot: ['email']
+    };
 
+    let formData = {};
+    let isValid = true;
+    let firstInvalidField = null;
+
+    // Remove existing warnings
+    document.querySelectorAll('.warn').forEach(warn => warn.remove());
+
+    // Validation rules
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^\d{10}$/; // Ensures 10-digit phone number
+    const passwordRegex = /^.{6,}$/; // At least 6 characters
+
+    // Validate each required field
+    formFields[type].forEach(field => {
+        const input = document.getElementById(field);
+        const value = input?.value.trim() || '';
+        let warnMessage = '';
+
+        if (!value) {
+            warnMessage = `${field.replace('-', ' ')} is required.`;
+        } else if (field === 'email' && !emailRegex.test(value)) {
+            warnMessage = 'Please enter a valid email address.';
+        } else if (field === 'phone' && !phoneRegex.test(value)) {
+            warnMessage = 'Phone number must be 10 digits.';
+        } else if ((field === 'password' || field === 'confirm') && !passwordRegex.test(value)) {
+            warnMessage = 'Password must be at least 6 characters.';
+        } else if (field === 'confirm' && value !== document.getElementById('password').value) {
+            warnMessage = 'Passwords do not match.';
+        }
+
+        if (warnMessage) {
+            const warnDiv = document.createElement('div');
+            warnDiv.className = 'warn';
+            warnDiv.textContent = warnMessage;
+            input.parentElement.insertAdjacentElement('afterend', warnDiv);
+
+            if (!firstInvalidField) {
+                firstInvalidField = input;
+            }
+            isValid = false;
+        }
+
+        formData[field] = value;
+    });
+
+    if (!isValid) {
+        firstInvalidField?.focus();
+        return;
+    }
+
+    // Send request
     await fetch(`/${type}/generate-otp`, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            'email': email
-        })
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
     })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                otpForm(data.msg, email);
-            } else {
-                alert(data.msg);
-            }
-        })
-        .catch(error => alert(`Error: ${error}`));
-}
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        if (data.success) {
+            otpForm(formData.email, type);
+        } else {
+            alert(data.msg);
+        }
+    })
+    .catch(error => alert(`Error: ${error}`));
+};

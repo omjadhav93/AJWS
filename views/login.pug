@@ -7,6 +7,7 @@ block metaElements
     meta(name="description" content=`Unlock exclusive benefits and seamless shopping by logging in to AJKart. Your security is our priority, providing a secure and user-friendly login process. Enjoy personalized offers and easy access to a wide range of products. Join AJKart today for a rewarding shopping experience.`)
 block style
     include ../static/css/login.css
+    include ../static/css/otp.css
     include ../static/css/input.css
 block title 
     title AJ-Kart | Login 
@@ -17,7 +18,7 @@ block content
                 p.login-head Login 
                 p.welcome-text Your key to personalized shopping awaits. Access your wishlist and more, with a login.
             img(src='../static/img/water-flash-1.png').design-img 
-        .right#right
+        .right#form-section
             //- if (message && message.path == "general")
             form#form.auth-from(action="/login", method="post")
                 if (message && message.path == "general")

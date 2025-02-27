@@ -121,7 +121,9 @@ AJ WATER SOLUTIONS`
     }
 })
 
-router.post('/validate-otp', async (req, res) => {
+router.post('/validate-otp',[
+    body("email", "Enter a valid Email").isEmail()
+], async (req, res) => {
     try {
         const user = await User.findOne({ email: req.body.email });
         if (!user) {
@@ -129,7 +131,7 @@ router.post('/validate-otp', async (req, res) => {
         }
 
         const otp = await Otp.findOne({ userId: user._id });
-        if (otp.otp === req.body.otp) {
+        if (otp.otp === Number(req.body.otp)) {
             await User.findByIdAndUpdate(user._id, { isVerified: true });
             await Otp.deleteMany({ userId: user._id })
             // Create JWT Token
@@ -155,7 +157,9 @@ router.post('/validate-otp', async (req, res) => {
     }
 })
 
-router.post('/resend-otp', async (req, res) => {
+router.post('/resend-otp',[
+    body("email", "Enter a valid Email").isEmail()
+], async (req, res) => {
     try {
         const user = await User.findOne({ email: req.body.email });
         if (!user) {

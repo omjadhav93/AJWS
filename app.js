@@ -40,6 +40,10 @@ app.use('/register', register);
 const login = require("./router/login");
 app.use('/login', login);
 
+
+const forgot = require("./router/forgot");
+app.use('/forgot', forgot);
+
 // Home Page Router
 const index = require("./router/index");
 app.use('/', index);

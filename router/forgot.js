@@ -16,63 +16,14 @@ function generateOTP() {
     return crypto.randomInt(100000, 999999);
 }
 
+
 router.get('/', checkAuth, (req, res) => {
-    res.render('login')
+    res.render('forgot', { section: "Email" })
 })
 
-// Password Login -----------------------------------------------------------------------------------
-
-router.post('/', checkAuth, [
-    body("email", "Enter a valid Email").isEmail(),
-    body("password", "Password cannot be blank").exists()
-], async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).render("login", { message: errors.array()[0], otherDetails: req.body});
-    }
-
-    try {
-        let user = await User.findOne({ email: req.body.email }).select('+password')
-        if (!user) {
-            return res.status(400).render("login",{message: {msg: "User doesn't exists.",path:"email"}, otherDetails: req.body})
-        }
-
-        if (user && !user.isVerified) {
-            await Otp.deleteMany({ userId: checkUser._id });
-            await User.findByIdAndDelete(checkUser._id);
-            return res.status(400).json({ success: false, msg: "User doesn't exists." });
-        }
-        
-        let hash = user.password
-        
-        const result = await bcrypt.compare(req.body.password, hash)
-        
-        if (!result) {
-            return res.status(400).render("login",{message: {msg: "Wrong Password!",path: "password"}, otherDetails: req.body})
-        }
-        
-        const data = {
-            user: {
-                id: user.id
-            }
-        }
-        
-        const authtoken = jwt.sign(data, JWT_SECRET);
-        // res.cookie('authtoken', authtoken, { httpOnly: false, secure: process.env.TOKEN_HEADER_KEY == "user_token_header_key" });
-        res.cookie('authtoken', authtoken);
-
-        let returnTo = req.session.returnTo || null;
-        delete req.session.returnTo;
-
-        res.redirect(returnTo || '/');
-
-    } catch (error) {
-        console.log(error)
-        res.status(500).render("login", {message: {msg: "Internal Server Error", path: "general"}, otherDetails: req.body });
-    }
+router.get('/change-password', checkAuth, (req, res) => {
+    res.render('forgot', { section: "Password" })
 })
-
-// OTP Login ---------------------------------------------------------------------------------------
 
 router.post('/generate-otp', [
     body("email", "Enter a valid Email").isEmail()
@@ -94,7 +45,7 @@ router.post('/generate-otp', [
             return res.status(400).json({ success: false, msg: "User doesn't exists." });
         }
 
-        await Otp.deleteMany({userId: user._id});
+        await Otp.deleteMany({ userId: user._id });
 
         const { email } = req.body;
 
@@ -127,57 +78,58 @@ AJ WATER SOLUTIONS`
         });
 
         res.status(200).json({ success: true, msg: `OTP sent to ${email} .` });
+
     } catch (error) {
         console.log(error);
-        res.status(500).send({ msg: "Internal Server Error" });
+        res.status(500).send({ success: false, msg: "Internal Server Error" });
     }
 })
 
-router.post('/validate-otp',[
+router.post('/validate-otp', [
     body("email", "Enter a valid Email").isEmail()
 ], async (req, res) => {
     try {
-        const user = await User.findOne({ email: req.body.email });
+        let user = await User.findOne({ email: req.body.email }).select('+password');
         if (!user) {
             return res.status(400).json({ success: false, msg: "User doesn't exists." });
         }
 
         if (user && !user.isVerified) {
-            await Otp.deleteMany({ userId: user._id });
-            await User.findByIdAndDelete(user._id);
+            await Otp.deleteMany({ userId: checkUser._id });
+            await User.findByIdAndDelete(checkUser._id);
             return res.status(400).json({ success: false, msg: "User doesn't exists." });
         }
 
         const otp = await Otp.findOne({ userId: user._id });
-        if(!otp){
+        if (!otp) {
             return res.status(400).json({ success: false, msg: "Error while verifing otp, try again." });
         }
+
         if (otp.otp === Number(req.body.otp)) {
             await Otp.deleteMany({ userId: user._id })
-            // Create JWT Token
-            const data = {
+
+            const verify = {
                 user: {
-                    id: user._id,
-                },
+                    id: user.id,
+                    status: 'verified'
+                }
             }
-            const authtoken = jwt.sign(data, JWT_SECRET);
-            // res.cookie('authtoken', authtoken, { httpOnly: true, secure: process.env.TOKEN_HEADER_KEY == "user_token_header_key" });
-            res.cookie('authtoken', authtoken);
+            
+            const verifiedToken = jwt.sign(verify, JWT_SECRET);
+            // res.cookie('verifiedToken', verifiedToken, { httpOnly: true, secure: process.env.TOKEN_HEADER_KEY == "user_token_header_key" });
+            res.cookie('verifiedToken', verifiedToken);
 
-            let returnTo = req.session.returnTo || null;
-            delete req.session.returnTo;
-
-            res.status(200).json({ success: true, msg: "Login Success", returnTo: returnTo || '/' })
+            res.status(200).json({ success: true, msg: "Password Change Success", returnTo: '/forgot/change-password' })
         } else {
             res.status(200).json({ success: false, msg: "Incorrect OTP!" })
         }
     } catch (error) {
         console.log(error);
-        res.status(500).send({ msg: "Internal Server Error" });
+        res.status(500).send({ success: false, msg: "Internal Server Error" });
     }
 })
 
-router.post('/resend-otp',[
+router.post('/resend-otp', [
     body("email", "Enter a valid Email").isEmail()
 ], async (req, res) => {
     try {
@@ -227,7 +179,64 @@ AJ WATER SOLUTIONS`
 
     } catch (error) {
         console.log(error);
-        res.status(500).send({ msg: "Internal Server Error" });
+        res.status(500).send({ success: false, msg: "Internal Server Error" });
+    }
+})
+
+router.post('/change-password', checkAuth, [
+    body("password")
+        .isLength({ min: 6 }).withMessage("Password must be at least 6 characters")
+        .custom(value => {
+            if (!/[A-Z]/.test(value)) {
+                throw new Error('Password must contain at least one uppercase letter');
+            }
+            if (!/[0-9]/.test(value)) {
+                throw new Error('Password must contain at least one number');
+            }
+            if (!/[!@#$%^&*(),.?":{}|<>]/.test(value)) {
+                throw new Error('Password must contain at least one special character');
+            }
+            return true;
+        })
+], async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).render("forgot", { section: "Password" , message: errors.array()[0]});
+    }
+
+    try {
+        const verifiedToken = req.cookies.verifiedToken
+        if (!verifiedToken) {
+            return res.status(400).render("forgot", { section: "Email", message: {msg: "Your not verified to change password.",path:"general"} });
+        }
+
+        jwt.verify(verifiedToken, JWT_SECRET, async (err, decoded) => {
+            if (err) {
+                // Invalid token
+                return res.status(400).render("forgot", { section: "Email", message: {msg: "Your verification got a Error!",path:"general"} });
+            } else {
+                // Valid token
+                const verifyUser = decoded.user;
+                if (verifyUser.status === "verified") {
+                    let user = await User.findOne({ _id: verifyUser.id }).select('+password')
+                    if (!user) {
+                        return res.status(400).render("login",{ section: "Email" ,message: {msg: "User doesn't exists.",path: "general"}})
+                    }
+                    let password = req.body.password;
+                    const salt = await bcrypt.genSalt(10);
+                    const hash = await bcrypt.hash(password, salt);
+                    user.password = hash;
+                    await user.save().then().catch((err) => {
+                        res.status(404).send("Error to change password : " + err)
+                    })
+                    res.redirect("/auth/login");
+                }
+            }
+        });
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).render("login", {message: {msg: "Internal Server Error", path: "general"}});
     }
 })
 

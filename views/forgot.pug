@@ -7,6 +7,7 @@ block metaElements
     meta(name="description" content=`Unlock exclusive benefits and seamless shopping by logging in to AJKart. Your security is our priority, providing a secure and user-friendly login process. Enjoy personalized offers and easy access to a wide range of products. Join AJKart today for a rewarding shopping experience.`)
 block style
     include ../static/css/forgot.css
+    include ../static/css/otp.css
     include ../static/css/input.css
 block title 
     title AJ-Kart | Forgot 
@@ -17,36 +18,18 @@ block content
                 p.forgot-head Forgot Password 
                 p.welcome-text Welcome back! Let's secure your shopping experience.
             img(src='../static/img/water-flash-2.png').design-img 
-        .right 
+        .right#form-section
             if (section == "Email")
-                form(action="/auth/forgot", method="post").auth-from
+                form(action="", method="post").auth-from
                     if (message && message.path == "general")
                         .warning 
                             p #{message.msg} 
                     .input
                         input.input-element(type="email", name="email",id="email",required="required",value=`${otherDetails?otherDetails.phone:''}`)
                         label.input-label(for="email") Enter Your Email
-                    button.btn(type="submit") Next
-            else if (section == "Question")
-                form(action="/auth/forgot-question", method="post").auth-from
-                    if (message && message.path == "general")
-                        .warning 
-                            p #{message.msg} 
-                    if (questionType == "first-pet")
-                        h3.que What was the name of your first pet?
-                    if (questionType == "birth-place")
-                        h3.que In which city were you born?
-                    if (questionType == "sports-team")
-                        h3.que What is your favorite sports team?
-                    if (questionType == "vacation-place")
-                        h3.que What is your favorite vacation
-                    .input
-                        input.input-element(type="text", name="answer",id="answer",required="required")
-                        label.input-label(for="answer") Answer
-                    input(type="hidden", name="email", value=email)
-                    button.btn(type="submit") Verify
+                    button.btn(type="button", onclick="otpGeneration('forgot')") Next
             else if (section == "Password")
-                form(action="/auth/change-password", method="post").auth-from
+                form(action="/forgot/change-password", method="post").auth-from
                     if (message && message.path == "general")
                         .warning 
                             p #{message.msg} 

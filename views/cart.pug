@@ -86,7 +86,7 @@ block content
                         .remove-btn 
                             form(action="/user/cart/remove", method="post") 
                                 input(type="hidden", name="model-number", value=item['model-number'])
-                                button(type="submit" onclick="window.confirm('Are you sure you want to remove the item from cart.')") Remove
+                                button(type="submit" onclick="return window.confirm('Are you sure you want to remove the item from cart.')") Remove
                         .search-image
                             each img in item.image
                                 each obj in img

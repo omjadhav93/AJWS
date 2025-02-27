@@ -7,13 +7,14 @@ block metaElements
     meta(name="description" content=`Unlock exclusive benefits and seamless shopping by logging in to AJKart. Your security is our priority, providing a secure and user-friendly login process. Enjoy personalized offers and easy access to a wide range of products. Join AJKart today for a rewarding shopping experience.`)
 block style
     include ../static/css/register.css
+    include ../static/css/otp.css
     include ../static/css/selectElement.css
     include ../static/css/input.css
 block title 
     title AJ-Kart | Register 
 block content
     section.register-container
-        .left 
+        .left#form-section 
             form(action="/auth/register", method="post").auth-form
                 if (message && message.path == "general")
                     .warning 
@@ -37,22 +38,6 @@ block content
                     label.input-label(for="phone") Enter 10-digit number
                 if (message && message.path == "phone")
                     .warn #{message.msg}
-                .input-split
-                    button.selectOptBtn(type="button" onclick='openOption(this)')
-                      #selected.selected Select a Security Question
-                      #selectOptContainer.selectOptContainer.addOption
-                        span.opt(onclick='select(this)', value="") Select a Security Question
-                        span.opt(onclick='select(this)', value="first-pet") What was the name of your first pet?
-                        span.opt(onclick='select(this)', value="birth-place") In which city were you born?
-                        span.opt(onclick='select(this)', value="sports-team") What is your favorite sports team?
-                        span.opt(onclick='select(this)', value="vacation-place") What is your favorite vacation
-                    input#selectedOption(type='hidden', name='security-question',required="required")
-                    //- It is required to place input:hidden after its button because nextElementSiling is used in function select()
-                    .input 
-                        input.input-element(type="text",name="security-ans",id="security-ans",required="required")
-                        label.input-label(for="security-ans") Answer
-                if (message && (message.path == "security-question" || message.path == "security-ans"))
-                    .warn #{message.msg} 
                 .input
                     input.input-element(type="password", name="password",id="password",required="required")
                     label.input-label(for="password") Password
@@ -67,7 +52,7 @@ block content
                         <ion-icon name="eye-outline"></ion-icon>
                 if (message && message.path == "confirm")
                     .warn #{message.msg}
-                button.btn(type="submit") Create an account
+                button.btn(type="button", onclick="otpGeneration('register')") Create an account
             a.anLink(href="/auth/login") Already have an account? Log In
         .right 
             .right-head
