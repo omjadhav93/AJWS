@@ -13,7 +13,7 @@ router.get("/plant-booking", fetchUser, async (req, res) => {
             // Clear the auth token cookie
             res.clearCookie('authtoken');
             req.session.returnTo = req.originalUrl;
-            res.redirect("/auth/login");
+            res.redirect("/login");
         }
 
         
@@ -57,7 +57,7 @@ router.post("/booking-request", fetchUser, async (req,res) => {
             // Clear the auth token cookie
             res.clearCookie('authtoken');
             req.session.returnTo = req.originalUrl;
-            res.redirect("/auth/login");
+            res.redirect("/login");
         }
 
         const { name, phone, whatsapp, requirement } = req.body;
@@ -102,7 +102,7 @@ router.post('/plant-booking/reviewed', fetchUser, async (req,res) => {
             // Clear the auth token cookie
             res.clearCookie('authtoken');
             req.session.returnTo = req.originalUrl;
-            res.redirect("/auth/login");
+            res.redirect("/login");
         }
 
         if (!user.seller) {

@@ -36,7 +36,7 @@ const otpSubmition = (type) => {
                         document.getElementById('error-message').textContent = data.msg;
                         otpSubmition();
                     } else {
-                        window.location.href = data.returnTo || '/';
+                        window.open(data.returnTo || '/');
                     }
                 } catch (error) {
                     document.getElementById('error-message').textContent = "Something went wrong. Try again.";
@@ -112,7 +112,7 @@ const otpGeneration = async (type) => {
 
     // Validate each required field
     formFields[type].forEach(field => {
-        const input = document.getElementById(field);
+        let input = document.getElementById(field);
         const value = input?.value.trim() || '';
         let warnMessage = '';
 
@@ -126,6 +126,10 @@ const otpGeneration = async (type) => {
             warnMessage = 'Password must be at least 6 characters.';
         } else if (field === 'confirm' && value !== document.getElementById('password').value) {
             warnMessage = 'Passwords do not match.';
+        }
+
+        if (field == 'first-name' || field == 'last-name') {
+            input = input.parentElement;
         }
 
         if (warnMessage) {
@@ -154,14 +158,28 @@ const otpGeneration = async (type) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
     })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-        if (data.success) {
-            otpForm(formData.email, type);
-        } else {
-            alert(data.msg);
-        }
-    })
-    .catch(error => alert(`Error: ${error}`));
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            if (data.success) {
+                otpForm(formData.email, type);
+            } else {
+                if (data.msg.path) {
+                    document.querySelectorAll('.warn').forEach(warn => warn.remove());
+                    const input = document.getElementById(data.msg.path)
+                    const warnDiv = document.createElement('div');
+                    warnDiv.className = 'warn';
+                    warnDiv.textContent = data.msg.msg;
+                    input.parentElement.insertAdjacentElement('afterend', warnDiv);
+                } else {
+                    document.querySelectorAll('.warning').forEach(warn => warn.remove());
+                    const form = document.getElementById('auth-form');
+                    const warnDiv = document.createElement('div');
+                    warnDiv.className = 'warning';
+                    warnDiv.textContent = data.msg || 'Something went wrong.'
+                    form.insertAdjacentElement('afterbegin', warnDiv);
+                }
+            }
+        })
+        .catch(error => alert(`Error: ${error}`));
 };

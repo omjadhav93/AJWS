@@ -93,7 +93,7 @@ router.post("/saveCard", fetchUser, upload.single('cardImage'), async (req, res)
           // Clear the auth token cookie
           res.clearCookie('authtoken');
           req.session.returnTo = req.originalUrl;
-          res.redirect("/auth/login");
+          res.redirect("/login");
     }
 
         if (user.seller) {

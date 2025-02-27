@@ -15,45 +15,32 @@ block title
 block content
     section.register-container
         .left#form-section 
-            form(action="/auth/register", method="post").auth-form
-                if (message && message.path == "general")
-                    .warning 
-                        p #{message.msg} 
+            form(action="", method="post").auth-form#auth-form
                 .input-split 
                     .input
-                        input.input-element(type="text", name="first-name",id="first-name",required="required",value=`${otherDetails?otherDetails['first-name']:''}`)
+                        input.input-element(type="text", name="first-name",id="first-name",required="required")
                         label.input-label(for="first-name") First Name
                     .input
-                        input.input-element(type="text", name="last-name",id="last-name",required="required",value=`${otherDetails?otherDetails['last-name']:''}`)
+                        input.input-element(type="text", name="last-name",id="last-name",required="required")
                         label.input-label(for="last-name") Last Name
-                if (message &&( message.path == "first-name" || message.path == "last-name"))
-                    .warn #{message.msg}
                 .input
-                    input.input-element(type="email", name="email",id="email",required="required",value=`${otherDetails?otherDetails.email:''}`)
+                    input.input-element(type="email", name="email",id="email",required="required")
                     label.input-label(for="email") Enter Your Email
-                if (message && message.path == "email")
-                    .warn #{message.msg}
                 .input
-                    input.input-element(type="tel", name="phone",id="phone",pattern="[0-9]{10}",required="required",value=`${otherDetails?otherDetails.phone:''}`)
+                    input.input-element(type="tel", name="phone",id="phone",pattern="[0-9]{10}",required="required")
                     label.input-label(for="phone") Enter 10-digit number
-                if (message && message.path == "phone")
-                    .warn #{message.msg}
                 .input
                     input.input-element(type="password", name="password",id="password",required="required")
                     label.input-label(for="password") Password
                     label.view-password(for="password", onclick="changeView(this)")
                         <ion-icon name="eye-outline"></ion-icon>
-                if (message && (message.path == "password" || message.path == "confirm"))
-                    .warn #{message.msg}
                 .input
                     input.input-element(type="password", name="confirm",id="confirm",required="required")
                     label.input-label(for="confirm") Confirm Password
                     label.view-password(for="password", onclick="changeView(this)")
                         <ion-icon name="eye-outline"></ion-icon>
-                if (message && message.path == "confirm")
-                    .warn #{message.msg}
                 button.btn(type="button", onclick="otpGeneration('register')") Create an account
-            a.anLink(href="/auth/login") Already have an account? Log In
+            a.anLink(href="/login") Already have an account? Log In
         .right 
             .right-head
                 p.register-head Register 

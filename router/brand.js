@@ -47,7 +47,7 @@ router.post('/brands', fetchUser, upload.single('logo'), async (req, res) => {
           // Clear the auth token cookie
           res.clearCookie('authtoken');
           req.session.returnTo = req.originalUrl;
-          res.redirect("/auth/login");
+          res.redirect("/login");
     }
 
         if (!user.seller) {
@@ -98,7 +98,7 @@ router.post("/brands/delete", fetchUser, async (req, res) => {
           // Clear the auth token cookie
           res.clearCookie('authtoken');
           req.session.returnTo = req.originalUrl;
-          res.redirect("/auth/login");
+          res.redirect("/login");
     }
         
         if (!user.seller) {

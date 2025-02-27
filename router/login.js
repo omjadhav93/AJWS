@@ -2,19 +2,14 @@ const express = require('express')
 const router = express.Router()
 const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
-const crypto = require("crypto");
 const { body, validationResult } = require("express-validator");
 
 const User = require('../model/user')
 const Otp = require('../model/otp');
-const { sendingMail } = require("../nodemailer/mailing");
+const { SendOTP } = require('../nodemailer/sendotp');
 const checkAuth = require('./middleware/checkAuth');
 
 const JWT_SECRET = process.env.JWT_SECRET_KEY;
-
-function generateOTP() {
-    return crypto.randomInt(100000, 999999);
-}
 
 router.get('/', checkAuth, (req, res) => {
     res.render('login')
@@ -94,42 +89,15 @@ router.post('/generate-otp', [
             return res.status(400).json({ success: false, msg: "User doesn't exists." });
         }
 
-        await Otp.deleteMany({userId: user._id});
-
-        const { email } = req.body;
-
-        // OTP Geneartion
-        const otpvalue = generateOTP();
-        const newOtp = new Otp({
-            userId: user._id,
-            otp: otpvalue
-        })
-
-        const savedOtp = await newOtp.save();
-        if (!savedOtp) {
-            return User.findByIdAndDelete(user._id)
-                .then(() => res.status(404).json({ success: false, msg: "Error to generate OTP for you, try again. " }))
-                .catch((delErr) => res.status(404).json({ success: false, msg: "Error to generate OTP for you, try after 20 minutes. " }));
+        const otpstatus = await SendOTP(user);
+        if(!otpstatus){
+            res.status(200).json({ success: false, msg: `Something went wrong, try again.` });
         }
 
-        // Sending Email
-        sendingMail({
-            from: "no-reply@example.com",
-            to: `${email}`,
-            subject: "OTP For Email Verification",
-            text: `Hello ${user.firstName},
-Your One-Time Password (OTP) for verification is: ${otpvalue}
-This OTP is valid for only 20 minutes. Please do not share it with anyone.
-
-Enjoy your shopping with AJ Water Solutions.
-Best regards,  
-AJ WATER SOLUTIONS`
-        });
-
-        res.status(200).json({ success: true, msg: `OTP sent to ${email} .` });
+        res.status(200).json({ success: true, msg: `OTP sent to ${user.email} .` });
     } catch (error) {
         console.log(error);
-        res.status(500).send({ msg: "Internal Server Error" });
+        res.status(500).json({ success: false, msg: "Internal Server Error" });
     }
 })
 
@@ -173,7 +141,7 @@ router.post('/validate-otp',[
         }
     } catch (error) {
         console.log(error);
-        res.status(500).send({ msg: "Internal Server Error" });
+        res.status(500).json({ success: false, msg: "Internal Server Error" });
     }
 })
 
@@ -192,43 +160,30 @@ router.post('/resend-otp',[
             return res.status(400).json({ success: false, msg: "User doesn't exists." });
         }
 
-        // Delete prev OTP
-        await Otp.deleteMany({ userId: user._id });
-
-        // OTP Geneartion
-        const otpvalue = generateOTP();
-        const newOtp = new Otp({
-            userId: user._id,
-            otp: otpvalue
-        })
-
-        const savedOtp = await newOtp.save();
-        if (!savedOtp) {
-            return User.findByIdAndDelete(user._id)
-                .then(() => res.status(404).json({ success: false, msg: "Error to generate OTP for you, try again. " }))
-                .catch((delErr) => res.status(404).json({ success: false, msg: "Error to generate OTP for you, try after 20 minutes. " }));
+        const otpstatus = await SendOTP(user);
+        if(!otpstatus){
+            res.status(200).json({ success: false, msg: `Something went wrong, try again.` });
         }
 
-        // Sending Email
-        sendingMail({
-            from: "no-reply@example.com",
-            to: `${user.email}`,
-            subject: "OTP For Email Verification",
-            text: `Hello ${user.firstName},
-Your One-Time Password (OTP) for verification is: ${otpvalue}
-This OTP is valid for only 20 minutes. Please do not share it with anyone.
-
-Enjoy your shopping with AJ Water Solutions.
-Best regards,  
-AJ WATER SOLUTIONS`
-        });
-
         res.status(200).json({ success: true, msg: `OTP sent to ${user.email} .` });
-
     } catch (error) {
         console.log(error);
-        res.status(500).send({ msg: "Internal Server Error" });
+        res.status(500).json({ success: false, msg: "Internal Server Error" });
     }
 })
+
+
+router.post("/logout", (req, res) => {
+    try {
+        // Clear the auth token cookie
+        res.clearCookie('authtoken');
+        
+        // Redirect to login page or any other appropriate page
+        res.redirect('/');
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Internal Server Error");
+    }
+});
 
 module.exports = router;

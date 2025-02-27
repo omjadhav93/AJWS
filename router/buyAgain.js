@@ -35,7 +35,7 @@ router.get('/', fetchUser, async (req, res) => {
             // Clear the auth token cookie
             res.clearCookie('authtoken');
             req.session.returnTo = req.originalUrl;
-            res.redirect("/auth/login");
+            res.redirect("/login");
         }
 
         const orders = await Order.find({ user_id: userId, orderStage: 5 }).sort({ orderDate: -1 }).exec();

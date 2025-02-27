@@ -46,7 +46,7 @@ router.get("/product/order", fetchUser, async (req, res) => {
       // Clear the auth token cookie
         res.clearCookie('authtoken');
       req.session.returnTo = req.originalUrl;
-      res.redirect("/auth/login");
+      res.redirect("/login");
     }
 
     const modelNo = req.query['model-number'];
@@ -78,7 +78,7 @@ router.post('/product/order', fetchUser, async (req, res) => {
       // Clear the auth token cookie
         res.clearCookie('authtoken');
       req.session.returnTo = req.originalUrl;
-      res.redirect("/auth/login");
+      res.redirect("/login");
     }
 
     if (req.body['save-address']) {
@@ -155,7 +155,7 @@ router.get('/order/status', fetchUser, async (req, res) => {
       // Clear the auth token cookie
         res.clearCookie('authtoken');
       req.session.returnTo = req.originalUrl;
-      res.redirect("/auth/login");
+      res.redirect("/login");
     }
 
     const orderId = req.query.orderId.toString();
@@ -196,7 +196,7 @@ router.get('/order/seller', fetchUser, async (req,res) => {
       // Clear the auth token cookie
         res.clearCookie('authtoken');
       req.session.returnTo = req.originalUrl;
-      res.redirect("/auth/login");
+      res.redirect("/login");
     }
 
     if(!user.seller){
@@ -220,7 +220,7 @@ router.post('/order/cancle', fetchUser, async (req, res) => {
       // Clear the auth token cookie
         res.clearCookie('authtoken');
       req.session.returnTo = req.originalUrl;
-      res.redirect("/auth/login");
+      res.redirect("/login");
     }
 
     const orderId = req.body.orderId;

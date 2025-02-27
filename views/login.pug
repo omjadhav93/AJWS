@@ -20,7 +20,7 @@ block content
             img(src='../static/img/water-flash-1.png').design-img 
         .right#form-section
             //- if (message && message.path == "general")
-            form#form.auth-from(action="/login", method="post")
+            form#auth-form.auth-from(action="/login", method="post")
                 if (message && message.path == "general")
                     .warning 
                         p #{message.msg} 
@@ -36,11 +36,11 @@ block content
                         <ion-icon name="eye-outline"></ion-icon>
                 if (message && message.path == "password")
                     .warn #{message.msg}
-                a.forgot(href="/auth/forgot") Forgot Password ?
+                a.forgot(href="/forgot") Forgot Password ?
                 button.btn(type="submit") Log In
                 p.or-line Or
                 button.btn.otp-btn(type="button", onclick="otpGeneration('login')") Login With OTP
-            a.anLink(href="/auth/register") New to AJWS? Create an account 
+            a.anLink(href="/register") New to AJWS? Create an account 
 block scripts 
     script(src="/static/js/input.js") 
     script(src="/static/js/register.js") 

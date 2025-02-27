@@ -58,7 +58,7 @@ router.get('/add-product', fetchUser, async (req, res) => {
             // Clear the auth token cookie
             res.clearCookie('authtoken');
             req.session.returnTo = req.originalUrl;
-            res.redirect("/auth/login");
+            res.redirect("/login");
         }
         if (user.seller) {
             res.render("addProduct", { LoggedIn: 1, Seller: user.seller });
@@ -78,7 +78,7 @@ router.post("/add-product", fetchUser, uploadMultiple, async (req, res) => {
     try {
         if (!user) {
             req.session.returnTo = req.originalUrl;
-            return res.redirect("/auth/login");
+            return res.redirect("/login");
         }
         if (user.seller) {
             let imageArray = [];

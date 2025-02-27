@@ -7,13 +7,13 @@ const fetchUser = (req, res, next) => {
     try {
         if (!token) {
             req.session.returnTo = req.originalUrl;
-            res.redirect("/auth/login");
+            res.redirect("/login");
         } else {
             jwt.verify(token, JWT_SECRET, (err, data) => {
                 if (err) {
                     // Invalid token
                     req.session.returnTo = req.originalUrl;
-                    res.redirect("/auth/login");
+                    res.redirect("/login");
                 } else {
                     // Valid token
                     req.user = data.user; // Add user ID to request object

@@ -28,7 +28,7 @@ router.get("/cart", fetchUser, async (req, res) => {
             // Clear the auth token cookie
             res.clearCookie('authtoken');
             req.session.returnTo = req.originalUrl;
-            res.redirect("/auth/login");
+            res.redirect("/login");
         }
 
         let userCart = await Cart.findOne({user_id: user.id});
@@ -65,7 +65,7 @@ router.post('/cart',fetchUser, async (req,res) => {
             // Clear the auth token cookie
             res.clearCookie('authtoken');
             req.session.returnTo = req.originalUrl;
-            res.redirect("/auth/login");
+            res.redirect("/login");
         }
 
         let userCart = await Cart.findOne({user_id: user.id});
@@ -99,7 +99,7 @@ router.post('/cart/remove',fetchUser, async (req,res) => {
             // Clear the auth token cookie
             res.clearCookie('authtoken');
             req.session.returnTo = req.originalUrl;
-            res.redirect("/auth/login");
+            res.redirect("/login");
         }
 
         let userCart = await Cart.findOne({user_id: user.id});

@@ -31,9 +31,6 @@ app.use(session({
 }));
 
 // Authentication Routes
-const authenticate = require("./router/authenticate");
-app.use('/auth', authenticate);
-
 const register = require("./router/register");
 app.use('/register', register);
 
