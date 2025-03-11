@@ -19,7 +19,7 @@ block content
                     #selectOptContainer.selectOptContainer.addOption
                         span.opt#default(onclick='select(this)', value="") Select a Category
                         span.opt(onclick='select(this)', value="Home and Kitchen Appliances") Home & Kitchen Appliance 
-                input.selectedOption#category-input(type='hidden', name='product-category')
+                input.selectedOption#category-input(type='hidden', name='product_category')
                 //- It is required to place input:hidden after its button because nextElementSiling is used in function select()
 
                 p.que 
@@ -29,7 +29,7 @@ block content
                     <ion-icon name="arrow-forward-outline"></ion-icon>
                     #selectOptContainer.selectOptContainer.addOption
                         span.opt#default(onclick='select(this)', value="") Select a Product
-                input.selectedOption#product-type-input(type='hidden', name='product-type')
+                input.selectedOption#product-type-input(type='hidden', name='product_type')
             
             fieldset.price-section.basic-container.same-height
                 <legend>Price Setup</legend>
@@ -51,12 +51,18 @@ block content
                     p.que 
                         | Model Name (Optional)
                         ion-icon(name="information-circle-outline", onclick="iButton(this,`A model name is the name give to the particular design by the manufacturing company.`)")
-                    input.text-input(type="text",name="model-name",id="model-name",placeholder="Ex.. Aqua Pure")
+                    input.text-input(type="text",name="model_name",id="model-name",placeholder="Ex.. Aqua Pure")
                 .que-box
                     p.que 
                         | Brand Name 
-                        ion-icon(name="information-circle-outline", onclick="iButton(this,`Brand name can be a name of manufacturing company of this product.`)")
-                    input.text-input(type="text",name="brand-name",id="brand-name",placeholder="Ex.. Crystal Clear",required="required")
+                    button.selectOptBtn#brand-name(type="button",onclick='openOption(this)',style="display: flex;flex-direction: row; column-gap: 10px;")
+                      #selected.selected Select a Brand
+                      <ion-icon name="arrow-forward-outline"></ion-icon>
+                      #selectOptContainer.selectOptContainer.addOption
+                          span.opt#default(onclick='select(this)', value="") Select a Brand
+                          each brand in brands
+                            span.opt(onclick='select(this)', value=brand.name) #{brand.name}
+                    input.selectedOption#brand-name-input(type='hidden', name='brand_name', required="required")
                 .que-box
                     p.que Which material is used in your product body?
                     .radio-section
@@ -67,7 +73,7 @@ block content
                 .que-box
                     p.que Warranty offered ?
                     .radio-section
-                        input.text-input#filteration-stages-count(type="number",min="0", name="warranty-count")
+                        input.text-input#filteration-stages-count(type="number",min="0", name="warranty")
                         label  Years of warranty
             
             fieldset.colors.basic-container 
@@ -167,19 +173,19 @@ block content
               <legend>Rate Your Product</legend>
               .que-box.rate-box  
                 p.que Over-All :
-                input.text-input(type="number", name="overall-rating",min="0",max="5",required="required")
+                input.text-input(type="number", name="overall",min="0",max="5",required="required")
               .que-box.rate-box  
                 p.que Design :
-                input.text-input(type="number", name="design-rating",min="0",max="5",required="required")
+                input.text-input(type="number", name="design",min="0",max="5",required="required")
               .que-box.rate-box  
                 p.que Quality :
-                input.text-input(type="number", name="quality-rating",min="0",max="5",required="required")
+                input.text-input(type="number", name="quality",min="0",max="5",required="required")
               .que-box.rate-box  
                 p.que Durability :
-                input.text-input(type="number", name="durability-rating",min="0",max="5",required="required")
+                input.text-input(type="number", name="durability",min="0",max="5",required="required")
               .que-box.rate-box  
                 p.que Cost & Value :
-                input.text-input(type="number", name="costvalue-rating",min="0",max="5",required="required")
+                input.text-input(type="number", name="costvalue",min="0",max="5",required="required")
         .actionBtns 
           button.actionBtn.nextBtn(type="button",onclick="nextSection(this)") Next
 
@@ -188,7 +194,7 @@ block content
                 <legend>Add Images</legend>
                 p.color-not-selected Please select atleast one colour to add respective images.
             .actionBtns 
-              button.actionBtn.saveBtn(type="button",onclick="submitDone(event)") Save 
+              button.actionBtn.saveBtn(type="button",onclick="submitDone()") Save 
               
 
 block scripts 

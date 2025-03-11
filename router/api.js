@@ -7,12 +7,13 @@ const bcrypt = require("bcrypt");
 
 const User = require("../model/user");
 const { Favourite, CancleOrder } = require('../model/lists');
-const Order = require('../model/orders')
-const { Brand } = require('../model/home')
+const Order = require('../model/orders');
+const { Brand } = require('../model/home');
+const Product = require('../model/product');
+const { WaterFilter, WaterFilterCabinet } = require("../model/productmodels/home&kitchenappliances");
 
 async function dataFinder(compare) {
-    let requireModel = require(`../model/waterfilterandpurifiers`);
-    let data = await requireModel.find({ originalPrice: { $gte: compare } });
+    let data = await Product.find({ price: { $gte: compare } });
     return Array.isArray(data) ? data : [data]
 }
 
@@ -24,15 +25,15 @@ function freqMerge(left, right) {
     let rightIndex = 0;
 
     while (leftIndex < left.length && rightIndex < right.length) {
-        if (left[leftIndex]['buyers-count'] == right[rightIndex]['buyers-count']) {
-            if (left[leftIndex]['visiter-count'] > right[rightIndex]['visiter-count']) {
+        if (left[leftIndex].buyers_count == right[rightIndex].buyers_count) {
+            if (left[leftIndex].visitors_count > right[rightIndex].visitors_count) {
                 result.push(left[leftIndex]);
                 leftIndex++;
             } else {
                 result.push(right[rightIndex]);
                 rightIndex++;
             }
-        } else if (left[leftIndex]['buyers-count'] > right[rightIndex]['buyers-count']) {
+        } else if (left[leftIndex].buyers_count > right[rightIndex].buyers_count) {
             result.push(left[leftIndex]);
             leftIndex++;
         } else {
@@ -80,7 +81,7 @@ router.get('/frequent', async (req, res) => {
         res.status(200).send(data);
     } catch (error) {
         console.log(error)
-        res.status(500).send({msg: "Internal Server Error"});
+        res.status(500).send({ msg: "Internal Server Error" });
     }
 })
 
@@ -91,7 +92,7 @@ function priceMerge(left, right) {
     let rightIndex = 0;
 
     while (leftIndex < left.length && rightIndex < right.length) {
-        if (left[leftIndex].originalPrice < right[rightIndex].originalPrice) {
+        if (left[leftIndex].price < right[rightIndex].price) {
             result.push(left[leftIndex]);
             leftIndex++;
         } else {
@@ -138,7 +139,7 @@ router.get('/lessPrice', async (req, res) => {
         res.status(200).send(data);
     } catch (error) {
         console.log(error)
-        res.status(500).send({msg: "Internal Server Error"});
+        res.status(500).send({ msg: "Internal Server Error" });
     }
 })
 
@@ -150,7 +151,10 @@ function designMerge(left, right) {
     let rightIndex = 0;
 
     while (leftIndex < left.length && rightIndex < right.length) {
-        if (left[leftIndex]['rating-list'].design > right[rightIndex]['rating-list'].design) {
+        const leftRating = left[leftIndex].rating && left[leftIndex].rating.design ? left[leftIndex].rating.design : 0;
+        const rightRating = right[rightIndex].rating && right[rightIndex].rating.design ? right[rightIndex].rating.design : 0;
+
+        if (leftRating > rightRating) {
             result.push(left[leftIndex]);
             leftIndex++;
         } else {
@@ -197,7 +201,7 @@ router.get('/topDesign', async (req, res) => {
         res.status(200).send(data);
     } catch (error) {
         console.log(error)
-        res.status(500).send({msg: "Internal Server Error"});
+        res.status(500).send({ msg: "Internal Server Error" });
     }
 })
 
@@ -208,9 +212,19 @@ async function dataByModelNo(list) {
     }
     let data = [];
     for (const modelNo of list) {
-        const requireModel = require(`../model/waterfilterandpurifiers`);
-        const modelData = await requireModel.findOne({ 'model-number': modelNo });
-        data.push(modelData);
+        let productData = await Product.findOne({ model_number: modelNo });
+        let productDetails;
+        if (productData.product_type === "Water Filter and Purifiers") {
+            productDetails = await WaterFilter.findById(productData.product_details);
+        } else if (productData.product_type === "Water Filter Cabinet") {
+            productDetails = await WaterFilterCabinet.findById(productData.product_details);
+        }
+        const { _id: detailsId, ...detailsWithoutId } = productDetails._doc;
+        productData = {
+            ...productData._doc,
+            ...detailsWithoutId
+        };
+        data.push(productData);
     }
 
     return data;
@@ -228,7 +242,7 @@ router.get('/favourite', fetchCheckAuth, async (req, res) => {
         }
     } catch (error) {
         console.log(error)
-        res.status(500).send({msg: "Internal Server Error"});
+        res.status(500).send({ msg: "Internal Server Error" });
     }
 });
 
@@ -263,7 +277,7 @@ router.post('/addFav', fetchCheckAuth, async (req, res) => {
 
     } catch (error) {
         console.log(error)
-        res.status(500).send({msg: "Internal Server Error"});
+        res.status(500).send({ msg: "Internal Server Error" });
     }
 })
 
@@ -294,7 +308,7 @@ router.post('/removeFav', fetchCheckAuth, async (req, res) => {
 
     } catch (error) {
         console.log(error)
-        res.status(500).send({msg: "Internal Server Error"});
+        res.status(500).send({ msg: "Internal Server Error" });
     }
 })
 
@@ -347,7 +361,7 @@ router.post('/auth/update', fetchCheckAuth, async (req, res) => {
 
     } catch (error) {
         console.log(error)
-        res.status(500).send({msg: "Internal Server Error"});
+        res.status(500).send({ msg: "Internal Server Error" });
     }
 })
 
@@ -365,7 +379,7 @@ router.get('/orders', fetchCheckAuth, async (req, res) => {
 
     } catch (error) {
         console.log(error)
-        res.status(500).send({msg: "Internal Server Error"});
+        res.status(500).send({ msg: "Internal Server Error" });
     }
 })
 
@@ -395,7 +409,7 @@ router.post('/order/update', fetchCheckAuth, async (req, res) => {
 
     } catch (error) {
         console.log(error)
-        res.status(500).send({msg: "Internal Server Error"});
+        res.status(500).send({ msg: "Internal Server Error" });
     }
 })
 
@@ -413,7 +427,7 @@ router.get('/order/cancle/reason', fetchCheckAuth, async (req, res) => {
 
     } catch (error) {
         console.log(error)
-        res.status(500).send({msg: "Internal Server Error"});
+        res.status(500).send({ msg: "Internal Server Error" });
     }
 })
 
@@ -425,18 +439,32 @@ router.get('/seller/products', fetchCheckAuth, async (req, res) => {
         if (!user) {
             return res.status(200).send({ msg: "You have not signed in correctly!" });
         }
-        
+
         if (!user.seller) {
             return res.status(200).send({ msg: "You are not autherized to edit orders!" });
         }
-        
-        const products = await dataFinder(0);
-        
+
+        const products = await Product.find({ seller_id: userId }).sort({ updatedAt: -1 }).exec();
+        // Get product details for each product
+        for (let i = 0; i < products.length; i++) {
+            let productDetails;
+            if (products[i].product_type === "Water Filter and Purifiers") {
+                productDetails = await WaterFilter.findById(products[i].product_details);
+            } else if (products[i].product_type === "Water Filter Cabinet") {
+                productDetails = await WaterFilterCabinet.findById(products[i].product_details);
+            }
+            const { _id: detailsId, ...detailsWithoutId } = productDetails._doc;
+            products[i] = {
+                ...products[i]._doc,
+                ...detailsWithoutId
+            };
+        }
+
         res.status(200).send(products);
-        
+
     } catch (error) {
         console.log(error)
-        res.status(500).send({msg: "Internal Server Error"});
+        res.status(500).send({ msg: "Internal Server Error" });
     }
 })
 
@@ -450,7 +478,7 @@ router.get('/brands', fetchCheckAuth, async (req, res) => {
 
     } catch (error) {
         console.log(error)
-        res.status(500).send({msg: "Internal Server Error"});
+        res.status(500).send({ msg: "Internal Server Error" });
     }
 })
 

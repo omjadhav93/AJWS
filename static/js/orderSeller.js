@@ -74,9 +74,13 @@ function changeStageSingle(e) {
         .then(response => response.json())
         .then(res => {
             alert(res.msg);
+            // Reload the page to reflect changes
+            window.location.reload();
         })
-        .catch(error => console.error('Error :', error));
-
+        .catch(error => {
+            console.error('Error :', error);
+            alert('An error occurred while updating the order status. Please try again.');
+        });
 }
 
 function changeStageMultiple(e) {
@@ -84,6 +88,12 @@ function changeStageMultiple(e) {
     const currStage = Number(e.getAttribute('stage'))
     const selected = document.querySelectorAll(`input[type="checkbox"].stg-${currStage}:checked`);
     const changeStage = currStage + 1;
+    
+    if (selected.length === 0) {
+        alert('Please select at least one order to update.');
+        return;
+    }
+    
     selected.forEach(el => {
         orderIds.push(Number(el.getAttribute('data-order-id')));
     })
@@ -98,9 +108,13 @@ function changeStageMultiple(e) {
         .then(response => response.json())
         .then(res => {
             alert(res.msg);
+            // Reload the page to reflect changes
+            window.location.reload();
         })
-        .catch(error => console.error('Error :', error));
-
+        .catch(error => {
+            console.error('Error :', error);
+            alert('An error occurred while updating the order status. Please try again.');
+        });
 }
 
 function getCancleReason(e) {
@@ -111,8 +125,8 @@ function getCancleReason(e) {
         .then(reason => {
             const confBkg = document.createElement('div')
             confBkg.classList.add('confirm-background');
-            const nav1 = document.querySelector('nav').offsetHeight;
-            const nav2 = document.querySelector('navbar').offsetHeight;
+            const nav1 = document.querySelector('nav') ? document.querySelector('nav').offsetHeight : 0;
+            const nav2 = document.querySelector('navbar') ? document.querySelector('navbar').offsetHeight : 0;
             const screen = window.innerHeight;
             confBkg.style.height = `${screen - nav1 - nav2}px`
 
@@ -123,7 +137,7 @@ function getCancleReason(e) {
             const confHeadDiv = document.createElement('div');
             confHeadDiv.classList.add('confirm-head-box');
             confHeadDiv.innerHTML = `
-                <p class="confirm-heading"></p>
+                <p class="confirm-heading">Cancellation Reason</p>
                 <ion-icon name="close" onclick="document.querySelector('.content').click()"></ion-icon>`
             confDiv.appendChild(confHeadDiv);
 
@@ -133,12 +147,12 @@ function getCancleReason(e) {
 
             const reasonText = document.createElement('p');
             reasonText.classList.add('textContent');
-            reasonText.innerHTML = `<span>Reason : </span> ${reason.reason}`;
+            reasonText.innerHTML = `<span>Reason : </span> ${reason.reason || 'No reason provided'}`;
             confBtmDiv.appendChild(reasonText);
 
             const description = document.createElement('p');
             description.classList.add('textContent');
-            description.innerHTML = `<span>Description : </span> ${reason.description}`;
+            description.innerHTML = `<span>Description : </span> ${reason.description || 'No additional details provided'}`;
             confBtmDiv.appendChild(description);
 
             const okBtn = document.createElement('div');
@@ -152,6 +166,10 @@ function getCancleReason(e) {
             document.body.classList.add('no-scroll');
             document.querySelector('.content').appendChild(confBkg);
         })
+        .catch(error => {
+            console.error('Error fetching cancellation reason:', error);
+            alert('An error occurred while fetching the cancellation reason. Please try again.');
+        });
 }
 
 const closeConfirm = (e) => {
@@ -173,6 +191,8 @@ document.addEventListener('DOMContentLoaded', () => {
         let orderId = Number(item.getAttribute('orderId').trim());
         item.textContent = stage;
         const actionTag = item.nextElementSibling;
-        actionTag.innerHTML = getActionBtn(orderStage, orderId);
+        if (actionTag) {
+            actionTag.innerHTML = getActionBtn(orderStage, orderId);
+        }
     })
 });

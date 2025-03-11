@@ -85,94 +85,95 @@ block content
                     .search-item(onclick="openProduct(this)")
                         .remove-btn 
                             form(action="/user/cart/remove", method="post") 
-                                input(type="hidden", name="model-number", value=item['model-number'])
+                                input(type="hidden", name="model-number", value=item.model_number)
                                 button(type="submit" onclick="return window.confirm('Are you sure you want to remove the item from cart.')") Remove
                         .search-image
                             each img in item.image
                                 each obj in img
                                     each loc in [obj]
-                                        img.images(src='/static/productImg/' + loc[0])
+                                        each item_img in loc
+                                            img.images(src='/static/productImg/' + item_img)
                         .search-content
-                            if item['product-type'] == 'Water Filter and Purifiers'
-                                if item['model-name'].length
-                                    p.heading #{item['model-name']} based on 
-                                        each method,i in item['filteration-method']
+                            if item.product_type == 'Water Filter and Purifiers'
+                                if item.model_name.length
+                                    p.heading #{item.model_name} based on 
+                                        each method,i in item.filtration_method
                                             if i == 0
                                                 |#{method} 
                                             else 
                                                 |+ #{method}
                                         |  Technique 
-                                        each component,i in item['included-components']
+                                        each component,i in item.included_components
                                             if i == 0
                                                 |with #{component}
                                             else 
                                                 |, #{component}
                                         | and Automatic UF+TDS controller 
-                                        if item['tank-capacity'] >= 9
-                                            |having #{item['tank-capacity']}-L Tank 
-                                        |by #{item['brand-name']}
+                                        if item.tank_capacity >= 9
+                                            |having #{item.tank_capacity}-L Tank 
+                                        |by #{item.brand_name}
                                 else 
-                                    p.heading #{item['brand-name']} Presents a Purifier based on 
-                                        each method,i in item['filteration-method']
+                                    p.heading #{item.brand_name} Presents a Purifier based on 
+                                        each method,i in item.filtration_method
                                             if i == 0
                                                 |#{method} 
                                             else 
                                                 |+ #{method}
                                         |  Technique 
-                                        each component,i in item['included-components']
+                                        each component,i in item.included_components
                                             if i == 0
                                                 |with #{component}
                                             else 
                                                 |, #{component}
                                         | and Automatic UF+TDS controller 
-                                        if item['tank-capacity'] >= 9
-                                            |having #{item['tank-capacity']}-L Tank 
-                            else if item['product-type'] == 'Water Filter Appliances' && item['filter-part'] == 'Cabinet'
-                                if item['model-name'].length
-                                    p.heading #{item['filter-type']} of #{item['model-name']} with #{item['tank-full-indicator']} indicators 
-                                        if item['tank-capacity'] && item['tank-capacity'] >= 7
-                                            |having #{item['tank-capacity']}-L Tank 
-                                        |designed by #{item['brand-name']}
+                                        if item.tank_capacity >= 9
+                                            |having #{item.tank_capacity}-L Tank 
+                            else if item.product_type == 'Water Filter Cabinet'
+                                if item.model_name.length
+                                    p.heading Cabinet of #{item.model_name} with #{item.tank_full_indicator} indicators 
+                                        if item.tank_capacity && item.tank_capacity >= 7
+                                            |having #{item.tank_capacity}-L Tank 
+                                        |designed by #{item.brand_name}
                                 else 
-                                    p.heading Purifier #{item['filter-type']} with #{item['tank-full-indicator']} indicators 
-                                        if item['tank-capacity'] && item['tank-capacity'] >= 7
-                                            |having #{item['tank-capacity']}-L Tank 
-                                        |designed by #{item['brand-name']}  
+                                    p.heading Purifier Cabinet with #{item.tank_full_indicator} indicators 
+                                        if item.tank_capacity && item.tank_capacity >= 7
+                                            |having #{item.tank_capacity}-L Tank 
+                                        |designed by #{item.brand_name}
                             p.rating 
-                                - var ratingCount = item['rating-list'].overall;
+                                - var ratingCount = item.rating && item.rating.overall ? Math.round(item.rating.overall) : 0;
                                 - for (var i = 0; i < ratingCount; i++)
                                     <ion-icon name="star"></ion-icon> 
                                 - for (var i = ratingCount; i < 5; i++)
                                     <ion-icon name="star-outline"></ion-icon>
                             p.price 
                                 sup &#x20B9
-                                span #{(item['originalPrice'])-((item['originalPrice'])*(item['discount'])/100)} 
+                                span #{(item.price)-((item.price)*(item.discount)/100)} 
                                 label M.R.P : 
-                                    span &#x20B9 #{item['originalPrice']}
-                                    |  (#{item['discount']}% discount)
+                                    span &#x20B9 #{item.price}
+                                    |  (#{item.discount}% discount)
                             p.brand.points
                                 <ion-icon name="business"></ion-icon> 
-                                span #{item['brand-name']}
-                            if item['warranty']
+                                span #{item.brand_name}
+                            if item.warranty
                                 p.warranty.points 
                                     <ion-icon name="shield-checkmark"></ion-icon> 
-                                    span #{item['warranty-count']} Of Waranty
-                            else if item['color'].length > 1
+                                    span #{item.warranty} Years Of Waranty
+                            else if item.color.length > 1
                                 p.multicolor.points 
                                     <ion-icon name="aperture"></ion-icon> 
                                     span Multicolor Available 
                             p.stages.points
                                 <ion-icon name="water"></ion-icon> 
-                                span #{item['stages']} Stage Purification
+                                span #{item.filtration_stages} Stage Purification
                             p.delivery.points
                                 <ion-icon name="bus"></ion-icon> 
                                 span Free Delivery
-                            label(for="keyword",class="model-number") #{item['model-number']}
-                            label(for="keyword",class="product-type") #{item['product-type']}
-                            label(for="keyword",class="material") #{item['material']}
-                            each color,i in item['color']  
+                            label(for="keyword",class="model-number") #{item.model_number}
+                            label(for="keyword",class="product-type") #{item.product_type}
+                            label(for="keyword",class="material") #{item.material}
+                            each color,i in item.color  
                                 label(for="keyword") #{color} ,
-                            label(for="keyword",class="tank-capacity") #{item['tank-capacity']} Liters
+                            label(for="keyword",class="tank-capacity") #{item.tank_capacity} Liters
                         
 
 block scripts 

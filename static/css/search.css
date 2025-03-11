@@ -170,19 +170,27 @@ label[for="keyword"]{
 
 @media screen and (max-width: 1850px) {
     .heading {
-        font-size: 22px;
+        font-size: 21px;
+        line-height: 1.2;
+    }
+    .heading {
+        font-size: 21px;
+    }
+    .search-content{
+        padding: 5px 20px;
     }
     .search-content p ion-icon {
-        font-size: 17px;
+        font-size: 16px;
     }
     .rating {
-        margin-top: 2px;
+        margin-top: -2px;
     }
     .points > span{
-        font-size: 15px;
+        font-size: 14px;
     }
     .price {
-        margin-bottom: 10px;
+        margin-top: 2px;
+        margin-bottom: 0px;
     }
 }
 
@@ -208,9 +216,6 @@ label[for="keyword"]{
     }
     .points > span{
         font-size: 13px;
-    }
-    .price {
-        margin-bottom: 5px;
     }
     .price > sup {
         font-size: 15px;
@@ -398,7 +403,7 @@ label[for="keyword"]{
     }
 }
 
-@media screen and (max-width: 665px) {
+@media screen and (max-width: 680px) {
     .search-item{
         height: 28vw;
     }
@@ -411,7 +416,7 @@ label[for="keyword"]{
     }
 }
 
-@media screen and (max-width: 620px) {
+@media screen and (max-width: 630px) {
     .search-item{
         height: 30vw;
     }
@@ -423,7 +428,7 @@ label[for="keyword"]{
     }
 }
 
-@media screen and (max-width: 580px) {
+@media screen and (max-width: 590px) {
     .search-output-area{
         padding: 0px 10px 20px 10px;
     }
@@ -433,7 +438,7 @@ label[for="keyword"]{
     }
 }
 
-@media screen and (max-width: 515px) {
+@media screen and (max-width: 555px) {
     .search-item{
         height: 36vw;
     }
@@ -453,13 +458,13 @@ label[for="keyword"]{
     }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 500px) {
     .search-item{
         height: 40vw;
     }
 }
 
-@media screen and (max-width: 440px) {
+@media screen and (max-width: 455px) {
     .search-item{
         height: 45vw;
     }
@@ -472,7 +477,7 @@ label[for="keyword"]{
     }
 }
 
-@media screen and (max-width: 390px) {
+@media screen and (max-width: 400px) {
     .search-item{
         height: 55vw;
     }
@@ -484,7 +489,7 @@ label[for="keyword"]{
     }
 }
 
-@media screen and (max-width: 350px) {
+@media screen and (max-width: 370px) {
     .search-item{
         height: 65vw;
     }
@@ -508,14 +513,14 @@ label[for="keyword"]{
     }
 }
 
-@media screen and (min-height: 718px) {
-    .main-content{
-        height: 78vh;
-    }
-}
-
 @media screen and (min-height: 783px) {
     .main-content{
         height: 80vh;
+    }
+}
+
+@media screen and (min-height: 718px) {
+    .main-content{
+        height: 78vh;
     }
 }

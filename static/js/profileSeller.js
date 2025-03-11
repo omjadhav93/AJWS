@@ -344,84 +344,134 @@ function renderProducts(data) {
         const heading = document.createElement('p');
         heading.className = 'heading';
 
-        if (item['product-type'] === 'Water Filter and Purifiers') {
-            if (item['model-name'].length) {
-                heading.textContent = `${item['model-name']} based on `;
-                item['filteration-method'].forEach((method, i) => {
-                    heading.textContent += (i === 0 ? method : `+ ${method}`);
-                });
-                heading.textContent += ' Technique ';
-                item['included-components'].forEach((component, i) => {
-                    heading.textContent += (i === 0 ? `with ${component}` : `, ${component}`);
-                });
-                heading.textContent += ' and Automatic UF+TDS controller ';
-                if (item['tank-capacity']) {
-                    heading.textContent += `having ${item['tank-capacity']}-L Tank `;
+        if (item.product_type === 'Water Filter and Purifiers') {
+            if (item.model_name && item.model_name.length) {
+                heading.textContent = `${item.model_name} based on `;
+                
+                // Check if filtration_method exists in item
+                if (item.filtration_method) {
+                    item.filtration_method.forEach((method, i) => {
+                        heading.textContent += (i === 0 ? method : `+ ${method}`);
+                    });
                 }
-                heading.textContent += `by ${item['brand-name']}`;
-            } else {
-                heading.textContent = `${item['brand-name']} Presents a Purifier based on `;
-                item['filteration-method'].forEach((method, i) => {
-                    heading.textContent += (i === 0 ? method : `+ ${method}`);
-                });
+                
                 heading.textContent += ' Technique ';
-                item['included-components'].forEach((component, i) => {
-                    heading.textContent += (i === 0 ? `with ${component}` : `, ${component}`);
-                });
+                
+                // Check if included_components exists in item
+                if (item.included_components) {
+                    item.included_components.forEach((component, i) => {
+                        heading.textContent += (i === 0 ? `with ${component}` : `, ${component}`);
+                    });
+                }
+                
                 heading.textContent += ' and Automatic UF+TDS controller ';
-                if (item['tank-capacity']) {
-                    heading.textContent += `having ${item['tank-capacity']}-L Tank `;
+                
+                if (item.tank_capacity) {
+                    heading.textContent += `having ${item.tank_capacity}-L Tank `;
+                }
+                
+                heading.textContent += `by ${item.brand_name}`;
+            } else {
+                heading.textContent = `${item.brand_name} Presents a Purifier based on `;
+                
+                // Check if filteration_method exists in item
+                if (item.filteration_method) {
+                    item.filteration_method.forEach((method, i) => {
+                        heading.textContent += (i === 0 ? method : `+ ${method}`);
+                    });
+                }
+                
+                heading.textContent += ' Technique ';
+                
+                // Check if included_components exists in item
+                if (item.included_components) {
+                    item.included_components.forEach((component, i) => {
+                        heading.textContent += (i === 0 ? `with ${component}` : `, ${component}`);
+                    });
+                }
+                
+                heading.textContent += ' and Automatic UF+TDS controller ';
+                
+                if (item.tank_capacity) {
+                    heading.textContent += `having ${item.tank_capacity}-L Tank `;
                 }
             }
-        } else if (item['product-type'] === 'Water Filter Appliances' && req.body['filter-part'] === 'Cabinet') {
-            if (item['model-name'].length) {
-                heading.textContent = `${item['filter-type']} of ${item['model-name']} with ${item['tank-full-indicator']} indicators `;
-                if (item['tank-capacity']) {
-                    heading.textContent += `having ${item['tank-capacity']}-L Tank `;
+        } else if (item.product_type === 'Water Filter Cabinet') {
+            if (item.model_name && item.model_name.length) {
+                heading.textContent = `Cabinet of ${item.model_name} with ${item.tank_full_indicator || 'standard'} indicators `;
+                
+                if (item.tank_capacity) {
+                    heading.textContent += `having ${item.tank_capacity}-L Tank `;
                 }
-                heading.textContent += `designed by ${item['brand-name']}`;
+                
+                heading.textContent += `designed by ${item.brand_name}`;
             } else {
-                heading.textContent = `Purifier ${item['filter-type']} with ${item['tank-full-indicator']} indicators `;
-                if (item['tank-capacity']) {
-                    heading.textContent += `having ${item['tank-capacity']}-L Tank `;
+                heading.textContent = `Purifier Cabinet with ${item.tank_full_indicator || 'standard'} indicators `;
+                
+                if (item.tank_capacity) {
+                    heading.textContent += `having ${item.tank_capacity}-L Tank `;
                 }
-                heading.textContent += `designed by ${item['brand-name']}`;
+                
+                heading.textContent += `designed by ${item.brand_name}`;
             }
+        } else {
+            // Default heading for other product types
+            heading.textContent = `${item.model_name} by ${item.brand_name}`;
         }
         searchContent.appendChild(heading);
 
         // Other Product Info
         const rating = document.createElement('p');
         rating.className = 'rating';
-        rating.textContent = item.rating;
+        // Update rating display to use the new rating structure
+        let ratingValue = item.rating && item.rating.overall ? Math.round(item.rating.overall) : 0;
+        rating.innerHTML = '';
+        for (let i = 0; i < ratingValue; i++) {
+            rating.innerHTML += '<ion-icon name="star"></ion-icon>';
+        }
+        for (let i = ratingValue; i < 5; i++) {
+            rating.innerHTML += '<ion-icon name="star-outline"></ion-icon>';
+        }
         searchContent.appendChild(rating);
 
         const price = document.createElement('p');
         price.className = 'price';
-        price.innerHTML = `<sup>&#x20B9;</sup><span>${item['originalPrice'] - (item['originalPrice'] * item['discount'] / 100)}</span> <label>M.R.P : <span>&#x20B9;${item['originalPrice']}</span> (${item['discount']}% discount)</label>`;
+        const discountedPrice = item.discount ? 
+            item.price - (item.price * item.discount / 100) : 
+            item.price;
+        price.innerHTML = `<sup>&#x20B9;</sup><span>${discountedPrice}</span> <label>M.R.P : <span>&#x20B9;${item.price}</span> ${item.discount ? `(${item.discount}% discount)` : ''}</label>`;
         searchContent.appendChild(price);
 
         const brandPoints = document.createElement('p');
         brandPoints.className = 'brand points';
-        brandPoints.innerHTML = `<ion-icon name="business"></ion-icon> <span>${item['brand-name']}</span>`;
+        brandPoints.innerHTML = `<ion-icon name="business"></ion-icon> <span>${item.brand_name}</span>`;
         searchContent.appendChild(brandPoints);
 
-        if (item['waranty']) {
-            const waranty = document.createElement('p');
-            waranty.className = 'waranty points';
-            waranty.innerHTML = `<ion-icon name="shield-checkmark"></ion-icon> <span>${item['waranty-count']} Of Waranty</span>`;
-            searchContent.appendChild(waranty);
-        } else if (item['color'].length > 1) {
+        if (item.warranty) {
+            const warrantyTag = document.createElement('p');
+            warrantyTag.className = 'warranty points';
+            warrantyTag.innerHTML = `<ion-icon name="shield-checkmark"></ion-icon> <span>${item.warranty} Years Of Warranty</span>`;
+            searchContent.appendChild(warrantyTag);
+        } else if (item.color && item.color.length > 1) {
             const multicolor = document.createElement('p');
             multicolor.className = 'multicolor points';
             multicolor.innerHTML = `<ion-icon name="aperture"></ion-icon> <span>Multicolor Available</span>`;
             searchContent.appendChild(multicolor);
         }
 
-        const stages = document.createElement('p');
-        stages.className = 'stages points';
-        stages.innerHTML = `<ion-icon name="water"></ion-icon> <span>${item['stages']} Stage Purification</span>`;
-        searchContent.appendChild(stages);
+        // Add stages information if available in product details
+        if (item.stages) {
+            const stages = document.createElement('p');
+            stages.className = 'stages points';
+            stages.innerHTML = `<ion-icon name="water"></ion-icon> <span>${item.stages} Stage Purification</span>`;
+            searchContent.appendChild(stages);
+        } else {
+            // Add material information as fallback
+            const material = document.createElement('p');
+            material.className = 'material points';
+            material.innerHTML = `<ion-icon name="cube"></ion-icon> <span>Material: ${item.material}</span>`;
+            searchContent.appendChild(material);
+        }
 
         const delivery = document.createElement('p');
         delivery.className = 'delivery points';
@@ -431,32 +481,39 @@ function renderProducts(data) {
         const modelNumber = document.createElement('label');
         modelNumber.setAttribute('for', 'keyword');
         modelNumber.className = 'model-number';
-        modelNumber.textContent = item['model-number'];
+        modelNumber.textContent = item.model_number;
         searchContent.appendChild(modelNumber);
 
         const productType = document.createElement('label');
         productType.setAttribute('for', 'keyword');
         productType.className = 'product-type';
-        productType.textContent = item['product-type'];
+        productType.textContent = item.product_type;
         searchContent.appendChild(productType);
 
-        const material = document.createElement('label');
-        material.setAttribute('for', 'keyword');
-        material.className = 'material';
-        material.textContent = item['material'];
-        searchContent.appendChild(material);
+        const materialLabel = document.createElement('label');
+        materialLabel.setAttribute('for', 'keyword');
+        materialLabel.className = 'material';
+        materialLabel.textContent = item.material;
+        searchContent.appendChild(materialLabel);
 
-        item['color'].forEach(color => {
-            const colorLabel = document.createElement('label');
-            colorLabel.setAttribute('for', 'keyword');
-            colorLabel.textContent = `${color}, `;
-            searchContent.appendChild(colorLabel);
-        });
+        if (item.color) {
+            item.color.forEach(color => {
+                const colorLabel = document.createElement('label');
+                colorLabel.setAttribute('for', 'keyword');
+                colorLabel.textContent = `${color}, `;
+                searchContent.appendChild(colorLabel);
+            });
+        }
 
         const tankCapacity = document.createElement('label');
         tankCapacity.setAttribute('for', 'keyword');
         tankCapacity.className = 'tank-capacity';
-        tankCapacity.textContent = `${item['tank-capacity']} Liters`;
+        // Check if tank_capacity exists in item
+        if (item.tank_capacity) {
+            tankCapacity.textContent = `${item.tank_capacity} Liters`;
+        } else {
+            tankCapacity.textContent = 'Tank capacity not specified';
+        }
         searchContent.appendChild(tankCapacity);
 
         productItem.appendChild(searchImage);

@@ -33,8 +33,8 @@ router.post('/', checkAuth, [
         }
 
         if (user && !user.isVerified) {
-            await Otp.deleteMany({ userId: checkUser._id });
-            await User.findByIdAndDelete(checkUser._id);
+            await Otp.deleteMany({ userId: user._id });
+            await User.findByIdAndDelete(user._id);
             return res.status(400).json({ success: false, msg: "User doesn't exists." });
         }
         

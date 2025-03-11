@@ -9,6 +9,7 @@ const User = require("../model/user");
 // Sample product dataset
 const products = [
     { id: 1, name: 'Water Filter and Purifiers', category: 'Home and Kitchen Appliance' },
+    // { id: 2, name: 'Water Filter Cabinet', category: 'Home and Kitchen Appliance' },
     // Add more products as needed
 ];
 
@@ -47,8 +48,8 @@ function comparePrice(priceComparisons, money) {
 function rankSort(rankData) {
     for (let i = 0; i < rankData.length; i++) {
         for (let j = i + 1; j < rankData.length; j++) {
-            let discountedPriceI = rankData[i][0].originalPrice - (rankData[i][0].originalPrice * rankData[i][0].discount / 100)
-            let discountedPriceJ = rankData[j][0].originalPrice - (rankData[j][0].originalPrice * rankData[j][0].discount / 100)
+            let discountedPriceI = rankData[i][0].price - (rankData[i][0].price * rankData[i][0].discount / 100)
+            let discountedPriceJ = rankData[j][0].price - (rankData[j][0].price * rankData[j][0].discount / 100)
             if (rankData[j][1] > rankData[i][1]) {
                 var temp = rankData[j]
                 rankData[j] = rankData[i]
@@ -68,81 +69,132 @@ function rankSort(rankData) {
 }
 
 global.waterfilterandpurifiers = async function (priceComparisons, keywordCombinations) {
-    let requireModel = require(`../model/waterfilterandpurifiers`);
-    let data = await requireModel.find()
+    let Product = require(`../model/product`);
+    const { WaterFilter } = require("../model/productmodels/home&kitchenappliances");
+
+    // Get all products of type "Water Filter and Purifiers"
+    let products = await Product.find({ product_type: "Water Filter and Purifiers" });
     let rankData = [];
 
-    
-    for (let i = 0; i < data.length; i++) {
+    for (let i = 0; i < products.length; i++) {
+        let product = products[i];
+        // Get the detailed product information
+        let details = await WaterFilter.findById(product.product_details);
+        if (!details) continue;
+
         let rank = 0;
         keywordCombinations.forEach(combination => {
             const searchQuery = combination;
-            if (data[i]['model-name'].length > 0) {
-                if (data[i]['model-name'].toLowerCase().indexOf(searchQuery.toLowerCase()) > -1) rank += 1;
+            if (product.model_name.length > 0) {
+                if (product.model_name.toLowerCase().indexOf(searchQuery.toLowerCase()) > -1) rank += 1;
             }
-            if (data[i]['brand-name'].toLowerCase().indexOf(searchQuery.toLowerCase()) > -1) rank += 1;
-            if (data[i]['model-number'].toLowerCase().indexOf(searchQuery.toLowerCase()) > -1) rank += 1;
-            if (searchQuery.toLowerCase().indexOf(`${data[i]['tank-capacity']} l`) > -1) rank += 1;
-            if (searchQuery.toLowerCase().indexOf(`${data[i]['stages']} stage`) > -1) rank += 1;
-            // if (data[i].warranty) rank += Number(data[i]['warranty-count'][0]);
-            if (data[i]['material'].toLowerCase().indexOf(searchQuery.toLowerCase()) > -1) rank += 1;
-            if (data[i]['filter-type'].toLowerCase().indexOf(searchQuery.toLowerCase()) > -1) rank += 1;
-            if (data[i]['color'].indexOf(`${searchQuery.slice(0, 1).toUpperCase()}${searchQuery.slice(1).toLowerCase()}`) > -1) rank += 1;
-            let fm = data[i]['filteration-method']
-            for (let j = 0; j < fm.length; j++) {
-                if (fm[j].toLowerCase().indexOf(searchQuery.toLowerCase()) > -1) {
-                    rank += 1;
-                    j = fm.length;
-                }
+            if (product.brand_name.toLowerCase().indexOf(searchQuery.toLowerCase()) > -1) rank += 1;
+            if (product.model_number.toLowerCase().indexOf(searchQuery.toLowerCase()) > -1) rank += 1;
+            if (searchQuery.toLowerCase().indexOf(`${details.tank_capacity} l`) > -1) rank += 1;
+            if (searchQuery.toLowerCase().indexOf(`${details.filtration_stages} stage`) > -1) rank += 1;
+            if (product.warranty > 0) rank += product.warranty;
+            if (product.material.toLowerCase().indexOf(searchQuery.toLowerCase()) > -1) rank += 1;
+            if (details.filter_type.toLowerCase().indexOf(searchQuery.toLowerCase()) > -1) rank += 1;
+
+            // Check if the color exists in the product's color array
+            if (product.color.some(color => color.toLowerCase() === searchQuery.toLowerCase())) rank += 1;
+
+            // Check filtration methods
+            if (details.filtration_method.some(method => method.toLowerCase().indexOf(searchQuery.toLowerCase()) > -1)) {
+                rank += 1;
             }
-            let ic = data[i]['included-components']
-            for (let j = 0; j < ic.length; j++) {
-                if (ic[j].toLowerCase().indexOf(searchQuery.toLowerCase()) > -1) {
-                    rank += 1;
-                    j = ic.length;
-                }
+
+            // Check included components
+            if (details.included_components.some(component => component.toLowerCase().indexOf(searchQuery.toLowerCase()) > -1)) {
+                rank += 1;
             }
         });
-        let discountedPrice = data[i].originalPrice - (data[i].originalPrice * data[i].discount / 100)
+
+        let discountedPrice = product.price - (product.price * product.discount / 100);
         if (comparePrice(priceComparisons, discountedPrice)) {
             rank = rank * 2;
         }
 
-        rankData.push([data[i], rank])
+        // Add detailed product information to the product object
+        if (details) {
+            // Extract _id from details and keep other properties
+            const { _id: detailsId, ...detailsWithoutId } = details._doc;
+            
+            // Merge all properties from details into product
+            product = {
+                ...product._doc,
+                ...detailsWithoutId
+            };
+        }
+
+        rankData.push([product, rank]);
     }
 
-    let finalData = rankSort(rankData)
+    let finalData = rankSort(rankData);
     return finalData;
 }
 
 global.allcategory = async function (priceComparisons, keywordCombinations) {
-    let waterfilterandpurifiers = require(`../model/waterfilterandpurifiers`);
-    let waterfilterandpurifiersData = await waterfilterandpurifiers.find()
-    let data = waterfilterandpurifiersData //.concat(array2,array3)
+    let Product = require(`../model/product`);
+    const { WaterFilter, WaterFilterCabinet } = require("../model/productmodels/home&kitchenappliances");
+
+    // Get all products
+    let products = await Product.find();
     let rankData = [];
 
-    for (let i = 0; i < data.length; i++) {
+    for (let i = 0; i < products.length; i++) {
+        let product = products[i];
+        let details;
+
+        // Get the detailed product information based on product type
+        if (product.product_type === "Water Filter and Purifiers") {
+            details = await WaterFilter.findById(product.product_details);
+        } else if (product.product_type === "Water Filter Cabinet") {
+            details = await WaterFilterCabinet.findById(product.product_details);
+        }
+
+        if (!details) continue;
+
         let rank = 0;
         keywordCombinations.forEach(combination => {
             const searchQuery = combination;
-            if (data[i]['model-name'].length > 0) {
-                if (data[i]['model-name'].toLowerCase().indexOf(searchQuery.toLowerCase()) > -1) rank += 1;
+            if (product.model_name.length > 0) {
+                if (product.model_name.toLowerCase().indexOf(searchQuery.toLowerCase()) > -1) rank += 1;
             }
-            if (data[i]['brand-name'].toLowerCase().indexOf(searchQuery.toLowerCase()) > -1) rank += 1;
-            if (data[i]['model-number'].toLowerCase().indexOf(searchQuery.toLowerCase()) > -1) rank += 1;
-            if (data[i].warranty) rank += Number(data[i]['warranty-count'][0]);
-            if (data[i]['filter-type'].toLowerCase().indexOf(searchQuery.toLowerCase()) > -1) rank += 1;
-            if (data[i]['color'].indexOf(`${searchQuery.slice(0, 1).toUpperCase()}${searchQuery.slice(1).toLowerCase()}`) > -1) rank += 1;
+            if (product.brand_name.toLowerCase().indexOf(searchQuery.toLowerCase()) > -1) rank += 1;
+            if (product.model_number.toLowerCase().indexOf(searchQuery.toLowerCase()) > -1) rank += 1;
+            if (product.warranty > 0) rank += product.warranty;
+
+            // Check if the color exists in the product's color array
+            if (product.color.some(color => color.toLowerCase() === searchQuery.toLowerCase())) rank += 1;
+
+            // Product type specific checks
+            if (product.product_type === "Water Filter and Purifiers") {
+                if (details.filter_type.toLowerCase().indexOf(searchQuery.toLowerCase()) > -1) rank += 1;
+            }
         });
-        let discountedPrice = data[i].originalPrice - (data[i].originalPrice * data[i].discount / 100)
+
+        let discountedPrice = product.price - (product.price * product.discount / 100);
         if (comparePrice(priceComparisons, discountedPrice)) {
             rank = rank * 2;
         }
 
-        rankData.push([data[i], rank])
+        // Add detailed product information to the product object
+        if (details) {
+            // Extract _id from details and keep other properties
+            const { _id: detailsId, ...detailsWithoutId } = details._doc;
+            
+            // Merge all properties from details into product
+            product = {
+                ...product._doc,
+                ...detailsWithoutId
+            };
+        }
+
+        rankData.push([product, rank]);
     }
 
-    let finalData = rankSort(rankData)
+    let finalData = rankSort(rankData);
     return finalData;
 }
 
@@ -267,7 +319,7 @@ function searchProduct(query) {
     const results = fuse.search(query);
 
     // Return the top matching result (if any)
-    return results.length > 0 ? results[0].item : { id: 0, name: 'Water Filter and Purifiers', category: 'Home and Kitchen Appliance' };
+    return results.length > 0 ? results[0].item : { id: 0, name: 'All Category', category: 'All' };
 }
 
 
@@ -285,10 +337,10 @@ router.get("/search", fetchCheckUser, async (req, res) => {
         let productName;
         productName = product.name
         productName = productName.replace(/\s/g, '').toLowerCase()
-        
+
         let data = await global[productName](priceComparisons, keywordCombinations);
         // We have not design a condition for rendering data
-        
+
 
         // Rendering Files
         if (user) {

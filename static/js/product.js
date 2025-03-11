@@ -65,7 +65,6 @@ const changeColor = (color, j) => {
   document.getElementById('currentColor').innerHTML = `${color}`;
   document.getElementById('color').innerHTML = `${color}`;
   document.getElementById('colorInForm').value = `${color}`;
-
 }
 
 // Touchscroll for images
@@ -92,18 +91,21 @@ function swipeHead(isrightswipe, direction) {
         if (startPlace == image || startPlace == imgTag) {
           c = i;
           j = index;
-          if (index == images.length - 1) {
+          if (index == images.length - 1 && direction < 0) {
+            end = true;
+          }
+          if (index == 0 && direction > 0) {
             end = true;
           }
         }
       });
     }
 
+    if (end) {
+      return;
+    }
 
     if (direction < 0) {
-      if (end) {
-        return;
-      }
       slider(c, ++j);
     } else if (direction > 0) {
       slider(c, --j);
@@ -118,7 +120,6 @@ touchsurface.addEventListener('touchstart', function (e) {
   startX = touchobj.pageX
   startY = touchobj.pageY
   startTime = new Date().getTime() // record time when finger first makes contact with surface
-
 })
 
 touchsurface.addEventListener('touchmove', function (e) {
@@ -151,14 +152,14 @@ const addLike = () => {
     .then(response => response.json())
     .then(stats => {
       if (stats.msg == "Unsigned") {
-        alert("You need to login to save the product you Favourites list.");
+        alert("You need to login to save the product in your Favourites list.");
       } else if (stats.msg == "Success") {
         const likeBtn = document.getElementById('like-btn');
         likeBtn.setAttribute('onclick', 'removeLike()')
         likeBtn.style.color = 'red';
         likeBtn.innerHTML = '<ion-icon name="heart"></ion-icon>';
       } else {
-        alert("Something went wrong to save the product in Favourite list.");
+        alert("Something went wrong while saving the product to your Favourite list.");
       }
     })
     .catch(error => console.error('Error adding favourite:', error));
@@ -182,7 +183,7 @@ const removeLike = () => {
         likeBtn.style.color = 'black';
         likeBtn.innerHTML = '<ion-icon name="heart-outline"></ion-icon>';
       } else {
-        alert("Something went wrong to unlike the product in Favourite list.");
+        alert("Something went wrong while removing the product from your Favourite list.");
       }
     })
     .catch(error => console.error('Error adding favourite:', error));

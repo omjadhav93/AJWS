@@ -1,8 +1,8 @@
 extends base.pug 
 block metaElements
   meta(name="robots" content="INDEX, FOLLOW")
-  meta(name="keywords" content=data['model-name']+", "+data['tank-capacity']+" Liters , "+data['filteration-method']+", "+data['brand-name']+", "+data['included-components']+", "+data['price']+" rupees , "+data['color'])
-  meta(name="description" content='Introducing our latest water filter - the '+data['model-name']+' This advanced model boasts a tank_capacity of '+data['tank-capacity']+' Liters, ensuring a steady supply of purified water. With '+data['filteration-method']+' , it guarantees the highest level of water purity. Manufactured by the trusted brand '+data['brand-name']+', the '+data['model-name']+' includes essential included_components, such as '+data['included-components']+'. You can experience the unparalleled benefits of this top-tier water filter at a competitive price. Choose the AquaMax Pro in your preferred color option and elevate your water quality today. Trust in AJKart to provide you with the best water filter products for your needs.')
+  meta(name="keywords" content=data.model_name+", "+data.tank_capacity+" Liters , "+data.filtration_method+", "+data.brand_name+", "+data.included_components+", "+data.price+" rupees , "+data.color)
+  meta(name="description" content='Introducing our latest water filter - the '+data.model_name+' This advanced model boasts a tank_capacity of '+data.tank_capacity+' Liters, ensuring a steady supply of purified water. With '+data.filtration_method+' , it guarantees the highest level of water purity. Manufactured by the trusted brand '+data.brand_name+', the '+data.model_name+' includes essential included_components, such as '+data.included_components+'. You can experience the unparalleled benefits of this top-tier water filter at a competitive price. Choose the AquaMax Pro in your preferred color option and elevate your water quality today. Trust in AJKart to provide you with the best water filter products for your needs.')
 block style 
     include ../static/css/product.css 
 block title 
@@ -33,55 +33,55 @@ block content
                                     .images(onclick='slider(' + colorIndex + ',' + imgIndex + ')')
                                         img(src='/static/productImg/' + loc) 
         .product-info 
-            if data['product-type'] == 'Water Filter and Purifiers'
-                if data['model-name'].length
-                    p.heading #{data['model-name']} based on 
-                        each method,i in data['filteration-method']
+            if data.product_type == 'Water Filter and Purifiers'
+                if data.model_name.length
+                    p.heading #{data.model_name} based on 
+                        each method,i in data.filtration_method
                             if i == 0
                                 |#{method} 
                             else 
                                 |+ #{method}
                         |  Technique 
-                        each component,i in data['included-components']
+                        each component,i in data.included_components
                             if i == 0
                                 |with #{component}
                             else 
                                 |, #{component}
                         | and Automatic UF+TDS controller 
-                        if data['tank-capacity']
-                            |having #{data['tank-capacity']}-L Tank 
-                        |by #{data['brand-name']}
+                        if data.tank_capacity
+                            |having #{data.tank_capacity}-L Tank 
+                        |by #{data.brand_name}
                 else 
-                    p.heading #{data['brand-name']} Presents a Purifier based on 
-                        each method,i in data['filteration-method']
+                    p.heading #{data.brand_name} Presents a Purifier based on 
+                        each method,i in data.filtration_method
                             if i == 0
                                 |#{method} 
                             else 
                                 |+ #{method}
                         |  Technique 
-                        each component,i in data['included-components']
+                        each component,i in data.included_components
                             if i == 0
                                 |with #{component}
                             else 
                                 |, #{component}
                         | and Automatic UF+TDS controller 
-                        if data['tank-capacity']
-                            |having #{data['tank-capacity']}-L Tank 
-            else if data['product-type'] == 'Water Filter Appliances' && req.body['filter-part'] == 'Cabinet'
-                if data['model-name'].length
-                    p.heading #{data['filter-type']} of #{data['model-name']} with #{data['tank-full-indicator']} indicators 
-                        if data['tank-capacity']
-                            |having #{data['tank-capacity']}-L Tank 
-                        |designed by #{data['brand-name']}
+                        if data.tank_capacity
+                            |having #{data.tank_capacity}-L Tank 
+            else if data.product_type == 'Water Filter Cabinet'
+                if data.model_name.length
+                    p.heading Cabinet of #{data.model_name} with #{data.tank_full_indicator} indicators 
+                        if data.tank_capacity
+                            |having #{data.tank_capacity}-L Tank 
+                        |designed by #{data.brand_name}
                 else 
-                    p.heading Purifier #{data['filter-type']} with #{data['tank-full-indicator']} indicators 
-                        if data['tank-capacity']
-                            |having #{data['tank-capacity']}-L Tank 
-                        |designed by #{data['brand-name']}  
+                    p.heading Purifier Cabinet with #{data.tank_full_indicator} indicators 
+                        if data.tank_capacity
+                            |having #{data.tank_capacity}-L Tank 
+                        |designed by #{data.brand_name}  
             p.brand Brand: 
-                span #{data['brand-name']}
+                span #{data.brand_name}
             p.rating 
-                - var ratingCount = data['rating-list'].overall;
+                - var ratingCount = data.rating && data.rating.overall ? Math.round(data.rating.overall) : 0;
                 - for (var i = 0; i < ratingCount; i++)
                     <ion-icon name="star"></ion-icon> 
                 - for (var i = ratingCount; i < 5; i++)
@@ -89,17 +89,17 @@ block content
             .priceSign 
                     p Price
             p.price 
-                label  -#{data['discount']}%
+                label  -#{data.discount}%
                 sup &#x20B9
-                span.value #{(data['originalPrice'])-((data['originalPrice'])*(data['discount'])/100)}
+                span.value #{(data.price)-((data.price)*(data.discount)/100)}
                 br 
                 | M.R.P : 
-                span.cutValue &#x20B9 #{data['originalPrice']}
+                span.cutValue &#x20B9 #{data.price}
             p.currentColor 
                 | Color : 
-                span#currentColor #{data['color'][0]}
+                span#currentColor #{data.color[0]}
             .color-locator 
-                each color,i in data['color']
+                each color,i in data.color
                     if i == 0
                         .color-box.now(onclick='changeColor("' + color + '",' + i + ')')
                             .color(style='background-color:' + color + ';')
@@ -113,71 +113,73 @@ block content
                     .spec
                       h4 Model 
                       span : 
-                      p#model #{data['model-name']}
+                      p#model #{data.model_name}
                     .spec
                       h4 Model Number
                       span : 
-                      p#model-number #{data['model-number']}
+                      p#model-number #{data.model_number}
                     .spec
                       h4 Brand 
                       span : 
-                      p#brand-name #{data['brand-name']}
+                      p#brand-name #{data.brand_name}
                     .spec
                       h4 Color 
                       span : 
-                      p#color #{data['color'][0]}
+                      p#color #{data.color[0]}
                     .spec
                       h4 Tank Full Indicator
                       span : 
-                      p#tank-full-indicator #{data['tank-full-indicator']} 
-                    if data['waranty']
+                      p#tank-full-indicator #{data.tank_full_indicator} 
+                    if data.warranty
                         .spec
-                          h4 Waranty 
+                          h4 Warranty 
                           span : 
-                          p#waranty #{data['waranty-count']}
+                          p#warranty #{data.warranty}
                     .spec
                       h4 Filteration Method
                       span : 
                       p#filteration-method 
-                        each method,i in data['filteration-method']
-                            if i == 0
-                                |#{method}
-                            else
-                                |, #{method}
+                        if data.filtration_method
+                            each method,i in data.filtration_method
+                                if i == 0
+                                    |#{method}
+                                else
+                                    |, #{method}
                     .spec
                       h4 Special Components
                       span : 
                       p#filteration-method 
-                        each components,i in data['included-components']
-                            if i == 0
-                                |#{components}
+                        if data.included_components
+                            each components,i in data.included_components
+                                if i == 0
+                                    |#{components}
                             else
                                 |, #{components}
                     .spec
                       h4 Material 
                       span : 
-                      p#material #{data['material']}
+                      p#material #{data.material}
                     .spec
                       h4 Tank Capacity 
                       span : 
-                      p#tank-capacity #{data['tank-capacity']} Litres
+                      p#tank-capacity #{data.tank_capacity} Litres
                     .spec
                       h4 Purifying Stages 
                       span : 
-                      p#purifying-stages #{data['stages']} stage purification
+                      p#purifying-stages #{data.filtration_stages} stage purification
             if data.available
                 form(action="/product/order", method="get", id="buyForm") 
-                    input(type = "hidden", name = "model-number", value = data['model-number'])
-                    input(type = "hidden", name = "color", value = data['color'][0], id="colorInForm")
+                    input(type = "hidden", name = "model-number", value = data.model_number)
+                    input(type = "hidden", name = "color", value = data.color[0], id="colorInForm")
                     button.btn#buyNow(onclick="buyNow",type="submit") Buy Now 
                 form(action="/user/cart" method="post", id="cartForm")
-                    input(type = "hidden", name = "model-number", value = data['model-number'])
+                    input(type = "hidden", name = "model-number", value = data.model_number)
                     button.btn#addToCart(onclick="addNow",type="submit") Add To Cart 
             else 
                 form
                     button.btn#buyNow(onclick="alert('This product is currently unavailable.')",type="button",style="background-color: rgb(181, 140, 220);") Buy Now 
                 form(action="/user/cart" method="post", id="cartForm")
-                    input(type = "hidden", name = "model-number", value = data['model-number'])
+                    input(type = "hidden", name = "model-number", value = data.model_number)
                     button.btn#addToCart(onclick="addNow",type="submit") Add To Cart  
 
 block scripts 

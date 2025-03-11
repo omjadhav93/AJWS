@@ -14,97 +14,90 @@ sameHeight.forEach((element, i) => {
 
 /* Setting options for product type and product */
 const category = {
-    'Home and Kitchen Appliances': ['Water Filter and Purifiers', 'Water Filter Appliances'],
+    'Home and Kitchen Appliances': ['Water Filter and Purifiers', 'Water Filter Cabinet'],
 }
 
 const product = {
     'Water Filter and Purifiers': `<p class="que subQueCategory">What type of water filter is this ?</p>
     <div class="radio-section subQueCategory" style="margin-top: 0;">
-      <input type="radio" class="radio" name="filter-type" value="Domastic" id="fiter-type-domastic" required/>
-      <label for="fiter-type-domastic" class="radio-label"> Domastic</label><br/>
-      <input type="radio" class="radio" name="filter-type" value="Commercial" id="fiter-type-commercial" required/>
-      <label for="fiter-type-commercial" class="radio-label"> Commercial</label><br/>
-      <input type="radio" class="radio" name="filter-type" value="Industrial" id="fiter-type-industrial" required/>
-      <label for="fiter-type-industrial" class="radio-label"> Industrial</label><br/>
+      <input type="radio" class="radio" name="filter_type" value="Domestic" id="filter-type-domestic" required/>
+      <label for="filter-type-domestic" class="radio-label"> Domestic</label><br/>
+      <input type="radio" class="radio" name="filter_type" value="Commercial" id="filter-type-commercial" required/>
+      <label for="filter-type-commercial" class="radio-label"> Commercial</label><br/>
+      <input type="radio" class="radio" name="filter_type" value="Industrial" id="filter-type-industrial" required/>
+      <label for="filter-type-industrial" class="radio-label"> Industrial</label><br/>
     </div>
-  `,
-    'Water Filter Appliances': `<p class="que subQueCategory">Which component you want to sell here ?</p>
-    <button class="selectOptBtn subQueCategory" id="filter-part" type="button" onclick="openOption(this)" style="display: flex;flex-direction: row; column-gap: 10px;">
-        <div class="selected" id="selected">Select a Component</div><ion-icon name="arrow-forward-outline"></ion-icon>
-        <div class="selectOptContainer addOption" id="selectOptContainer"><span class="opt" id="default" onclick="select(this)" value="">Select a Component</span><span class="opt" id="default" onclick="select(this)" value="Cabinet">Cabinet</span></div>
-    </button>
-    <input class="selectedOption subQueCategory" type="hidden" name="filter-part"/>
   `
 }
 
 function productHintFinder(productType) {
     if (productType == 'Water Filter and Purifiers') {
-        return 'input[name="filter-type"]';
-    } else if (productType == 'Water Filter Appliances') {
-        return 'input[name="filter-part';
+        const selectedFilter = document.querySelector('input[name="filter_type"]:checked');
+        return selectedFilter ? selectedFilter.value : 'Domestic'; // Default to Domestic if nothing selected
+    } else if (productType == 'Water Filter Cabinet') {
+        return 'Cabinet';
     }
 }
 
 const subQueAns = {
-    Domastic: ['filteration-method', 'tank', 'included-components', 'filteration-stages'],
-    Commercial: ['filteration-method', 'included-components', 'filteration-stages'],
-    Industrial: ['filteration-method', 'included-components', 'filteration-stages'],
+    Domestic: ['filtration-method', 'tank', 'included-components', 'filtration-stages'],
+    Commercial: ['filtration-method', 'included-components', 'filtration-stages'],
+    Industrial: ['filtration-method', 'included-components', 'filtration-stages'],
     Cabinet: ['tank-full-indicator', 'tank']
 }
 
 const queData = {
-    'filteration-method': `<p class="que">Which type of filteration method is used in your product?</p>
+    'filtration-method': `<p class="que">Which type of filtration method is used in your product?</p>
     <div class="checkbox-options">
       <div class="method">
-        <input type="checkbox" name="filteration-method" value="RO" id="RO"/>
+        <input type="checkbox" name="filtration_method" value="RO" id="RO"/>
         <label for="RO">RO</label
       </div>
       <div class="method">
-        <input type="checkbox" name="filteration-method" value="UV" id="UV"/>
+        <input type="checkbox" name="filtration_method" value="UV" id="UV"/>
         <label for="UV">UV</label
       </div>
       <div class="method">
-        <input type="checkbox" name="filteration-method" value="Gravity Separation" id="GS"/>
+        <input type="checkbox" name="filtration_method" value="Gravity Separation" id="GS"/>
         <label for="GS">Gravity Separation</label
       </div>
     </div>`,
     tank: `<p class="que">What is the tank capacity ?</p>
-      <input type="number" min="0" name="tank-capacity" id="tank-capacity" class="text-input" placeholder="Measured in liters" required/>
+      <input type="number" min="0" name="tank_capacity" id="tank-capacity" class="text-input" placeholder="Measured in liters" required/>
     `,
-    'included-components': `<p class="que">Which additional components are present in your product ? (Except Sediment, Carbon, S.valve, Pump, Membrian)</p>
+    'included-components': `<p class="que">Which additional components are present in your product ? (Except Sediment, Carbon, S.valve, Pump, Membrane)</p>
     <div class="checkbox-options">  
     <div class="include-component"> 
-        <input type="checkbox" name="included-components" value="Mineral" id="Mineral"/>
+        <input type="checkbox" name="included_components" value="Mineral" id="Mineral"/>
         <label for="Mineral">Mineral</label>
       </div>
       <div class="include-component"> 
-        <input type="checkbox" name="included-components" value="Copper" id="Copper"/>
+        <input type="checkbox" name="included_components" value="Copper" id="Copper"/>
         <label for="Copper">Copper</label>
       </div>
       <div class="include-component"> 
-        <input type="checkbox" name="included-components" value="Alkline" id="Alkline"/>
-        <label for="Alkline">Alkline </label>
+        <input type="checkbox" name="included_components" value="Alkaline" id="Alkaline"/>
+        <label for="Alkaline">Alkaline</label>
       </div>
       <div class="include-component"> 
-        <input type="text" name="included-components" class="text-input" placeholder="Other" style="font-size:17px;padding:5px;padding-top:0px"/>
+        <input type="text" name="included_components" class="text-input" placeholder="Other" style="font-size:17px;padding:5px;padding-top:0px"/>
       </div>
     </div>
       `,
-    'filteration-stages': `<p class="que">No. of Stages in purification process. </p>
+    'filtration-stages': `<p class="que">No. of Stages in purification process. </p>
       <div class="radio-section">
-        <input type="number" min="0" name="filteration-stages" class="text-input" id="filteration-stages-count" required/>
+        <input type="number" min="0" name="filtration_stages" class="text-input" id="filtration-stages-count" required/>
         <label> Stage Purification</label>
       <div>`,
     'tank-full-indicator': `<p class="que">Which type of tank full indicators are present in your product?</p>
-    <div class="radio-section">
-      <input type="radio" class="radio" name="tank-full-indicator" value="light bulbs" id="tank-full-bulb" required/>
-      <label for="tank-full-bulb" class="radio-label"> Light bulbs</label><br/>
-      <input type="radio" class="radio" name="tank-full-indicator" value="light bars" id="tank-full-bars" required/>
-      <label for="tank-full-bars" class="radio-label"> Light bars</label><br/>
-      <input type="radio" class="radio" name="tank-full-indicator" value="digital" id="tank-full-digital" required/>
-      <label for="tank-full-digital" class="radio-label"> Digital</label><br/>
-    </div>
-  `
+        <div class="radio-section">
+            <input type="radio" class="radio" name="tank_full_indicator" value="light bulbs" id="tank-full-bulb" required/>
+            <label for="tank-full-bulb" class="radio-label"> Light bulbs</label><br/>
+            <input type="radio" class="radio" name="tank_full_indicator" value="light bars" id="tank-full-bars" required/>
+            <label for="tank-full-bars" class="radio-label"> Light bars</label><br/>
+            <input type="radio" class="radio" name="tank_full_indicator" value="digital" id="tank-full-digital" required/>
+            <label for="tank-full-digital" class="radio-label"> Digital</label><br/>
+        </div>`
 }
 
 
@@ -243,7 +236,7 @@ const fileSection = () => {
         }
         const newDiv = document.createElement('div');
         newDiv.classList = "image-box";
-        newDiv.innerHTML = `<p class="que">Add images of product for ${color.value} colour :</p>
+        newDiv.innerHTML = `<p class="que">Add images of product for ${color.value} color :</p>
             <div class="image-adding-section">
                 <input type="file" name="${color.value}-image" class="file-input-tag" onchange="checkFile(this)" accept="image/*" multiple/>
                 <div class="add-option" onclick="takeInput('${color.value}')"><ion-icon name="add-outline"></ion-icon></div>
@@ -369,6 +362,7 @@ const removeImg = e => {
 const nextSection = (e) => {
     const category = document.getElementById("category-input");
     const productType = document.getElementById("product-type-input");
+    const brand = document.getElementById("brand-name-input");
     const radios = document.querySelectorAll('input[type="hidden"]');
 
     if (!category.value && category.value.length == 0) {
@@ -381,16 +375,21 @@ const nextSection = (e) => {
         return;
     }
 
-    let radioCheck = false;
+    if (!brand.value && brand.value.length == 0) {
+        alert(`Please select the brand of your product. It's Important!`);
+        return;
+    }
+
+    let dataCheck = false;
     for(const radio of radios) {
         if (!radio.value && radio.value.length == 0) {
             alert(`Please select the ${radio.getAttribute('name')} of your product. It's Important!`);
-            radioCheck = true;
+            dataCheck = true;
             return;
         }
     }
 
-    if (radioCheck) {
+    if (dataCheck) {
         return;
     }
 
@@ -406,7 +405,7 @@ const nextSection = (e) => {
     field.innerHTML = "<legend>Product Details</legend>";
     document.querySelector('.section-1').appendChild(field);
 
-    const quesListHint = document.querySelector(productHintFinder(productType.value)).value;
+    const quesListHint = productHintFinder(productType.value);
     const quesMarkList = subQueAns[quesListHint];
 
     quesMarkList.forEach(mark => {
@@ -433,9 +432,10 @@ form.addEventListener(
     false,
 );
 
-const submitDone = async (event) => {
+const submitDone = async () => {
     const category = document.getElementById("category-input");
     const product = document.getElementById("product-type-input");
+    const brand = document.getElementById("brand-name-input");
     const radios = document.querySelectorAll('input[type="hidden"]');
     const checkboxes = document.querySelectorAll('.checkbox-options');
 
@@ -449,34 +449,39 @@ const submitDone = async (event) => {
         return;
     }
 
-    let radioCheck = false;
+    if (!brand.value && brand.value.length == 0) {
+        alert(`Please select the brand of your product. It's Important!`);
+        return;
+    }
+
+    let dataCheck = false;
     for(const radio of radios)  {
         if (!radio.value && radio.value.length == 0) {
             alert(`Please select the ${radio.getAttribute('name')} of your product. It's Important!`);
-            radioCheck = true;
+            dataCheck = true;
             return;
         }
     }
 
-    if (radioCheck) return;
+    if (dataCheck) return;
 
     const colorSelected = document.querySelectorAll('input[name="color"]:checked')
     if (colorSelected.length == 0) {
-        alert(`You doen't have selected any color, please select atleast any one.`)
+        alert(`You doesn't have selected any color, please select at least any one.`)
         return;
     }
 
     checkboxes.forEach(check => {
         const checkList = check.querySelectorAll('input[type="checkbox"]:checked');
         if (checkList.length == 0) {
-            alert(`You doen't have selected any ${check.querySelector('input[type="checkbox"]').getAttribute('name')}, please select atleast any one.`);
-            radioCheck = true;
+            alert(`You doesn't have selected any ${check.querySelector('input[type="checkbox"]').getAttribute('name')}, please select at least any one.`);
+            dataCheck = true;
             return;
         }
 
     })
 
-    if (radioCheck) return;
+    if (dataCheck) return;
 
 
     colorSelected.forEach(color => {
@@ -486,10 +491,12 @@ const submitDone = async (event) => {
             imgLen += input.files.length;
         })
         if (imgLen == 0) {
-            alert(`Please add images for ${color.value} colour.`)
-            return;
+            alert(`Please add images for ${color.value} color.`)
+            dataCheck = true;
         }
     })
+
+    if (dataCheck) return;
 
     form.requestSubmit();
 
@@ -515,7 +522,7 @@ const submitDone = async (event) => {
 
 
 
-// This Function was tried for saving form temprory for user so that everything will saved at each case but it got failed due to less knowledge of fetch 
+// This Function was tried for saving form temporary for user so that everything will saved at each case but it got failed due to less knowledge of fetch 
 // const saveData = () => {
 
 //     // const colorSelected = document.querySelectorAll('input[name="color"]:checked')

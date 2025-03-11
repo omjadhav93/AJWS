@@ -43,7 +43,7 @@ const applyFilter = () => {
             let subCheck = false;
             let matter = item.getElementsByClassName('material')[0].textContent
             material.forEach(e => {
-                if(e.value.toUpperCase().indexOf(matter.toUpperCase()) > -1) subCheck = true;
+                if(matter.toUpperCase().indexOf(e.value.toUpperCase()) > -1) subCheck = true;
             })
             if(!subCheck){
                 check = false;

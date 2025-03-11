@@ -233,9 +233,10 @@ function fetchFavourites() {
             }
             const productsDiv = document.getElementById(`favourite`);
             productsDiv.innerHTML = `<p class="fav-heading">Your Favourites</p>`; // Clear existing content
+            console.log(data);
             data.forEach(product => {
                 const searchDiv = document.createElement('div');
-                searchDiv.setAttribute('onclick', `window.location.href = '/product?modelNo=${product['model-number']}'`);
+                searchDiv.setAttribute('onclick', `window.location.href = '/product?modelNo=${product.model_number}'`);
                 searchDiv.classList.add('search-item');
                 productsDiv.appendChild(searchDiv);
 
@@ -251,49 +252,70 @@ function fetchFavourites() {
 
                 const searchContDiv = document.createElement('div');
                 searchContDiv.classList.add('search-content');
-                /* ADDING HEADING OF THE PRODUCT */
-                if (product['product-type'] == 'Water Filter and Purifiers') {
+                
+                if (product.product_type == 'Water Filter and Purifiers') {
                     let heading = '';
-                    if (product['model-name'].length) {
-                        heading = product['model-name'] + ' based on ';
-                        product['filteration-method'].forEach((method, i) => {
-                            if (i == 0) {
-                                heading += method + ' ';
-                            } else {
-                                heading += '+ ' + method;
-                            }
-                        });
-                        product['included-components'].forEach((component, i) => {
-                            if (i == 0) {
-                                heading += ' with ' + component + ' ';
-                            } else {
-                                heading += ', ' + component;
-                            }
-                        });
-                        heading += ' and Automatic UF+TDS controller ';
-                        if (product['tank-capacity'] && product['tank-capacity'] >= 9) {
-                            heading += 'having ' + product['tank-capacity'] + '-L Tank ';
+                    if (product.model_name && product.model_name.length) {
+                        heading = product.model_name + ' based on ';
+                        
+                        // Check if filtration-method exists in product
+                        if (product.filtration_method) {
+                            product.filtration_method.forEach((method, i) => {
+                                if (i == 0) {
+                                    heading += method + ' ';
+                                } else {
+                                    heading += '+ ' + method;
+                                }
+                            });
                         }
-                        heading += 'by ' + product['brand-name'];
-                    } else {
-                        heading = product['brand-name'] + ' Presents a Purifier based on ';
-                        product['filteration-method'].forEach((method, i) => {
-                            if (i == 0) {
-                                heading += method + ' ';
-                            } else {
-                                heading += '+ ' + method;
-                            }
-                        });
-                        product['included-components'].forEach((component, i) => {
-                            if (i == 0) {
-                                heading += ' with ' + component + ' ';
-                            } else {
-                                heading += ', ' + component;
-                            }
-                        });
+                        
+                        // Check if included-components exists in product
+                        if (product.included_components) {
+                            product.included_components.forEach((component, i) => {
+                                if (i == 0) {
+                                    heading += ' with ' + component + ' ';
+                                } else {
+                                    heading += ', ' + component;
+                                }
+                            });
+                        }
+                        
                         heading += ' and Automatic UF+TDS controller ';
-                        if (product['tank-capacity'] && product['tank-capacity'] >= 9) {
-                            heading += 'having ' + product['tank-capacity'] + '-L Tank ';
+                        
+                        if (product.tank_capacity && product.tank_capacity >= 9) {
+                            heading += 'having ' + product.tank_capacity + '-L Tank ';
+                        }
+                        
+                        heading += 'by ' + product.brand_name;
+                    } else {
+                        heading = product.brand_name + ' Presents a Purifier based on ';
+                        
+                        // Check if filtration-method exists in product
+                        if (product.filtration_method) {
+                            product.filtration_method.forEach((method, i) => {
+                                if (i == 0) {
+                                    heading += method + ' ';
+                                } else {
+                                    heading += '+ ' + method;
+                                }
+                            });
+                        }
+                        
+                        // Check if included-components exists in product
+                        if (product.included_components) {
+                            product.included_components.forEach((component, i) => {
+                                if (i == 0) {
+                                    heading += ' with ' + component + ' ';
+                                } else {
+                                    heading += ', ' + component;
+                                }
+                            });
+                        }
+                        
+                        heading += ' and Automatic UF+TDS controller ';
+                        
+                        if (product.tank_capacity && product.tank_capacity >= 9) {
+                            heading += 'having ' + product.tank_capacity + '-L Tank ';
                         }
                     }
 
@@ -301,25 +323,33 @@ function fetchFavourites() {
                     headingTag.classList.add('heading');
                     headingTag.textContent = heading;
                     searchContDiv.appendChild(headingTag);
-                } else if (product['product-type'] == 'Water Filter Appliances' && product['filter-part'] == 'Cabinet') {
+                } else if (product.product_type == 'Water Filter Cabinet') {
                     let heading = '';
-                    if (product['model-name'].length) {
-                        heading = product['filter-type'] + ' of ' + product['model-name'] + ' with ' + product['tank-full-indicator'] + ' indicators ';
-                        if (product['tank-capacity'] && product['tank-capacity'] >= 7) {
-                            heading += 'having ' + product['tank-capacity'] + '-L Tank ';
+                    if (product.model_name && product.model_name.length) {
+                        heading = 'Cabinet of ' + product.model_name + ' with ' + (product.tank_full_indicator || 'standard') + ' indicators ';
+                        
+                        if (product.tank_capacity && product.tank_capacity >= 7) {
+                            heading += 'having ' + product.tank_capacity + '-L Tank ';
                         }
-                        heading += 'by ' + product['brand-name'];
+                        
+                        heading += 'designed by ' + product.brand_name;
                     } else {
-                        heading = 'Purifier ' + product['filter-type'] + ' with ' + product['tank-full-indicator'] + ' indicators ';
-                        if (product['tank-capacity'] && product['tank-capacity'] >= 7) {
-                            heading += 'having ' + product['tank-capacity'] + '-L Tank ';
+                        heading = 'Purifier Cabinet with ' + (product.tank_full_indicator || 'standard') + ' indicators ';
+                        
+                        if (product.tank_capacity && product.tank_capacity >= 7) {
+                            heading += 'having ' + product.tank_capacity + '-L Tank ';
                         }
-                        heading += ' designed by ' + product['brand-name'];
                     }
 
                     const headingTag = document.createElement('p');
                     headingTag.classList.add('heading');
                     headingTag.textContent = heading;
+                    searchContDiv.appendChild(headingTag);
+                } else {
+                    // Default heading for other product types
+                    const headingTag = document.createElement('p');
+                    headingTag.classList.add('heading');
+                    headingTag.textContent = `${product.model_name} by ${product.brand_name}`;
                     searchContDiv.appendChild(headingTag);
                 }
 
@@ -327,7 +357,7 @@ function fetchFavourites() {
                 const ratingTag = document.createElement('p');
                 ratingTag.classList.add('rating');
                 ratingTag.innerHTML = '';
-                let ratingCount = product['rating-list'].overall;
+                let ratingCount = product.rating && product.rating.overall ? Math.round(product.rating.overall) : 0;
                 for (let i = 0; i < ratingCount; i++) {
                     let temp = ratingTag.innerHTML;
                     ratingTag.innerHTML = `${temp}
@@ -342,25 +372,28 @@ function fetchFavourites() {
 
                 const priceTag = document.createElement('p');
                 priceTag.classList.add('price');
+                const discountedPrice = product.discount ? 
+                    product.price - (product.price * product.discount / 100) : 
+                    product.price;
                 priceTag.innerHTML = `
                     <sup>&#x20B9</sup>
-                    <span>${(product['originalPrice']) - ((product['originalPrice']) * (product['discount']) / 100)}</span>
-                    <label>M.R.P : <span>&#x20B9 ${product['originalPrice']}</span> (${product['discount']}% discount)</label>`;
+                    <span>${discountedPrice}</span>
+                    <label>M.R.P : <span>&#x20B9 ${product.price}</span> ${product.discount ? `(${product.discount}% discount)` : ''}</label>`;
                 searchContDiv.appendChild(priceTag);
 
                 const brandTag = document.createElement('p');
                 brandTag.classList.add('brand', 'points');
                 brandTag.innerHTML = `<ion-icon name="business"></ion-icon> 
-                    <span>${product['brand-name']}</span>`;
+                    <span>${product.brand_name}</span>`;
                 searchContDiv.appendChild(brandTag);
 
-                if (product['warranty']) {
+                if (product.warranty) {
                     const warrantyTag = document.createElement('p');
                     warrantyTag.classList.add('warranty', 'points');
                     warrantyTag.innerHTML = `<ion-icon name="shield-checkmark"></ion-icon> 
-                        <span> ${product['warranty-count']} Years Of Waranty</span>`;
+                        <span> ${product.warranty} Years Of Warranty</span>`;
                     searchContDiv.appendChild(warrantyTag);
-                } else if (product['color'].length > 1) {
+                } else if (product.color && product.color.length > 1) {
                     const multiTag = document.createElement('p');
                     multiTag.classList.add('multicolor', 'points');
                     multiTag.innerHTML = `<ion-icon name="aperture"></ion-icon> 
@@ -368,11 +401,21 @@ function fetchFavourites() {
                     searchContDiv.appendChild(multiTag);
                 }
 
-                const stagesTag = document.createElement('p');
-                stagesTag.classList.add('stages', 'points');
-                stagesTag.innerHTML = `<ion-icon name="water"></ion-icon> 
-                    <span> ${product['stages']} Stage Purification</span>`;
-                searchContDiv.appendChild(stagesTag);
+                // Add stages information if available in product details
+                if (product.stages) {
+                    const stagesTag = document.createElement('p');
+                    stagesTag.classList.add('stages', 'points');
+                    stagesTag.innerHTML = `<ion-icon name="water"></ion-icon> 
+                        <span> ${product.stages} Stage Purification</span>`;
+                    searchContDiv.appendChild(stagesTag);
+                } else {
+                    // Add material information as fallback
+                    const materialTag = document.createElement('p');
+                    materialTag.classList.add('material', 'points');
+                    materialTag.innerHTML = `<ion-icon name="cube"></ion-icon> 
+                        <span> Material: ${product.material}</span>`;
+                    searchContDiv.appendChild(materialTag);
+                }
 
                 const deliveryTag = document.createElement('p');
                 deliveryTag.classList.add('delivery', 'points');

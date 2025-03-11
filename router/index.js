@@ -11,8 +11,8 @@ const User = require("../model/user");
 const { Card, Category, Brands } = require("../model/home")
 
 async function dataFinder(compare) {
-    let requireModel = require(`../model/waterfilterandpurifiers`);
-    let data = await requireModel.find({ originalPrice: { $gte: compare } });
+    let requireModel = require(`../model/product`);
+    let data = await requireModel.find({ price: { $gte: compare } });
     return Array.isArray(data) ? data : [data]
 }
 

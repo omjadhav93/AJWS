@@ -63,14 +63,16 @@ const stateSelected = async (value, declick) => {
 
     if(value) {
         const districts = statesAndDist[value];
-        districts.forEach(dist => {
-            let newOption = document.createElement('span');
-            newOption.setAttribute('value', dist);
-            newOption.setAttribute('onclick', 'select(this)');
-            newOption.textContent = dist;
-            newOption.className = 'opt';
-            district.querySelector('#selectOptContainer').appendChild(newOption);
-        })
+        if (districts) {
+            districts.forEach(dist => {
+                let newOption = document.createElement('span');
+                newOption.setAttribute('value', dist);
+                newOption.setAttribute('onclick', 'select(this)');
+                newOption.textContent = dist;
+                newOption.className = 'opt';
+                district.querySelector('#selectOptContainer').appendChild(newOption);
+            });
+        }
     }
 
     if(declick){
@@ -92,6 +94,14 @@ const quantity = (x) => {
 }
 
 window.onload = async () => {
+    // Fix for address fields
+    const addressFields = document.querySelectorAll('input[type="text"], input[type="number"]');
+    addressFields.forEach(field => {
+        if (field.value) {
+            field.classList.add('has-value');
+        }
+    });
+
     const selectOps = document.querySelectorAll('.selectOptBtn');
     for(const select of selectOps){
         const selected = select.querySelector('#selected');
@@ -121,7 +131,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.querySelector('#content').click()
                 event.preventDefault(); // Prevent the form from submitting
                 form.reportValidity(); // Show the validity error messages
-            } else {
             }
         }, false);
     }
@@ -143,7 +152,16 @@ const submitDone = () => {
 
     if (selectCheck) return;
 
-    confirmPage()
+    // Check required fields
+    const requiredFields = form.querySelectorAll('[required]');
+    for (const field of requiredFields) {
+        if (!field.value.trim()) {
+            field.focus();
+            return;
+        }
+    }
+
+    confirmPage();
 }
 
 const confirmPage = () => {

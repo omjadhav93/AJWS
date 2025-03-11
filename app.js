@@ -21,7 +21,7 @@ app.set("views", "./views");
 
 app.use('/static', express.static('static'))
 app.use(express.json())
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 // Use cookie-parser middleware to parse cookies
 app.use(cookieParser());
 app.use(session({

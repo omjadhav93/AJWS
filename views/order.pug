@@ -19,28 +19,28 @@ block content
                     input.input-element(type="text", name="name", id="name", required="required", value=`${user?user.firstName+' '+user.lastName:''}`)
                     label.input-label(for="name") Receiver's Name
                 .input
-                    input.input-element(type="text", name="address-1", id="address-1", required="required", value=`${user && user.address.length?user.address[0].line1:''}`)
+                    input.input-element(type="text", name="address-1", id="address-1", required="required", value=`${user && user.address && user.address.length?user.address[0].line1:''}`)
                     label.input-label(for="address-1") Address Line 1
                 .input
-                    input.input-element(type="text", name="address-2", id="address-2", value=`${user && user.address.length?user.address[0].line1:''}`)
-                    label.input-label(for="-2") Address Line 2 (Optional)
+                    input.input-element(type="text", name="address-2", id="address-2", value=`${user && user.address && user.address.length?user.address[0].line2:''}`)
+                    label.input-label(for="address-2") Address Line 2 (Optional)
                 .input-split
                     button.selectOptBtn#state(type="button",onclick='openOption(this)')
-                        #selected.selected #{user && user.address.length?user.address[0].state:'Select State'}
+                        #selected.selected #{user && user.address && user.address.length?user.address[0].state:'Select State'}
                         <ion-icon name="arrow-forward-outline"></ion-icon>
                         #selectOptContainer.selectOptContainer.addOption
                             span.opt#default(onclick='select(this)', value="") Select State
                             span.opt(onclick='select(this)', value="Maharashtra") Maharashtra
-                    input#selectedOption(type='hidden', name='state',required="required", value=`${user && user..length?user.address[0].state:''}`)
+                    input#selectedOption(type='hidden', name='state',required="required", value=`${user && user.address && user.address.length?user.address[0].state:''}`)
                     button.selectOptBtn#district(type="button",onclick='openOption(this)')
-                        #selected.selected #{user && user..length?user.address[0].dist:'Select District'}
+                        #selected.selected #{user && user.address && user.address.length?user.address[0].dist:'Select District'}
                         <ion-icon name="arrow-forward-outline"></ion-icon>
                         #selectOptContainer.selectOptContainer.addOption
                             span.opt#default(onclick='select(this)', value="") Select District
-                    input#selectedOption(type='hidden', name='district',required="required", value=`${user && user.address.length?user.address[0].dist:''}`)
+                    input#selectedOption(type='hidden', name='district',required="required", value=`${user && user.address && user.address.length?user.address[0].dist:''}`)
                 .input-split  
                     .input
-                        input.input-element(type="number", name="pincode", id="pincode", required="required", value=`${user && user.address.length?user.address[0].pin:''}`)
+                        input.input-element(type="number", name="pincode", id="pincode", required="required", value=`${user && user.address && user.address.length?user.address[0].pin:''}`)
                         label.input-label(for="pincode") Pin-Code
                     .input
                         input.input-element(type="number", name="phone", id="phone", required="required", value=`${user?user.phone:''}`)
@@ -58,11 +58,11 @@ block content
                 .details-section 
                     .spec 
                         .spec-head Model Name
-                        .spec-tail #{item['model-name']}
-                        input(type="hidden", name="modelNo", value=item['model-number'])
+                        .spec-tail #{item.model_name}
+                        input(type="hidden", name="modelNo", value=item.model_number)
                     .spec 
                         .spec-head Brand Name
-                        .spec-tail #{item['brand-name']}
+                        .spec-tail #{item.brand_name}
                     .spec 
                         .spec-head Colour
                         .spec-tail #{color} 
@@ -73,8 +73,8 @@ block content
                             <ion-icon name="remove-circle" style="font-size: 17px;cursor: pointer;" onclick="quantity(-1)"></ion-icon>
                             input#quantity(type="number",name="quantity",value='1',style="display:inline-block;width:15px;text-align: center;border:none;outline:none;pointer-events: none;")
                             <ion-icon name="add-circle" style="font-size: 17px;cursor: pointer;" onclick="quantity(1)"></ion-icon>
-                -var price = item.originalPrice
-                -var disPrice = (item.originalPrice*item.discount)/100
+                -var price = item.price
+                -var disPrice = (item.price*item.discount)/100
                 .price-section 
                     .price-head Price Details 
                     .price-box 
