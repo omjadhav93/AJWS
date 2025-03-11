@@ -11,8 +11,9 @@ const cookieParser = require('cookie-parser');
 // Set up Global configuration access
 dotenv.config();
 
-mongoose.connect('mongodb://127.0.0.1:27017/Refresh');
+mongoose.connect('mongodb://127.0.0.1:27017/AJWS');
 let PORT = process.env.PORT || 5500;
+let HOSTNAME = 'localhost'
 let SESSION_SECRET = process.env.SESSION_SECRET
 
 // View Engine Setup
@@ -94,6 +95,6 @@ const api = require("./router/api");
 app.use('/api/', api);
 
 // Server Start
-app.listen(PORT, () => {
-    console.log(`The App Start On Port : ${PORT}`);
+app.listen(PORT, HOSTNAME, () => {
+    console.log(`The App Start On Port : http://${HOSTNAME}:${PORT}/`);
 })

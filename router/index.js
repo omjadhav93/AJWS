@@ -55,7 +55,7 @@ router.get("/", fetchCheckUser, async (req, res) => {
         let cardList = sequence(await Card.find());
         let categoryList = [] // sequence(await Category.find());
         let otherBrandList = [] // sequence(await Brands.find());
-        if (user) {
+	if (user) {
             if (user.seller) {
                 res.render("indexAdmin.pug", { LoggedIn: 1, Seller: user.seller, cardList, categoryList, otherBrandList })
             } else {
