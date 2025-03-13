@@ -244,4 +244,100 @@ router.post('/product/unavailable', fetchUser, async (req, res) => {
     }
 })
 
+router.get('/edit-product/:model_number', fetchUser, async (req, res) => {
+    let userId = req.user.id;
+    const user = await User.findById(userId).select('-password');
+    try {
+        if (!user) {
+            res.clearCookie('authtoken');
+            req.session.returnTo = req.originalUrl;
+            return res.redirect("/login");
+        }
+        
+        const modelNumber = req.params.model_number;
+        const product = await Product.findOne({ model_number: modelNumber });
+        
+        if (!product) {
+            return res.status(404).send("Product not found");
+        }
+        
+        if (product.seller_id.toString() !== userId) {
+            return res.status(403).send("You are not authorized to edit this product");
+        }
+        
+        // Fetch product details based on product type
+        let productDetails;
+        if (product.product_type === "Water Filter and Purifiers") {
+            productDetails = await WaterFilter.findById(product.product_details);
+        } else if (product.product_type === "Water Filter Cabinet") {
+            productDetails = await WaterFilterCabinet.findById(product.product_details);
+        }
+        
+        const brands = await Brand.find().select('id name');
+        
+        res.render("editProduct", { 
+            LoggedIn: 1, 
+            Seller: user.seller, 
+            product, 
+            productDetails,
+            brands 
+        });
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+router.post("/edit-product/:model_number", fetchUser, async (req, res) => {
+    let userId = req.user.id;
+    const user = await User.findById(userId).select('-password');
+    try {
+        if (!user) {
+            req.session.returnTo = req.originalUrl;
+            return res.redirect("/login");
+        }
+
+        const modelNumber = req.params.model_number;
+        const product = await Product.findOne({ model_number: modelNumber });
+        
+        if (!product) {
+            return res.status(404).send("Product not found");
+        }
+        
+        if (product.seller_id.toString() !== userId) {
+            return res.status(403).send("You are not authorized to edit this product");
+        }
+
+        // Extract editable fields from request body
+        const { model_name, brand_name, material, price, discount } = req.body;
+        
+        // Update product fields
+        product.model_name = model_name;
+        product.brand_name = brand_name;
+        product.material = material;
+        product.price = price;
+        product.discount = discount;
+        
+        await product.save();
+        
+        // Update product details based on product type
+        if (product.product_type === "Water Filter and Purifiers") {
+            const { filtration_stages } = req.body;
+            await WaterFilter.findByIdAndUpdate(product.product_details, { 
+                filtration_stages 
+            });
+        } else if (product.product_type === "Water Filter Cabinet") {
+            const { tank_capacity } = req.body;
+            await WaterFilterCabinet.findByIdAndUpdate(product.product_details, { 
+                tank_capacity 
+            });
+        }
+
+        res.redirect("/user/profile");
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
 module.exports = router;

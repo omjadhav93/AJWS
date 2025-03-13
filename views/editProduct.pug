@@ -1,0 +1,72 @@
+extends base.pug
+block style
+        include ../static/css/addProduct.css
+        include ../static/css/selectElement.css
+        include ../static/css/input.css
+block title 
+    title AJkart | Edit-Product
+block content 
+    form(action=`/user/edit-product/${product.model_number}`,method="post",id="editProductForm")
+        .section-1
+            fieldset.about-the-product.basic-container.same-height
+                <legend>Product Info</legend>
+                .que-box
+                    p.que 
+                        | Model Name
+                        ion-icon(name="information-circle-outline", onclick="iButton(this,`A model name is the name give to the particular design by the manufacturing company.`)")
+                    input.text-input(type="text",name="model_name",id="model-name",placeholder="Ex.. Aqua Pure", value=product.model_name)
+                .que-box
+                    p.que 
+                        | Brand Name 
+                    button.selectOptBtn#brand-name(type="button",onclick='openOption(this)',style="display: flex;flex-direction: row; column-gap: 10px;")
+                      #selected.selected #{product.brand_name}
+                      <ion-icon name="arrow-forward-outline"></ion-icon>
+                      #selectOptContainer.selectOptContainer.addOption
+                          each brand in brands
+                            span.opt(onclick='select(this)', value=brand.name, class=brand.name === product.brand_name ? 'selected-opt' : '') #{brand.name}
+                    input.selectedOption#brand-name-input(type='hidden', name='brand_name', value=product.brand_name, required="required")
+                .que-box
+                    p.que Which material is used in your product body?
+                    .radio-section
+                        <input type="radio" class="radio" name="material" value="Metal" id="body-type-metal" required #{product.material === 'Metal' ? 'checked' : ''}/>
+                        <label class="radio-label" for="body-type-metal">Metal</label><br/>
+                        <input type="radio" class="radio" name="material" value="Plastic" id="body-type-plastic" required #{product.material === 'Plastic' ? 'checked' : ''}/>
+                        <label class="radio-label" for="body-type-plastic">Plastic</label><br/>
+            
+            fieldset.price-section.basic-container.same-height
+                <legend>Price Setup</legend>
+                .que-box 
+                    p.que 
+                        | Price (In Rupees)
+                        ion-icon(name="information-circle-outline", onclick="iButton(this,`Add general price of this product in current market.`)")
+                    input.text-input#price-value(type="number", name="price",placeholder="Ex.. 8000",required="required", value=product.price)
+                .que-box 
+                    p.que Discount (In Percentage)
+                    input.text-input#discount(type="number", name="discount",placeholder="Ex.. 20",onchange="discountChange()",required="required", value=product.discount)
+                .que-box.final-price 
+                    p.que Final price (In Rupees)
+                    p#final-price-count #{product.price - (product.price * product.discount / 100)} Rs
+            
+            if product.product_type === "Water Filter and Purifiers"
+                fieldset.extra-questions.basic-container
+                    <legend>Product Details</legend>
+                    .que-box
+                        p.que No. of Stages in purification process. </p>
+                        .radio-section
+                            input.text-input(type="number", min="0", name="filtration_stages", class="text-input", id="filtration-stages-count", required="required", value=productDetails.filtration_stages)
+                            label  Stage Purification
+            
+            if product.product_type === "Water Filter Cabinet"
+                fieldset.extra-questions.basic-container
+                    <legend>Product Details</legend>
+                    .que-box
+                        p.que What is the tank capacity ?</p>
+                        input.text-input(type="number", min="0", name="tank_capacity", id="tank-capacity", class="text-input", placeholder="Measured in liters", required="required", value=productDetails.tank_capacity)
+        
+        .actionBtns 
+            button.actionBtn.saveBtn(type="submit") Save Changes
+            a.actionBtn.nextBtn(href="/user/profile") Cancel
+
+block scripts 
+    script(src="/static/js/input.js") 
+    script(src="/static/js/editProduct.js") 

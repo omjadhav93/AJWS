@@ -160,7 +160,6 @@ const otpGeneration = async (type) => {
     })
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             if (data.success) {
                 otpForm(formData.email, type);
             } else {
