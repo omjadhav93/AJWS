@@ -1,26 +1,26 @@
-const nodemailer = require('nodemailer')
+const nodemailer = require('nodemailer');
 
-module.exports.sendingMail = async({from, to, subject, text}) =>{
-
+module.exports.sendingMail = async ({ from, to, subject, text }) => {
   try {
-    let mailOptions = ({
+    const transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 587, // Use 465 for SSL
+      secure: false, // false for TLS
+      auth: {
+        user: process.env.EMAIL,
+        pass: process.env.EMAIL_PASSWORD,
+      },
+    });
+
+    const mailOptions = {
       from,
       to,
       subject,
       text
-  })
+    };
 
-  const Transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.email,
-        pass: process.env.emailpassword,
-      },
-    });
-
-    return await Transporter.sendMail(mailOptions) 
+    return await transporter.sendMail(mailOptions);
   } catch (error) {
-    console.log(error)
+    console.error("Email sending error:", error);
   }
-    
-}
+};
