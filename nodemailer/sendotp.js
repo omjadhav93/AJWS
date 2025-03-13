@@ -21,7 +21,7 @@ const SendOTP = async (user) => {
 
     // Sending Email
     sendingMail({
-        from: process.env.email,
+        from: process.env.Email,
         to: `${user.email}`,
         subject: "OTP For Email Verification",
         text: `Hello ${user.firstName},
