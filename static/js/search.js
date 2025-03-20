@@ -83,3 +83,7 @@ const openProduct = (e) => {
     const modelNo = e.getElementsByClassName('model-number')[0].textContent
     window.location.href = `/product?modelNo=${modelNo}`
 }
+
+/* Loading Animation Ends */
+document.getElementById('loading').style.display = 'none';
+document.body.style.overflowY = 'auto';

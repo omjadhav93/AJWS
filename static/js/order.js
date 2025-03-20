@@ -33,8 +33,8 @@ const select = (e) => {
     target.querySelector('#selected').innerText = text;
     target.nextElementSibling.value = value;
 
-    if(target.getAttribute('id') == 'state') {
-        stateSelected(value,true);
+    if (target.getAttribute('id') == 'state') {
+        stateSelected(value, true);
     }
 }
 
@@ -50,7 +50,7 @@ window.addEventListener('click', function (e) {
 /* Setting options for district as per state. */
 
 const statesAndDist = {
-    'Maharashtra': ['Ahmednagar','Sambhajinagar','Mumbai','Pune','Thane']
+    'Maharashtra': ['Ahmednagar', 'Sambhajinagar', 'Mumbai', 'Pune', 'Thane']
 }
 
 const stateSelected = async (value, declick) => {
@@ -61,7 +61,7 @@ const stateSelected = async (value, declick) => {
         opt.remove();
     })
 
-    if(value) {
+    if (value) {
         const districts = statesAndDist[value];
         if (districts) {
             districts.forEach(dist => {
@@ -75,7 +75,7 @@ const stateSelected = async (value, declick) => {
         }
     }
 
-    if(declick){
+    if (declick) {
         district.querySelector('#default').dispatchEvent(new Event('click'));
     }
 }
@@ -103,7 +103,7 @@ window.onload = async () => {
     });
 
     const selectOps = document.querySelectorAll('.selectOptBtn');
-    for(const select of selectOps){
+    for (const select of selectOps) {
         const selected = select.querySelector('#selected');
         const opts = select.querySelectorAll('.opt');
         let check = true;
@@ -115,8 +115,8 @@ window.onload = async () => {
         if (check) {
             select.querySelector('#default').click();
             select.querySelector('#default').click();
-        }else if(select.getAttribute('id') == 'state') {
-            await stateSelected(selected.textContent.trim(),false);
+        } else if (select.getAttribute('id') == 'state') {
+            await stateSelected(selected.textContent.trim(), false);
         }
     }
 }
@@ -134,6 +134,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }, false);
     }
+    /* Loading Animation Ends */
+    document.getElementById('loading').style.display = 'none';
+    document.body.style.overflowY = 'auto';
 });
 
 const submitDone = () => {
@@ -142,7 +145,7 @@ const submitDone = () => {
 
     const selects = document.querySelectorAll('input[type="hidden"]');
     let selectCheck = false;
-    for(const select of selects) {
+    for (const select of selects) {
         if (!select.value && select.value.length == 0) {
             alert(`Please select your ${select.getAttribute('name').toUpperCase()} .`);
             selectCheck = true;
@@ -217,6 +220,6 @@ const closeConfirm = (e) => {
 
 function submitForm() {
     const form = document.getElementById('orderForm');
-    form.requestSubmit(); 
+    form.requestSubmit();
     form.dispatchEvent(new Event('submit')); // Manually trigger the submit event
 }

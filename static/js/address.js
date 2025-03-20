@@ -139,3 +139,7 @@ const submitDone = async () => {
 
   form.requestSubmit();
 }
+
+/* Loading Animation Ends */
+document.getElementById('loading').style.display = 'none';
+document.body.style.overflowY = 'auto';

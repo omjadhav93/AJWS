@@ -1,3 +1,7 @@
+/* Loading Animation Ends */
+document.getElementById('loading').style.display = 'none';
+document.body.style.overflowY = 'auto';
+
 const addBrandForm = (edit) => {
     const confBkg = document.createElement('div')
     confBkg.classList.add('form-background');

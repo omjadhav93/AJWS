@@ -219,6 +219,10 @@ const closeEdit = (e) => {
     }
 }
 
+/* Loading Animation Ends */
+document.getElementById('loading').style.display = 'none';
+document.body.style.overflowY = 'auto';
+
 document.addEventListener('DOMContentLoaded', () => {
     fetch('/api/seller/products') 
         .then(response => response.json())

@@ -67,7 +67,7 @@ async function FreqPurchasedListFinder() {
         const imageArr = item.image;
         const imageLocArr = Object.values(imageArr[0])[0];
         finalData.push({
-            'model-number': item['model-number'],
+            model_number: item.model_number,
             image: imageLocArr[0],
         })
     })
@@ -125,7 +125,7 @@ async function lessPriceListFinder() {
         const imageArr = item.image;
         const imageLocArr = Object.values(imageArr[0])[0];
         finalData.push({
-            'model-number': item['model-number'],
+            model_number: item.model_number,
             image: imageLocArr[0],
         })
     })
@@ -187,7 +187,7 @@ async function TopInDesignsListFinder() {
         const imageArr = item.image;
         const imageLocArr = Object.values(imageArr[0])[0];
         finalData.push({
-            'model-number': item['model-number'],
+            model_number: item.model_number,
             image: imageLocArr[0],
         })
     })

@@ -165,4 +165,8 @@ document.addEventListener('DOMContentLoaded', () => {
             imgPtr = 0;
         }
     }, 3000)
+    
+    /* Loading Animation Ends */
+    document.getElementById('loading').style.display = 'none';
+    document.body.style.overflowY = 'auto';
 })

@@ -182,3 +182,7 @@ const otpGeneration = async (type) => {
         })
         .catch(error => alert(`Error: ${error}`));
 };
+
+/* Loading Animation Ends */
+document.getElementById('loading').style.display = 'none';
+document.body.style.overflowY = 'auto';

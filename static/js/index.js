@@ -37,6 +37,10 @@ const observer = new IntersectionObserver(el => {
 const achieveList = document.getElementById('achieve-list')
 observer.observe(achieveList)
 
+/* Loading Animation Ends */
+document.getElementById('loading').style.display = 'none';
+document.body.style.overflowY = 'auto';
+
 
 // Fetching products
 // Function to fetch products from the server
@@ -56,7 +60,7 @@ function fetchProducts(sectionId) {
                 imageDiv.src = `/static/productImg/${product.image}`;
                 const productElement = document.createElement('div');
                 productElement.classList.add('product-box');
-                productElement.setAttribute('onclick',`window.location.href= '/product?modelNo=${product['model-number']}'`)
+                productElement.setAttribute('onclick',`window.location.href= '/product?modelNo=${product.model_number}'`)
                 productElement.appendChild(imageDiv);
                 productsDiv.appendChild(productElement);
             });

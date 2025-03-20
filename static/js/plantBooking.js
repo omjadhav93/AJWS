@@ -38,4 +38,8 @@ window.onload = () => {
     // Clear query parameters from the URL
     const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
     window.history.replaceState({ path: newUrl }, '', newUrl);
+
+    /* Loading Animation Ends */
+    document.getElementById('loading').style.display = 'none';
+    document.body.style.overflowY = 'auto';
 }

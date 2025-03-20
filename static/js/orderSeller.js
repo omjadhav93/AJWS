@@ -195,4 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
             actionTag.innerHTML = getActionBtn(orderStage, orderId);
         }
     })
+    /* Loading Animation Ends */
+    document.getElementById('loading').style.display = 'none';
+    document.body.style.overflowY = 'auto';
 });

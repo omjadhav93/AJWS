@@ -44,8 +44,5 @@ window.onload = () => {
     setTimeout(() => {
         clearInterval(repairAnimate);
     }, 30000);
-
-    document.getElementById('loading').style.display = 'none';
-    document.body.style.overflowY = 'auto';
 }
 

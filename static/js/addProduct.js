@@ -12,6 +12,10 @@ sameHeight.forEach((element, i) => {
     element.style.height = maxHeight + 'px';
 });
 
+/* Loading Animation Ends */
+document.getElementById('loading').style.display = 'none';
+document.body.style.overflowY = 'auto';
+
 /* Setting options for product type and product */
 const category = {
     'Home and Kitchen Appliances': ['Water Filter and Purifiers', 'Water Filter Cabinet'],

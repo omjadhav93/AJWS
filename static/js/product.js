@@ -188,3 +188,7 @@ const removeLike = () => {
     })
     .catch(error => console.error('Error adding favourite:', error));
 }
+
+/* Loading Animation Ends */
+document.getElementById('loading').style.display = 'none';
+document.body.style.overflowY = 'auto';

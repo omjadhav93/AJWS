@@ -19,14 +19,14 @@ const markReviewed = (id) => {
 
 const msgBox = document.querySelector('.msg');
 
-if(msgBox){
+if (msgBox) {
     setTimeout(() => {
         msgBox.style.transform = 'translateX(-50%) scale(1)';
         const endMsg = setTimeout(() => {
             msgBox.style.transform = 'translateX(-50%) scale(0)';
         }, 10000)
         window.addEventListener("click", (e) => {
-            if(!msgBox.contains(e.target)){
+            if (!msgBox.contains(e.target)) {
                 msgBox.style.transform = 'translateX(-50%) scale(0)';
                 clearTimeout(endMsg);
             }
@@ -49,4 +49,7 @@ window.onload = () => {
     // Clear query parameters from the URL
     const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
     window.history.replaceState({ path: newUrl }, '', newUrl);
+    /* Loading Animation Ends */
+    document.getElementById('loading').style.display = 'none';
+    document.body.style.overflowY = 'auto';
 }

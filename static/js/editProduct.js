@@ -14,7 +14,7 @@ sameHeight.forEach((element, i) => {
 
 /* i button text */
 const iButton = (e, text) => {
-    if(e.parentElement.querySelector('.iBox')){
+    if (e.parentElement.querySelector('.iBox')) {
         e.parentElement.querySelector('.iBox').remove();
         return;
     }
@@ -47,8 +47,8 @@ window.addEventListener('click', function (e) {
 
     const iBoxes = document.querySelectorAll('.iBox');
     iBoxes.forEach(box => {
-        if(!box.contains(e.target) && !box.previousElementSibling.contains(e.target)){
-            iButton(box.previousElementSibling,'');
+        if (!box.contains(e.target) && !box.previousElementSibling.contains(e.target)) {
+            iButton(box.previousElementSibling, '');
         }
     })
 });
@@ -83,4 +83,7 @@ const discountChange = () => {
 // Initialize discount calculation on page load
 window.addEventListener('DOMContentLoaded', () => {
     discountChange();
+    /* Loading Animation Ends */
+    document.getElementById('loading').style.display = 'none';
+    document.body.style.overflowY = 'auto';
 }); 

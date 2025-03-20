@@ -222,6 +222,10 @@ const closeEdit = (e) => {
     }
 }
 
+/* Loading Animation Ends */
+document.getElementById('loading').style.display = 'none';
+document.body.style.overflowY = 'auto';
+
 // Fetching products
 // Function to fetch products from the server
 function fetchFavourites() {

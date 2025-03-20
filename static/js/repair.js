@@ -158,6 +158,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }, false);
     }
+    /* Loading Animation Ends */
+    document.getElementById('loading').style.display = 'none';
+    document.body.style.overflowY = 'auto';
 });
 
 const submitDone = () => {
