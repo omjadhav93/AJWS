@@ -221,8 +221,9 @@ input[type="checkbox"] {
     font-weight: 600;
 }
 
-.confirm-head-box>ion-icon {
-    font-size: 19px;
+.confirm-head-box>svg {
+    width: 20px;
+    height: 20px;
     cursor: pointer;
 }
 

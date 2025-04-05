@@ -222,6 +222,7 @@ router.get('/order/seller', fetchUser, async (req, res) => {
     }
 
     const orders = await Order.find().sort({ orderDate: -1 }).exec();
+    console.log(orders)
 
     res.status(200).render('orderSeller', { LoggedIn: 1, Seller: user.seller, orders: orders });
   } catch (error) {

@@ -38,10 +38,13 @@
     padding-left: 30%;
     color: rgb(111, 102, 102);
     cursor: pointer;
+    column-gap: 10px;
 }
 
-.profile-menu-item>ion-icon {
-    font-size: 18px;
+.profile-menu-item>svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
 }
 
 .profile-menu-item:hover {
@@ -62,6 +65,8 @@
     background: none;
     color: red;
     display: flex;
+    align-items: center;
+    column-gap: 10px;
     font-size: 16px;
     font-weight: 600;
     font-family: sans-serif;
@@ -76,13 +81,10 @@
     color: rgb(28, 28, 28);
 }
 
-.logout-btn>ion-icon {
-    -moz-transform: scale(-1);
-    -webkit-transform: scale(-1);
-    -o-transform: scale(-1);
-    -ms-transform: scale(-1);
-    transform: scale(-1);
-    font-size: 18px;
+.logout-btn>svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
 }
 
 .profile-content {
@@ -125,13 +127,17 @@
 }
 
 .user-logo {
-    font-size: 55px;
-    color: black;
     background: linear-gradient(to right, rgb(255, 188, 143), rgb(255, 118, 27));
     border-radius: 50%;
     padding: 20px;
     overflow: hidden;
     box-shadow: 3px 10px 15px rgba(0, 0, 0, 0.199);
+
+    &>svg {
+        width: 55px;
+        height: 55px;
+        fill: black;
+    }
 }
 
 .user-detail {
@@ -358,19 +364,26 @@
 
 .rating {
     margin-top: 5px;
+    display: flex;
+    column-gap: 5px;
 }
 
-.rating ion-icon {
-    color: rgb(33, 200, 24);
-}
-
-.search-content p ion-icon {
-    font-size: 20px;
-    vertical-align: bottom;
+.rating svg {
+    width: 20px;
+    height: 20px;
+    fill: #FDCC0D;
 }
 
 .points {
+    display: flex;
+    column-gap: 5px;
+    align-items: center;
     margin-top: 2px;
+}
+
+.points svg {
+    width: 16px;
+    height: 16px;
 }
 
 .order-menu,
@@ -737,10 +750,6 @@ label[for="keyword"] {
         font-size: 22px;
     }
 
-    .search-content p ion-icon {
-        font-size: 17px;
-    }
-
     .rating {
         margin-top: 2px;
     }
@@ -776,11 +785,6 @@ label[for="keyword"] {
 @media screen and (max-width: 1420px) {
     .heading {
         font-size: 20px;
-    }
-
-    .search-content p ion-icon {
-        font-size: 15px;
-        vertical-align: baseline;
     }
 
     .points>span {
@@ -862,11 +866,6 @@ label[for="keyword"] {
 
     .search-item {
         height: 17vw;
-    }
-
-    .search-content p ion-icon {
-        font-size: 15px;
-        vertical-align: bottom;
     }
 
     .points>span {
@@ -989,7 +988,7 @@ label[for="keyword"] {
         padding: 45px 60px;
     }
 
-    #brands-list{
+    #brands-list {
         column-gap: 15px;
         justify-content: center;
     }
@@ -1113,8 +1112,9 @@ label[for="keyword"] {
         padding-left: 14%;
     }
 
-    .profile-menu-item>ion-icon {
-        font-size: 16px;
+    .profile-menu-item>svg {
+        width: 18px;
+        height: 18px;
     }
 
     .profile-heading {
@@ -1144,8 +1144,12 @@ label[for="keyword"] {
     }
 
     .user-logo {
-        font-size: 40px;
         box-shadow: 2px 5px 8px rgba(0, 0, 0, 0.199);
+
+        &>svg {
+            width: 40px;
+            height: 40px;
+        }
     }
 
     .user-top {
@@ -1204,11 +1208,6 @@ label[for="keyword"] {
         font-size: 16px;
     }
 
-    .search-content p ion-icon {
-        font-size: 13px;
-        vertical-align: middle;
-    }
-
     .rating {
         margin-top: 0;
     }
@@ -1238,7 +1237,7 @@ label[for="keyword"] {
         padding: 30px 40px;
     }
 
-    #brands-list{
+    #brands-list {
         row-gap: 15px;
         column-gap: 9px;
     }
@@ -1274,19 +1273,23 @@ label[for="keyword"] {
     .profile-menu-item {
         font-size: 12px;
         padding-left: 13%;
+        column-gap: 7px;
     }
 
-    .profile-menu-item>ion-icon {
-        font-size: 14px;
+    .profile-menu-item>svg {
+        width: 16px;
+        height: 16px;
     }
 
     .logout-btn {
         padding-left: 0%;
         font-size: 13px;
+        column-gap: 7px;
     }
 
-    .logout-btn>ion-icon {
-        font-size: 15px;
+    .logout-btn>svg {
+        width: 17px;
+        height: 17px;
     }
 
     .user-info,
@@ -1300,8 +1303,12 @@ label[for="keyword"] {
     }
 
     .user-logo {
-        font-size: 30px;
         padding: 18px;
+
+        &>svg {
+            width: 25px;
+            height: 25px;
+        }
     }
 
     .user-top {
@@ -1572,19 +1579,23 @@ label[for="keyword"] {
 
     .profile-menu-item {
         font-size: 10px;
+        column-gap: 5px;
     }
 
-    .profile-menu-item>ion-icon {
-        font-size: 12px;
+    .profile-menu-item>svg {
+        width: 14px;
+        height: 14px;
     }
 
     .logout-btn {
         top: 65%;
         font-size: 11px;
+        column-gap: 5px;
     }
 
-    .logout-btn>ion-icon {
-        font-size: 13px;
+    .logout-btn>svg {
+        width: 15px;
+        height: 15px;
     }
 
     .profile-heading {
@@ -1606,8 +1617,12 @@ label[for="keyword"] {
     }
 
     .user-logo {
-        font-size: 25px;
         padding: 13px;
+
+        &>svg {
+            width: 30px;
+            height: 30px;
+        }
     }
 
     .user-top {
@@ -1669,7 +1684,8 @@ label[for="keyword"] {
         row-gap: 7px;
     }
 
-    .password-heading, .confirmForm-heading {
+    .password-heading,
+    .confirmForm-heading {
         font-size: 15px;
     }
 }
@@ -1720,7 +1736,8 @@ label[for="keyword"] {
         padding-top: 0;
     }
 
-    .password-heading, .confirmForm-heading {
+    .password-heading,
+    .confirmForm-heading {
         font-size: 14px;
     }
 }
@@ -1742,17 +1759,21 @@ label[for="keyword"] {
     }
 
     .profile-menu-item {
-        width: 28px;
-        display: inline-block;
+        width: max-content;
+        display: flex;
+        align-items: center;
         vertical-align: middle;
-        white-space: nowrap;
-        overflow: hidden;
         font-size: 12px;
-    }
 
-    .profile-menu-item>ion-icon {
-        font-size: 15px;
-        margin-bottom: 2px;
+        &>svg {
+            width: 16px;
+            height: 16px;
+            margin-bottom: 2px;
+        }
+
+        &>span {
+            display: none;
+        }
     }
 
     .profile-menu-item.highlight {
@@ -1760,6 +1781,10 @@ label[for="keyword"] {
         display: flex;
         border-right: none;
         border-bottom: 2px solid rgb(241, 37, 37);
+
+        &>span {
+            display: block;
+        }
     }
 
     .logout-btn {
@@ -1767,8 +1792,9 @@ label[for="keyword"] {
         font-size: 12px;
     }
 
-    .logout-btn>ion-icon {
-        font-size: 14px;
+    .logout-btn>svg {
+        width: 16px;
+        height: 16px;
     }
 
     .fav-heading {
@@ -1842,7 +1868,8 @@ label[for="keyword"] {
         box-shadow: 0.5px 0.15px 2px black;
     }
 
-    .password-heading, .confirmForm-heading {
+    .password-heading,
+    .confirmForm-heading {
         font-size: 13px;
     }
 
@@ -1886,8 +1913,12 @@ label[for="keyword"] {
     }
 
     .user-logo {
-        font-size: 22px;
         padding: 11px;
+
+        &>svg {
+            width: 25px;
+            height: 25px;
+        }
     }
 
     .user-top {
@@ -1929,8 +1960,9 @@ label[for="keyword"] {
         font-size: 11px;
     }
 
-    .profile-menu-item>ion-icon {
-        font-size: 14px;
+    .profile-menu-item>svg {
+        width: 15px;
+        height: 15px;
     }
 
     .profile-menu-list {
@@ -1978,7 +2010,8 @@ label[for="keyword"] {
         margin-left: 5px;
     }
 
-    .password-heading, .confirmForm-heading {
+    .password-heading,
+    .confirmForm-heading {
         font-size: 12px;
     }
 
@@ -2050,14 +2083,15 @@ label[for="keyword"] {
         left: 17px;
     }
 
-    .input-element:focus+.input-label, .input-element.has-content+.input-label {
+    .input-element:focus+.input-label,
+    .input-element.has-content+.input-label {
         top: 27%;
         font-size: 11px;
     }
 }
 
 @media screen and (max-width: 720px) {
-    .input-element{
+    .input-element {
         font-size: 13px;
     }
 
@@ -2066,7 +2100,8 @@ label[for="keyword"] {
         font-size: 13px;
     }
 
-    .input-element:focus+.input-label, .input-element.has-content+.input-label {
+    .input-element:focus+.input-label,
+    .input-element.has-content+.input-label {
         top: 27%;
         font-size: 10px;
     }
@@ -2087,13 +2122,14 @@ label[for="keyword"] {
         top: 52%;
     }
 
-    .input-element:focus+.input-label, .input-element.has-content+.input-label {
+    .input-element:focus+.input-label,
+    .input-element.has-content+.input-label {
         top: 26%;
         font-size: 8px;
         left: 11px;
     }
 
-    .save-btn{
+    .save-btn {
         font-size: 0.75em;
         padding: 7px 17px;
     }
@@ -2136,7 +2172,8 @@ label[for="keyword"] {
         left: 8px;
     }
 
-    .input-element:focus+.input-label, .input-element.has-content+.input-label {
+    .input-element:focus+.input-label,
+    .input-element.has-content+.input-label {
         top: 30%;
         font-size: 7px;
         left: 9px;

@@ -35,17 +35,10 @@
     font-size: 16px;
 }
 
-.exit-icon {
-    -moz-transform: scale(-1);
-    -webkit-transform: scale(-1);
-    -o-transform: scale(-1);
-    -ms-transform: scale(-1);
-    transform: scale(-1);
-}
-
-.exit-icon>ion-icon {
-    font-size: 18px;
-    color: black;
+.exit-icon>svg {
+    width: 20px;
+    height: 20px;
+    fill: black;
 
 }
 
@@ -250,6 +243,13 @@
     padding-top: 16.5px;
     padding-right: 10px;
     padding-bottom: 16.5px;
+
+    & svg{
+        width: 20px;
+        height: 20px;
+        stroke: currentColor;
+        stroke-width: 0.4px;
+    }
 }
 
 .opt {
@@ -340,8 +340,9 @@ input[type=number]::-webkit-outer-spin-button {
     font-weight: 600;
 }
 
-.confirm-head-box>ion-icon {
-    font-size: 19px;
+.confirm-head-box>svg {
+    width: 20px;
+    height: 20px;
     cursor: pointer;
 }
 
@@ -470,8 +471,9 @@ input[type=number]::-webkit-outer-spin-button {
         font-size: 14px;
     }
 
-    .exit-icon>ion-icon {
-        font-size: 16px;
+    .exit-icon>svg {
+        width: 18px;
+        height: 18px;
     }
 
     .shipping-heading {
@@ -509,6 +511,13 @@ input[type=number]::-webkit-outer-spin-button {
         padding-top: 13px;
         padding-right: 10px;
         padding-bottom: 12px;
+
+        & svg{
+            width: 15px;
+            height: 15px;
+            stroke: currentColor;
+            stroke-width: 0.3px;
+        }
     }
 
     #save-address {
@@ -589,8 +598,9 @@ input[type=number]::-webkit-outer-spin-button {
         font-size: 15px;
     }
 
-    .confirm-head-box>ion-icon {
-        font-size: 17px;
+    .confirm-head-box>svg {
+        width: 18px;
+        height: 18px;
     }
 
     .confirm-statement {

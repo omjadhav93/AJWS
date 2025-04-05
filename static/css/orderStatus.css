@@ -196,8 +196,9 @@
     font-weight: 600;
 }
 
-.confirm-head-box>ion-icon {
-    font-size: 19px;
+.confirm-head-box>svg {
+    width: 20px;
+    height: 20px;
     cursor: pointer;
 }
 
@@ -216,6 +217,13 @@
     font-weight: 600;
     color: rgb(3, 100, 3);
     text-align: center;
+
+    & svg{
+        width: 20px;
+        height: 20px;
+        fill: currentColor;
+        vertical-align: middle;
+    }
 }
 
 .yes-no-btn {
@@ -505,8 +513,9 @@ textarea {
         font-size: 16px;
     }
 
-    .confirm-head-box>ion-icon {
-        font-size: 17px;
+    .confirm-head-box>svg {
+        width: 18px;
+        height: 18px;
     }
 
     .confirm-bottom-box {
@@ -516,6 +525,11 @@ textarea {
 
     .confirm-statement, label {
         font-size: 15px;
+    }
+
+    .confirm-statement svg{
+        width: 17px;
+        height: 17px;
     }
 
     select, textarea {
@@ -555,6 +569,11 @@ textarea {
 
     .confirm-statement, label {
         font-size: 14px;
+    }
+
+    .confirm-statement svg{
+        width: 16px;
+        height: 16px;
     }
 
     select, textarea {
@@ -617,8 +636,9 @@ textarea {
         font-size: 14.5px;
     }
 
-    .confirm-head-box>ion-icon {
-        font-size: 15.5px;
+    .confirm-head-box>svg {
+        width: 16px;
+        height: 16px;
     }
 
     .confirm-bottom-box {
@@ -628,6 +648,11 @@ textarea {
 
     .confirm-statement, label {
         font-size: 13px;
+    }
+
+    .confirm-statement svg{
+        width: 15px;
+        height: 15px;
     }
 
     select, textarea {
@@ -680,8 +705,9 @@ textarea {
         font-size: 13px;
     }
 
-    .confirm-head-box>ion-icon {
-        font-size: 15px;
+    .confirm-head-box>svg {
+        width: 15.5px;
+        height: 15.5px;
     }
 
     .confirm-bottom-box {
@@ -691,6 +717,11 @@ textarea {
 
     .confirm-statement, label {
         font-size: 11.5px;
+    }
+
+    .confirm-statement>svg{
+        width: 13px;
+        height: 13x;
     }
 
     select, textarea {

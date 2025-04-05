@@ -532,7 +532,7 @@ header {
     font-weight: 600;
 }
 
-.service-btn:hover{
+.service-btn:hover {
     cursor: pointer;
 }
 
@@ -611,7 +611,7 @@ header {
     right: 0;
     bottom: 100%;
     display: flex;
-    vertical-align: middle;
+    align-items: center;
 }
 
 .edit:hover {
@@ -620,10 +620,6 @@ header {
 
 .edit:active {
     background-color: aqua;
-}
-
-.edit>ion-icon {
-    font-size: 16px;
 }
 
 .change-op,
@@ -1032,13 +1028,13 @@ header {
         padding: 6px 10px;
     }
 
-    .products-list{
+    .products-list {
         margin: 12px 10px 10px 10px;
         aspect-ratio: 5.8;
         column-gap: 5px;
     }
 
-    .product-box{
+    .product-box {
         padding: 0;
     }
 }
@@ -1066,6 +1062,15 @@ header {
         left: 0;
         transform: translateX(0);
         font-size: 0.75rem;
+    }
+
+    .edit {
+        font-size: 12px;
+
+        &>svg {
+            width: 14px;
+            height: 14px;
+        }
     }
 }
 
@@ -1214,6 +1219,19 @@ header {
     .service {
         width: 70%;
     }
+
+    .edit {
+        padding: 2px 4px;
+    }
+
+    .edit {
+        font-size: 10px;
+
+        &>svg {
+            width: 11px;
+            height: 11px;
+        }
+    }
 }
 
 @media screen and (max-width: 550px) {
@@ -1339,11 +1357,12 @@ header {
 
     .edit {
         padding: 3px 7px;
-        font-size: 12px;
-    }
+        font-size: 9px;
 
-    .edit>ion-icon {
-        font-size: 12px;
+        &>svg {
+            width: 9px;
+            height: 9px;
+        }
     }
 }
 
@@ -1563,5 +1582,14 @@ header {
     .brands {
         padding: 0 5px;
         column-gap: 10px;
+    }
+
+    .edit {
+        font-size: 8px;
+
+        &>svg {
+            width: 8px;
+            height: 8px;
+        }
     }
 }

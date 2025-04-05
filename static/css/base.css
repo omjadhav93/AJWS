@@ -35,7 +35,7 @@ main {
     left: 0;
     width: 100vw;
     height: 90vh;
-    background: url('static/img/loader.gif') no-repeat center 40%;
+    background: url('/static/img/loader.gif') no-repeat center 40%;
     background-size: 40%;
     background-color: white;
 }
@@ -64,16 +64,16 @@ nav a {
     color: rgb(212, 230, 225);
     font-weight: 600;
     font-size: 20px;
-    column-gap: 2px;
+    column-gap: 3px;
     align-items: center;
     font-family: "Agbalumo";
 }
 
 .repair-icon,
-.cart-icon,
-.profile-icon {
-    font-size: 25px;
-    color: rgb(212, 230, 225);
+.cart-icon {
+    width: 22px;
+    height: 22px;
+    fill: rgb(212, 230, 225);
 }
 
 .search-box {
@@ -104,6 +104,10 @@ nav a {
 
 .profile-icon {
     border: 2px solid white;
+    padding: 2px;
+    width: 28px;
+    height: 28px;
+    fill: rgb(212, 230, 225);
     border-radius: 50%;
     background: none;
     cursor: pointer;
@@ -160,8 +164,14 @@ navbar {
     border: none;
     outline: none;
     background: none;
-    font-size: 32px;
     padding: 0px 7px;
+
+    &>svg{
+        width: 30px;
+        height: 30px;
+        stroke: black;
+        stroke-width: 1px;
+    }
 }
 
 #menu-btn:hover {
@@ -311,14 +321,16 @@ navbar {
     bottom: 4vh;
     right: 4vh;
     z-index: 10;
+
+    &>svg{
+        width: 30px;
+        height: 30px;
+        fill: black;
+    }
 }
 
 .repair-btn.animate {
     animation: highlight .2s 1s 5;
-}
-
-.repair-btn ion-icon {
-    font-size: 40px;
 }
 
 .repair-btn:hover {
@@ -366,6 +378,15 @@ navbar {
 .link a {
     color: white;
     text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 5px;
+
+    &>svg{
+        width: 20px;
+        height: 20px;
+    }
 }
 
 .link p {
@@ -438,7 +459,8 @@ navbar {
 
     .repair-icon,
     .cart-icon {
-        font-size: 32px;
+        width: 25px;
+        height: 25px;
     }
 
     .login {
@@ -511,7 +533,7 @@ navbar {
     }
 
     .cart-icon {
-        color: rgb(114, 105, 105);
+        fill: rgb(114, 105, 105);
     }
 
     .repair-btn{
@@ -521,8 +543,11 @@ navbar {
 }
 
 @media screen and (max-width: 800px) {
-    .repair-btn ion-icon{
-        font-size: 30px;
+    .repair-btn{
+        &>svg{
+            width: 25px;
+            height: 25px;
+        }
     }
 }
 
@@ -543,6 +568,10 @@ navbar {
 
     .link a, .link p {
         font-size: 14px;
+        &>svg{
+            width: 17px;
+            height: 17px;
+        }
     }
 
     .footer-section-heading h3 {
@@ -556,12 +585,19 @@ navbar {
 }
 
 @media screen and (max-width: 440px) {
-    .repair-btn ion-icon{
-        font-size: 25px;
+    .repair-btn{
+        &>svg{
+            width: 20px;
+            height: 20px;
+        }
     }
 
     .link a, .link p {
         font-size: 12px;
+        &>svg{
+            width: 15px;
+            height: 15px;
+        }
     }
 
     .footer-section-heading h3 {

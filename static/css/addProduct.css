@@ -32,6 +32,12 @@
     font-weight: 600;
     color: #3b3939;
     position: relative;
+
+    &>svg {
+        width: 13px;
+        height: 13px;
+    }
+
 }
 
 .iBox {
@@ -195,9 +201,14 @@ legend {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 120px;
-    font-weight: 600;
     color: rgb(130, 184, 184);
+    padding: 20px;
+
+    &>svg {
+        width: 120px;
+        height: 120px;
+        stroke-width: 0.6px;
+    }
 }
 
 .add-option:hover {
@@ -240,7 +251,9 @@ legend {
     transition: scale 0.3s ease;
     /* Add transition for smooth appearance */
     cursor: pointer;
-    font-size: 30px;
+    width: 22px;
+    height: 22px;
+    fill: currentColor;
 }
 
 .image-display {
@@ -338,7 +351,9 @@ legend {
 }
 
 @media screen and (max-width: 1300px) {
-    .section-1, .section-2 {
+
+    .section-1,
+    .section-2 {
         max-width: 90vw;
     }
 
@@ -348,7 +363,9 @@ legend {
 }
 
 @media screen and (max-width: 950px) {
-    .section-1, .section-2 {
+
+    .section-1,
+    .section-2 {
         max-width: 95vw;
     }
 }
@@ -363,6 +380,7 @@ legend {
 
     .add-option {
         width: 18%;
+        padding: 10px;
     }
 }
 
@@ -385,6 +403,7 @@ legend {
     .add-option {
         width: 23%;
         aspect-ratio: 9 / 12;
+        padding: 7px;
     }
 }
 
@@ -410,7 +429,9 @@ legend {
 }
 
 @media screen and (max-width: 360px) {
-    .section-1, .section-2 {
+
+    .section-1,
+    .section-2 {
         row-gap: 0;
         padding: 20px 10px;
         max-width: 100vw;
@@ -426,6 +447,11 @@ legend {
 
     .que {
         font-size: 13px;
+
+        &>svg {
+            width: 10px;
+            height: 10px;
+        }
     }
 
     .text-input {
@@ -439,7 +465,7 @@ legend {
         width: 10px;
     }
 
-    .radio-section{
+    .radio-section {
         padding-left: 5px;
     }
 
@@ -460,7 +486,8 @@ legend {
         width: 10px;
     }
 
-    .color-box>label, .checkbox-options label{
+    .color-box>label,
+    .checkbox-options label {
         font-size: 13px;
     }
 

@@ -77,11 +77,12 @@ body {
     color: #007BFF;
 }
 
-.brand-item>ion-icon {
-    font-size: 250px;
-    color: rgb(98, 92, 92);
+.brand-item>svg {
+    fill: rgb(87, 81, 81);
     margin: auto;
     cursor: pointer;
+    width: 200px;
+    height: 200px;
 }
 
 /* Edit buttons */
@@ -95,7 +96,7 @@ body {
     right: 0;
     bottom: 100%;
     display: flex;
-    vertical-align: middle;
+    align-items: center;
 }
 
 .edit:hover {
@@ -104,10 +105,6 @@ body {
 
 .edit:active {
     background-color: aqua;
-}
-
-.edit>ion-icon {
-    font-size: 16px;
 }
 
 .edit.delete {
@@ -151,8 +148,9 @@ body {
     font-weight: 600;
 }
 
-.form-head-box>ion-icon {
-    font-size: 19px;
+.form-head-box>svg {
+    width: 20px;
+    height: 20px;
     cursor: pointer;
 }
 
@@ -323,8 +321,9 @@ body {
         right: 25.5%;
     }
 
-    .brand-item>ion-icon {
-        font-size: 200px;
+    .brand-item>svg {
+        width: 150px;
+        height: 150px;
     }
 
     .form-container {
@@ -360,16 +359,21 @@ body {
         font-size: 14px;
     }
 
-    .edit,
-    .edit>ion-icon {
+    .edit {
         font-size: 12px;
+
+        &>svg {
+            width: 14px;
+            height: 14px;
+        }
     }
 
     .form-container {
         width: 50%;
     }
 
-    .desc-input, .desc-label{
+    .desc-input,
+    .desc-label {
         font-size: 14px;
     }
 }
@@ -397,17 +401,22 @@ body {
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     }
 
-    .brand-item>ion-icon {
-        font-size: 150px;
+    .brand-item>svg {
+        width: 100px;
+        height: 100px;
     }
 
     .edit {
         padding: 2px 4px;
     }
 
-    .edit,
-    .edit>ion-icon {
+    .edit {
         font-size: 10px;
+
+        &>svg {
+            width: 11px;
+            height: 11px;
+        }
     }
 
     .edit.delete {
@@ -418,7 +427,7 @@ body {
         width: 60%;
     }
 
-    .form-bottom-box>form{
+    .form-bottom-box>form {
         padding: 6px 15px;
     }
 }
@@ -463,12 +472,18 @@ body {
         right: 27%;
     }
 
-    .brand-item>ion-icon {
-        font-size: 100px;
+    .brand-item>svg {
+        width: 70px;
+        height: 70px;
     }
 
-    .edit, .edit>ion-icon {
+    .edit {
         font-size: 9px;
+
+        &>svg {
+            width: 9px;
+            height: 9px;
+        }
     }
 
     .form-container {
@@ -485,12 +500,12 @@ body {
         right: 29%;
     }
 
-    .desc-input{
+    .desc-input {
         font-size: 12px;
         padding: 4px;
     }
 
-    .desc-label{
+    .desc-label {
         font-size: 12px;
         margin-left: 4px;
     }
@@ -526,8 +541,13 @@ body {
         width: calc(56% - 22px);
     }
 
-    .edit, .edit>ion-icon {
+    .edit {
         font-size: 8px;
+
+        &>svg {
+            width: 8px;
+            height: 8px;
+        }
     }
 
     .edit.delete {

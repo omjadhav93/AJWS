@@ -11,7 +11,10 @@ const addAddress = () => {
     </div>
     <div class="input-split">
       <button class="selectOptBtn" id=" type="button" onclick="openOption(this)">
-        <div class="selected" id="selected">Select State</div><ion-icon name="arrow-forward-outline"></ion-icon>
+        <div class="selected" id="selected">Select State</div>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
+        </svg>
         <div class="selectOptContainer addOption" id="selectOptContainer">
           <span class="opt" onclick="select(this)" value="">Select State</span>
           <span class="opt" onclick="select(this)" value="Maharashtra">Maharashtra</span>
@@ -19,7 +22,10 @@ const addAddress = () => {
       </button>
       <input id="selectedOption" type="hidden" name="state" required="required"/>
       <button class="selectOptBtn" type="button" onclick="openOption(this)">
-        <div class="selected" id="selected">Select District</div><ion-icon name="arrow-forward-outline"></ion-icon>
+        <div class="selected" id="selected">Select District</div>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
+        </svg>
         <div class="selectOptContainer addOption" id="selectOptContainer">
           <span class="opt" onclick="select(this)" value="">Select District</span>
           <span class="opt" onclick="select(this)" value="Ahmednagar">Ahmednagar</span>

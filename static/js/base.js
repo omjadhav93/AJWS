@@ -11,29 +11,52 @@ const openMenu = () => {
     document.getElementsByTagName('navbar')[0].classList.toggle('active')
 }
 
-if (screen.width <= 860) {
-    // Moving Cart btn
-    const cartMove = document.getElementById('cart')
-    document.getElementsByClassName('right-nav')[0].appendChild(cartMove)
+function checkScreenSize() {
+    const isSmallScreen = window.innerWidth <= 860;
+    const mainNav = document.getElementsByClassName('main-nav')[0];
+    const rightNav = document.getElementsByClassName('right-nav')[0];
+    const leftNav = document.getElementsByClassName('left-nav')[0];
 
-    // Moving search Bar
-    const searchMove = document.getElementsByClassName('search-box')[0]
-    document.getElementsByClassName('right-nav')[0].appendChild(searchMove)
+    const cart = document.getElementById('cart');
+    const searchBox = document.getElementsByClassName('search-box')[0];
+    const repairBtn = document.getElementById('repair-request');
+    const existingMenu = document.getElementById('menu-box');
 
-    // Removing repair btn
-    document.getElementById('repair-request').remove()
+    if (isSmallScreen) {
+        if (!rightNav.contains(cart)) rightNav.appendChild(cart);
+        if (!rightNav.contains(searchBox)) rightNav.appendChild(searchBox);
 
-    // Inserting menu btn
-    const menuDiv = document.createElement('div')
-    menuDiv.classList = "menu-box";
-    menuDiv.id = "menu-box"
-    menuDiv.innerHTML = `<button id="menu-btn" onclick="openMenu()"> 
-      <ion-icon name="menu" id="menu-icon"></ion-icon>
-    </button>`;
-    document.getElementsByClassName('left-nav')[0].classList.add('short')
-    document.getElementsByClassName('left-nav')[0].prepend(menuDiv)
+        if (repairBtn) repairBtn.style.display = "none";
+
+        if (!existingMenu) {
+            const menuDiv = document.createElement('div');
+            menuDiv.classList = "menu-box";
+            menuDiv.id = "menu-box";
+            menuDiv.innerHTML = `
+                <button id="menu-btn" onclick="openMenu()"> 
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+                    </svg>
+                </button>
+            `;
+            leftNav.classList.add('short');
+            leftNav.prepend(menuDiv);
+        }
+    } else {
+        const profileRef = mainNav.querySelector('#profileRef');
+        if (!mainNav.contains(searchBox)) mainNav.insertBefore(searchBox, profileRef);
+        if (!mainNav.contains(cart)) mainNav.insertBefore(cart, profileRef);
+
+        if (repairBtn) repairBtn.style.display = "flex";
+
+        if (existingMenu) existingMenu.remove();
+        leftNav.classList.remove('short');
+    }
 }
 
+// Listen for screen changes
+window.addEventListener('load', checkScreenSize);
+window.addEventListener('resize', checkScreenSize);
 
 window.onload = () => {
 

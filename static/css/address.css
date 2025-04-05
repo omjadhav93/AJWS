@@ -17,13 +17,19 @@
     padding: 10px;
     position: relative;
     line-height: 1.5;
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
 }
 
-.address-line ion-icon {
-    font-size: 24px;
-    color: red;
+.address-line svg {
+    width: 20px;
+    height: 20px;
+    fill: red;
     vertical-align: middle;
-    margin: 0px 5px;
+    margin: 0px;
+    margin-top: 2px;
+    margin-bottom: auto;
 }
 
 .heading {
@@ -103,6 +109,13 @@
     padding-top: 16.5px;
     padding-right: 10px;
     padding-bottom: 16.5px;
+
+    & svg{
+        width: 20px;
+        height: 20px;
+        stroke: currentColor;
+        stroke-width: 0.4px;
+    }
 }
 
 .opt {
@@ -275,11 +288,14 @@ input[type=number]::-webkit-outer-spin-button {
 
     .address-line {
         font-size: 15px;
+        column-gap: 3px;
     }
 
-    .address-line ion-icon {
-        font-size: 20px;
-        margin-right: 2px;
+    .address-line svg{
+        width: 16px;
+        height: 16px;
+        margin-top: 4px;
+        margin-bottom: auto;
     }
 }
 
@@ -317,8 +333,10 @@ input[type=number]::-webkit-outer-spin-button {
         font-size: 13px;
     }
 
-    .address-line ion-icon {
-        font-size: 19px;
+    .address-line svg {
+        width: 13px;
+        height: 13px;
+        margin-top: 5px;
     }
 
     .heading {
@@ -357,6 +375,13 @@ input[type=number]::-webkit-outer-spin-button {
         padding-top: 13.5px;
         padding-right: 10px;
         padding-bottom: 13.5px;
+
+        & svg{
+            width: 15px;
+            height: 15px;
+            stroke: currentColor;
+            stroke-width: 0.3px;
+        }
     }
 
     .btn {

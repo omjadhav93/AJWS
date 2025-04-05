@@ -46,6 +46,12 @@
     font-size: 24px;
     color: rgb(70, 98, 96);
     display: none;
+
+    &>svg{
+        width: 20px;
+        height: 20px;
+        fill: currentColor;
+    }
 }
 
 .view-password:hover{
@@ -79,6 +85,11 @@
         top: 44%;
         font-size: 11px;
     }
+
+    .view-password>svg{
+        width: 18px;
+        height: 18px;
+    }
 }
 
 @media screen and (max-width: 450px) {
@@ -97,5 +108,10 @@
     .input-element.has-content+.input-label {
         top: 29%;
         font-size: 9.5px;
+    }
+
+    .view-password>svg{
+        width: 16px;
+        height: 16px;
     }
 }

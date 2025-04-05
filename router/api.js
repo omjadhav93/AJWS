@@ -399,6 +399,7 @@ router.post('/order/update', fetchCheckAuth, async (req, res) => {
         const changeStage = req.body.stage;
 
         for (const orderId of orderIds) {
+            console.log(orderId)
             const order = await Order.findOne({ orderId: orderId });
             order.orderStage = changeStage;
 

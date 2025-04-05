@@ -19,10 +19,15 @@
     position: absolute;
     right: 3%;
     top: 3%;
-    font-size: 30px;
     z-index: 10;
     background-color: transparent;
     cursor: pointer;
+
+    &>svg{
+        width: 30px;
+        height: 30px;
+        fill: red;
+    }
 }
 .bottom-part{
     margin-top: 20px;
@@ -119,11 +124,16 @@
 }
 .rating{
     margin-top: 5px;
+    display: flex;
+    column-gap: 5px;
+    margin-top: 5px;
     padding-bottom: 5px;
     border-bottom: .5px solid grey;
 }
-.rating ion-icon{
-    color: rgb(33, 200, 24);
+.rating svg{
+    width: 25px;
+    height: 25px;
+    fill: #FDCC0D;
 }
 .currentColor {
     margin: 10px 0px;
@@ -323,6 +333,17 @@ form{
     }
     .spec p {
         width: 50%;
+    }
+    .rating svg{
+        width: 20px;
+        height: 20px;
+    }
+    #like-btn{
+        &>svg{
+            width: 22px;
+            height: 22px;
+            fill: red;
+        }
     }
 }
 

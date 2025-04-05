@@ -1,77 +1,80 @@
 html
-  head
-    meta(charset="UTF-8")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    block metaElements 
-    link(rel="apple-touch-icon" sizes="180x180" href="/static/img/favicon/apple-touch-icon.png")
-    link(rel="icon" type="image/png" sizes="32x32" href="/static/img/favicon/favicon-32x32.png")
-    link(rel="icon" type="image/png" sizes="16x16" href="/static/img/favicon/favicon-16x16.png")
-    link(rel="manifest" href="/static/img/favicon/site.webmanifest")
-    link(rel="mask-icon" href="/static/img/favicon/safari-pinned-tab.svg" color="#5bbad5")
-    link(rel="shortcut icon" href="/static/img/favicon/favicon.ico")
-    meta(name="msapplication-TileColor" content="#da532c")
-    meta(name="msapplication-config" content="/static/img/favicon/browserconfig.xml")
-    meta(name="theme-color" content="#ffffff")
-    style 
-        block style
-        include ../static/css/base.css 
-    block title
-  body
-    nav
-      a(href='/').logo
-        .logo-conatiner
-          .logo-head AJ 
-          .logo-side 
-            .logo-side-up Water 
-            .logo-side-down Solutions
-        .logo-conatiner-dummy
-          .logo-head AJ 
-          .logo-side 
-            .logo-side-up Water 
-            .logo-side-down Solutions
-      a.icon-plus-text#repair-request(href='/repair')
-        ion-icon.repair-icon(name='build')
-        p Maintenance
-      .search-box
-        input#search(type='text', name='search', placeholder='Search for Product, Brands, Accessories and More. ',  autocomplete="off")
-      a.icon-plus-text#cart(href='/user/cart')
-        ion-icon.cart-icon(name='cart')
-        p Cart
-      div
-        if LoggedIn
-          ion-icon.profile-icon(name='person',onclick="window.location.href = '/user/profile'")
-        else 
-          .login(onclick="window.location.href = '/login'")
-            p Login / SignIn
-    navbar
-        .left-nav
-            if Seller
-                a.nav-box(href='/') All
-                a.nav-box(href='/plant-booking') Plant Bookings
-                a.nav-box(href='/brands') Top Brand
-                a.nav-box(href='/order/seller') New Orders
-                a.nav-box(href='/user/add-product') Add Product
-                a.nav-box(href='/#about-us') About Us
-                a.nav-box(href='/help') Help Asked
-            else
-                a.nav-box(href='/') All
-                a.nav-box(href='/repair') Service
-                //- a.nav-box(href='#',onclick="alert('This Page Under Contruction!')") Recommendation 
-                //- //- This recommendation tab is for details of parts products.
-                a.nav-box(href='/plant-booking') Book Plant
-                a.nav-box(href='/brands') Top Brand
-                a.nav-box(href='/user/address') Add Address 
-                a.nav-box(href='/buy-again') Buy Again
-                a.nav-box(href='/#about-us') About Us
-                a.nav-box(href='/help') Help
-        .right-nav
-    main
-        #loading
-        .repair-btn(onclick="window.location.href = '/repair' ")
-            ion-icon(name='build')
-        block content
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        block metaElements 
+        link(rel="apple-touch-icon" sizes="180x180" href="/static/img/favicon/apple-touch-icon.png")
+        link(rel="icon" type="image/png" sizes="32x32" href="/static/img/favicon/favicon-32x32.png")
+        link(rel="icon" type="image/png" sizes="16x16" href="/static/img/favicon/favicon-16x16.png")
+        link(rel="manifest" href="/static/img/favicon/site.webmanifest")
+        link(rel="mask-icon" href="/static/img/favicon/safari-pinned-tab.svg" color="#5bbad5")
+        link(rel="shortcut icon" href="/static/img/favicon/favicon.ico")
+        meta(name="msapplication-TileColor" content="#da532c")
+        meta(name="msapplication-config" content="/static/img/favicon/browserconfig.xml")
+        meta(name="theme-color" content="#ffffff")
+        style 
+            block style
+            include ../static/css/base.css 
+        block title
+    body
+        nav.main-nav
+            a(href='/').logo
+                .logo-conatiner
+                    .logo-head AJ 
+                    .logo-side 
+                        .logo-side-up Water 
+                        .logo-side-down Solutions
+                .logo-conatiner-dummy
+                    .logo-head AJ 
+                    .logo-side 
+                        .logo-side-up Water 
+                        .logo-side-down Solutions
+            a.icon-plus-text#repair-request(href='/repair')
+                <svg class="repair-icon" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 45.702 45.702" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M36.226,25.086h-0.023V11.939h0.307c1.18,0,2.137-0.929,2.137-2.108v-7.65c0-1.18-0.957-2.096-2.137-2.096h-5.018 c-1.18,0-2.112,0.916-2.112,2.096v7.649c0,1.179,0.933,2.108,2.112,2.108h0.33v13.146h-0.045c-2.125,0-3.834,1.768-3.834,3.892 v12.921c0,2.125,1.709,3.804,3.834,3.804h4.451c2.123,0,3.854-1.679,3.854-3.804v-12.92 C40.082,26.854,38.351,25.086,36.226,25.086z"></path> <path d="M11.494,18.006v24.691c0,1.67,1.338,3.005,3.008,3.005h3.179c1.67,0,3.007-1.335,3.007-3.005v-24.69 c3.448-1.702,5.872-5.275,5.872-9.408c0-3.444-1.959-6.493-4.383-8.399c-0.277-0.218-0.654-0.258-0.97-0.104 c-0.318,0.155-0.519,0.476-0.519,0.829v5.102c0,1.63-1.32,2.896-2.952,2.896h-3.284c-1.632,0-2.958-1.265-2.958-2.896V0.922 c0-0.354-0.199-0.675-0.517-0.83c-0.316-0.154-0.692-0.113-0.97,0.104C7.576,2.103,5.62,5.152,5.62,8.598 C5.62,12.731,7.975,16.304,11.494,18.006z"></path> </g> </g> </g></svg>
+                p Maintenance
+            .search-box
+                input#search(type='text' name='search' placeholder='Search for Product, Brands, Accessories and More. ' autocomplete="off")
+            a.icon-plus-text#cart(href='/user/cart')
+                <svg class="cart-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                    <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+                </svg>
+                p Cart
+            div#profileRef
+                if LoggedIn
+                    <svg class="profile-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" onclick="window.location.href = '/user/profile'">
+                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                    </svg>
+                else 
+                    .login(onclick="window.location.href = '/login'")
+                        p Login / SignIn
+        navbar
+            .left-nav
+                if Seller
+                    a.nav-box(href='/') All
+                    a.nav-box(href='/plant-booking') Plant Bookings
+                    a.nav-box(href='/brands') Top Brand
+                    a.nav-box(href='/order/seller') New Orders
+                    a.nav-box(href='/user/add-product') Add Product
+                    a.nav-box(href='/#about-us') About Us
+                    a.nav-box(href='/help') Help Asked
+                else
+                    a.nav-box(href='/') All
+                    //- a.nav-box(href='#' onclick="alert('This Page Under Contruction!')") Recommendation 
+                    //- //- This recommendation tab is for details of parts products.
+                    a.nav-box(href='/plant-booking') Book Plant
+                    a.nav-box(href='/brands') Top Brand
+                    a.nav-box(href='/user/address') Add Address 
+                    a.nav-box(href='/buy-again') Buy Again
+                    a.nav-box(href='/#about-us') About Us
+                    a.nav-box(href='/help') Help
+            .right-nav
+        main
+            #loading
+            .repair-btn(onclick="window.location.href = '/repair' ")
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 45.702 45.702" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M36.226,25.086h-0.023V11.939h0.307c1.18,0,2.137-0.929,2.137-2.108v-7.65c0-1.18-0.957-2.096-2.137-2.096h-5.018 c-1.18,0-2.112,0.916-2.112,2.096v7.649c0,1.179,0.933,2.108,2.112,2.108h0.33v13.146h-0.045c-2.125,0-3.834,1.768-3.834,3.892 v12.921c0,2.125,1.709,3.804,3.834,3.804h4.451c2.123,0,3.854-1.679,3.854-3.804v-12.92 C40.082,26.854,38.351,25.086,36.226,25.086z"></path> <path d="M11.494,18.006v24.691c0,1.67,1.338,3.005,3.008,3.005h3.179c1.67,0,3.007-1.335,3.007-3.005v-24.69 c3.448-1.702,5.872-5.275,5.872-9.408c0-3.444-1.959-6.493-4.383-8.399c-0.277-0.218-0.654-0.258-0.97-0.104 c-0.318,0.155-0.519,0.476-0.519,0.829v5.102c0,1.63-1.32,2.896-2.952,2.896h-3.284c-1.632,0-2.958-1.265-2.958-2.896V0.922 c0-0.354-0.199-0.675-0.517-0.83c-0.316-0.154-0.692-0.113-0.97,0.104C7.576,2.103,5.62,5.152,5.62,8.598 C5.62,12.731,7.975,16.304,11.494,18.006z"></path> </g> </g> </g></svg>
+            block content
 
-    .footer 
+        .footer 
             .footer-top
                 .about-container 
                     .footer-section-heading 
@@ -117,16 +120,20 @@ html
                         h3 Social Media 
                     .link
                         a(href="") 
-                            <ion-icon name="logo-facebook"></ion-icon> 
-                            | Facebook
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><rect fill="#3d5a98" x="4.83" y="4.83" width="118.35" height="118.35" rx="6.53" ry="6.53"/><path fill="#fff" d="M86.48 123.17V77.34h15.38l2.3-17.86H86.48v-11.4c0-5.17 1.44-8.7 8.85-8.7h9.46v-16A126.56 126.56 0 0091 22.7c-13.62 0-23 8.3-23 23.61v13.17H52.62v17.86H68v45.83z"/></svg>
+                            p Facebook
                     .link
-                        a(href="https://wa.me/917387227775",target="blank") 
-                            <ion-icon name="logo-whatsapp"></ion-icon> 
-                            | Whatsapp
+                        a(href="https://wa.me/917387227775" target="blank") 
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-whatsapp" viewBox="0 0 16 16">
+                                <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+                            </svg>
+                            p Whatsapp
                     .link
-                        a(href="https://www.instagram.com/aj_water_solutions/",target="blank") 
-                            <ion-icon name="logo-instagram"></ion-icon> 
-                            | Instagram
+                        a(href="https://www.instagram.com/aj_water_solutions/" target="blank") 
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16">
+                                <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/>
+                            </svg>
+                            p Instagram
                 .address-container 
                     .footer-section-heading 
                         h3 Office Address
@@ -144,7 +151,5 @@ html
                             | Phone : +91-7387227775
             h3.creator-watermark Creator : Om's Developers 
 
-    script(src="/static/js/base.js")
-    block scripts
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+        script(src="/static/js/base.js")
+        block scripts
