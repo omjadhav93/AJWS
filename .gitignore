@@ -2,3 +2,5 @@
 node_modules/
 pending.txt
 test.html
+.vscode/
+.cursor/
