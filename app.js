@@ -3,7 +3,7 @@ const session = require("express-session")
 const path = require("path");
 const mongoose = require("mongoose");
 const app = express();
-const pug = require('pug');
+// const pug = require('pug');
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
 
@@ -11,7 +11,13 @@ const cookieParser = require('cookie-parser');
 // Set up Global configuration access
 dotenv.config();
 
-mongoose.connect('mongodb://127.0.0.1:27017/AJWS');
+// MongoDB Connection
+mongoose.connect(process.env.MONGODB_URI).then(() => {
+  console.log('MongoDB connected');
+}).catch(err => {
+  console.error('MongoDB connection error:', err);
+});
+
 let PORT = process.env.PORT || 5500;
 let HOSTNAME = 'localhost'
 let SESSION_SECRET = process.env.SESSION_SECRET

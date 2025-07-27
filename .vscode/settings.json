@@ -1,4 +1,0 @@
-{
-    "appService.defaultWebAppToDeploy": "undefined/subscriptions/62aa799b-3a34-4785-873e-79a8e8526ae5/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/AJWSWEBAPP",
-    "appService.deploySubpath": "."
-}
