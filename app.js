@@ -101,5 +101,5 @@ app.use('/api/', api);
 
 // Server Start
 app.listen(PORT, () => {
-    console.log(`The App Start On Port : http://${HOSTNAME}:${PORT}/`);
+    console.log(`The App Start On Port : ${PORT}`);
 })
