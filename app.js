@@ -19,7 +19,6 @@ mongoose.connect(process.env.MONGODB_URI).then(() => {
 });
 
 let PORT = process.env.PORT || 5500;
-let HOSTNAME = 'localhost'
 let SESSION_SECRET = process.env.SESSION_SECRET
 
 // View Engine Setup
@@ -101,6 +100,6 @@ const api = require("./router/api");
 app.use('/api/', api);
 
 // Server Start
-app.listen(PORT, HOSTNAME, () => {
+app.listen(PORT, () => {
     console.log(`The App Start On Port : http://${HOSTNAME}:${PORT}/`);
 })
