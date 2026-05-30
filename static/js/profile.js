@@ -250,7 +250,7 @@ function fetchFavourites() {
                 const imageLocArr = Object.values(imageArr[0])[0];
                 const imageTag = document.createElement('img');
                 imageTag.classList.add('images');
-                imageTag.src = `/static/productImg/${imageLocArr[0]}`;
+                imageTag.src = imageLocArr[0].startsWith('http') ? imageLocArr[0] : `/static/productImg/${imageLocArr[0]}`;
                 searchImgDiv.appendChild(imageTag);
                 searchDiv.appendChild(searchImgDiv);
 
@@ -526,7 +526,7 @@ function createOrderElement(order) {
     orderImg.classList.add('order-img');
 
     const img = document.createElement('img');
-    img.src = '/static/productImg/' + order.image;
+    img.src = order.image.startsWith('http') ? order.image : '/static/productImg/' + order.image;
     img.alt = '';
 
     orderImg.appendChild(img);

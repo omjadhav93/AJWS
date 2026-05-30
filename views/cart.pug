@@ -96,7 +96,7 @@ block content
                                 each obj in img
                                     each loc in [obj]
                                         each item_img in loc
-                                            img.images(src='/static/productImg/' + item_img)
+                                            img.images(src=item_img.startsWith('http') ? item_img : '/static/productImg/' + item_img)
                         .search-content
                             if item.product_type == 'Water Filter and Purifiers'
                                 if item.model_name.length

@@ -89,7 +89,7 @@ block content
                                 each obj in img
                                     each loc in [obj]
                                         each item in loc
-                                            img.images(src='/static/productImg/' + item)
+                                            img.images(src=item.startsWith('http') ? item : '/static/productImg/' + item)
                         .search-content
                             if item.product_type == 'Water Filter and Purifiers'
                                 if item.model_name.length
@@ -195,7 +195,7 @@ block content
                                 each obj in img
                                     each loc in [obj]
                                         each item in loc
-                                            img.images(src='/static/productImg/' + item)
+                                            img.images(src=item.startsWith('http') ? item : '/static/productImg/' + item)
                         .search-content
                             .warn-unavail &#128532; 
                                 span Currently Unavailable

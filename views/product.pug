@@ -27,7 +27,7 @@ block content
                             each img in [obj]
                                 each loc in img
                                     .images
-                                        img(src='/static/productImg/' + loc) 
+                                        img(src=loc.startsWith('http') ? loc : '/static/productImg/' + loc) 
             .bottom-part
                 each item,colorIndex in data.image 
                     .image-data
@@ -35,7 +35,7 @@ block content
                             each img in [obj]
                                 each loc,imgIndex in img
                                     .images(onclick='slider(' + colorIndex + ',' + imgIndex + ')')
-                                        img(src='/static/productImg/' + loc) 
+                                        img(src=loc.startsWith('http') ? loc : '/static/productImg/' + loc) 
         .product-info 
             if data.product_type == 'Water Filter and Purifiers'
                 if data.model_name.length

@@ -10,15 +10,8 @@ const fetchCheckAuth = require("./middleware/fetchCheckAuth");
 const User = require("../model/user");
 const { Brand } = require("../model/home")
 
-// Set up Multer for file uploads
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'static/productImg/');
-    },
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + path.extname(file.originalname));
-    }
-});
+// Set up Cloudinary for file uploads
+const { storage, cloudinary } = require('../cloudinary.config');
 
 const upload = multer({ storage: storage });
 
@@ -46,7 +39,7 @@ router.post('/brands', fetchUser, upload.single('logo'), async (req, res) => {
         if (!user) {
           // Clear the auth token cookie
           res.clearCookie('authtoken');
-          req.session.returnTo = req.originalUrl;
+          res.cookie('returnTo', req.originalUrl);
           res.redirect("/login");
     }
 
@@ -65,11 +58,19 @@ router.post('/brands', fetchUser, upload.single('logo'), async (req, res) => {
         let oldBrand = await Brand.find({ name: name });
         oldBrand.forEach(brand => {
             let path = brand.logoUrl;
-            // Delete the file like normal
-            fs.unlink(path, (err) => {
-                if (err) console.log(err);
-                return;
-            });
+            if (path && path.startsWith('http')) {
+                try {
+                    const urlParts = path.split('/');
+                    const filenameWithExt = urlParts[urlParts.length - 1];
+                    const publicId = 'refresh_products/' + filenameWithExt.split('.')[0];
+                    cloudinary.uploader.destroy(publicId).catch(err => console.log(err));
+                } catch(err){}
+            } else {
+                // Delete the file like normal
+                fs.unlink(path, (err) => {
+                    if (err) console.log(err);
+                });
+            }
         })
 
         await Brand.deleteMany({ name: name.trim() });
@@ -97,7 +98,7 @@ router.post("/brands/delete", fetchUser, async (req, res) => {
         if (!user) {
           // Clear the auth token cookie
           res.clearCookie('authtoken');
-          req.session.returnTo = req.originalUrl;
+          res.cookie('returnTo', req.originalUrl);
           res.redirect("/login");
     }
         
@@ -108,11 +109,19 @@ router.post("/brands/delete", fetchUser, async (req, res) => {
         const brandId = req.body.brandId;
         let oldBrand = await Brand.findById(brandId);
         let path = oldBrand.logoUrl;
-        // Delete the file like normal
-        fs.unlink(path, (err) => {
-            if (err) console.log(err);
-            return;
-        });
+        if (path && path.startsWith('http')) {
+            try {
+                const urlParts = path.split('/');
+                const filenameWithExt = urlParts[urlParts.length - 1];
+                const publicId = 'refresh_products/' + filenameWithExt.split('.')[0];
+                cloudinary.uploader.destroy(publicId).catch(err => console.log(err));
+            } catch(err){}
+        } else {
+            // Delete the file like normal
+            fs.unlink(path, (err) => {
+                if (err) console.log(err);
+            });
+        }
 
         await Brand.findByIdAndDelete(brandId);
 

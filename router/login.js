@@ -56,8 +56,8 @@ router.post('/', checkAuth, [
         // res.cookie('authtoken', authtoken, { httpOnly: false, secure: process.env.TOKEN_HEADER_KEY == "user_token_header_key" });
         res.cookie('authtoken', authtoken);
 
-        let returnTo = req.session.returnTo || null;
-        delete req.session.returnTo;
+        let returnTo = req.cookies ? req.cookies.returnTo : null;
+        res.clearCookie('returnTo');
 
         res.redirect(returnTo || '/');
 
@@ -132,8 +132,8 @@ router.post('/validate-otp',[
             // res.cookie('authtoken', authtoken, { httpOnly: true, secure: process.env.TOKEN_HEADER_KEY == "user_token_header_key" });
             res.cookie('authtoken', authtoken);
 
-            let returnTo = req.session.returnTo || null;
-            delete req.session.returnTo;
+            let returnTo = req.cookies ? req.cookies.returnTo : null;
+            res.clearCookie('returnTo');
 
             res.status(200).json({ success: true, msg: "Login Success", returnTo: returnTo || '/' })
         } else {

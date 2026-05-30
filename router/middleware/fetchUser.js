@@ -6,13 +6,13 @@ const fetchUser = (req, res, next) => {
     let token = req.cookies.authtoken || 0
     try {
         if (!token) {
-            req.session.returnTo = req.originalUrl;
+            res.cookie('returnTo', req.originalUrl);
             res.redirect("/login");
         } else {
             jwt.verify(token, JWT_SECRET, (err, data) => {
                 if (err) {
                     // Invalid token
-                    req.session.returnTo = req.originalUrl;
+                    res.cookie('returnTo', req.originalUrl);
                     res.redirect("/login");
                 } else {
                     // Valid token

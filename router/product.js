@@ -63,7 +63,7 @@ router.get("/product/order", fetchUser, async (req, res) => {
     if (!user) {
       // Clear the auth token cookie
       res.clearCookie('authtoken');
-      req.session.returnTo = req.originalUrl;
+      res.cookie('returnTo', req.originalUrl);
       res.redirect("/login");
     }
 
@@ -95,7 +95,7 @@ router.post('/product/order', fetchUser, async (req, res) => {
     if (!user) {
       // Clear the auth token cookie
       res.clearCookie('authtoken');
-      req.session.returnTo = req.originalUrl;
+      res.cookie('returnTo', req.originalUrl);
       res.redirect("/login");
     }
 
@@ -172,7 +172,7 @@ router.get('/order/status', fetchUser, async (req, res) => {
     if (!user) {
       // Clear the auth token cookie
       res.clearCookie('authtoken');
-      req.session.returnTo = req.originalUrl;
+      res.cookie('returnTo', req.originalUrl);
       res.redirect("/login");
     }
 
@@ -213,7 +213,7 @@ router.get('/order/seller', fetchUser, async (req, res) => {
     if (!user) {
       // Clear the auth token cookie
       res.clearCookie('authtoken');
-      req.session.returnTo = req.originalUrl;
+      res.cookie('returnTo', req.originalUrl);
       res.redirect("/login");
     }
 
@@ -238,7 +238,7 @@ router.post('/order/cancle', fetchUser, async (req, res) => {
     if (!user) {
       // Clear the auth token cookie
       res.clearCookie('authtoken');
-      req.session.returnTo = req.originalUrl;
+      res.cookie('returnTo', req.originalUrl);
       res.redirect("/login");
     }
 

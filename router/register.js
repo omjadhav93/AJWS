@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require("jsonwebtoken");
-const cron = require("node-cron");
 const bcrypt = require('bcrypt');
 const { body, validationResult } = require("express-validator");
 
@@ -116,8 +115,8 @@ router.post('/validate-otp',[
             // res.cookie('authtoken', authtoken, { httpOnly: true, secure: process.env.TOKEN_HEADER_KEY == "user_token_header_key" });
             res.cookie('authtoken', authtoken);
 
-            let returnTo = req.session.returnTo || null;
-            delete req.session.returnTo;
+            let returnTo = req.cookies ? req.cookies.returnTo : null;
+            res.clearCookie('returnTo');
 
             res.status(200).json({ success: true, msg: "Login Success", returnTo: returnTo || '/' })
         } else {
@@ -155,22 +154,6 @@ router.post('/resend-otp',[
     }
 })
 
-// Delete otp from database after 20 minutes.
-// Run cleanup every 10 minutes
-cron.schedule("*/10 * * * *", async () => {
-    try {
-        const twentyMinutesAgo = new Date(Date.now() - 20 * 60 * 1000); // Get timestamp 20 min ago
-
-        // Find OTPs that expired (createdAt older than 20 min)
-        await Otp.deleteMany({ createdAt: { $lt: twentyMinutesAgo } });
-
-        // Find unverified User and delete.
-        await User.deleteMany({ createdAt: { $lt: twentyMinutesAgo }, isVerified: false });
-
-    } catch (error) {
-        console.error("Error in cleanup job:", error);
-    }
-});
 
 
 module.exports = router;

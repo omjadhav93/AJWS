@@ -57,7 +57,7 @@ function fetchProducts(sectionId) {
             data.forEach(product => {
                 const imageDiv = document.createElement('img');
                 imageDiv.classList.add('product-img');
-                imageDiv.src = `/static/productImg/${product.image}`;
+                imageDiv.src = product.image.startsWith('http') ? product.image : `/static/productImg/${product.image}`;
                 const productElement = document.createElement('div');
                 productElement.classList.add('product-box');
                 productElement.setAttribute('onclick',`window.location.href= '/product?modelNo=${product.model_number}'`)

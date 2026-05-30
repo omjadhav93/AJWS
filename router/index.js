@@ -73,15 +73,7 @@ router.get("/", fetchCheckUser, async (req, res) => {
 })
 
 /* Saving Card Image & Details. */
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'static/productImg/')
-    },
-    filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E4)
-        cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname))
-    }
-})
+const { storage, cloudinary } = require('../cloudinary.config');
 
 const upload = multer({ storage: storage })
 
@@ -92,14 +84,14 @@ router.post("/saveCard", fetchUser, upload.single('cardImage'), async (req, res)
         if (!user) {
           // Clear the auth token cookie
           res.clearCookie('authtoken');
-          req.session.returnTo = req.originalUrl;
+          res.cookie('returnTo', req.originalUrl);
           res.redirect("/login");
     }
 
         if (user.seller) {
             const cardNo = req.body.cardNo;
             const title = req.body.title;
-            const image = req.file.filename;
+            const image = req.file.path;
             const modelNo = req.body.modelNo;
             const desc = req.body.desc;
             // const locateTo = req.body['locate-to'];
@@ -107,12 +99,21 @@ router.post("/saveCard", fetchUser, upload.single('cardImage'), async (req, res)
 
             let oldCard = await Card.find({ cardNo: cardNo });
             oldCard.forEach(card => {
-                let path = "static/productImg/" + card.image;
-                // Delete the file like normal
-                fs.unlink(path, (err) => {
-                    if (err) console.log(err);
-                    return;
-                });
+                let path = card.image;
+                if (path && path.startsWith('http')) {
+                    try {
+                        const urlParts = path.split('/');
+                        const filenameWithExt = urlParts[urlParts.length - 1];
+                        const publicId = 'refresh_products/' + filenameWithExt.split('.')[0];
+                        cloudinary.uploader.destroy(publicId).catch(err => console.log(err));
+                    } catch(err){}
+                } else {
+                    let fullPath = "static/productImg/" + path;
+                    // Delete the file like normal
+                    fs.unlink(fullPath, (err) => {
+                        if (err) console.log(err);
+                    });
+                }
             })
 
             await Card.deleteMany({cardNo: cardNo});

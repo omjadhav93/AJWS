@@ -12,21 +12,10 @@ const CustomerRating = require("../model/rating");
 const User = require("../model/user");
 
 // Storage & filename setting
-let Storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, "static/productImg/");
-    },
-    filename: (req, file, cb) => {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E4);
-        cb(
-            null,
-            file.fieldname + "-" + uniqueSuffix + path.extname(file.originalname)
-        );
-    },
-});
+const { storage, cloudinary } = require('../cloudinary.config');
 
 let upload = multer({
-    storage: Storage,
+    storage: storage,
 });
 
 let uploadMultiple = upload.fields([
@@ -61,7 +50,7 @@ router.get('/add-product', fetchUser, async (req, res) => {
         if (!user) {
             // Clear the auth token cookie
             res.clearCookie('authtoken');
-            req.session.returnTo = req.originalUrl;
+            res.cookie('returnTo', req.originalUrl);
             res.redirect("/login");
         }
         const brands = await Brand.find().select('id name');
@@ -82,7 +71,7 @@ router.post("/add-product", fetchUser, uploadMultiple, async (req, res) => {
     const user = await User.findById(userId).select('-password');
     try {
         if (!user) {
-            req.session.returnTo = req.originalUrl;
+            res.cookie('returnTo', req.originalUrl);
             return res.redirect("/login");
         }
 
@@ -91,7 +80,7 @@ router.post("/add-product", fetchUser, uploadMultiple, async (req, res) => {
             for (const key in req.files) {
                 let fileNameArray = [];
                 req.files[key].forEach((image) => {
-                    fileNameArray.push(image.filename);
+                    fileNameArray.push(image.path);
                 });
                 imageArray.push({ [key]: fileNameArray });
             }
@@ -167,7 +156,7 @@ router.post("/product/delete", fetchUser, async (req, res) => {
     const user = await User.findById(userId).select('-password');
     try {
         if (!user) {
-            req.session.returnTo = req.originalUrl;
+            res.cookie('returnTo', req.originalUrl);
             return res.redirect("/login");
         }
 
@@ -181,12 +170,23 @@ router.post("/product/delete", fetchUser, async (req, res) => {
         product.image.forEach((img) => {
             let obj = Object.values(img)[0];
             obj.forEach(async (loc) => {
-                let path = "static/productImg/" + loc;
-                // Delete the file like normal
-                fs.unlink(path, (err) => {
-                    if (err) console.log(err);
-                    return;
-                });
+                if (loc.startsWith('http')) {
+                    try {
+                        const urlParts = loc.split('/');
+                        const filenameWithExt = urlParts[urlParts.length - 1];
+                        const publicId = 'refresh_products/' + filenameWithExt.split('.')[0];
+                        await cloudinary.uploader.destroy(publicId);
+                    } catch (err) {
+                        console.log(err);
+                    }
+                } else {
+                    let path = "static/productImg/" + loc;
+                    // Delete the file like normal
+                    fs.unlink(path, (err) => {
+                        if (err) console.log(err);
+                        return;
+                    });
+                }
             });
         });
 
@@ -250,7 +250,7 @@ router.get('/edit-product/:model_number', fetchUser, async (req, res) => {
     try {
         if (!user) {
             res.clearCookie('authtoken');
-            req.session.returnTo = req.originalUrl;
+            res.cookie('returnTo', req.originalUrl);
             return res.redirect("/login");
         }
         
@@ -293,7 +293,7 @@ router.post("/edit-product/:model_number", fetchUser, async (req, res) => {
     const user = await User.findById(userId).select('-password');
     try {
         if (!user) {
-            req.session.returnTo = req.originalUrl;
+            res.cookie('returnTo', req.originalUrl);
             return res.redirect("/login");
         }
 

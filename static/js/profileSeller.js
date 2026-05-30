@@ -279,7 +279,7 @@ function renderProducts(data) {
         const imageLocArr = Object.values(imageArr[0])[0];
         const imgElement = document.createElement('img');
         imgElement.className = 'images';
-        imgElement.src = `/static/productImg/${imageLocArr[0]}`;
+        imgElement.src = imageLocArr[0].startsWith('http') ? imageLocArr[0] : `/static/productImg/${imageLocArr[0]}`;
         searchImage.appendChild(imgElement);
 
         // Content Section

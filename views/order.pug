@@ -61,7 +61,7 @@ block content
                         each obj in img
                             each name,i in obj
                                 if name.includes(`${color}-image`) && i == 0
-                                    img.image-preview(src=`../static/productImg/${name}`, alt="")
+                                    img.image-preview(src=(name && name.startsWith('http')) ? name : `../static/productImg/${name}`, alt="")
                 .details-section 
                     .spec 
                         .spec-head Model Name

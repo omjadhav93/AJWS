@@ -1,5 +1,5 @@
 const express = require("express");
-const session = require("express-session")
+
 const path = require("path");
 const mongoose = require("mongoose");
 const app = express();
@@ -19,7 +19,6 @@ mongoose.connect(process.env.MONGODB_URI).then(() => {
 });
 
 let PORT = process.env.PORT || 5500;
-let SESSION_SECRET = process.env.SESSION_SECRET
 
 // View Engine Setup
 app.set("view engine", "pug");
@@ -30,11 +29,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 // Use cookie-parser middleware to parse cookies
 app.use(cookieParser());
-app.use(session({
-    secret: SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false
-}));
+
 
 // Authentication Routes
 const register = require("./router/register");
@@ -99,7 +94,15 @@ app.use('/help', help)
 const api = require("./router/api");
 app.use('/api/', api);
 
+// Cron Jobs
+const cronJob = require("./router/cron/cleanupOtp");
+app.use('/api/cron', cronJob);
+
 // Server Start
-app.listen(PORT, () => {
-    console.log(`The App Start On Port : ${PORT}`);
-})
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log(`The App Start On Port : ${PORT}`);
+    });
+}
+
+module.exports = app;

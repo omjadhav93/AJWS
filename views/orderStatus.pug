@@ -85,7 +85,7 @@ block content
                 .image-section 
                     each image in images
                         .image-box
-                            img(src="/static/productImg/"+image, alt="")
+                            img(src=(image && image.startsWith('http')) ? image : "/static/productImg/"+image, alt="")
                 .image-pointer 
                     -for (i = 0; i < images.length; i++)
                         if i == 0

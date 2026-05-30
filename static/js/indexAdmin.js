@@ -1,6 +1,6 @@
 // edit cards
 const cardEdit = (e,cardNo) => {
-    let toEdit = e.target.parentElement
+    let toEdit = e.target.closest('.selling-card');
     let title = toEdit.querySelector('.selling-card-heading').innerHTML
     let imgSrc = toEdit.querySelector('img').getAttribute('src')
     let note = toEdit.querySelector('.selling-card-note').innerHTML
