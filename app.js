@@ -22,9 +22,9 @@ let PORT = process.env.PORT || 5500;
 
 // View Engine Setup
 app.set("view engine", "pug");
-app.set("views", "./views");
+app.set("views", path.join(__dirname, "views"));
 
-app.use('/static', express.static('static'))
+app.use('/static', express.static(path.join(__dirname, 'static')));
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 // Use cookie-parser middleware to parse cookies
