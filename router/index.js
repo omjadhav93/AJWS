@@ -72,6 +72,20 @@ router.get("/", fetchCheckUser, async (req, res) => {
 
 })
 
+router.get("/privacy", fetchCheckUser, async (req, res) => {
+    let userId = (req.user != null) ? req.user.id : null;
+    let user = null;
+    if (userId) {
+        user = await User.findById(userId).select("-password");
+    }
+    
+    if (user) {
+        res.render("privacy.pug", { LoggedIn: 1, Seller: user.seller });
+    } else {
+        res.render("privacy.pug");
+    }
+});
+
 /* Saving Card Image & Details. */
 const { storage, cloudinary } = require('../cloudinary.config');
 

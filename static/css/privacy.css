@@ -1,0 +1,113 @@
+.privacy-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 40px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    font-family: 'Playpen Sans', system-ui, -apple-system, sans-serif;
+    color: #333;
+    line-height: 1.8;
+}
+
+.privacy-header {
+    text-align: center;
+    margin-bottom: 40px;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 20px;
+}
+
+.privacy-header h1 {
+    font-size: 36px;
+    color: #1a1a1a;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.effective-date {
+    font-size: 16px;
+    color: #666;
+    font-style: italic;
+}
+
+.privacy-content h2 {
+    font-size: 24px;
+    color: #2c3e50;
+    margin-top: 35px;
+    margin-bottom: 15px;
+    font-weight: 600;
+    border-bottom: 1px solid #eaeaea;
+    padding-bottom: 5px;
+}
+
+.privacy-content h3 {
+    font-size: 20px;
+    color: #34495e;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.privacy-content p {
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #4a4a4a;
+}
+
+.privacy-content ul {
+    margin-left: 25px;
+    margin-bottom: 20px;
+}
+
+.privacy-content li {
+    margin-bottom: 8px;
+    font-size: 16px;
+    color: #4a4a4a;
+    list-style-type: disc;
+}
+
+.contact-info {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 4px solid #3498db;
+    margin: 20px 0;
+}
+
+.contact-info p {
+    margin-bottom: 5px;
+}
+
+.contact-info a {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.contact-info a:hover {
+    text-decoration: underline;
+}
+
+.ack {
+    margin-top: 40px;
+    font-weight: 600;
+    text-align: center;
+    background: #eef2f5;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+@media screen and (max-width: 768px) {
+    .privacy-container {
+        margin: 20px;
+        padding: 25px;
+    }
+    
+    .privacy-header h1 {
+        font-size: 28px;
+    }
+    
+    .privacy-content h2 {
+        font-size: 22px;
+    }
+}

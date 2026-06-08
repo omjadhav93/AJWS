@@ -59,6 +59,11 @@ window.addEventListener('load', checkScreenSize);
 window.addEventListener('resize', checkScreenSize);
 
 window.onload = () => {
+    const loadingScreen = document.getElementById('loading');
+    if (loadingScreen) {
+        loadingScreen.style.display = 'none';
+    }
+    document.body.style.overflowY = 'auto';
 
     const repairAnimate = setInterval(() => {
         document.getElementsByClassName('repair-btn')[0].classList.toggle('animate')
